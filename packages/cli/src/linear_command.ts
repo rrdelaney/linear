@@ -3,6 +3,35 @@ import path from "node:path";
 import { Command, Flags, ux } from "@oclif/core";
 import { LinearClient } from "@linear/sdk";
 import { accessTokenSchema, authDataSchema, type AuthDataSchema, CLIENT_ID, CLIENT_SECRET } from "./oauth.js";
+import {
+  renderIssue,
+  renderIssueConnection,
+  renderProject,
+  renderProjectConnection,
+  renderUser,
+  renderUserConnection,
+  renderCommentConnection,
+  renderProjectUpdate,
+  renderProjectUpdateConnection,
+  renderDocument,
+  renderDocumentConnection,
+  renderTeam,
+  renderTeamConnection,
+} from "./renderers.js";
+
+const JSON_THEME = {
+  brace: "magenta",
+  bracket: "magenta",
+  colon: "dim",
+  comma: "dim",
+  key: "yellow",
+  // eslint-disable-next-line id-denylist, id-blacklist
+  string: "green",
+  number: "green",
+  // eslint-disable-next-line id-denylist, id-blacklist
+  boolean: "green",
+  null: "red",
+};
 
 /** Base command class for Linear CLI that exposes a Linear SDK instance. */
 export abstract class LinearCommand extends Command {
@@ -73,6 +102,145 @@ export abstract class LinearCommand extends Command {
     }
 
     return result;
+  }
+
+  /**
+   * Render a GraphQL response using Ink components based on its __typename.
+   * Currently supports: Issue, IssueConnection, Project, User, UserConnection, CommentConnection
+   *
+   * @param data - The GraphQL response object with __typename field
+   */
+  protected render<T>(data: T): T {
+    // Type guard to ensure data is an object
+    if (!data || typeof data !== "object" || this.jsonEnabled()) {
+      return this.defaultRender(data);
+    }
+
+    // Search for the first object with __typename in the tree
+    const renderableData = this.findRenderableData(data);
+    if (renderableData) {
+      return this.renderByType(renderableData, data);
+    }
+
+    return this.defaultRender(data);
+  }
+
+  /**
+   * Recursively searches for the first object with __typename in the data tree.
+   *
+   * @param data - The data to search
+   * @returns The first object with __typename, or null if not found
+   */
+  private findRenderableData(data: unknown): Record<string, unknown> | null {
+    if (!data || typeof data !== "object") {
+      return null;
+    }
+
+    const obj = data as Record<string, unknown>;
+
+    // Check if this object has __typename
+    if ("__typename" in obj && typeof obj.__typename === "string") {
+      return obj;
+    }
+
+    // Recursively search through object properties
+    for (const value of Object.values(obj)) {
+      if (value && typeof value === "object") {
+        const found = this.findRenderableData(value);
+        if (found) {
+          return found;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * Renders data based on its __typename.
+   *
+   * @param typedData - The data object with __typename field
+   * @param originalData - The original data to return
+   * @returns The original data
+   */
+  private renderByType<T>(typedData: Record<string, unknown>, originalData: T): T {
+    if (typedData.__typename === "Issue") {
+      renderIssue(typedData);
+      return originalData;
+    }
+
+    if (typedData.__typename === "IssueConnection") {
+      renderIssueConnection(typedData);
+      return originalData;
+    }
+
+    if (typedData.__typename === "Project") {
+      renderProject(typedData);
+      return originalData;
+    }
+
+    if (typedData.__typename === "ProjectConnection") {
+      renderProjectConnection(typedData);
+      return originalData;
+    }
+
+    if (typedData.__typename === "User") {
+      renderUser(typedData);
+      return originalData;
+    }
+
+    if (typedData.__typename === "UserConnection") {
+      renderUserConnection(typedData);
+      return originalData;
+    }
+
+    if (typedData.__typename === "CommentConnection") {
+      renderCommentConnection(typedData);
+      return originalData;
+    }
+
+    if (typedData.__typename === "ProjectUpdate") {
+      renderProjectUpdate(typedData);
+      return originalData;
+    }
+
+    if (typedData.__typename === "ProjectUpdateConnection") {
+      renderProjectUpdateConnection(typedData);
+      return originalData;
+    }
+
+    if (typedData.__typename === "Document") {
+      renderDocument(typedData);
+      return originalData;
+    }
+
+    if (typedData.__typename === "DocumentConnection") {
+      renderDocumentConnection(typedData);
+      return originalData;
+    }
+
+    if (typedData.__typename === "Team") {
+      renderTeam(typedData);
+      return originalData;
+    }
+
+    if (typedData.__typename === "TeamConnection") {
+      renderTeamConnection(typedData);
+      return originalData;
+    }
+
+    return this.defaultRender(originalData);
+  }
+
+  /**
+   * Default renderer that outputs colorized JSON.
+   *
+   * @param data - The data to render
+   * @returns The original data
+   */
+  private defaultRender<T>(data: T): T {
+    this.log(ux.colorizeJson(data, { theme: JSON_THEME }));
+    return data;
   }
 
   /** Returns a LinearClient initialized from flags and env vars. */

@@ -16,12 +16,20 @@
     "linear": "./bin/run.js"
   },
   "dependencies": {
+    "@mishieck/ink-titled-box": "^0.3.0",
     "@oclif/core": "4",
     "@oclif/plugin-help": "6",
     "@oclif/plugin-plugins": "5",
+    "date-fns": "^4.1.0",
     "dotenv": "6.2.0",
+    "ink": "^6.5.0",
+    "ink-link": "^5.0.0",
+    "ink-table": "^3.1.0",
     "lodash.set": "^4.3.2",
+    "marked": "^17.0.0",
+    "marked-terminal": "^7.3.0",
     "open": "10.2.0",
+    "react": "^19.2.0",
     "terminal-link": "5.0.0",
     "undici": "7.16.0",
     "zod": "3.25.76"
@@ -29,6 +37,8 @@
   "devDependencies": {
     "@types/dotenv": "4.0.3",
     "@types/lodash.set": "^4.3.9",
+    "@types/marked": "^6.0.0",
+    "@types/marked-terminal": "^6.1.1",
     "oclif": "4",
     "shx": "0.3.3",
     "ts-node": "10.9.2"

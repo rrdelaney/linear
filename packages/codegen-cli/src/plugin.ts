@@ -62,23 +62,9 @@ export const plugin: PluginFunction<CliPluginConfig> = async (
 
   return `
 /* eslint-disable @typescript-eslint/dot-notation */
-import { Command, Flags, ux } from "@oclif/core";
+import { Command, Flags } from "@oclif/core";
 import set from 'lodash.set';
 import { LinearCommand } from "../linear_command.js";
-
-const theme = {
-  brace: "magenta",
-  bracket: "magenta",
-  colon: "dim",
-  comma: "dim",
-  key: "yellow",
-  // eslint-disable-next-line id-denylist, id-blacklist
-  string: "green",
-  number: "green",
-  // eslint-disable-next-line id-denylist, id-blacklist
-  boolean: "green",
-  null: "red",
-};
 
 const COMMANDS: Record<string, Command.Class> = {};
 
@@ -140,8 +126,7 @@ ${flags
     const query = \`${print(documentNode)}\`;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 }`;
 }
@@ -305,7 +290,7 @@ function flagsFromVariable(
 
 /** Defines the minimum fields that should be queried for a given type. */
 const REQUIRED_FIELDS_FOR_TYPE = new Map<string, ReadonlySet<string>>([
-  ["User", new Set(["__typename", "displayName", "email"])],
+  ["User", new Set(["displayName", "email"])],
   ["Project", new Set(["name", "url"])],
   ["Team", new Set(["name"])],
   ["Issue", new Set(["title", "url"])],

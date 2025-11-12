@@ -1,21 +1,7 @@
 /* eslint-disable @typescript-eslint/dot-notation */
-import { Command, Flags, ux } from "@oclif/core";
+import { Command, Flags } from "@oclif/core";
 import set from "lodash.set";
 import { LinearCommand } from "../linear_command.js";
-
-const theme = {
-  brace: "magenta",
-  bracket: "magenta",
-  colon: "dim",
-  comma: "dim",
-  key: "yellow",
-  // eslint-disable-next-line id-denylist, id-blacklist
-  string: "green",
-  number: "green",
-  // eslint-disable-next-line id-denylist, id-blacklist
-  boolean: "green",
-  null: "red",
-};
 
 const COMMANDS: Record<string, Command.Class> = {};
 
@@ -228,8 +214,7 @@ query administrableTeams($after: String, $before: String, $filter: TeamFilter, $
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -340,7 +325,6 @@ fragment AgentActivity on AgentActivity {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -409,8 +393,7 @@ query agentActivities($after: String, $before: String, $filter: AgentActivityFil
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -473,7 +456,6 @@ COMMANDS["agent-activity"] = class LinearCommand_agentActivity extends LinearCom
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -526,8 +508,7 @@ query agentActivity($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -561,7 +542,6 @@ COMMANDS["agent-session"] = class LinearCommand_agentSession extends LinearComma
   externalLink
   appUser {
     id
-    __typename
     displayName
     email
   }
@@ -571,7 +551,6 @@ COMMANDS["agent-session"] = class LinearCommand_agentSession extends LinearComma
   status
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -598,8 +577,7 @@ query agentSession($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -711,7 +689,6 @@ fragment AgentActivity on AgentActivity {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -782,8 +759,7 @@ query agentSession_activities($id: String!, $after: String, $before: String, $fi
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -832,7 +808,6 @@ fragment AgentSession on AgentSession {
   externalLink
   appUser {
     id
-    __typename
     displayName
     email
   }
@@ -842,7 +817,6 @@ fragment AgentSession on AgentSession {
   status
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -884,8 +858,7 @@ query agentSessions($after: String, $before: String, $first: Int, $includeArchiv
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -930,8 +903,7 @@ query applicationInfo($clientId: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -969,7 +941,6 @@ COMMANDS["attachment"] = class LinearCommand_attachment extends LinearCommand {
   bodyData
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -1000,8 +971,7 @@ query attachment($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -1044,7 +1014,6 @@ COMMANDS["attachment-issue"] = class LinearCommand_attachmentIssue extends Linea
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -1070,7 +1039,6 @@ COMMANDS["attachment-issue"] = class LinearCommand_attachmentIssue extends Linea
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -1127,19 +1095,16 @@ COMMANDS["attachment-issue"] = class LinearCommand_attachmentIssue extends Linea
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -1177,7 +1142,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -1242,8 +1206,7 @@ query attachmentIssue($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -1363,7 +1326,6 @@ fragment Attachment on Attachment {
   bodyData
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -1414,8 +1376,7 @@ query attachmentIssue_attachments($id: String!, $after: String, $before: String,
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -1463,8 +1424,7 @@ query attachmentIssue_botActor($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -1685,7 +1645,6 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -1711,7 +1670,6 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -1768,19 +1726,16 @@ fragment Issue on Issue {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -1818,7 +1773,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -1901,8 +1855,7 @@ query attachmentIssue_children($id: String!, $after: String, $before: String, $f
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -2022,13 +1975,11 @@ fragment Comment on Comment {
   id
   resolvingUser {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -2060,7 +2011,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -2117,7 +2067,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -2203,8 +2152,7 @@ query attachmentIssue_comments($id: String!, $after: String, $before: String, $f
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -2312,13 +2260,11 @@ fragment Document on Document {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -2352,8 +2298,7 @@ query attachmentIssue_documents($id: String!, $after: String, $before: String, $
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -2475,7 +2420,6 @@ fragment Attachment on Attachment {
   bodyData
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -2526,8 +2470,7 @@ query attachmentIssue_formerAttachments($id: String!, $after: String, $before: S
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -2592,7 +2535,6 @@ fragment CustomerNeed on CustomerNeed {
   }
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -2633,7 +2575,6 @@ fragment ProjectAttachment on ProjectAttachment {
   subtitle
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -2673,8 +2614,7 @@ query attachmentIssue_formerNeeds($id: String!, $after: String, $before: String,
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -2726,31 +2666,26 @@ fragment IssueHistory on IssueHistory {
   removedLabelIds
   actor {
     id
-    __typename
     displayName
     email
   }
   descriptionUpdatedBy {
     ...User
-    __typename
     displayName
     email
   }
   actors {
     ...User
-    __typename
     displayName
     email
   }
   fromDelegate {
     id
-    __typename
     displayName
     email
   }
   toDelegate {
     id
-    __typename
     displayName
     email
   }
@@ -2841,19 +2776,16 @@ fragment IssueHistory on IssueHistory {
   id
   toAssignee {
     id
-    __typename
     displayName
     email
   }
   fromAssignee {
     id
-    __typename
     displayName
     email
   }
   triageResponsibilityNotifiedUsers {
     ...User
-    __typename
     displayName
     email
   }
@@ -2965,13 +2897,11 @@ fragment IssueLabel on IssueLabel {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   retiredBy {
     id
-    __typename
     displayName
     email
   }
@@ -3005,8 +2935,7 @@ query attachmentIssue_history($id: String!, $after: String, $before: String, $fi
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -3096,8 +3025,7 @@ query attachmentIssue_inverseRelations($id: String!, $after: String, $before: St
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -3181,13 +3109,11 @@ fragment IssueLabel on IssueLabel {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   retiredBy {
     id
-    __typename
     displayName
     email
   }
@@ -3222,8 +3148,7 @@ query attachmentIssue_labels($id: String!, $after: String, $before: String, $fil
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -3288,7 +3213,6 @@ fragment CustomerNeed on CustomerNeed {
   }
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -3329,7 +3253,6 @@ fragment ProjectAttachment on ProjectAttachment {
   subtitle
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -3369,8 +3292,7 @@ query attachmentIssue_needs($id: String!, $after: String, $before: String, $filt
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -3458,8 +3380,7 @@ query attachmentIssue_relations($id: String!, $after: String, $before: String, $
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -3558,7 +3479,6 @@ COMMANDS["attachment-issue:subscribers"] = class LinearCommand_attachmentIssue_s
   __typename
   nodes {
     ...User
-    __typename
     displayName
     email
   }
@@ -3632,8 +3552,7 @@ query attachmentIssue_subscribers($id: String!, $after: String, $before: String,
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -3752,7 +3671,6 @@ fragment Attachment on Attachment {
   bodyData
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -3799,8 +3717,7 @@ query attachments($after: String, $before: String, $filter: AttachmentFilter, $f
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -3854,7 +3771,6 @@ fragment Attachment on Attachment {
   bodyData
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -3901,8 +3817,7 @@ query attachmentsForURL($after: String, $before: String, $first: Int, $includeAr
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -4005,7 +3920,6 @@ fragment AuditEntry on AuditEntry {
   id
   actor {
     id
-    __typename
     displayName
     email
   }
@@ -4036,8 +3950,7 @@ query auditEntries($after: String, $before: String, $filter: AuditEntryFilter, $
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -4075,8 +3988,7 @@ query auditEntryTypes {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -4131,8 +4043,7 @@ query authenticationSessions {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -4220,8 +4131,7 @@ query availableUsers {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -4306,13 +4216,11 @@ COMMANDS["comment"] = class LinearCommand_comment extends LinearCommand {
   id
   resolvingUser {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -4344,7 +4252,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -4401,7 +4308,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -4467,8 +4373,7 @@ query comment($hash: String, $id: String) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -4515,8 +4420,7 @@ query comment_botActor($hash: String, $id: String) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -4637,13 +4541,11 @@ fragment Comment on Comment {
   id
   resolvingUser {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -4675,7 +4577,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -4732,7 +4633,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -4816,8 +4716,7 @@ query comment_children($hash: String, $id: String, $after: String, $before: Stri
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -5039,7 +4938,6 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -5065,7 +4963,6 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -5122,19 +5019,16 @@ fragment Issue on Issue {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -5172,7 +5066,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -5253,8 +5146,7 @@ query comment_createdIssues($hash: String, $id: String, $after: String, $before:
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -5322,7 +5214,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -5338,8 +5229,7 @@ query comment_documentContent($hash: String, $id: String) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -5375,7 +5265,6 @@ COMMANDS["comment:document-content:ai-prompt-rules"] =
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -5393,8 +5282,7 @@ query comment_documentContent_aiPromptRules($hash: String, $id: String) {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -5444,8 +5332,7 @@ query comment_externalThread($hash: String, $id: String) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -5564,13 +5451,11 @@ fragment Comment on Comment {
   id
   resolvingUser {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -5602,7 +5487,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -5659,7 +5543,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -5741,8 +5624,7 @@ query comments($after: String, $before: String, $filter: CommentFilter, $first: 
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -5800,19 +5682,16 @@ COMMANDS["custom-view"] = class LinearCommand_customView extends LinearCommand {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   updatedBy {
     id
-    __typename
     displayName
     email
   }
   owner {
     id
-    __typename
     displayName
     email
   }
@@ -5847,8 +5726,7 @@ query customView($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -6030,13 +5908,11 @@ fragment Initiative on Initiative {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   owner {
     id
-    __typename
     displayName
     email
   }
@@ -6083,7 +5959,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -6115,8 +5990,7 @@ query customView_initiatives($id: String!, $after: String, $before: String, $fil
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -6338,7 +6212,6 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -6364,7 +6237,6 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -6421,19 +6293,16 @@ fragment Issue on Issue {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -6471,7 +6340,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -6554,8 +6422,7 @@ query customView_issues($id: String!, $after: String, $before: String, $filter: 
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -6612,8 +6479,7 @@ query customView_organizationViewPreferences($id: String!) {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -6659,8 +6525,7 @@ query customView_organizationViewPreferences_preferences($id: String!) {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -6883,7 +6748,6 @@ fragment Project on Project {
   priority
   lead {
     id
-    __typename
     displayName
     email
   }
@@ -6918,7 +6782,6 @@ fragment Project on Project {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -6972,7 +6835,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -7006,8 +6868,7 @@ query customView_projects($id: String!, $after: String, $before: String, $filter
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -7065,8 +6926,7 @@ query customView_userViewPreferences($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -7112,8 +6972,7 @@ query customView_userViewPreferences_preferences($id: String!) {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -7158,8 +7017,7 @@ query customView_viewPreferencesValues($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -7198,8 +7056,7 @@ query customViewHasSubscribers($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -7308,19 +7165,16 @@ fragment CustomView on CustomView {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   updatedBy {
     id
-    __typename
     displayName
     email
   }
   owner {
     id
-    __typename
     displayName
     email
   }
@@ -7372,8 +7226,7 @@ query customViews($after: String, $before: String, $filter: CustomViewFilter, $f
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -7426,7 +7279,6 @@ COMMANDS["customer"] = class LinearCommand_customer extends LinearCommand {
   id
   owner {
     id
-    __typename
     displayName
     email
   }
@@ -7440,8 +7292,7 @@ query customer($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -7479,7 +7330,6 @@ COMMANDS["customer-need"] = class LinearCommand_customerNeed extends LinearComma
   }
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -7520,7 +7370,6 @@ fragment ProjectAttachment on ProjectAttachment {
   subtitle
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -7540,8 +7389,7 @@ query customerNeed($hash: String, $id: String) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -7578,7 +7426,6 @@ COMMANDS["customer-need:project-attachment"] = class LinearCommand_customerNeed_
   subtitle
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -7600,8 +7447,7 @@ query customerNeed_projectAttachment($hash: String, $id: String) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -7665,7 +7511,6 @@ fragment CustomerNeed on CustomerNeed {
   }
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -7706,7 +7551,6 @@ fragment ProjectAttachment on ProjectAttachment {
   subtitle
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -7742,8 +7586,7 @@ query customerNeeds($after: String, $before: String, $filter: CustomerNeedFilter
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -7791,8 +7634,7 @@ query customerStatus($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -7870,8 +7712,7 @@ query customerStatuses($after: String, $before: String, $first: Int, $includeArc
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -7918,8 +7759,7 @@ query customerTier($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -7996,8 +7836,7 @@ query customerTiers($after: String, $before: String, $first: Int, $includeArchiv
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -8114,7 +7953,6 @@ fragment Customer on Customer {
   id
   owner {
     id
-    __typename
     displayName
     email
   }
@@ -8145,8 +7983,7 @@ query customers($after: String, $before: String, $filter: CustomerFilter, $first
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -8213,8 +8050,7 @@ query cycle($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -8435,7 +8271,6 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -8461,7 +8296,6 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -8518,19 +8352,16 @@ fragment Issue on Issue {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -8568,7 +8399,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -8649,8 +8479,7 @@ query cycle_issues($id: String!, $after: String, $before: String, $filter: Issue
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -8873,7 +8702,6 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -8899,7 +8727,6 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -8956,19 +8783,16 @@ fragment Issue on Issue {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -9006,7 +8830,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -9087,8 +8910,7 @@ query cycle_uncompletedIssuesUponClose($id: String!, $after: String, $before: St
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -9222,8 +9044,7 @@ query cycles($after: String, $before: String, $filter: CycleFilter, $first: Int,
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -9283,13 +9104,11 @@ COMMANDS["document"] = class LinearCommand_document extends LinearCommand {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -9303,8 +9122,7 @@ query document($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -9424,13 +9242,11 @@ fragment Comment on Comment {
   id
   resolvingUser {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -9462,7 +9278,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -9519,7 +9334,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -9603,8 +9417,7 @@ query document_comments($id: String!, $after: String, $before: String, $filter: 
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -9654,8 +9467,7 @@ query documentContentHistory($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -9762,13 +9574,11 @@ fragment Document on Document {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -9798,8 +9608,7 @@ query documents($after: String, $before: String, $filter: DocumentFilter, $first
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -9849,7 +9658,6 @@ COMMANDS["email-intake-address"] = class LinearCommand_emailIntakeAddress extend
   id
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -9876,7 +9684,6 @@ fragment SesDomainIdentity on SesDomainIdentity {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -9899,8 +9706,7 @@ query emailIntakeAddress($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -9940,7 +9746,6 @@ COMMANDS["email-intake-address:ses-domain-identity"] =
   id
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -9965,8 +9770,7 @@ query emailIntakeAddress_sesDomainIdentity($id: String!) {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -10003,7 +9807,6 @@ COMMANDS["emoji"] = class LinearCommand_emoji extends LinearCommand {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -10017,8 +9820,7 @@ query emoji($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -10070,7 +9872,6 @@ fragment Emoji on Emoji {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -10099,8 +9900,7 @@ query emojis($after: String, $before: String, $first: Int, $includeArchived: Boo
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -10140,7 +9940,6 @@ COMMANDS["entity-external-link"] = class LinearCommand_entityExternalLink extend
   id
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -10154,8 +9953,7 @@ query entityExternalLink($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -10202,8 +10000,7 @@ query externalUser($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -10280,8 +10077,7 @@ query externalUsers($after: String, $before: String, $first: Int, $includeArchiv
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -10342,7 +10138,6 @@ COMMANDS["favorite"] = class LinearCommand_favorite extends LinearCommand {
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -10351,7 +10146,6 @@ COMMANDS["favorite"] = class LinearCommand_favorite extends LinearCommand {
   sortOrder
   owner {
     id
-    __typename
     displayName
     email
   }
@@ -10384,8 +10178,7 @@ query favorite($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -10462,7 +10255,6 @@ fragment Favorite on Favorite {
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -10471,7 +10263,6 @@ fragment Favorite on Favorite {
   sortOrder
   owner {
     id
-    __typename
     displayName
     email
   }
@@ -10521,8 +10312,7 @@ query favorite_children($id: String!, $after: String, $before: String, $first: I
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -10598,7 +10388,6 @@ fragment Favorite on Favorite {
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -10607,7 +10396,6 @@ fragment Favorite on Favorite {
   sortOrder
   owner {
     id
-    __typename
     displayName
     email
   }
@@ -10655,8 +10443,7 @@ query favorites($after: String, $before: String, $first: Int, $includeArchived: 
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -10723,13 +10510,11 @@ COMMANDS["initiative"] = class LinearCommand_initiative extends LinearCommand {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   owner {
     id
-    __typename
     displayName
     email
   }
@@ -10776,7 +10561,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -10790,8 +10574,7 @@ query initiative($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -10858,7 +10641,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -10874,8 +10656,7 @@ query initiative_documentContent($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -10910,7 +10691,6 @@ COMMANDS["initiative:document-content:ai-prompt-rules"] =
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -10928,8 +10708,7 @@ query initiative_documentContent_aiPromptRules($id: String!) {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -11037,13 +10816,11 @@ fragment Document on Document {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -11075,8 +10852,7 @@ query initiative_documents($id: String!, $after: String, $before: String, $filte
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -11155,8 +10931,7 @@ query initiative_history($id: String!, $after: String, $before: String, $first: 
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -11212,7 +10987,6 @@ fragment EntityExternalLink on EntityExternalLink {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -11243,8 +11017,7 @@ query initiative_links($id: String!, $after: String, $before: String, $first: In
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -11467,7 +11240,6 @@ fragment Project on Project {
   priority
   lead {
     id
-    __typename
     displayName
     email
   }
@@ -11502,7 +11274,6 @@ fragment Project on Project {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -11556,7 +11327,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -11590,8 +11360,7 @@ query initiative_projects($id: String!, $after: String, $before: String, $filter
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -11773,13 +11542,11 @@ fragment Initiative on Initiative {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   owner {
     id
-    __typename
     displayName
     email
   }
@@ -11826,7 +11593,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -11859,8 +11625,7 @@ query initiative_subInitiatives($id: String!, $after: String, $before: String, $
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -11891,7 +11656,6 @@ COMMANDS["initiative-relation"] = class LinearCommand_initiativeRelation extends
   updatedAt
   user {
     id
-    __typename
     displayName
     email
   }
@@ -11927,8 +11691,7 @@ query initiativeRelation($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -11977,7 +11740,6 @@ fragment InitiativeRelation on InitiativeRelation {
   updatedAt
   user {
     id
-    __typename
     displayName
     email
   }
@@ -12013,8 +11775,7 @@ query initiativeRelations($after: String, $before: String, $first: Int, $include
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -12065,8 +11826,7 @@ query initiativeToProject($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -12147,8 +11907,7 @@ query initiativeToProjects($after: String, $before: String, $first: Int, $includ
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -12196,7 +11955,6 @@ COMMANDS["initiative-update"] = class LinearCommand_initiativeUpdate extends Lin
   slugId
   user {
     id
-    __typename
     displayName
     email
   }
@@ -12230,7 +11988,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -12244,8 +12001,7 @@ query initiativeUpdate($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -12365,13 +12121,11 @@ fragment Comment on Comment {
   id
   resolvingUser {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -12403,7 +12157,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -12460,7 +12213,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -12544,8 +12296,7 @@ query initiativeUpdate_comments($id: String!, $after: String, $before: String, $
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -12608,7 +12359,6 @@ fragment InitiativeUpdate on InitiativeUpdate {
   slugId
   user {
     id
-    __typename
     displayName
     email
   }
@@ -12642,7 +12392,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -12672,8 +12421,7 @@ query initiativeUpdates($after: String, $before: String, $filter: InitiativeUpda
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -12854,13 +12602,11 @@ fragment Initiative on Initiative {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   owner {
     id
-    __typename
     displayName
     email
   }
@@ -12907,7 +12653,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -12938,8 +12683,7 @@ query initiatives($after: String, $before: String, $filter: InitiativeFilter, $f
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -12978,7 +12722,6 @@ COMMANDS["integration"] = class LinearCommand_integration extends LinearCommand 
   id
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -12992,8 +12735,7 @@ query integration($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -13042,8 +12784,7 @@ query integrationTemplate($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -13122,8 +12863,7 @@ query integrationTemplates($after: String, $before: String, $first: Int, $includ
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -13177,7 +12917,6 @@ fragment Integration on Integration {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -13206,8 +12945,7 @@ query integrations($after: String, $before: String, $first: Int, $includeArchive
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -13274,8 +13012,7 @@ query integrationsSettings($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -13318,7 +13055,6 @@ COMMANDS["issue"] = class LinearCommand_issue extends LinearCommand {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -13344,7 +13080,6 @@ COMMANDS["issue"] = class LinearCommand_issue extends LinearCommand {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -13401,19 +13136,16 @@ COMMANDS["issue"] = class LinearCommand_issue extends LinearCommand {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -13451,7 +13183,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -13516,8 +13247,7 @@ query issue($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -13637,7 +13367,6 @@ fragment Attachment on Attachment {
   bodyData
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -13688,8 +13417,7 @@ query issue_attachments($id: String!, $after: String, $before: String, $filter: 
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -13737,8 +13465,7 @@ query issue_botActor($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -13959,7 +13686,6 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -13985,7 +13711,6 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -14042,19 +13767,16 @@ fragment Issue on Issue {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -14092,7 +13814,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -14175,8 +13896,7 @@ query issue_children($id: String!, $after: String, $before: String, $filter: Iss
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -14296,13 +14016,11 @@ fragment Comment on Comment {
   id
   resolvingUser {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -14334,7 +14052,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -14391,7 +14108,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -14477,8 +14193,7 @@ query issue_comments($id: String!, $after: String, $before: String, $filter: Com
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -14586,13 +14301,11 @@ fragment Document on Document {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -14626,8 +14339,7 @@ query issue_documents($id: String!, $after: String, $before: String, $filter: Do
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -14747,7 +14459,6 @@ fragment Attachment on Attachment {
   bodyData
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -14798,8 +14509,7 @@ query issue_formerAttachments($id: String!, $after: String, $before: String, $fi
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -14864,7 +14574,6 @@ fragment CustomerNeed on CustomerNeed {
   }
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -14905,7 +14614,6 @@ fragment ProjectAttachment on ProjectAttachment {
   subtitle
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -14945,8 +14653,7 @@ query issue_formerNeeds($id: String!, $after: String, $before: String, $filter: 
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -14998,31 +14705,26 @@ fragment IssueHistory on IssueHistory {
   removedLabelIds
   actor {
     id
-    __typename
     displayName
     email
   }
   descriptionUpdatedBy {
     ...User
-    __typename
     displayName
     email
   }
   actors {
     ...User
-    __typename
     displayName
     email
   }
   fromDelegate {
     id
-    __typename
     displayName
     email
   }
   toDelegate {
     id
-    __typename
     displayName
     email
   }
@@ -15113,19 +14815,16 @@ fragment IssueHistory on IssueHistory {
   id
   toAssignee {
     id
-    __typename
     displayName
     email
   }
   fromAssignee {
     id
-    __typename
     displayName
     email
   }
   triageResponsibilityNotifiedUsers {
     ...User
-    __typename
     displayName
     email
   }
@@ -15237,13 +14936,11 @@ fragment IssueLabel on IssueLabel {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   retiredBy {
     id
-    __typename
     displayName
     email
   }
@@ -15277,8 +14974,7 @@ query issue_history($id: String!, $after: String, $before: String, $first: Int, 
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -15366,8 +15062,7 @@ query issue_inverseRelations($id: String!, $after: String, $before: String, $fir
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -15451,13 +15146,11 @@ fragment IssueLabel on IssueLabel {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   retiredBy {
     id
-    __typename
     displayName
     email
   }
@@ -15492,8 +15185,7 @@ query issue_labels($id: String!, $after: String, $before: String, $filter: Issue
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -15558,7 +15250,6 @@ fragment CustomerNeed on CustomerNeed {
   }
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -15599,7 +15290,6 @@ fragment ProjectAttachment on ProjectAttachment {
   subtitle
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -15639,8 +15329,7 @@ query issue_needs($id: String!, $after: String, $before: String, $filter: Custom
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -15728,8 +15417,7 @@ query issue_relations($id: String!, $after: String, $before: String, $first: Int
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -15828,7 +15516,6 @@ COMMANDS["issue:subscribers"] = class LinearCommand_issue_subscribers extends Li
   __typename
   nodes {
     ...User
-    __typename
     displayName
     email
   }
@@ -15902,8 +15589,7 @@ query issue_subscribers($id: String!, $after: String, $before: String, $filter: 
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -15964,7 +15650,6 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -15990,7 +15675,6 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -16047,19 +15731,16 @@ fragment Issue on Issue {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -16097,7 +15778,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -16176,8 +15856,7 @@ query issueFigmaFileKeySearch($after: String, $before: String, $fileKey: String!
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -16218,8 +15897,7 @@ query issueFilterSuggestion($projectId: String, $prompt: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -16259,8 +15937,7 @@ query issueImportCheckCSV($csvUrl: String!, $service: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -16300,8 +15977,7 @@ query issueImportCheckSync($issueImportId: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -16352,8 +16028,7 @@ query issueImportJqlCheck($jiraEmail: String!, $jiraHostname: String!, $jiraProj
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -16401,13 +16076,11 @@ COMMANDS["issue-label"] = class LinearCommand_issueLabel extends LinearCommand {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   retiredBy {
     id
-    __typename
     displayName
     email
   }
@@ -16422,8 +16095,7 @@ query issueLabel($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -16507,13 +16179,11 @@ fragment IssueLabel on IssueLabel {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   retiredBy {
     id
-    __typename
     displayName
     email
   }
@@ -16546,8 +16216,7 @@ query issueLabel_children($id: String!, $after: String, $before: String, $filter
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -16768,7 +16437,6 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -16794,7 +16462,6 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -16851,19 +16518,16 @@ fragment Issue on Issue {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -16901,7 +16565,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -16982,8 +16645,7 @@ query issueLabel_issues($id: String!, $after: String, $before: String, $filter: 
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -17066,13 +16728,11 @@ fragment IssueLabel on IssueLabel {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   retiredBy {
     id
-    __typename
     displayName
     email
   }
@@ -17103,8 +16763,7 @@ query issueLabels($after: String, $before: String, $filter: IssueLabelFilter, $f
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -17142,8 +16801,7 @@ query issuePriorityValues {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -17196,8 +16854,7 @@ query issueRelation($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -17280,8 +16937,7 @@ query issueRelations($after: String, $before: String, $first: Int, $includeArchi
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -17502,7 +17158,6 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -17528,7 +17183,6 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -17585,19 +17239,16 @@ fragment Issue on Issue {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -17635,7 +17286,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -17715,8 +17365,7 @@ query issueSearch($after: String, $before: String, $filter: IssueFilter, $first:
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -17757,8 +17406,7 @@ query issueTitleSuggestionFromCustomerRequest($request: String!) {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -17801,7 +17449,6 @@ COMMANDS["issue-vcs-branch-search"] = class LinearCommand_issueVcsBranchSearch e
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -17827,7 +17474,6 @@ COMMANDS["issue-vcs-branch-search"] = class LinearCommand_issueVcsBranchSearch e
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -17884,19 +17530,16 @@ COMMANDS["issue-vcs-branch-search"] = class LinearCommand_issueVcsBranchSearch e
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -17934,7 +17577,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -17999,8 +17641,7 @@ query issueVcsBranchSearch($branchName: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -18122,7 +17763,6 @@ fragment Attachment on Attachment {
   bodyData
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -18173,8 +17813,7 @@ query issueVcsBranchSearch_attachments($branchName: String!, $after: String, $be
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -18224,8 +17863,7 @@ query issueVcsBranchSearch_botActor($branchName: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -18446,7 +18084,6 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -18472,7 +18109,6 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -18529,19 +18165,16 @@ fragment Issue on Issue {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -18579,7 +18212,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -18662,8 +18294,7 @@ query issueVcsBranchSearch_children($branchName: String!, $after: String, $befor
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -18783,13 +18414,11 @@ fragment Comment on Comment {
   id
   resolvingUser {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -18821,7 +18450,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -18878,7 +18506,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -18964,8 +18591,7 @@ query issueVcsBranchSearch_comments($branchName: String!, $after: String, $befor
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -19075,13 +18701,11 @@ fragment Document on Document {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -19115,8 +18739,7 @@ query issueVcsBranchSearch_documents($branchName: String!, $after: String, $befo
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -19237,7 +18860,6 @@ fragment Attachment on Attachment {
   bodyData
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -19288,8 +18910,7 @@ query issueVcsBranchSearch_formerAttachments($branchName: String!, $after: Strin
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -19356,7 +18977,6 @@ fragment CustomerNeed on CustomerNeed {
   }
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -19397,7 +19017,6 @@ fragment ProjectAttachment on ProjectAttachment {
   subtitle
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -19437,8 +19056,7 @@ query issueVcsBranchSearch_formerNeeds($branchName: String!, $after: String, $be
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -19490,31 +19108,26 @@ fragment IssueHistory on IssueHistory {
   removedLabelIds
   actor {
     id
-    __typename
     displayName
     email
   }
   descriptionUpdatedBy {
     ...User
-    __typename
     displayName
     email
   }
   actors {
     ...User
-    __typename
     displayName
     email
   }
   fromDelegate {
     id
-    __typename
     displayName
     email
   }
   toDelegate {
     id
-    __typename
     displayName
     email
   }
@@ -19605,19 +19218,16 @@ fragment IssueHistory on IssueHistory {
   id
   toAssignee {
     id
-    __typename
     displayName
     email
   }
   fromAssignee {
     id
-    __typename
     displayName
     email
   }
   triageResponsibilityNotifiedUsers {
     ...User
-    __typename
     displayName
     email
   }
@@ -19729,13 +19339,11 @@ fragment IssueLabel on IssueLabel {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   retiredBy {
     id
-    __typename
     displayName
     email
   }
@@ -19769,8 +19377,7 @@ query issueVcsBranchSearch_history($branchName: String!, $after: String, $before
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -19859,8 +19466,7 @@ query issueVcsBranchSearch_inverseRelations($branchName: String!, $after: String
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -19944,13 +19550,11 @@ fragment IssueLabel on IssueLabel {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   retiredBy {
     id
-    __typename
     displayName
     email
   }
@@ -19985,8 +19589,7 @@ query issueVcsBranchSearch_labels($branchName: String!, $after: String, $before:
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -20051,7 +19654,6 @@ fragment CustomerNeed on CustomerNeed {
   }
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -20092,7 +19694,6 @@ fragment ProjectAttachment on ProjectAttachment {
   subtitle
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -20132,8 +19733,7 @@ query issueVcsBranchSearch_needs($branchName: String!, $after: String, $before: 
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -20223,8 +19823,7 @@ query issueVcsBranchSearch_relations($branchName: String!, $after: String, $befo
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -20325,7 +19924,6 @@ COMMANDS["issue-vcs-branch-search:subscribers"] = class LinearCommand_issueVcsBr
   __typename
   nodes {
     ...User
-    __typename
     displayName
     email
   }
@@ -20399,8 +19997,7 @@ query issueVcsBranchSearch_subscribers($branchName: String!, $after: String, $be
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -20620,7 +20217,6 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -20646,7 +20242,6 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -20703,19 +20298,16 @@ fragment Issue on Issue {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -20753,7 +20345,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -20833,8 +20424,7 @@ query issues($after: String, $before: String, $filter: IssueFilter, $first: Int,
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -20880,13 +20470,11 @@ COMMANDS["notification"] = class LinearCommand_notification extends LinearComman
   id
   actor {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -20963,13 +20551,11 @@ fragment CustomerNeedNotification on CustomerNeedNotification {
   id
   actor {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -20999,13 +20585,11 @@ fragment CustomerNotification on CustomerNotification {
   id
   actor {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -21035,13 +20619,11 @@ fragment DocumentNotification on DocumentNotification {
   id
   actor {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -21087,13 +20669,11 @@ fragment InitiativeNotification on InitiativeNotification {
   id
   actor {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -21141,13 +20721,11 @@ fragment IssueNotification on IssueNotification {
   id
   actor {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -21187,13 +20765,11 @@ fragment NotificationSubscription on NotificationSubscription {
   id
   subscriber {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -21224,13 +20800,11 @@ fragment OauthClientApprovalNotification on OauthClientApprovalNotification {
   id
   actor {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -21276,13 +20850,11 @@ fragment PostNotification on PostNotification {
   id
   actor {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -21331,13 +20903,11 @@ fragment ProjectNotification on ProjectNotification {
   id
   actor {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -21365,13 +20935,11 @@ fragment PullRequestNotification on PullRequestNotification {
   id
   actor {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -21385,8 +20953,7 @@ query notification($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -21446,13 +21013,11 @@ COMMANDS["notification-subscription"] = class LinearCommand_notificationSubscrip
   id
   subscriber {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -21467,8 +21032,7 @@ query notificationSubscription($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -21543,13 +21107,11 @@ fragment NotificationSubscription on NotificationSubscription {
   id
   subscriber {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -21579,8 +21141,7 @@ query notificationSubscriptions($after: String, $before: String, $first: Int, $i
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -21657,13 +21218,11 @@ fragment Notification on Notification {
   id
   actor {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -21740,13 +21299,11 @@ fragment CustomerNeedNotification on CustomerNeedNotification {
   id
   actor {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -21776,13 +21333,11 @@ fragment CustomerNotification on CustomerNotification {
   id
   actor {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -21812,13 +21367,11 @@ fragment DocumentNotification on DocumentNotification {
   id
   actor {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -21864,13 +21417,11 @@ fragment InitiativeNotification on InitiativeNotification {
   id
   actor {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -21918,13 +21469,11 @@ fragment IssueNotification on IssueNotification {
   id
   actor {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -21964,13 +21513,11 @@ fragment NotificationSubscription on NotificationSubscription {
   id
   subscriber {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -22001,13 +21548,11 @@ fragment OauthClientApprovalNotification on OauthClientApprovalNotification {
   id
   actor {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -22053,13 +21598,11 @@ fragment PostNotification on PostNotification {
   id
   actor {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -22108,13 +21651,11 @@ fragment ProjectNotification on ProjectNotification {
   id
   actor {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -22142,13 +21683,11 @@ fragment PullRequestNotification on PullRequestNotification {
   id
   actor {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -22178,8 +21717,7 @@ query notifications($after: String, $before: String, $filter: NotificationFilter
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -22286,7 +21824,6 @@ fragment PaidSubscription on PaidSubscription {
   collectionMethod
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -22312,8 +21849,7 @@ query organization {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -22367,7 +21903,6 @@ fragment Integration on Integration {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -22398,8 +21933,7 @@ query organization_integrations($after: String, $before: String, $first: Int, $i
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -22482,13 +22016,11 @@ fragment IssueLabel on IssueLabel {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   retiredBy {
     id
-    __typename
     displayName
     email
   }
@@ -22521,8 +22053,7 @@ query organization_labels($after: String, $before: String, $filter: IssueLabelFi
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -22597,13 +22128,11 @@ fragment ProjectLabel on ProjectLabel {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   retiredBy {
     id
-    __typename
     displayName
     email
   }
@@ -22636,8 +22165,7 @@ query organization_projectLabels($after: String, $before: String, $filter: Proje
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -22666,7 +22194,6 @@ COMMANDS["organization:subscription"] = class LinearCommand_organization_subscri
   collectionMethod
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -22694,8 +22221,7 @@ query organization_subscription {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -22910,8 +22436,7 @@ query organization_teams($after: String, $before: String, $filter: TeamFilter, $
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -23005,13 +22530,11 @@ fragment Template on Template {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   lastUpdatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -23043,8 +22566,7 @@ query organization_templates($after: String, $before: String, $filter: NullableT
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -23080,7 +22602,6 @@ COMMANDS["organization:users"] = class LinearCommand_organization_users extends 
   __typename
   nodes {
     ...User
-    __typename
     displayName
     email
   }
@@ -23151,8 +22672,7 @@ query organization_users($after: String, $before: String, $first: Int, $includeA
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -23192,8 +22712,7 @@ query organizationExists($urlKey: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -23233,13 +22752,11 @@ COMMANDS["organization-invite"] = class LinearCommand_organizationInvite extends
   role
   inviter {
     id
-    __typename
     displayName
     email
   }
   invitee {
     id
-    __typename
     displayName
     email
   }
@@ -23253,8 +22770,7 @@ query organizationInvite($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -23309,13 +22825,11 @@ fragment OrganizationInvite on OrganizationInvite {
   role
   inviter {
     id
-    __typename
     displayName
     email
   }
   invitee {
     id
-    __typename
     displayName
     email
   }
@@ -23344,8 +22858,7 @@ query organizationInvites($after: String, $before: String, $first: Int, $include
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -23406,7 +22919,6 @@ COMMANDS["project"] = class LinearCommand_project extends LinearCommand {
   priority
   lead {
     id
-    __typename
     displayName
     email
   }
@@ -23441,7 +22953,6 @@ COMMANDS["project"] = class LinearCommand_project extends LinearCommand {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -23495,7 +23006,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -23511,8 +23021,7 @@ query project($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -23632,13 +23141,11 @@ fragment Comment on Comment {
   id
   resolvingUser {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -23670,7 +23177,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -23727,7 +23233,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -23813,8 +23318,7 @@ query project_comments($id: String!, $after: String, $before: String, $filter: C
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -23881,7 +23385,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -23899,8 +23402,7 @@ query project_documentContent($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -23935,7 +23437,6 @@ COMMANDS["project:document-content:ai-prompt-rules"] =
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -23955,8 +23456,7 @@ query project_documentContent_aiPromptRules($id: String!) {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -24064,13 +23564,11 @@ fragment Document on Document {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -24104,8 +23602,7 @@ query project_documents($id: String!, $after: String, $before: String, $filter: 
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -24161,7 +23658,6 @@ fragment EntityExternalLink on EntityExternalLink {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -24194,8 +23690,7 @@ query project_externalLinks($id: String!, $after: String, $before: String, $firs
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -24278,8 +23773,7 @@ query project_history($id: String!, $after: String, $before: String, $first: Int
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -24362,13 +23856,11 @@ fragment Initiative on Initiative {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   owner {
     id
-    __typename
     displayName
     email
   }
@@ -24415,7 +23907,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -24448,8 +23939,7 @@ query project_initiatives($id: String!, $after: String, $before: String, $first:
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -24496,7 +23986,6 @@ fragment ProjectRelation on ProjectRelation {
   updatedAt
   user {
     id
-    __typename
     displayName
     email
   }
@@ -24551,8 +24040,7 @@ query project_inverseRelations($id: String!, $after: String, $before: String, $f
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -24773,7 +24261,6 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -24799,7 +24286,6 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -24856,19 +24342,16 @@ fragment Issue on Issue {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -24906,7 +24389,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -24989,8 +24471,7 @@ query project_issues($id: String!, $after: String, $before: String, $filter: Iss
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -25066,13 +24547,11 @@ fragment ProjectLabel on ProjectLabel {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   retiredBy {
     id
-    __typename
     displayName
     email
   }
@@ -25107,8 +24586,7 @@ query project_labels($id: String!, $after: String, $before: String, $filter: Pro
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -25207,7 +24685,6 @@ COMMANDS["project:members"] = class LinearCommand_project_members extends Linear
   __typename
   nodes {
     ...User
-    __typename
     displayName
     email
   }
@@ -25281,8 +24758,7 @@ query project_members($id: String!, $after: String, $before: String, $filter: Us
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -25347,7 +24823,6 @@ fragment CustomerNeed on CustomerNeed {
   }
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -25388,7 +24863,6 @@ fragment ProjectAttachment on ProjectAttachment {
   subtitle
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -25428,8 +24902,7 @@ query project_needs($id: String!, $after: String, $before: String, $filter: Cust
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -25552,7 +25025,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -25586,8 +25058,7 @@ query project_projectMilestones($id: String!, $after: String, $before: String, $
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -25653,7 +25124,6 @@ fragment ProjectUpdate on ProjectUpdate {
   slugId
   user {
     id
-    __typename
     displayName
     email
   }
@@ -25687,7 +25157,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -25720,8 +25189,7 @@ query project_projectUpdates($id: String!, $after: String, $before: String, $fir
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -25768,7 +25236,6 @@ fragment ProjectRelation on ProjectRelation {
   updatedAt
   user {
     id
-    __typename
     displayName
     email
   }
@@ -25823,8 +25290,7 @@ query project_relations($id: String!, $after: String, $before: String, $first: I
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -26042,8 +25508,7 @@ query project_teams($id: String!, $after: String, $before: String, $filter: Team
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -26083,8 +25548,7 @@ query projectFilterSuggestion($prompt: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -26125,13 +25589,11 @@ COMMANDS["project-label"] = class LinearCommand_projectLabel extends LinearComma
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   retiredBy {
     id
-    __typename
     displayName
     email
   }
@@ -26146,8 +25608,7 @@ query projectLabel($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -26223,13 +25684,11 @@ fragment ProjectLabel on ProjectLabel {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   retiredBy {
     id
-    __typename
     displayName
     email
   }
@@ -26262,8 +25721,7 @@ query projectLabel_children($id: String!, $after: String, $before: String, $filt
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -26485,7 +25943,6 @@ fragment Project on Project {
   priority
   lead {
     id
-    __typename
     displayName
     email
   }
@@ -26520,7 +25977,6 @@ fragment Project on Project {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -26574,7 +26030,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -26607,8 +26062,7 @@ query projectLabel_projects($id: String!, $after: String, $before: String, $filt
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -26683,13 +26137,11 @@ fragment ProjectLabel on ProjectLabel {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   retiredBy {
     id
-    __typename
     displayName
     email
   }
@@ -26720,8 +26172,7 @@ query projectLabels($after: String, $before: String, $filter: ProjectLabelFilter
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -26810,7 +26261,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -26824,8 +26274,7 @@ query projectMilestone($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -26894,7 +26343,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -26910,8 +26358,7 @@ query projectMilestone_documentContent($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -26946,7 +26393,6 @@ COMMANDS["project-milestone:document-content:ai-prompt-rules"] =
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -26964,8 +26410,7 @@ query projectMilestone_documentContent_aiPromptRules($id: String!) {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -27186,7 +26631,6 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -27212,7 +26656,6 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -27269,19 +26712,16 @@ fragment Issue on Issue {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -27319,7 +26759,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -27400,8 +26839,7 @@ query projectMilestone_issues($id: String!, $after: String, $before: String, $fi
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -27523,7 +26961,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -27553,8 +26990,7 @@ query projectMilestones($after: String, $before: String, $filter: ProjectMilesto
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -27585,7 +27021,6 @@ COMMANDS["project-relation"] = class LinearCommand_projectRelation extends Linea
   updatedAt
   user {
     id
-    __typename
     displayName
     email
   }
@@ -27621,8 +27056,7 @@ query projectRelation($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -27668,7 +27102,6 @@ fragment ProjectRelation on ProjectRelation {
   updatedAt
   user {
     id
-    __typename
     displayName
     email
   }
@@ -27719,8 +27152,7 @@ query projectRelations($after: String, $before: String, $first: Int, $includeArc
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -27768,8 +27200,7 @@ query projectStatus($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -27847,8 +27278,7 @@ query projectStatuses($after: String, $before: String, $first: Int, $includeArch
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -27898,7 +27328,6 @@ COMMANDS["project-update"] = class LinearCommand_projectUpdate extends LinearCom
   slugId
   user {
     id
-    __typename
     displayName
     email
   }
@@ -27932,7 +27361,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -27946,8 +27374,7 @@ query projectUpdate($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -28067,13 +27494,11 @@ fragment Comment on Comment {
   id
   resolvingUser {
     id
-    __typename
     displayName
     email
   }
   user {
     id
-    __typename
     displayName
     email
   }
@@ -28105,7 +27530,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -28162,7 +27586,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -28246,8 +27669,7 @@ query projectUpdate_comments($id: String!, $after: String, $before: String, $fil
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -28312,7 +27734,6 @@ fragment ProjectUpdate on ProjectUpdate {
   slugId
   user {
     id
-    __typename
     displayName
     email
   }
@@ -28346,7 +27767,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -28376,8 +27796,7 @@ query projectUpdates($after: String, $before: String, $filter: ProjectUpdateFilt
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -28598,7 +28017,6 @@ fragment Project on Project {
   priority
   lead {
     id
-    __typename
     displayName
     email
   }
@@ -28633,7 +28051,6 @@ fragment Project on Project {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -28687,7 +28104,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -28718,8 +28134,7 @@ query projects($after: String, $before: String, $filter: ProjectFilter, $first: 
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -28759,8 +28174,7 @@ query pushSubscriptionTest($sendStrategy: SendStrategy, $targetMobile: Boolean) 
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -28811,8 +28225,7 @@ query rateLimitStatus {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -28852,13 +28265,11 @@ COMMANDS["roadmap"] = class LinearCommand_roadmap extends LinearCommand {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   owner {
     id
-    __typename
     displayName
     email
   }
@@ -28872,8 +28283,7 @@ query roadmap($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -29095,7 +28505,6 @@ fragment Project on Project {
   priority
   lead {
     id
-    __typename
     displayName
     email
   }
@@ -29130,7 +28539,6 @@ fragment Project on Project {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -29184,7 +28592,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -29216,8 +28623,7 @@ query roadmap_projects($id: String!, $after: String, $before: String, $filter: P
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -29268,8 +28674,7 @@ query roadmapToProject($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -29350,8 +28755,7 @@ query roadmapToProjects($after: String, $before: String, $first: Int, $includeAr
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -29406,13 +28810,11 @@ fragment Roadmap on Roadmap {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   owner {
     id
-    __typename
     displayName
     email
   }
@@ -29441,8 +28843,7 @@ query roadmaps($after: String, $before: String, $first: Int, $includeArchived: B
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -29533,13 +28934,11 @@ fragment DocumentSearchResult on DocumentSearchResult {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -29571,8 +28970,7 @@ query searchDocuments($after: String, $before: String, $first: Int, $includeArch
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -29636,8 +29034,7 @@ query searchDocuments_archivePayload($after: String, $before: String, $first: In
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -29871,7 +29268,6 @@ fragment IssueSearchResult on IssueSearchResult {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -29897,7 +29293,6 @@ fragment IssueSearchResult on IssueSearchResult {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -29954,19 +29349,16 @@ fragment IssueSearchResult on IssueSearchResult {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -30004,7 +29396,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -30086,8 +29477,7 @@ query searchIssues($after: String, $before: String, $filter: IssueFilter, $first
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -30310,8 +29700,7 @@ query searchIssues_archivePayload($after: String, $before: String, $filter: Issu
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -30403,7 +29792,6 @@ fragment ProjectSearchResult on ProjectSearchResult {
   priority
   lead {
     id
-    __typename
     displayName
     email
   }
@@ -30438,7 +29826,6 @@ fragment ProjectSearchResult on ProjectSearchResult {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -30492,7 +29879,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -30524,8 +29910,7 @@ query searchProjects($after: String, $before: String, $first: Int, $includeArchi
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -30587,8 +29972,7 @@ query searchProjects_archivePayload($after: String, $before: String, $first: Int
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -30661,8 +30045,7 @@ query semanticSearch($filters: SemanticSearchFilters, $includeArchived: Boolean,
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -30704,8 +30087,7 @@ query ssoUrlFromEmail($email: String!, $isDesktop: Boolean, $type: IdentityProvi
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -30835,8 +30217,7 @@ query team($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -30974,8 +30355,7 @@ query team_cycles($id: String!, $after: String, $before: String, $filter: CycleF
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -31077,8 +30457,7 @@ query team_gitAutomationStates($id: String!, $after: String, $before: String, $f
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -31300,7 +30679,6 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -31326,7 +30704,6 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -31383,19 +30760,16 @@ fragment Issue on Issue {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -31433,7 +30807,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -31516,8 +30889,7 @@ query team_issues($id: String!, $after: String, $before: String, $filter: IssueF
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -31601,13 +30973,11 @@ fragment IssueLabel on IssueLabel {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   retiredBy {
     id
-    __typename
     displayName
     email
   }
@@ -31641,8 +31011,7 @@ query team_labels($id: String!, $after: String, $before: String, $filter: IssueL
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -31741,7 +31110,6 @@ COMMANDS["team:members"] = class LinearCommand_team_members extends LinearComman
   __typename
   nodes {
     ...User
-    __typename
     displayName
     email
   }
@@ -31814,8 +31182,7 @@ query team_members($id: String!, $after: String, $before: String, $filter: UserF
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -31870,7 +31237,6 @@ fragment TeamMembership on TeamMembership {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -31903,8 +31269,7 @@ query team_memberships($id: String!, $after: String, $before: String, $first: In
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -32127,7 +31492,6 @@ fragment Project on Project {
   priority
   lead {
     id
-    __typename
     displayName
     email
   }
@@ -32162,7 +31526,6 @@ fragment Project on Project {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -32216,7 +31579,6 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -32251,8 +31613,7 @@ query team_projects($id: String!, $after: String, $before: String, $filter: Proj
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -32397,8 +31758,7 @@ query team_states($id: String!, $after: String, $before: String, $filter: Workfl
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -32493,13 +31853,11 @@ fragment Template on Template {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   lastUpdatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -32532,8 +31890,7 @@ query team_templates($id: String!, $after: String, $before: String, $filter: Nul
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -32589,7 +31946,6 @@ fragment Webhook on Webhook {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -32625,8 +31981,7 @@ query team_webhooks($id: String!, $after: String, $before: String, $first: Int, 
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -32665,7 +32020,6 @@ COMMANDS["team-membership"] = class LinearCommand_teamMembership extends LinearC
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -32680,8 +32034,7 @@ query teamMembership($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -32735,7 +32088,6 @@ fragment TeamMembership on TeamMembership {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -32765,8 +32117,7 @@ query teamMemberships($after: String, $before: String, $first: Int, $includeArch
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -32979,8 +32330,7 @@ query teams($after: String, $before: String, $filter: TeamFilter, $first: Int, $
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -33026,13 +32376,11 @@ COMMANDS["template"] = class LinearCommand_template extends LinearCommand {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   lastUpdatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -33046,8 +32394,7 @@ query template($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -33091,13 +32438,11 @@ COMMANDS["templates"] = class LinearCommand_templates extends LinearCommand {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   lastUpdatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -33111,8 +32456,7 @@ query templates {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -33158,13 +32502,11 @@ COMMANDS["templates-for-integration"] = class LinearCommand_templatesForIntegrat
   id
   creator {
     id
-    __typename
     displayName
     email
   }
   lastUpdatedBy {
     id
-    __typename
     displayName
     email
   }
@@ -33178,8 +32520,7 @@ query templatesForIntegration($integrationType: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -33238,8 +32579,7 @@ query timeSchedule($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -33328,8 +32668,7 @@ query timeSchedules($after: String, $before: String, $first: Int, $includeArchiv
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -33389,7 +32728,6 @@ fragment TriageResponsibility on TriageResponsibility {
   id
   currentUser {
     id
-    __typename
     displayName
     email
   }
@@ -33423,8 +32761,7 @@ query triageResponsibilities($after: String, $before: String, $first: Int, $incl
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -33469,7 +32806,6 @@ COMMANDS["triage-responsibility"] = class LinearCommand_triageResponsibility ext
   id
   currentUser {
     id
-    __typename
     displayName
     email
   }
@@ -33488,8 +32824,7 @@ query triageResponsibility($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -33532,8 +32867,7 @@ query triageResponsibility_manualSelection($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -33598,7 +32932,6 @@ COMMANDS["user"] = class LinearCommand_user extends LinearCommand {
 query user($id: String!) {
   user(id: $id) {
     ...User
-    __typename
     displayName
     email
   }
@@ -33606,8 +32939,7 @@ query user($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -33828,7 +33160,6 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -33854,7 +33185,6 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -33911,19 +33241,16 @@ fragment Issue on Issue {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -33961,7 +33288,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -34037,7 +33363,6 @@ query user_assignedIssues($id: String!, $after: String, $before: String, $filter
     ) {
       ...IssueConnection
     }
-    __typename
     displayName
     email
   }
@@ -34045,8 +33370,7 @@ query user_assignedIssues($id: String!, $after: String, $before: String, $filter
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -34267,7 +33591,6 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -34293,7 +33616,6 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -34350,19 +33672,16 @@ fragment Issue on Issue {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -34400,7 +33719,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -34476,7 +33794,6 @@ query user_createdIssues($id: String!, $after: String, $before: String, $filter:
     ) {
       ...IssueConnection
     }
-    __typename
     displayName
     email
   }
@@ -34484,8 +33801,7 @@ query user_createdIssues($id: String!, $after: String, $before: String, $filter:
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -34706,7 +34022,6 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -34732,7 +34047,6 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -34789,19 +34103,16 @@ fragment Issue on Issue {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -34839,7 +34150,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -34915,7 +34225,6 @@ query user_delegatedIssues($id: String!, $after: String, $before: String, $filte
     ) {
       ...IssueConnection
     }
-    __typename
     displayName
     email
   }
@@ -34923,8 +34232,7 @@ query user_delegatedIssues($id: String!, $after: String, $before: String, $filte
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -35005,7 +34313,6 @@ fragment Draft on Draft {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -35032,7 +34339,6 @@ query user_drafts($id: String!, $after: String, $before: String, $first: Int, $i
     ) {
       ...DraftConnection
     }
-    __typename
     displayName
     email
   }
@@ -35040,8 +34346,7 @@ query user_drafts($id: String!, $after: String, $before: String, $first: Int, $i
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -35096,7 +34401,6 @@ fragment TeamMembership on TeamMembership {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -35123,7 +34427,6 @@ query user_teamMemberships($id: String!, $after: String, $before: String, $first
     ) {
       ...TeamMembershipConnection
     }
-    __typename
     displayName
     email
   }
@@ -35131,8 +34434,7 @@ query user_teamMemberships($id: String!, $after: String, $before: String, $first
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -35343,7 +34645,6 @@ query user_teams($id: String!, $after: String, $before: String, $filter: TeamFil
     ) {
       ...TeamConnection
     }
-    __typename
     displayName
     email
   }
@@ -35351,8 +34652,7 @@ query user_teams($id: String!, $after: String, $before: String, $filter: TeamFil
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -35389,7 +34689,6 @@ COMMANDS["user-settings"] = class LinearCommand_userSettings extends LinearComma
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -35549,8 +34848,7 @@ query userSettings {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -35642,8 +34940,7 @@ query userSettings_notificationCategoryPreferences {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -35690,8 +34987,7 @@ query userSettings_notificationCategoryPreferences_appsAndIntegrations {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -35736,8 +35032,7 @@ query userSettings_notificationCategoryPreferences_assignments {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -35782,8 +35077,7 @@ query userSettings_notificationCategoryPreferences_commentsAndReplies {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -35828,8 +35122,7 @@ query userSettings_notificationCategoryPreferences_customers {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -35874,8 +35167,7 @@ query userSettings_notificationCategoryPreferences_documentChanges {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -35920,8 +35212,7 @@ query userSettings_notificationCategoryPreferences_feed {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -35966,8 +35257,7 @@ query userSettings_notificationCategoryPreferences_mentions {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -36012,8 +35302,7 @@ query userSettings_notificationCategoryPreferences_postsAndUpdates {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -36058,8 +35347,7 @@ query userSettings_notificationCategoryPreferences_reactions {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -36104,8 +35392,7 @@ query userSettings_notificationCategoryPreferences_reminders {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -36150,8 +35437,7 @@ query userSettings_notificationCategoryPreferences_reviews {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -36196,8 +35482,7 @@ query userSettings_notificationCategoryPreferences_statusChanges {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -36242,8 +35527,7 @@ query userSettings_notificationCategoryPreferences_subscriptions {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -36288,8 +35572,7 @@ query userSettings_notificationCategoryPreferences_system {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -36334,8 +35617,7 @@ query userSettings_notificationCategoryPreferences_triage {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -36378,8 +35660,7 @@ query userSettings_notificationChannelPreferences {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -36461,8 +35742,7 @@ query userSettings_notificationDeliveryPreferences {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -36539,8 +35819,7 @@ query userSettings_notificationDeliveryPreferences_mobile {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -36611,8 +35890,7 @@ query userSettings_notificationDeliveryPreferences_mobile_schedule {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -36661,8 +35939,7 @@ query userSettings_notificationDeliveryPreferences_mobile_schedule_friday {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -36711,8 +35988,7 @@ query userSettings_notificationDeliveryPreferences_mobile_schedule_monday {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -36761,8 +36037,7 @@ query userSettings_notificationDeliveryPreferences_mobile_schedule_saturday {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -36811,8 +36086,7 @@ query userSettings_notificationDeliveryPreferences_mobile_schedule_sunday {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -36861,8 +36135,7 @@ query userSettings_notificationDeliveryPreferences_mobile_schedule_thursday {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -36911,8 +36184,7 @@ query userSettings_notificationDeliveryPreferences_mobile_schedule_tuesday {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -36961,8 +36233,7 @@ query userSettings_notificationDeliveryPreferences_mobile_schedule_wednesday {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -37024,8 +36295,7 @@ query userSettings_theme($deviceType: UserSettingsThemeDeviceType, $mode: UserSe
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -37081,8 +36351,7 @@ query userSettings_theme_custom($deviceType: UserSettingsThemeDeviceType, $mode:
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -37132,8 +36401,7 @@ query userSettings_theme_custom_sidebar($deviceType: UserSettingsThemeDeviceType
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -37231,7 +36499,6 @@ COMMANDS["users"] = class LinearCommand_users extends LinearCommand {
   __typename
   nodes {
     ...User
-    __typename
     displayName
     email
   }
@@ -37302,8 +36569,7 @@ query users($after: String, $before: String, $filter: UserFilter, $first: Int, $
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -37343,8 +36609,7 @@ query verifyGitHubEnterpriseServerInstallation($integrationId: String!) {
 `;
 
       const response = await linearClient.client.rawRequest(query, variables);
-      this.log(ux.colorizeJson(response.data, { theme }));
-      return response.data;
+      return this.render(response.data);
     }
   };
 
@@ -37407,7 +36672,6 @@ COMMANDS["viewer"] = class LinearCommand_viewer extends LinearCommand {
 query viewer {
   viewer {
     ...User
-    __typename
     displayName
     email
   }
@@ -37415,8 +36679,7 @@ query viewer {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -37636,7 +36899,6 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -37662,7 +36924,6 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -37719,19 +36980,16 @@ fragment Issue on Issue {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -37769,7 +37027,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -37845,7 +37102,6 @@ query viewer_assignedIssues($after: String, $before: String, $filter: IssueFilte
     ) {
       ...IssueConnection
     }
-    __typename
     displayName
     email
   }
@@ -37853,8 +37109,7 @@ query viewer_assignedIssues($after: String, $before: String, $filter: IssueFilte
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -38074,7 +37329,6 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -38100,7 +37354,6 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -38157,19 +37410,16 @@ fragment Issue on Issue {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -38207,7 +37457,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -38283,7 +37532,6 @@ query viewer_createdIssues($after: String, $before: String, $filter: IssueFilter
     ) {
       ...IssueConnection
     }
-    __typename
     displayName
     email
   }
@@ -38291,8 +37539,7 @@ query viewer_createdIssues($after: String, $before: String, $filter: IssueFilter
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -38512,7 +37759,6 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -38538,7 +37784,6 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -38595,19 +37840,16 @@ fragment Issue on Issue {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -38645,7 +37887,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -38721,7 +37962,6 @@ query viewer_delegatedIssues($after: String, $before: String, $filter: IssueFilt
     ) {
       ...IssueConnection
     }
-    __typename
     displayName
     email
   }
@@ -38729,8 +37969,7 @@ query viewer_delegatedIssues($after: String, $before: String, $filter: IssueFilt
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -38810,7 +38049,6 @@ fragment Draft on Draft {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -38837,7 +38075,6 @@ query viewer_drafts($after: String, $before: String, $first: Int, $includeArchiv
     ) {
       ...DraftConnection
     }
-    __typename
     displayName
     email
   }
@@ -38845,8 +38082,7 @@ query viewer_drafts($after: String, $before: String, $first: Int, $includeArchiv
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -38900,7 +38136,6 @@ fragment TeamMembership on TeamMembership {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -38927,7 +38162,6 @@ query viewer_teamMemberships($after: String, $before: String, $first: Int, $incl
     ) {
       ...TeamMembershipConnection
     }
-    __typename
     displayName
     email
   }
@@ -38935,8 +38169,7 @@ query viewer_teamMemberships($after: String, $before: String, $first: Int, $incl
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -39146,7 +38379,6 @@ query viewer_teams($after: String, $before: String, $filter: TeamFilter, $first:
     ) {
       ...TeamConnection
     }
-    __typename
     displayName
     email
   }
@@ -39154,8 +38386,7 @@ query viewer_teams($after: String, $before: String, $filter: TeamFilter, $first:
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -39195,7 +38426,6 @@ COMMANDS["webhook"] = class LinearCommand_webhook extends LinearCommand {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -39213,8 +38443,7 @@ query webhook($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -39269,7 +38498,6 @@ fragment Webhook on Webhook {
   id
   creator {
     id
-    __typename
     displayName
     email
   }
@@ -39302,8 +38530,7 @@ query webhooks($after: String, $before: String, $first: Int, $includeArchived: B
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -39357,8 +38584,7 @@ query workflowState($id: String!) {
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -39579,7 +38805,6 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
-    __typename
     displayName
     email
   }
@@ -39605,7 +38830,6 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
-    __typename
     displayName
     email
   }
@@ -39662,19 +38886,16 @@ fragment Issue on Issue {
   id
   assignee {
     id
-    __typename
     displayName
     email
   }
   creator {
     id
-    __typename
     displayName
     email
   }
   snoozedBy {
     id
-    __typename
     displayName
     email
   }
@@ -39712,7 +38933,6 @@ fragment Reaction on Reaction {
   id
   user {
     id
-    __typename
     displayName
     email
   }
@@ -39793,8 +39013,7 @@ query workflowState_issues($id: String!, $after: String, $before: String, $filte
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
@@ -39935,8 +39154,7 @@ query workflowStates($after: String, $before: String, $filter: WorkflowStateFilt
 `;
 
     const response = await linearClient.client.rawRequest(query, variables);
-    this.log(ux.colorizeJson(response.data, { theme }));
-    return response.data;
+    return this.render(response.data);
   }
 };
 
