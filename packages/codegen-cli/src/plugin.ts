@@ -62,7 +62,7 @@ export const plugin: PluginFunction<CliPluginConfig> = async (
 
   return `
 /* eslint-disable @typescript-eslint/dot-notation */
-import { Command, Flags } from "@oclif/core";
+import { Args, Command, Flags } from "@oclif/core";
 import set from 'lodash.set';
 import { LinearCommand } from "../linear_command.js";
 
@@ -90,13 +90,28 @@ function classDefinitionForOperation(
   }
 
   const documentNode = createDocumentForOperation(operation, schema, fragmentDefinitions);
-  const flags = getFlagsForOperation(operation, schema);
+  const allFlags = getFlagsForOperation(operation, schema);
 
-  return `class LinearCommand_${opName} extends LinearCommand {
-  public static override description = 'Runs ${opName}';
-  public static override enableJsonFlag = true;
-  public static override examples = ['<%= config.bin %> <%= command.id %>'];
+  // Check if there's exactly one required flag - if so, make it a positional argument
+  const requiredFlags = allFlags.filter(flag => flag.required);
+  const hasPositionalArg = requiredFlags.length === 1;
+  const positionalArg = hasPositionalArg ? requiredFlags[0] : undefined;
+  const flags = hasPositionalArg ? allFlags.filter(flag => !flag.required) : allFlags;
 
+  const argsSection = positionalArg
+    ? `
+  public static override args = {
+    "${positionalArg.name}": Args.${positionalArg.type}(${JSON.stringify({
+      required: true,
+      options: positionalArg.options,
+    })}),
+  };
+`
+    : "";
+
+  const flagsSection =
+    flags.length > 0
+      ? `
   public static override flags = {
 ${flags
   .map(flag => {
@@ -108,13 +123,25 @@ ${flags
   })
   .join("\n")}
   };
+`
+      : "";
 
+  return `class LinearCommand_${opName} extends LinearCommand {
+  public static override description = 'Runs ${opName}';
+  public static override enableJsonFlag = true;
+  public static override examples = ['<%= config.bin %> <%= command.id %>'];
+${argsSection}${flagsSection}
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_${opName});
+    const { args, flags } = await this.parse(LinearCommand_${opName});
     const linearClient = await this.getLinearClient();
 
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith('api-') || path === 'json') {
         continue;

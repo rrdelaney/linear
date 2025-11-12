@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/dot-notation */
-import { Command, Flags } from "@oclif/core";
+import { Args, Command, Flags } from "@oclif/core";
 import set from "lodash.set";
 import { LinearCommand } from "../linear_command.js";
 
@@ -72,10 +72,15 @@ COMMANDS["administrable-teams"] = class LinearCommand_administrableTeams extends
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_administrableTeams);
+    const { args, flags } = await this.parse(LinearCommand_administrableTeams);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -266,10 +271,15 @@ COMMANDS["agent-activities"] = class LinearCommand_agentActivities extends Linea
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_agentActivities);
+    const { args, flags } = await this.parse(LinearCommand_agentActivities);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -402,15 +412,20 @@ COMMANDS["agent-activity"] = class LinearCommand_agentActivity extends LinearCom
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_agentActivity);
+    const { args, flags } = await this.parse(LinearCommand_agentActivity);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -517,15 +532,20 @@ COMMANDS["agent-session"] = class LinearCommand_agentSession extends LinearComma
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_agentSession);
+    const { args, flags } = await this.parse(LinearCommand_agentSession);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -586,8 +606,11 @@ COMMANDS["agent-session:activities"] = class LinearCommand_agentSession_activiti
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.agentSessionId.contains": Flags.string({ required: false }),
@@ -630,10 +653,15 @@ COMMANDS["agent-session:activities"] = class LinearCommand_agentSession_activiti
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_agentSession_activities);
+    const { args, flags } = await this.parse(LinearCommand_agentSession_activities);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -778,10 +806,15 @@ COMMANDS["agent-sessions"] = class LinearCommand_agentSessions extends LinearCom
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_agentSessions);
+    const { args, flags } = await this.parse(LinearCommand_agentSessions);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -867,15 +900,20 @@ COMMANDS["application-info"] = class LinearCommand_applicationInfo extends Linea
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    clientId: Flags.string({ required: true }),
+  public static override args = {
+    clientId: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_applicationInfo);
+    const { args, flags } = await this.parse(LinearCommand_applicationInfo);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -912,15 +950,20 @@ COMMANDS["attachment"] = class LinearCommand_attachment extends LinearCommand {
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_attachment);
+    const { args, flags } = await this.parse(LinearCommand_attachment);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -980,15 +1023,20 @@ COMMANDS["attachment-issue"] = class LinearCommand_attachmentIssue extends Linea
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_attachmentIssue);
+    const { args, flags } = await this.parse(LinearCommand_attachmentIssue);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -1215,8 +1263,11 @@ COMMANDS["attachment-issue:attachments"] = class LinearCommand_attachmentIssue_a
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.creator.null": Flags.boolean({ required: false }),
@@ -1292,10 +1343,15 @@ COMMANDS["attachment-issue:attachments"] = class LinearCommand_attachmentIssue_a
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_attachmentIssue_attachments);
+    const { args, flags } = await this.parse(LinearCommand_attachmentIssue_attachments);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -1385,15 +1441,20 @@ COMMANDS["attachment-issue:bot-actor"] = class LinearCommand_attachmentIssue_bot
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_attachmentIssue_botActor);
+    const { args, flags } = await this.parse(LinearCommand_attachmentIssue_botActor);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -1433,8 +1494,11 @@ COMMANDS["attachment-issue:children"] = class LinearCommand_attachmentIssue_chil
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.accumulatedStateUpdatedAt.null": Flags.boolean({ required: false }),
@@ -1604,10 +1668,15 @@ COMMANDS["attachment-issue:children"] = class LinearCommand_attachmentIssue_chil
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_attachmentIssue_children);
+    const { args, flags } = await this.parse(LinearCommand_attachmentIssue_children);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -1864,8 +1933,11 @@ COMMANDS["attachment-issue:comments"] = class LinearCommand_attachmentIssue_comm
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.body.contains": Flags.string({ required: false }),
@@ -1895,10 +1967,15 @@ COMMANDS["attachment-issue:comments"] = class LinearCommand_attachmentIssue_comm
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_attachmentIssue_comments);
+    const { args, flags } = await this.parse(LinearCommand_attachmentIssue_comments);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -2161,8 +2238,11 @@ COMMANDS["attachment-issue:documents"] = class LinearCommand_attachmentIssue_doc
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.slugId.contains": Flags.string({ required: false }),
@@ -2204,10 +2284,15 @@ COMMANDS["attachment-issue:documents"] = class LinearCommand_attachmentIssue_doc
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_attachmentIssue_documents);
+    const { args, flags } = await this.parse(LinearCommand_attachmentIssue_documents);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -2309,8 +2394,11 @@ COMMANDS["attachment-issue:former-attachments"] = class LinearCommand_attachment
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.creator.null": Flags.boolean({ required: false }),
@@ -2386,10 +2474,15 @@ COMMANDS["attachment-issue:former-attachments"] = class LinearCommand_attachment
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_attachmentIssue_formerAttachments);
+    const { args, flags } = await this.parse(LinearCommand_attachmentIssue_formerAttachments);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -2479,8 +2572,11 @@ COMMANDS["attachment-issue:former-needs"] = class LinearCommand_attachmentIssue_
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.comment.null": Flags.boolean({ required: false }),
@@ -2502,10 +2598,15 @@ COMMANDS["attachment-issue:former-needs"] = class LinearCommand_attachmentIssue_
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_attachmentIssue_formerNeeds);
+    const { args, flags } = await this.parse(LinearCommand_attachmentIssue_formerNeeds);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -2623,8 +2724,11 @@ COMMANDS["attachment-issue:history"] = class LinearCommand_attachmentIssue_histo
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     first: Flags.integer({ required: false }),
@@ -2634,10 +2738,15 @@ COMMANDS["attachment-issue:history"] = class LinearCommand_attachmentIssue_histo
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_attachmentIssue_history);
+    const { args, flags } = await this.parse(LinearCommand_attachmentIssue_history);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -2946,8 +3055,11 @@ COMMANDS["attachment-issue:inverse-relations"] = class LinearCommand_attachmentI
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     first: Flags.integer({ required: false }),
@@ -2957,10 +3069,15 @@ COMMANDS["attachment-issue:inverse-relations"] = class LinearCommand_attachmentI
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_attachmentIssue_inverseRelations);
+    const { args, flags } = await this.parse(LinearCommand_attachmentIssue_inverseRelations);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -3034,8 +3151,11 @@ COMMANDS["attachment-issue:labels"] = class LinearCommand_attachmentIssue_labels
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.creator.null": Flags.boolean({ required: false }),
@@ -3065,10 +3185,15 @@ COMMANDS["attachment-issue:labels"] = class LinearCommand_attachmentIssue_labels
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_attachmentIssue_labels);
+    const { args, flags } = await this.parse(LinearCommand_attachmentIssue_labels);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -3157,8 +3282,11 @@ COMMANDS["attachment-issue:needs"] = class LinearCommand_attachmentIssue_needs e
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.comment.null": Flags.boolean({ required: false }),
@@ -3180,10 +3308,15 @@ COMMANDS["attachment-issue:needs"] = class LinearCommand_attachmentIssue_needs e
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_attachmentIssue_needs);
+    const { args, flags } = await this.parse(LinearCommand_attachmentIssue_needs);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -3301,8 +3434,11 @@ COMMANDS["attachment-issue:relations"] = class LinearCommand_attachmentIssue_rel
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     first: Flags.integer({ required: false }),
@@ -3312,10 +3448,15 @@ COMMANDS["attachment-issue:relations"] = class LinearCommand_attachmentIssue_rel
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_attachmentIssue_relations);
+    const { args, flags } = await this.parse(LinearCommand_attachmentIssue_relations);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -3389,8 +3530,11 @@ COMMANDS["attachment-issue:subscribers"] = class LinearCommand_attachmentIssue_s
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.active.eq": Flags.boolean({ required: false }),
@@ -3463,10 +3607,15 @@ COMMANDS["attachment-issue:subscribers"] = class LinearCommand_attachmentIssue_s
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_attachmentIssue_subscribers);
+    const { args, flags } = await this.parse(LinearCommand_attachmentIssue_subscribers);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -3637,10 +3786,15 @@ COMMANDS["attachments"] = class LinearCommand_attachments extends LinearCommand 
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_attachments);
+    const { args, flags } = await this.parse(LinearCommand_attachments);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -3726,6 +3880,10 @@ COMMANDS["attachments-for-u-r-l"] = class LinearCommand_attachmentsForURL extend
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    url: Args.string({ required: true }),
+  };
+
   public static override flags = {
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
@@ -3733,14 +3891,18 @@ COMMANDS["attachments-for-u-r-l"] = class LinearCommand_attachmentsForURL extend
     includeArchived: Flags.boolean({ required: false }),
     last: Flags.integer({ required: false }),
     orderBy: Flags.string({ required: false, options: ["createdAt", "updatedAt"] }),
-    url: Flags.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_attachmentsForURL);
+    const { args, flags } = await this.parse(LinearCommand_attachmentsForURL);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -3885,10 +4047,15 @@ COMMANDS["audit-entries"] = class LinearCommand_auditEntries extends LinearComma
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_auditEntries);
+    const { args, flags } = await this.parse(LinearCommand_auditEntries);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -3959,13 +4126,16 @@ COMMANDS["audit-entry-types"] = class LinearCommand_auditEntryTypes extends Line
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {};
-
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_auditEntryTypes);
+    const { args, flags } = await this.parse(LinearCommand_auditEntryTypes);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -3997,13 +4167,16 @@ COMMANDS["authentication-sessions"] = class LinearCommand_authenticationSessions
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {};
-
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_authenticationSessions);
+    const { args, flags } = await this.parse(LinearCommand_authenticationSessions);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -4052,13 +4225,16 @@ COMMANDS["available-users"] = class LinearCommand_availableUsers extends LinearC
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {};
-
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_availableUsers);
+    const { args, flags } = await this.parse(LinearCommand_availableUsers);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -4146,10 +4322,15 @@ COMMANDS["comment"] = class LinearCommand_comment extends LinearCommand {
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_comment);
+    const { args, flags } = await this.parse(LinearCommand_comment);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -4388,10 +4569,15 @@ COMMANDS["comment:bot-actor"] = class LinearCommand_comment_botActor extends Lin
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_comment_botActor);
+    const { args, flags } = await this.parse(LinearCommand_comment_botActor);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -4461,10 +4647,15 @@ COMMANDS["comment:children"] = class LinearCommand_comment_children extends Line
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_comment_children);
+    const { args, flags } = await this.parse(LinearCommand_comment_children);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -4897,10 +5088,15 @@ COMMANDS["comment:created-issues"] = class LinearCommand_comment_createdIssues e
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_comment_createdIssues);
+    const { args, flags } = await this.parse(LinearCommand_comment_createdIssues);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -5161,10 +5357,15 @@ COMMANDS["comment:document-content"] = class LinearCommand_comment_documentConte
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_comment_documentContent);
+    const { args, flags } = await this.parse(LinearCommand_comment_documentContent);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -5245,10 +5446,15 @@ COMMANDS["comment:document-content:ai-prompt-rules"] =
     };
 
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_comment_documentContent_aiPromptRules);
+      const { args, flags } = await this.parse(LinearCommand_comment_documentContent_aiPromptRules);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -5297,10 +5503,15 @@ COMMANDS["comment:external-thread"] = class LinearCommand_comment_externalThread
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_comment_externalThread);
+    const { args, flags } = await this.parse(LinearCommand_comment_externalThread);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -5371,10 +5582,15 @@ COMMANDS["comments"] = class LinearCommand_comments extends LinearCommand {
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_comments);
+    const { args, flags } = await this.parse(LinearCommand_comments);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -5633,15 +5849,20 @@ COMMANDS["custom-view"] = class LinearCommand_customView extends LinearCommand {
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_customView);
+    const { args, flags } = await this.parse(LinearCommand_customView);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -5735,8 +5956,11 @@ COMMANDS["custom-view:initiatives"] = class LinearCommand_customView_initiatives
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.activityType.contains": Flags.string({ required: false }),
@@ -5845,10 +6069,15 @@ COMMANDS["custom-view:initiatives"] = class LinearCommand_customView_initiatives
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_customView_initiatives);
+    const { args, flags } = await this.parse(LinearCommand_customView_initiatives);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -5999,8 +6228,11 @@ COMMANDS["custom-view:issues"] = class LinearCommand_customView_issues extends L
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.accumulatedStateUpdatedAt.null": Flags.boolean({ required: false }),
@@ -6171,10 +6403,15 @@ COMMANDS["custom-view:issues"] = class LinearCommand_customView_issues extends L
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_customView_issues);
+    const { args, flags } = await this.parse(LinearCommand_customView_issues);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -6432,15 +6669,20 @@ COMMANDS["custom-view:organization-view-preferences"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {
-      id: Flags.string({ required: true }),
+    public static override args = {
+      id: Args.string({ required: true }),
     };
 
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_customView_organizationViewPreferences);
+      const { args, flags } = await this.parse(LinearCommand_customView_organizationViewPreferences);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -6489,15 +6731,20 @@ COMMANDS["custom-view:organization-view-preferences:preferences"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {
-      id: Flags.string({ required: true }),
+    public static override args = {
+      id: Args.string({ required: true }),
     };
 
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_customView_organizationViewPreferences_preferences);
+      const { args, flags } = await this.parse(LinearCommand_customView_organizationViewPreferences_preferences);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -6534,8 +6781,11 @@ COMMANDS["custom-view:projects"] = class LinearCommand_customView_projects exten
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.activityType.contains": Flags.string({ required: false }),
@@ -6689,10 +6939,15 @@ COMMANDS["custom-view:projects"] = class LinearCommand_customView_projects exten
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_customView_projects);
+    const { args, flags } = await this.parse(LinearCommand_customView_projects);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -6879,15 +7134,20 @@ COMMANDS["custom-view:user-view-preferences"] = class LinearCommand_customView_u
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_customView_userViewPreferences);
+    const { args, flags } = await this.parse(LinearCommand_customView_userViewPreferences);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -6936,15 +7196,20 @@ COMMANDS["custom-view:user-view-preferences:preferences"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {
-      id: Flags.string({ required: true }),
+    public static override args = {
+      id: Args.string({ required: true }),
     };
 
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_customView_userViewPreferences_preferences);
+      const { args, flags } = await this.parse(LinearCommand_customView_userViewPreferences_preferences);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -6983,15 +7248,20 @@ COMMANDS["custom-view:view-preferences-values"] = class LinearCommand_customView
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_customView_viewPreferencesValues);
+    const { args, flags } = await this.parse(LinearCommand_customView_viewPreferencesValues);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -7026,15 +7296,20 @@ COMMANDS["custom-view-has-subscribers"] = class LinearCommand_customViewHasSubsc
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_customViewHasSubscribers);
+    const { args, flags } = await this.parse(LinearCommand_customViewHasSubscribers);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -7111,10 +7386,15 @@ COMMANDS["custom-views"] = class LinearCommand_customViews extends LinearCommand
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_customViews);
+    const { args, flags } = await this.parse(LinearCommand_customViews);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -7235,15 +7515,20 @@ COMMANDS["customer"] = class LinearCommand_customer extends LinearCommand {
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_customer);
+    const { args, flags } = await this.parse(LinearCommand_customer);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -7307,10 +7592,15 @@ COMMANDS["customer-need"] = class LinearCommand_customerNeed extends LinearComma
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_customerNeed);
+    const { args, flags } = await this.parse(LinearCommand_customerNeed);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -7406,10 +7696,15 @@ COMMANDS["customer-need:project-attachment"] = class LinearCommand_customerNeed_
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_customerNeed_projectAttachment);
+    const { args, flags } = await this.parse(LinearCommand_customerNeed_projectAttachment);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -7478,10 +7773,15 @@ COMMANDS["customer-needs"] = class LinearCommand_customerNeeds extends LinearCom
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_customerNeeds);
+    const { args, flags } = await this.parse(LinearCommand_customerNeeds);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -7595,15 +7895,20 @@ COMMANDS["customer-status"] = class LinearCommand_customerStatus extends LinearC
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_customerStatus);
+    const { args, flags } = await this.parse(LinearCommand_customerStatus);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -7653,10 +7958,15 @@ COMMANDS["customer-statuses"] = class LinearCommand_customerStatuses extends Lin
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_customerStatuses);
+    const { args, flags } = await this.parse(LinearCommand_customerStatuses);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -7721,15 +8031,20 @@ COMMANDS["customer-tier"] = class LinearCommand_customerTier extends LinearComma
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_customerTier);
+    const { args, flags } = await this.parse(LinearCommand_customerTier);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -7778,10 +8093,15 @@ COMMANDS["customer-tiers"] = class LinearCommand_customerTiers extends LinearCom
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_customerTiers);
+    const { args, flags } = await this.parse(LinearCommand_customerTiers);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -7904,10 +8224,15 @@ COMMANDS["customers"] = class LinearCommand_customers extends LinearCommand {
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_customers);
+    const { args, flags } = await this.parse(LinearCommand_customers);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -7992,15 +8317,20 @@ COMMANDS["cycle"] = class LinearCommand_cycle extends LinearCommand {
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_cycle);
+    const { args, flags } = await this.parse(LinearCommand_cycle);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -8059,8 +8389,11 @@ COMMANDS["cycle:issues"] = class LinearCommand_cycle_issues extends LinearComman
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.accumulatedStateUpdatedAt.null": Flags.boolean({ required: false }),
@@ -8230,10 +8563,15 @@ COMMANDS["cycle:issues"] = class LinearCommand_cycle_issues extends LinearComman
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_cycle_issues);
+    const { args, flags } = await this.parse(LinearCommand_cycle_issues);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -8490,8 +8828,11 @@ COMMANDS["cycle:uncompleted-issues-upon-close"] = class LinearCommand_cycle_unco
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.accumulatedStateUpdatedAt.null": Flags.boolean({ required: false }),
@@ -8661,10 +9002,15 @@ COMMANDS["cycle:uncompleted-issues-upon-close"] = class LinearCommand_cycle_unco
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_cycle_uncompletedIssuesUponClose);
+    const { args, flags } = await this.parse(LinearCommand_cycle_uncompletedIssuesUponClose);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -8965,10 +9311,15 @@ COMMANDS["cycles"] = class LinearCommand_cycles extends LinearCommand {
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_cycles);
+    const { args, flags } = await this.parse(LinearCommand_cycles);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -9053,15 +9404,20 @@ COMMANDS["document"] = class LinearCommand_document extends LinearCommand {
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_document);
+    const { args, flags } = await this.parse(LinearCommand_document);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -9131,8 +9487,11 @@ COMMANDS["document:comments"] = class LinearCommand_document_comments extends Li
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.body.contains": Flags.string({ required: false }),
@@ -9162,10 +9521,15 @@ COMMANDS["document:comments"] = class LinearCommand_document_comments extends Li
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_document_comments);
+    const { args, flags } = await this.parse(LinearCommand_document_comments);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -9426,15 +9790,20 @@ COMMANDS["document-content-history"] = class LinearCommand_documentContentHistor
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_documentContentHistory);
+    const { args, flags } = await this.parse(LinearCommand_documentContentHistory);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -9518,10 +9887,15 @@ COMMANDS["documents"] = class LinearCommand_documents extends LinearCommand {
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_documents);
+    const { args, flags } = await this.parse(LinearCommand_documents);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -9617,15 +9991,20 @@ COMMANDS["email-intake-address"] = class LinearCommand_emailIntakeAddress extend
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_emailIntakeAddress);
+    const { args, flags } = await this.parse(LinearCommand_emailIntakeAddress);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -9716,15 +10095,20 @@ COMMANDS["email-intake-address:ses-domain-identity"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {
-      id: Flags.string({ required: true }),
+    public static override args = {
+      id: Args.string({ required: true }),
     };
 
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_emailIntakeAddress_sesDomainIdentity);
+      const { args, flags } = await this.parse(LinearCommand_emailIntakeAddress_sesDomainIdentity);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -9779,15 +10163,20 @@ COMMANDS["emoji"] = class LinearCommand_emoji extends LinearCommand {
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_emoji);
+    const { args, flags } = await this.parse(LinearCommand_emoji);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -9839,10 +10228,15 @@ COMMANDS["emojis"] = class LinearCommand_emojis extends LinearCommand {
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_emojis);
+    const { args, flags } = await this.parse(LinearCommand_emojis);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -9909,15 +10303,20 @@ COMMANDS["entity-external-link"] = class LinearCommand_entityExternalLink extend
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_entityExternalLink);
+    const { args, flags } = await this.parse(LinearCommand_entityExternalLink);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -9962,15 +10361,20 @@ COMMANDS["external-user"] = class LinearCommand_externalUser extends LinearComma
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_externalUser);
+    const { args, flags } = await this.parse(LinearCommand_externalUser);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -10019,10 +10423,15 @@ COMMANDS["external-users"] = class LinearCommand_externalUsers extends LinearCom
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_externalUsers);
+    const { args, flags } = await this.parse(LinearCommand_externalUsers);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -10086,15 +10495,20 @@ COMMANDS["favorite"] = class LinearCommand_favorite extends LinearCommand {
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_favorite);
+    const { args, flags } = await this.parse(LinearCommand_favorite);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -10187,8 +10601,11 @@ COMMANDS["favorite:children"] = class LinearCommand_favorite_children extends Li
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     first: Flags.integer({ required: false }),
@@ -10198,10 +10615,15 @@ COMMANDS["favorite:children"] = class LinearCommand_favorite_children extends Li
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_favorite_children);
+    const { args, flags } = await this.parse(LinearCommand_favorite_children);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -10331,10 +10753,15 @@ COMMANDS["favorites"] = class LinearCommand_favorites extends LinearCommand {
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_favorites);
+    const { args, flags } = await this.parse(LinearCommand_favorites);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -10452,15 +10879,20 @@ COMMANDS["initiative"] = class LinearCommand_initiative extends LinearCommand {
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_initiative);
+    const { args, flags } = await this.parse(LinearCommand_initiative);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -10583,15 +11015,20 @@ COMMANDS["initiative:document-content"] = class LinearCommand_initiative_documen
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_initiative_documentContent);
+    const { args, flags } = await this.parse(LinearCommand_initiative_documentContent);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -10666,15 +11103,20 @@ COMMANDS["initiative:document-content:ai-prompt-rules"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {
-      id: Flags.string({ required: true }),
+    public static override args = {
+      id: Args.string({ required: true }),
     };
 
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_initiative_documentContent_aiPromptRules);
+      const { args, flags } = await this.parse(LinearCommand_initiative_documentContent_aiPromptRules);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -10717,8 +11159,11 @@ COMMANDS["initiative:documents"] = class LinearCommand_initiative_documents exte
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.slugId.contains": Flags.string({ required: false }),
@@ -10760,10 +11205,15 @@ COMMANDS["initiative:documents"] = class LinearCommand_initiative_documents exte
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_initiative_documents);
+    const { args, flags } = await this.parse(LinearCommand_initiative_documents);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -10861,8 +11311,11 @@ COMMANDS["initiative:history"] = class LinearCommand_initiative_history extends 
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     first: Flags.integer({ required: false }),
@@ -10872,10 +11325,15 @@ COMMANDS["initiative:history"] = class LinearCommand_initiative_history extends 
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_initiative_history);
+    const { args, flags } = await this.parse(LinearCommand_initiative_history);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -10940,8 +11398,11 @@ COMMANDS["initiative:links"] = class LinearCommand_initiative_links extends Line
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     first: Flags.integer({ required: false }),
@@ -10951,10 +11412,15 @@ COMMANDS["initiative:links"] = class LinearCommand_initiative_links extends Line
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_initiative_links);
+    const { args, flags } = await this.parse(LinearCommand_initiative_links);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -11026,8 +11492,11 @@ COMMANDS["initiative:projects"] = class LinearCommand_initiative_projects extend
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.activityType.contains": Flags.string({ required: false }),
@@ -11181,10 +11650,15 @@ COMMANDS["initiative:projects"] = class LinearCommand_initiative_projects extend
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_initiative_projects);
+    const { args, flags } = await this.parse(LinearCommand_initiative_projects);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -11369,8 +11843,11 @@ COMMANDS["initiative:sub-initiatives"] = class LinearCommand_initiative_subIniti
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.activityType.contains": Flags.string({ required: false }),
@@ -11479,10 +11956,15 @@ COMMANDS["initiative:sub-initiatives"] = class LinearCommand_initiative_subIniti
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_initiative_subInitiatives);
+    const { args, flags } = await this.parse(LinearCommand_initiative_subInitiatives);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -11634,15 +12116,20 @@ COMMANDS["initiative-relation"] = class LinearCommand_initiativeRelation extends
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_initiativeRelation);
+    const { args, flags } = await this.parse(LinearCommand_initiativeRelation);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -11710,10 +12197,15 @@ COMMANDS["initiative-relations"] = class LinearCommand_initiativeRelations exten
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_initiativeRelations);
+    const { args, flags } = await this.parse(LinearCommand_initiativeRelations);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -11784,15 +12276,20 @@ COMMANDS["initiative-to-project"] = class LinearCommand_initiativeToProject exte
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_initiativeToProject);
+    const { args, flags } = await this.parse(LinearCommand_initiativeToProject);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -11845,10 +12342,15 @@ COMMANDS["initiative-to-projects"] = class LinearCommand_initiativeToProjects ex
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_initiativeToProjects);
+    const { args, flags } = await this.parse(LinearCommand_initiativeToProjects);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -11916,15 +12418,20 @@ COMMANDS["initiative-update"] = class LinearCommand_initiativeUpdate extends Lin
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_initiativeUpdate);
+    const { args, flags } = await this.parse(LinearCommand_initiativeUpdate);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -12010,8 +12517,11 @@ COMMANDS["initiative-update:comments"] = class LinearCommand_initiativeUpdate_co
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.body.contains": Flags.string({ required: false }),
@@ -12041,10 +12551,15 @@ COMMANDS["initiative-update:comments"] = class LinearCommand_initiativeUpdate_co
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_initiativeUpdate_comments);
+    const { args, flags } = await this.parse(LinearCommand_initiativeUpdate_comments);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -12315,10 +12830,15 @@ COMMANDS["initiative-updates"] = class LinearCommand_initiativeUpdates extends L
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_initiativeUpdates);
+    const { args, flags } = await this.parse(LinearCommand_initiativeUpdates);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -12539,10 +13059,15 @@ COMMANDS["initiatives"] = class LinearCommand_initiatives extends LinearCommand 
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_initiatives);
+    const { args, flags } = await this.parse(LinearCommand_initiatives);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -12692,15 +13217,20 @@ COMMANDS["integration"] = class LinearCommand_integration extends LinearCommand 
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_integration);
+    const { args, flags } = await this.parse(LinearCommand_integration);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -12744,15 +13274,20 @@ COMMANDS["integration-template"] = class LinearCommand_integrationTemplate exten
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_integrationTemplate);
+    const { args, flags } = await this.parse(LinearCommand_integrationTemplate);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -12803,10 +13338,15 @@ COMMANDS["integration-templates"] = class LinearCommand_integrationTemplates ext
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_integrationTemplates);
+    const { args, flags } = await this.parse(LinearCommand_integrationTemplates);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -12882,10 +13422,15 @@ COMMANDS["integrations"] = class LinearCommand_integrations extends LinearComman
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_integrations);
+    const { args, flags } = await this.parse(LinearCommand_integrations);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -12954,15 +13499,20 @@ COMMANDS["integrations-settings"] = class LinearCommand_integrationsSettings ext
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_integrationsSettings);
+    const { args, flags } = await this.parse(LinearCommand_integrationsSettings);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -13021,15 +13571,20 @@ COMMANDS["issue"] = class LinearCommand_issue extends LinearCommand {
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issue);
+    const { args, flags } = await this.parse(LinearCommand_issue);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -13256,8 +13811,11 @@ COMMANDS["issue:attachments"] = class LinearCommand_issue_attachments extends Li
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.creator.null": Flags.boolean({ required: false }),
@@ -13333,10 +13891,15 @@ COMMANDS["issue:attachments"] = class LinearCommand_issue_attachments extends Li
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issue_attachments);
+    const { args, flags } = await this.parse(LinearCommand_issue_attachments);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -13426,15 +13989,20 @@ COMMANDS["issue:bot-actor"] = class LinearCommand_issue_botActor extends LinearC
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issue_botActor);
+    const { args, flags } = await this.parse(LinearCommand_issue_botActor);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -13474,8 +14042,11 @@ COMMANDS["issue:children"] = class LinearCommand_issue_children extends LinearCo
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.accumulatedStateUpdatedAt.null": Flags.boolean({ required: false }),
@@ -13645,10 +14216,15 @@ COMMANDS["issue:children"] = class LinearCommand_issue_children extends LinearCo
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issue_children);
+    const { args, flags } = await this.parse(LinearCommand_issue_children);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -13905,8 +14481,11 @@ COMMANDS["issue:comments"] = class LinearCommand_issue_comments extends LinearCo
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.body.contains": Flags.string({ required: false }),
@@ -13936,10 +14515,15 @@ COMMANDS["issue:comments"] = class LinearCommand_issue_comments extends LinearCo
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issue_comments);
+    const { args, flags } = await this.parse(LinearCommand_issue_comments);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -14202,8 +14786,11 @@ COMMANDS["issue:documents"] = class LinearCommand_issue_documents extends Linear
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.slugId.contains": Flags.string({ required: false }),
@@ -14245,10 +14832,15 @@ COMMANDS["issue:documents"] = class LinearCommand_issue_documents extends Linear
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issue_documents);
+    const { args, flags } = await this.parse(LinearCommand_issue_documents);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -14348,8 +14940,11 @@ COMMANDS["issue:former-attachments"] = class LinearCommand_issue_formerAttachmen
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.creator.null": Flags.boolean({ required: false }),
@@ -14425,10 +15020,15 @@ COMMANDS["issue:former-attachments"] = class LinearCommand_issue_formerAttachmen
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issue_formerAttachments);
+    const { args, flags } = await this.parse(LinearCommand_issue_formerAttachments);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -14518,8 +15118,11 @@ COMMANDS["issue:former-needs"] = class LinearCommand_issue_formerNeeds extends L
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.comment.null": Flags.boolean({ required: false }),
@@ -14541,10 +15144,15 @@ COMMANDS["issue:former-needs"] = class LinearCommand_issue_formerNeeds extends L
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issue_formerNeeds);
+    const { args, flags } = await this.parse(LinearCommand_issue_formerNeeds);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -14662,8 +15270,11 @@ COMMANDS["issue:history"] = class LinearCommand_issue_history extends LinearComm
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     first: Flags.integer({ required: false }),
@@ -14673,10 +15284,15 @@ COMMANDS["issue:history"] = class LinearCommand_issue_history extends LinearComm
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issue_history);
+    const { args, flags } = await this.parse(LinearCommand_issue_history);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -14983,8 +15599,11 @@ COMMANDS["issue:inverse-relations"] = class LinearCommand_issue_inverseRelations
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     first: Flags.integer({ required: false }),
@@ -14994,10 +15613,15 @@ COMMANDS["issue:inverse-relations"] = class LinearCommand_issue_inverseRelations
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issue_inverseRelations);
+    const { args, flags } = await this.parse(LinearCommand_issue_inverseRelations);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -15071,8 +15695,11 @@ COMMANDS["issue:labels"] = class LinearCommand_issue_labels extends LinearComman
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.creator.null": Flags.boolean({ required: false }),
@@ -15102,10 +15729,15 @@ COMMANDS["issue:labels"] = class LinearCommand_issue_labels extends LinearComman
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issue_labels);
+    const { args, flags } = await this.parse(LinearCommand_issue_labels);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -15194,8 +15826,11 @@ COMMANDS["issue:needs"] = class LinearCommand_issue_needs extends LinearCommand 
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.comment.null": Flags.boolean({ required: false }),
@@ -15217,10 +15852,15 @@ COMMANDS["issue:needs"] = class LinearCommand_issue_needs extends LinearCommand 
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issue_needs);
+    const { args, flags } = await this.parse(LinearCommand_issue_needs);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -15338,8 +15978,11 @@ COMMANDS["issue:relations"] = class LinearCommand_issue_relations extends Linear
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     first: Flags.integer({ required: false }),
@@ -15349,10 +15992,15 @@ COMMANDS["issue:relations"] = class LinearCommand_issue_relations extends Linear
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issue_relations);
+    const { args, flags } = await this.parse(LinearCommand_issue_relations);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -15426,8 +16074,11 @@ COMMANDS["issue:subscribers"] = class LinearCommand_issue_subscribers extends Li
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.active.eq": Flags.boolean({ required: false }),
@@ -15500,10 +16151,15 @@ COMMANDS["issue:subscribers"] = class LinearCommand_issue_subscribers extends Li
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issue_subscribers);
+    const { args, flags } = await this.parse(LinearCommand_issue_subscribers);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -15598,10 +16254,13 @@ COMMANDS["issue-figma-file-key-search"] = class LinearCommand_issueFigmaFileKeyS
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    fileKey: Args.string({ required: true }),
+  };
+
   public static override flags = {
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
-    fileKey: Flags.string({ required: true }),
     first: Flags.integer({ required: false }),
     includeArchived: Flags.boolean({ required: false }),
     last: Flags.integer({ required: false }),
@@ -15609,10 +16268,15 @@ COMMANDS["issue-figma-file-key-search"] = class LinearCommand_issueFigmaFileKeyS
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueFigmaFileKeySearch);
+    const { args, flags } = await this.parse(LinearCommand_issueFigmaFileKeySearch);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -15865,16 +16529,24 @@ COMMANDS["issue-filter-suggestion"] = class LinearCommand_issueFilterSuggestion 
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    prompt: Args.string({ required: true }),
+  };
+
   public static override flags = {
     projectId: Flags.string({ required: false }),
-    prompt: Flags.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueFilterSuggestion);
+    const { args, flags } = await this.parse(LinearCommand_issueFilterSuggestion);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -15912,10 +16584,15 @@ COMMANDS["issue-import-check-c-s-v"] = class LinearCommand_issueImportCheckCSV e
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueImportCheckCSV);
+    const { args, flags } = await this.parse(LinearCommand_issueImportCheckCSV);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -15946,15 +16623,20 @@ COMMANDS["issue-import-check-sync"] = class LinearCommand_issueImportCheckSync e
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    issueImportId: Flags.string({ required: true }),
+  public static override args = {
+    issueImportId: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueImportCheckSync);
+    const { args, flags } = await this.parse(LinearCommand_issueImportCheckSync);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -15995,10 +16677,15 @@ COMMANDS["issue-import-jql-check"] = class LinearCommand_issueImportJqlCheck ext
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueImportJqlCheck);
+    const { args, flags } = await this.parse(LinearCommand_issueImportJqlCheck);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -16037,15 +16724,20 @@ COMMANDS["issue-label"] = class LinearCommand_issueLabel extends LinearCommand {
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueLabel);
+    const { args, flags } = await this.parse(LinearCommand_issueLabel);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -16104,8 +16796,11 @@ COMMANDS["issue-label:children"] = class LinearCommand_issueLabel_children exten
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.creator.null": Flags.boolean({ required: false }),
@@ -16135,10 +16830,15 @@ COMMANDS["issue-label:children"] = class LinearCommand_issueLabel_children exten
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueLabel_children);
+    const { args, flags } = await this.parse(LinearCommand_issueLabel_children);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -16225,8 +16925,11 @@ COMMANDS["issue-label:issues"] = class LinearCommand_issueLabel_issues extends L
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.accumulatedStateUpdatedAt.null": Flags.boolean({ required: false }),
@@ -16396,10 +17099,15 @@ COMMANDS["issue-label:issues"] = class LinearCommand_issueLabel_issues extends L
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueLabel_issues);
+    const { args, flags } = await this.parse(LinearCommand_issueLabel_issues);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -16684,10 +17392,15 @@ COMMANDS["issue-labels"] = class LinearCommand_issueLabels extends LinearCommand
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueLabels);
+    const { args, flags } = await this.parse(LinearCommand_issueLabels);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -16772,13 +17485,16 @@ COMMANDS["issue-priority-values"] = class LinearCommand_issuePriorityValues exte
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {};
-
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issuePriorityValues);
+    const { args, flags } = await this.parse(LinearCommand_issuePriorityValues);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -16810,15 +17526,20 @@ COMMANDS["issue-relation"] = class LinearCommand_issueRelation extends LinearCom
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueRelation);
+    const { args, flags } = await this.parse(LinearCommand_issueRelation);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -16873,10 +17594,15 @@ COMMANDS["issue-relations"] = class LinearCommand_issueRelations extends LinearC
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueRelations);
+    const { args, flags } = await this.parse(LinearCommand_issueRelations);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -17117,10 +17843,15 @@ COMMANDS["issue-search"] = class LinearCommand_issueSearch extends LinearCommand
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueSearch);
+    const { args, flags } = await this.parse(LinearCommand_issueSearch);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -17375,15 +18106,20 @@ COMMANDS["issue-title-suggestion-from-customer-request"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {
-      request: Flags.string({ required: true }),
+    public static override args = {
+      request: Args.string({ required: true }),
     };
 
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_issueTitleSuggestionFromCustomerRequest);
+      const { args, flags } = await this.parse(LinearCommand_issueTitleSuggestionFromCustomerRequest);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -17415,15 +18151,20 @@ COMMANDS["issue-vcs-branch-search"] = class LinearCommand_issueVcsBranchSearch e
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    branchName: Flags.string({ required: true }),
+  public static override args = {
+    branchName: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueVcsBranchSearch);
+    const { args, flags } = await this.parse(LinearCommand_issueVcsBranchSearch);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -17652,8 +18393,11 @@ COMMANDS["issue-vcs-branch-search:attachments"] = class LinearCommand_issueVcsBr
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    branchName: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    branchName: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.creator.null": Flags.boolean({ required: false }),
@@ -17729,10 +18473,15 @@ COMMANDS["issue-vcs-branch-search:attachments"] = class LinearCommand_issueVcsBr
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueVcsBranchSearch_attachments);
+    const { args, flags } = await this.parse(LinearCommand_issueVcsBranchSearch_attachments);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -17824,15 +18573,20 @@ COMMANDS["issue-vcs-branch-search:bot-actor"] = class LinearCommand_issueVcsBran
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    branchName: Flags.string({ required: true }),
+  public static override args = {
+    branchName: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueVcsBranchSearch_botActor);
+    const { args, flags } = await this.parse(LinearCommand_issueVcsBranchSearch_botActor);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -17872,8 +18626,11 @@ COMMANDS["issue-vcs-branch-search:children"] = class LinearCommand_issueVcsBranc
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    branchName: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    branchName: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.accumulatedStateUpdatedAt.null": Flags.boolean({ required: false }),
@@ -18043,10 +18800,15 @@ COMMANDS["issue-vcs-branch-search:children"] = class LinearCommand_issueVcsBranc
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueVcsBranchSearch_children);
+    const { args, flags } = await this.parse(LinearCommand_issueVcsBranchSearch_children);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -18303,8 +19065,11 @@ COMMANDS["issue-vcs-branch-search:comments"] = class LinearCommand_issueVcsBranc
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    branchName: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    branchName: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.body.contains": Flags.string({ required: false }),
@@ -18334,10 +19099,15 @@ COMMANDS["issue-vcs-branch-search:comments"] = class LinearCommand_issueVcsBranc
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueVcsBranchSearch_comments);
+    const { args, flags } = await this.parse(LinearCommand_issueVcsBranchSearch_comments);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -18602,8 +19372,11 @@ COMMANDS["issue-vcs-branch-search:documents"] = class LinearCommand_issueVcsBran
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    branchName: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    branchName: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.slugId.contains": Flags.string({ required: false }),
@@ -18645,10 +19418,15 @@ COMMANDS["issue-vcs-branch-search:documents"] = class LinearCommand_issueVcsBran
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueVcsBranchSearch_documents);
+    const { args, flags } = await this.parse(LinearCommand_issueVcsBranchSearch_documents);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -18749,8 +19527,11 @@ COMMANDS["issue-vcs-branch-search:former-attachments"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+    public static override args = {
+      branchName: Args.string({ required: true }),
+    };
+
     public static override flags = {
-      branchName: Flags.string({ required: true }),
       after: Flags.string({ required: false }),
       before: Flags.string({ required: false }),
       "filter.creator.null": Flags.boolean({ required: false }),
@@ -18826,10 +19607,15 @@ COMMANDS["issue-vcs-branch-search:former-attachments"] =
     };
 
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_issueVcsBranchSearch_formerAttachments);
+      const { args, flags } = await this.parse(LinearCommand_issueVcsBranchSearch_formerAttachments);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -18921,8 +19707,11 @@ COMMANDS["issue-vcs-branch-search:former-needs"] = class LinearCommand_issueVcsB
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    branchName: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    branchName: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.comment.null": Flags.boolean({ required: false }),
@@ -18944,10 +19733,15 @@ COMMANDS["issue-vcs-branch-search:former-needs"] = class LinearCommand_issueVcsB
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueVcsBranchSearch_formerNeeds);
+    const { args, flags } = await this.parse(LinearCommand_issueVcsBranchSearch_formerNeeds);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -19065,8 +19859,11 @@ COMMANDS["issue-vcs-branch-search:history"] = class LinearCommand_issueVcsBranch
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    branchName: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    branchName: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     first: Flags.integer({ required: false }),
@@ -19076,10 +19873,15 @@ COMMANDS["issue-vcs-branch-search:history"] = class LinearCommand_issueVcsBranch
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueVcsBranchSearch_history);
+    const { args, flags } = await this.parse(LinearCommand_issueVcsBranchSearch_history);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -19387,8 +20189,11 @@ COMMANDS["issue-vcs-branch-search:inverse-relations"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+    public static override args = {
+      branchName: Args.string({ required: true }),
+    };
+
     public static override flags = {
-      branchName: Flags.string({ required: true }),
       after: Flags.string({ required: false }),
       before: Flags.string({ required: false }),
       first: Flags.integer({ required: false }),
@@ -19398,10 +20203,15 @@ COMMANDS["issue-vcs-branch-search:inverse-relations"] =
     };
 
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_issueVcsBranchSearch_inverseRelations);
+      const { args, flags } = await this.parse(LinearCommand_issueVcsBranchSearch_inverseRelations);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -19475,8 +20285,11 @@ COMMANDS["issue-vcs-branch-search:labels"] = class LinearCommand_issueVcsBranchS
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    branchName: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    branchName: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.creator.null": Flags.boolean({ required: false }),
@@ -19506,10 +20319,15 @@ COMMANDS["issue-vcs-branch-search:labels"] = class LinearCommand_issueVcsBranchS
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueVcsBranchSearch_labels);
+    const { args, flags } = await this.parse(LinearCommand_issueVcsBranchSearch_labels);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -19598,8 +20416,11 @@ COMMANDS["issue-vcs-branch-search:needs"] = class LinearCommand_issueVcsBranchSe
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    branchName: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    branchName: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.comment.null": Flags.boolean({ required: false }),
@@ -19621,10 +20442,15 @@ COMMANDS["issue-vcs-branch-search:needs"] = class LinearCommand_issueVcsBranchSe
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueVcsBranchSearch_needs);
+    const { args, flags } = await this.parse(LinearCommand_issueVcsBranchSearch_needs);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -19744,8 +20570,11 @@ COMMANDS["issue-vcs-branch-search:relations"] = class LinearCommand_issueVcsBran
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    branchName: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    branchName: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     first: Flags.integer({ required: false }),
@@ -19755,10 +20584,15 @@ COMMANDS["issue-vcs-branch-search:relations"] = class LinearCommand_issueVcsBran
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueVcsBranchSearch_relations);
+    const { args, flags } = await this.parse(LinearCommand_issueVcsBranchSearch_relations);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -19834,8 +20668,11 @@ COMMANDS["issue-vcs-branch-search:subscribers"] = class LinearCommand_issueVcsBr
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    branchName: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    branchName: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.active.eq": Flags.boolean({ required: false }),
@@ -19908,10 +20745,15 @@ COMMANDS["issue-vcs-branch-search:subscribers"] = class LinearCommand_issueVcsBr
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issueVcsBranchSearch_subscribers);
+    const { args, flags } = await this.parse(LinearCommand_issueVcsBranchSearch_subscribers);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -20176,10 +21018,15 @@ COMMANDS["issues"] = class LinearCommand_issues extends LinearCommand {
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_issues);
+    const { args, flags } = await this.parse(LinearCommand_issues);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -20433,15 +21280,20 @@ COMMANDS["notification"] = class LinearCommand_notification extends LinearComman
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_notification);
+    const { args, flags } = await this.parse(LinearCommand_notification);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -20962,15 +21814,20 @@ COMMANDS["notification-subscription"] = class LinearCommand_notificationSubscrip
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_notificationSubscription);
+    const { args, flags } = await this.parse(LinearCommand_notificationSubscription);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -21051,10 +21908,15 @@ COMMANDS["notification-subscriptions"] = class LinearCommand_notificationSubscri
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_notificationSubscriptions);
+    const { args, flags } = await this.parse(LinearCommand_notificationSubscriptions);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -21176,10 +22038,15 @@ COMMANDS["notifications"] = class LinearCommand_notifications extends LinearComm
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_notifications);
+    const { args, flags } = await this.parse(LinearCommand_notifications);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -21726,13 +22593,16 @@ COMMANDS["organization"] = class LinearCommand_organization extends LinearComman
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {};
-
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_organization);
+    const { args, flags } = await this.parse(LinearCommand_organization);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -21868,10 +22738,15 @@ COMMANDS["organization:integrations"] = class LinearCommand_organization_integra
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_organization_integrations);
+    const { args, flags } = await this.parse(LinearCommand_organization_integrations);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -21972,10 +22847,15 @@ COMMANDS["organization:labels"] = class LinearCommand_organization_labels extend
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_organization_labels);
+    const { args, flags } = await this.parse(LinearCommand_organization_labels);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -22091,10 +22971,15 @@ COMMANDS["organization:project-labels"] = class LinearCommand_organization_proje
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_organization_projectLabels);
+    const { args, flags } = await this.parse(LinearCommand_organization_projectLabels);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -22174,13 +23059,16 @@ COMMANDS["organization:subscription"] = class LinearCommand_organization_subscri
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {};
-
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_organization_subscription);
+    const { args, flags } = await this.parse(LinearCommand_organization_subscription);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -22292,10 +23180,15 @@ COMMANDS["organization:teams"] = class LinearCommand_organization_teams extends 
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_organization_teams);
+    const { args, flags } = await this.parse(LinearCommand_organization_teams);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -22488,10 +23381,15 @@ COMMANDS["organization:templates"] = class LinearCommand_organization_templates 
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_organization_templates);
+    const { args, flags } = await this.parse(LinearCommand_organization_templates);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -22586,10 +23484,15 @@ COMMANDS["organization:users"] = class LinearCommand_organization_users extends 
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_organization_users);
+    const { args, flags } = await this.parse(LinearCommand_organization_users);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -22681,15 +23584,20 @@ COMMANDS["organization-exists"] = class LinearCommand_organizationExists extends
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    urlKey: Flags.string({ required: true }),
+  public static override args = {
+    urlKey: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_organizationExists);
+    const { args, flags } = await this.parse(LinearCommand_organizationExists);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -22721,15 +23629,20 @@ COMMANDS["organization-invite"] = class LinearCommand_organizationInvite extends
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_organizationInvite);
+    const { args, flags } = await this.parse(LinearCommand_organizationInvite);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -22789,10 +23702,15 @@ COMMANDS["organization-invites"] = class LinearCommand_organizationInvites exten
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_organizationInvites);
+    const { args, flags } = await this.parse(LinearCommand_organizationInvites);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -22867,15 +23785,20 @@ COMMANDS["project"] = class LinearCommand_project extends LinearCommand {
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_project);
+    const { args, flags } = await this.parse(LinearCommand_project);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -23030,8 +23953,11 @@ COMMANDS["project:comments"] = class LinearCommand_project_comments extends Line
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.body.contains": Flags.string({ required: false }),
@@ -23061,10 +23987,15 @@ COMMANDS["project:comments"] = class LinearCommand_project_comments extends Line
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_project_comments);
+    const { args, flags } = await this.parse(LinearCommand_project_comments);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -23327,15 +24258,20 @@ COMMANDS["project:document-content"] = class LinearCommand_project_documentConte
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_project_documentContent);
+    const { args, flags } = await this.parse(LinearCommand_project_documentContent);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -23412,15 +24348,20 @@ COMMANDS["project:document-content:ai-prompt-rules"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {
-      id: Flags.string({ required: true }),
+    public static override args = {
+      id: Args.string({ required: true }),
     };
 
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_project_documentContent_aiPromptRules);
+      const { args, flags } = await this.parse(LinearCommand_project_documentContent_aiPromptRules);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -23465,8 +24406,11 @@ COMMANDS["project:documents"] = class LinearCommand_project_documents extends Li
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.slugId.contains": Flags.string({ required: false }),
@@ -23508,10 +24452,15 @@ COMMANDS["project:documents"] = class LinearCommand_project_documents extends Li
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_project_documents);
+    const { args, flags } = await this.parse(LinearCommand_project_documents);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -23611,8 +24560,11 @@ COMMANDS["project:external-links"] = class LinearCommand_project_externalLinks e
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     first: Flags.integer({ required: false }),
@@ -23622,10 +24574,15 @@ COMMANDS["project:external-links"] = class LinearCommand_project_externalLinks e
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_project_externalLinks);
+    const { args, flags } = await this.parse(LinearCommand_project_externalLinks);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -23699,8 +24656,11 @@ COMMANDS["project:history"] = class LinearCommand_project_history extends Linear
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     first: Flags.integer({ required: false }),
@@ -23710,10 +24670,15 @@ COMMANDS["project:history"] = class LinearCommand_project_history extends Linear
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_project_history);
+    const { args, flags } = await this.parse(LinearCommand_project_history);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -23782,8 +24747,11 @@ COMMANDS["project:initiatives"] = class LinearCommand_project_initiatives extend
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     first: Flags.integer({ required: false }),
@@ -23793,10 +24761,15 @@ COMMANDS["project:initiatives"] = class LinearCommand_project_initiatives extend
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_project_initiatives);
+    const { args, flags } = await this.parse(LinearCommand_project_initiatives);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -23948,8 +24921,11 @@ COMMANDS["project:inverse-relations"] = class LinearCommand_project_inverseRelat
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     first: Flags.integer({ required: false }),
@@ -23959,10 +24935,15 @@ COMMANDS["project:inverse-relations"] = class LinearCommand_project_inverseRelat
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_project_inverseRelations);
+    const { args, flags } = await this.parse(LinearCommand_project_inverseRelations);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -24049,8 +25030,11 @@ COMMANDS["project:issues"] = class LinearCommand_project_issues extends LinearCo
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.accumulatedStateUpdatedAt.null": Flags.boolean({ required: false }),
@@ -24220,10 +25204,15 @@ COMMANDS["project:issues"] = class LinearCommand_project_issues extends LinearCo
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_project_issues);
+    const { args, flags } = await this.parse(LinearCommand_project_issues);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -24480,8 +25469,11 @@ COMMANDS["project:labels"] = class LinearCommand_project_labels extends LinearCo
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.creator.null": Flags.boolean({ required: false }),
@@ -24510,10 +25502,15 @@ COMMANDS["project:labels"] = class LinearCommand_project_labels extends LinearCo
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_project_labels);
+    const { args, flags } = await this.parse(LinearCommand_project_labels);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -24595,8 +25592,11 @@ COMMANDS["project:members"] = class LinearCommand_project_members extends Linear
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.active.eq": Flags.boolean({ required: false }),
@@ -24669,10 +25669,15 @@ COMMANDS["project:members"] = class LinearCommand_project_members extends Linear
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_project_members);
+    const { args, flags } = await this.parse(LinearCommand_project_members);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -24767,8 +25772,11 @@ COMMANDS["project:needs"] = class LinearCommand_project_needs extends LinearComm
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.comment.null": Flags.boolean({ required: false }),
@@ -24790,10 +25798,15 @@ COMMANDS["project:needs"] = class LinearCommand_project_needs extends LinearComm
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_project_needs);
+    const { args, flags } = await this.parse(LinearCommand_project_needs);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -24911,8 +25924,11 @@ COMMANDS["project:project-milestones"] = class LinearCommand_project_projectMile
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.name.contains": Flags.string({ required: false }),
@@ -24940,10 +25956,15 @@ COMMANDS["project:project-milestones"] = class LinearCommand_project_projectMile
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_project_projectMilestones);
+    const { args, flags } = await this.parse(LinearCommand_project_projectMilestones);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -25067,8 +26088,11 @@ COMMANDS["project:project-updates"] = class LinearCommand_project_projectUpdates
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     first: Flags.integer({ required: false }),
@@ -25078,10 +26102,15 @@ COMMANDS["project:project-updates"] = class LinearCommand_project_projectUpdates
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_project_projectUpdates);
+    const { args, flags } = await this.parse(LinearCommand_project_projectUpdates);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -25198,8 +26227,11 @@ COMMANDS["project:relations"] = class LinearCommand_project_relations extends Li
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     first: Flags.integer({ required: false }),
@@ -25209,10 +26241,15 @@ COMMANDS["project:relations"] = class LinearCommand_project_relations extends Li
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_project_relations);
+    const { args, flags } = await this.parse(LinearCommand_project_relations);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -25299,8 +26336,11 @@ COMMANDS["project:teams"] = class LinearCommand_project_teams extends LinearComm
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.description.contains": Flags.string({ required: false }),
@@ -25362,10 +26402,15 @@ COMMANDS["project:teams"] = class LinearCommand_project_teams extends LinearComm
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_project_teams);
+    const { args, flags } = await this.parse(LinearCommand_project_teams);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -25517,15 +26562,20 @@ COMMANDS["project-filter-suggestion"] = class LinearCommand_projectFilterSuggest
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    prompt: Flags.string({ required: true }),
+  public static override args = {
+    prompt: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_projectFilterSuggestion);
+    const { args, flags } = await this.parse(LinearCommand_projectFilterSuggestion);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -25557,15 +26607,20 @@ COMMANDS["project-label"] = class LinearCommand_projectLabel extends LinearComma
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_projectLabel);
+    const { args, flags } = await this.parse(LinearCommand_projectLabel);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -25617,8 +26672,11 @@ COMMANDS["project-label:children"] = class LinearCommand_projectLabel_children e
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.creator.null": Flags.boolean({ required: false }),
@@ -25647,10 +26705,15 @@ COMMANDS["project-label:children"] = class LinearCommand_projectLabel_children e
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_projectLabel_children);
+    const { args, flags } = await this.parse(LinearCommand_projectLabel_children);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -25730,8 +26793,11 @@ COMMANDS["project-label:projects"] = class LinearCommand_projectLabel_projects e
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.activityType.contains": Flags.string({ required: false }),
@@ -25884,10 +26950,15 @@ COMMANDS["project-label:projects"] = class LinearCommand_projectLabel_projects e
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_projectLabel_projects);
+    const { args, flags } = await this.parse(LinearCommand_projectLabel_projects);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -26100,10 +27171,15 @@ COMMANDS["project-labels"] = class LinearCommand_projectLabels extends LinearCom
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_projectLabels);
+    const { args, flags } = await this.parse(LinearCommand_projectLabels);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -26181,15 +27257,20 @@ COMMANDS["project-milestone"] = class LinearCommand_projectMilestone extends Lin
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_projectMilestone);
+    const { args, flags } = await this.parse(LinearCommand_projectMilestone);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -26285,15 +27366,20 @@ COMMANDS["project-milestone:document-content"] = class LinearCommand_projectMile
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_projectMilestone_documentContent);
+    const { args, flags } = await this.parse(LinearCommand_projectMilestone_documentContent);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -26368,15 +27454,20 @@ COMMANDS["project-milestone:document-content:ai-prompt-rules"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {
-      id: Flags.string({ required: true }),
+    public static override args = {
+      id: Args.string({ required: true }),
     };
 
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_projectMilestone_documentContent_aiPromptRules);
+      const { args, flags } = await this.parse(LinearCommand_projectMilestone_documentContent_aiPromptRules);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -26419,8 +27510,11 @@ COMMANDS["project-milestone:issues"] = class LinearCommand_projectMilestone_issu
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.accumulatedStateUpdatedAt.null": Flags.boolean({ required: false }),
@@ -26590,10 +27684,15 @@ COMMANDS["project-milestone:issues"] = class LinearCommand_projectMilestone_issu
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_projectMilestone_issues);
+    const { args, flags } = await this.parse(LinearCommand_projectMilestone_issues);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -26876,10 +27975,15 @@ COMMANDS["project-milestones"] = class LinearCommand_projectMilestones extends L
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_projectMilestones);
+    const { args, flags } = await this.parse(LinearCommand_projectMilestones);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -26999,15 +28103,20 @@ COMMANDS["project-relation"] = class LinearCommand_projectRelation extends Linea
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_projectRelation);
+    const { args, flags } = await this.parse(LinearCommand_projectRelation);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -27075,10 +28184,15 @@ COMMANDS["project-relations"] = class LinearCommand_projectRelations extends Lin
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_projectRelations);
+    const { args, flags } = await this.parse(LinearCommand_projectRelations);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -27161,15 +28275,20 @@ COMMANDS["project-status"] = class LinearCommand_projectStatus extends LinearCom
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_projectStatus);
+    const { args, flags } = await this.parse(LinearCommand_projectStatus);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -27219,10 +28338,15 @@ COMMANDS["project-statuses"] = class LinearCommand_projectStatuses extends Linea
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_projectStatuses);
+    const { args, flags } = await this.parse(LinearCommand_projectStatuses);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -27287,15 +28411,20 @@ COMMANDS["project-update"] = class LinearCommand_projectUpdate extends LinearCom
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_projectUpdate);
+    const { args, flags } = await this.parse(LinearCommand_projectUpdate);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -27383,8 +28512,11 @@ COMMANDS["project-update:comments"] = class LinearCommand_projectUpdate_comments
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.body.contains": Flags.string({ required: false }),
@@ -27414,10 +28546,15 @@ COMMANDS["project-update:comments"] = class LinearCommand_projectUpdate_comments
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_projectUpdate_comments);
+    const { args, flags } = await this.parse(LinearCommand_projectUpdate_comments);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -27688,10 +28825,15 @@ COMMANDS["project-updates"] = class LinearCommand_projectUpdates extends LinearC
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_projectUpdates);
+    const { args, flags } = await this.parse(LinearCommand_projectUpdates);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -27958,10 +29100,15 @@ COMMANDS["projects"] = class LinearCommand_projects extends LinearCommand {
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_projects);
+    const { args, flags } = await this.parse(LinearCommand_projects);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -28149,10 +29296,15 @@ COMMANDS["push-subscription-test"] = class LinearCommand_pushSubscriptionTest ex
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_pushSubscriptionTest);
+    const { args, flags } = await this.parse(LinearCommand_pushSubscriptionTest);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -28183,13 +29335,16 @@ COMMANDS["rate-limit-status"] = class LinearCommand_rateLimitStatus extends Line
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {};
-
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_rateLimitStatus);
+    const { args, flags } = await this.parse(LinearCommand_rateLimitStatus);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -28234,15 +29389,20 @@ COMMANDS["roadmap"] = class LinearCommand_roadmap extends LinearCommand {
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_roadmap);
+    const { args, flags } = await this.parse(LinearCommand_roadmap);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -28292,8 +29452,11 @@ COMMANDS["roadmap:projects"] = class LinearCommand_roadmap_projects extends Line
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.activityType.contains": Flags.string({ required: false }),
@@ -28446,10 +29609,15 @@ COMMANDS["roadmap:projects"] = class LinearCommand_roadmap_projects extends Line
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_roadmap_projects);
+    const { args, flags } = await this.parse(LinearCommand_roadmap_projects);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -28632,15 +29800,20 @@ COMMANDS["roadmap-to-project"] = class LinearCommand_roadmapToProject extends Li
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_roadmapToProject);
+    const { args, flags } = await this.parse(LinearCommand_roadmapToProject);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -28693,10 +29866,15 @@ COMMANDS["roadmap-to-projects"] = class LinearCommand_roadmapToProjects extends 
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_roadmapToProjects);
+    const { args, flags } = await this.parse(LinearCommand_roadmapToProjects);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -28774,10 +29952,15 @@ COMMANDS["roadmaps"] = class LinearCommand_roadmaps extends LinearCommand {
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_roadmaps);
+    const { args, flags } = await this.parse(LinearCommand_roadmaps);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -28852,6 +30035,10 @@ COMMANDS["search-documents"] = class LinearCommand_searchDocuments extends Linea
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    term: Args.string({ required: true }),
+  };
+
   public static override flags = {
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
@@ -28861,14 +30048,18 @@ COMMANDS["search-documents"] = class LinearCommand_searchDocuments extends Linea
     last: Flags.integer({ required: false }),
     orderBy: Flags.string({ required: false, options: ["createdAt", "updatedAt"] }),
     teamId: Flags.string({ required: false }),
-    term: Flags.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_searchDocuments);
+    const { args, flags } = await this.parse(LinearCommand_searchDocuments);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -28981,6 +30172,10 @@ COMMANDS["search-documents:archive-payload"] = class LinearCommand_searchDocumen
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    term: Args.string({ required: true }),
+  };
+
   public static override flags = {
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
@@ -28990,14 +30185,18 @@ COMMANDS["search-documents:archive-payload"] = class LinearCommand_searchDocumen
     last: Flags.integer({ required: false }),
     orderBy: Flags.string({ required: false, options: ["createdAt", "updatedAt"] }),
     teamId: Flags.string({ required: false }),
-    term: Flags.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_searchDocuments_archivePayload);
+    const { args, flags } = await this.parse(LinearCommand_searchDocuments_archivePayload);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -29042,6 +30241,10 @@ COMMANDS["search-issues"] = class LinearCommand_searchIssues extends LinearComma
   public static override description = "Runs searchIssues";
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
+
+  public static override args = {
+    term: Args.string({ required: true }),
+  };
 
   public static override flags = {
     after: Flags.string({ required: false }),
@@ -29212,14 +30415,18 @@ COMMANDS["search-issues"] = class LinearCommand_searchIssues extends LinearComma
     last: Flags.integer({ required: false }),
     orderBy: Flags.string({ required: false, options: ["createdAt", "updatedAt"] }),
     teamId: Flags.string({ required: false }),
-    term: Flags.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_searchIssues);
+    const { args, flags } = await this.parse(LinearCommand_searchIssues);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -29486,6 +30693,10 @@ COMMANDS["search-issues:archive-payload"] = class LinearCommand_searchIssues_arc
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    term: Args.string({ required: true }),
+  };
+
   public static override flags = {
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
@@ -29655,14 +30866,18 @@ COMMANDS["search-issues:archive-payload"] = class LinearCommand_searchIssues_arc
     last: Flags.integer({ required: false }),
     orderBy: Flags.string({ required: false, options: ["createdAt", "updatedAt"] }),
     teamId: Flags.string({ required: false }),
-    term: Flags.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_searchIssues_archivePayload);
+    const { args, flags } = await this.parse(LinearCommand_searchIssues_archivePayload);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -29709,6 +30924,10 @@ COMMANDS["search-projects"] = class LinearCommand_searchProjects extends LinearC
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    term: Args.string({ required: true }),
+  };
+
   public static override flags = {
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
@@ -29718,14 +30937,18 @@ COMMANDS["search-projects"] = class LinearCommand_searchProjects extends LinearC
     last: Flags.integer({ required: false }),
     orderBy: Flags.string({ required: false, options: ["createdAt", "updatedAt"] }),
     teamId: Flags.string({ required: false }),
-    term: Flags.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_searchProjects);
+    const { args, flags } = await this.parse(LinearCommand_searchProjects);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -29919,6 +31142,10 @@ COMMANDS["search-projects:archive-payload"] = class LinearCommand_searchProjects
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    term: Args.string({ required: true }),
+  };
+
   public static override flags = {
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
@@ -29928,14 +31155,18 @@ COMMANDS["search-projects:archive-payload"] = class LinearCommand_searchProjects
     last: Flags.integer({ required: false }),
     orderBy: Flags.string({ required: false, options: ["createdAt", "updatedAt"] }),
     teamId: Flags.string({ required: false }),
-    term: Flags.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_searchProjects_archivePayload);
+    const { args, flags } = await this.parse(LinearCommand_searchProjects_archivePayload);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -29981,18 +31212,26 @@ COMMANDS["semantic-search"] = class LinearCommand_semanticSearch extends LinearC
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    query: Args.string({ required: true }),
+  };
+
   public static override flags = {
     includeArchived: Flags.boolean({ required: false }),
     maxResults: Flags.integer({ required: false }),
-    query: Flags.string({ required: true }),
     types: Flags.string({ multiple: true, required: false, options: ["document", "initiative", "issue", "project"] }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_semanticSearch);
+    const { args, flags } = await this.parse(LinearCommand_semanticSearch);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -30061,10 +31300,15 @@ COMMANDS["sso-url-from-email"] = class LinearCommand_ssoUrlFromEmail extends Lin
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_ssoUrlFromEmail);
+    const { args, flags } = await this.parse(LinearCommand_ssoUrlFromEmail);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -30096,15 +31340,20 @@ COMMANDS["team"] = class LinearCommand_team extends LinearCommand {
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_team);
+    const { args, flags } = await this.parse(LinearCommand_team);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -30226,8 +31475,11 @@ COMMANDS["team:cycles"] = class LinearCommand_team_cycles extends LinearCommand 
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.isActive.eq": Flags.boolean({ required: false }),
@@ -30273,10 +31525,15 @@ COMMANDS["team:cycles"] = class LinearCommand_team_cycles extends LinearCommand 
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_team_cycles);
+    const { args, flags } = await this.parse(LinearCommand_team_cycles);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -30364,8 +31621,11 @@ COMMANDS["team:git-automation-states"] = class LinearCommand_team_gitAutomationS
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     first: Flags.integer({ required: false }),
@@ -30375,10 +31635,15 @@ COMMANDS["team:git-automation-states"] = class LinearCommand_team_gitAutomationS
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_team_gitAutomationStates);
+    const { args, flags } = await this.parse(LinearCommand_team_gitAutomationStates);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -30466,8 +31731,11 @@ COMMANDS["team:issues"] = class LinearCommand_team_issues extends LinearCommand 
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.accumulatedStateUpdatedAt.null": Flags.boolean({ required: false }),
@@ -30638,10 +31906,15 @@ COMMANDS["team:issues"] = class LinearCommand_team_issues extends LinearCommand 
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_team_issues);
+    const { args, flags } = await this.parse(LinearCommand_team_issues);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -30898,8 +32171,11 @@ COMMANDS["team:labels"] = class LinearCommand_team_labels extends LinearCommand 
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.creator.null": Flags.boolean({ required: false }),
@@ -30929,10 +32205,15 @@ COMMANDS["team:labels"] = class LinearCommand_team_labels extends LinearCommand 
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_team_labels);
+    const { args, flags } = await this.parse(LinearCommand_team_labels);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -31020,8 +32301,11 @@ COMMANDS["team:members"] = class LinearCommand_team_members extends LinearComman
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.active.eq": Flags.boolean({ required: false }),
@@ -31094,10 +32378,15 @@ COMMANDS["team:members"] = class LinearCommand_team_members extends LinearComman
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_team_members);
+    const { args, flags } = await this.parse(LinearCommand_team_members);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -31191,8 +32480,11 @@ COMMANDS["team:memberships"] = class LinearCommand_team_memberships extends Line
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     first: Flags.integer({ required: false }),
@@ -31202,10 +32494,15 @@ COMMANDS["team:memberships"] = class LinearCommand_team_memberships extends Line
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_team_memberships);
+    const { args, flags } = await this.parse(LinearCommand_team_memberships);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -31278,8 +32575,11 @@ COMMANDS["team:projects"] = class LinearCommand_team_projects extends LinearComm
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.activityType.contains": Flags.string({ required: false }),
@@ -31433,10 +32733,15 @@ COMMANDS["team:projects"] = class LinearCommand_team_projects extends LinearComm
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_team_projects);
+    const { args, flags } = await this.parse(LinearCommand_team_projects);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -31622,8 +32927,11 @@ COMMANDS["team:states"] = class LinearCommand_team_states extends LinearCommand 
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.description.contains": Flags.string({ required: false }),
@@ -31689,10 +32997,15 @@ COMMANDS["team:states"] = class LinearCommand_team_states extends LinearCommand 
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_team_states);
+    const { args, flags } = await this.parse(LinearCommand_team_states);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -31767,8 +33080,11 @@ COMMANDS["team:templates"] = class LinearCommand_team_templates extends LinearCo
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.name.contains": Flags.string({ required: false }),
@@ -31811,10 +33127,15 @@ COMMANDS["team:templates"] = class LinearCommand_team_templates extends LinearCo
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_team_templates);
+    const { args, flags } = await this.parse(LinearCommand_team_templates);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -31899,8 +33220,11 @@ COMMANDS["team:webhooks"] = class LinearCommand_team_webhooks extends LinearComm
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     first: Flags.integer({ required: false }),
@@ -31910,10 +33234,15 @@ COMMANDS["team:webhooks"] = class LinearCommand_team_webhooks extends LinearComm
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_team_webhooks);
+    const { args, flags } = await this.parse(LinearCommand_team_webhooks);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -31990,15 +33319,20 @@ COMMANDS["team-membership"] = class LinearCommand_teamMembership extends LinearC
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_teamMembership);
+    const { args, flags } = await this.parse(LinearCommand_teamMembership);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -32053,10 +33387,15 @@ COMMANDS["team-memberships"] = class LinearCommand_teamMemberships extends Linea
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_teamMemberships);
+    const { args, flags } = await this.parse(LinearCommand_teamMemberships);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -32188,10 +33527,15 @@ COMMANDS["teams"] = class LinearCommand_teams extends LinearCommand {
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_teams);
+    const { args, flags } = await this.parse(LinearCommand_teams);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -32339,15 +33683,20 @@ COMMANDS["template"] = class LinearCommand_template extends LinearCommand {
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_template);
+    const { args, flags } = await this.parse(LinearCommand_template);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -32403,13 +33752,16 @@ COMMANDS["templates"] = class LinearCommand_templates extends LinearCommand {
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {};
-
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_templates);
+    const { args, flags } = await this.parse(LinearCommand_templates);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -32465,15 +33817,20 @@ COMMANDS["templates-for-integration"] = class LinearCommand_templatesForIntegrat
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    integrationType: Flags.string({ required: true }),
+  public static override args = {
+    integrationType: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_templatesForIntegration);
+    const { args, flags } = await this.parse(LinearCommand_templatesForIntegration);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -32529,15 +33886,20 @@ COMMANDS["time-schedule"] = class LinearCommand_timeSchedule extends LinearComma
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_timeSchedule);
+    const { args, flags } = await this.parse(LinearCommand_timeSchedule);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -32598,10 +33960,15 @@ COMMANDS["time-schedules"] = class LinearCommand_timeSchedules extends LinearCom
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_timeSchedules);
+    const { args, flags } = await this.parse(LinearCommand_timeSchedules);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -32687,10 +34054,15 @@ COMMANDS["triage-responsibilities"] = class LinearCommand_triageResponsibilities
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_triageResponsibilities);
+    const { args, flags } = await this.parse(LinearCommand_triageResponsibilities);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -32770,15 +34142,20 @@ COMMANDS["triage-responsibility"] = class LinearCommand_triageResponsibility ext
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_triageResponsibility);
+    const { args, flags } = await this.parse(LinearCommand_triageResponsibility);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -32835,15 +34212,20 @@ COMMANDS["triage-responsibility:manual-selection"] = class LinearCommand_triageR
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_triageResponsibility_manualSelection);
+    const { args, flags } = await this.parse(LinearCommand_triageResponsibility_manualSelection);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -32876,15 +34258,20 @@ COMMANDS["user"] = class LinearCommand_user extends LinearCommand {
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_user);
+    const { args, flags } = await this.parse(LinearCommand_user);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -32948,8 +34335,11 @@ COMMANDS["user:assigned-issues"] = class LinearCommand_user_assignedIssues exten
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.accumulatedStateUpdatedAt.null": Flags.boolean({ required: false }),
@@ -33119,10 +34509,15 @@ COMMANDS["user:assigned-issues"] = class LinearCommand_user_assignedIssues exten
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_user_assignedIssues);
+    const { args, flags } = await this.parse(LinearCommand_user_assignedIssues);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -33379,8 +34774,11 @@ COMMANDS["user:created-issues"] = class LinearCommand_user_createdIssues extends
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.accumulatedStateUpdatedAt.null": Flags.boolean({ required: false }),
@@ -33550,10 +34948,15 @@ COMMANDS["user:created-issues"] = class LinearCommand_user_createdIssues extends
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_user_createdIssues);
+    const { args, flags } = await this.parse(LinearCommand_user_createdIssues);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -33810,8 +35213,11 @@ COMMANDS["user:delegated-issues"] = class LinearCommand_user_delegatedIssues ext
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.accumulatedStateUpdatedAt.null": Flags.boolean({ required: false }),
@@ -33981,10 +35387,15 @@ COMMANDS["user:delegated-issues"] = class LinearCommand_user_delegatedIssues ext
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_user_delegatedIssues);
+    const { args, flags } = await this.parse(LinearCommand_user_delegatedIssues);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -34241,8 +35652,11 @@ COMMANDS["user:drafts"] = class LinearCommand_user_drafts extends LinearCommand 
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     first: Flags.integer({ required: false }),
@@ -34252,10 +35666,15 @@ COMMANDS["user:drafts"] = class LinearCommand_user_drafts extends LinearCommand 
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_user_drafts);
+    const { args, flags } = await this.parse(LinearCommand_user_drafts);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -34355,8 +35774,11 @@ COMMANDS["user:team-memberships"] = class LinearCommand_user_teamMemberships ext
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     first: Flags.integer({ required: false }),
@@ -34366,10 +35788,15 @@ COMMANDS["user:team-memberships"] = class LinearCommand_user_teamMemberships ext
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_user_teamMemberships);
+    const { args, flags } = await this.parse(LinearCommand_user_teamMemberships);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -34443,8 +35870,11 @@ COMMANDS["user:teams"] = class LinearCommand_user_teams extends LinearCommand {
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.description.contains": Flags.string({ required: false }),
@@ -34506,10 +35936,15 @@ COMMANDS["user:teams"] = class LinearCommand_user_teams extends LinearCommand {
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_user_teams);
+    const { args, flags } = await this.parse(LinearCommand_user_teams);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -34661,13 +36096,16 @@ COMMANDS["user-settings"] = class LinearCommand_userSettings extends LinearComma
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {};
-
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_userSettings);
+    const { args, flags } = await this.parse(LinearCommand_userSettings);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -34858,13 +36296,16 @@ COMMANDS["user-settings:notification-category-preferences"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences);
+      const { args, flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -34950,15 +36391,18 @@ COMMANDS["user-settings:notification-category-preferences:apps-and-integrations"
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(
+      const { args, flags } = await this.parse(
         LinearCommand_userSettings_notificationCategoryPreferences_appsAndIntegrations
       );
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -34997,13 +36441,16 @@ COMMANDS["user-settings:notification-category-preferences:assignments"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_assignments);
+      const { args, flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_assignments);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -35042,13 +36489,18 @@ COMMANDS["user-settings:notification-category-preferences:comments-and-replies"]
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_commentsAndReplies);
+      const { args, flags } = await this.parse(
+        LinearCommand_userSettings_notificationCategoryPreferences_commentsAndReplies
+      );
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -35087,13 +36539,16 @@ COMMANDS["user-settings:notification-category-preferences:customers"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_customers);
+      const { args, flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_customers);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -35132,13 +36587,18 @@ COMMANDS["user-settings:notification-category-preferences:document-changes"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_documentChanges);
+      const { args, flags } = await this.parse(
+        LinearCommand_userSettings_notificationCategoryPreferences_documentChanges
+      );
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -35177,13 +36637,16 @@ COMMANDS["user-settings:notification-category-preferences:feed"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_feed);
+      const { args, flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_feed);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -35222,13 +36685,16 @@ COMMANDS["user-settings:notification-category-preferences:mentions"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_mentions);
+      const { args, flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_mentions);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -35267,13 +36733,18 @@ COMMANDS["user-settings:notification-category-preferences:posts-and-updates"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_postsAndUpdates);
+      const { args, flags } = await this.parse(
+        LinearCommand_userSettings_notificationCategoryPreferences_postsAndUpdates
+      );
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -35312,13 +36783,16 @@ COMMANDS["user-settings:notification-category-preferences:reactions"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_reactions);
+      const { args, flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_reactions);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -35357,13 +36831,16 @@ COMMANDS["user-settings:notification-category-preferences:reminders"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_reminders);
+      const { args, flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_reminders);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -35402,13 +36879,16 @@ COMMANDS["user-settings:notification-category-preferences:reviews"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_reviews);
+      const { args, flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_reviews);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -35447,13 +36927,18 @@ COMMANDS["user-settings:notification-category-preferences:status-changes"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_statusChanges);
+      const { args, flags } = await this.parse(
+        LinearCommand_userSettings_notificationCategoryPreferences_statusChanges
+      );
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -35492,13 +36977,18 @@ COMMANDS["user-settings:notification-category-preferences:subscriptions"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_subscriptions);
+      const { args, flags } = await this.parse(
+        LinearCommand_userSettings_notificationCategoryPreferences_subscriptions
+      );
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -35537,13 +37027,16 @@ COMMANDS["user-settings:notification-category-preferences:system"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_system);
+      const { args, flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_system);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -35582,13 +37075,16 @@ COMMANDS["user-settings:notification-category-preferences:triage"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_triage);
+      const { args, flags } = await this.parse(LinearCommand_userSettings_notificationCategoryPreferences_triage);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -35627,13 +37123,16 @@ COMMANDS["user-settings:notification-channel-preferences"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_userSettings_notificationChannelPreferences);
+      const { args, flags } = await this.parse(LinearCommand_userSettings_notificationChannelPreferences);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -35670,13 +37169,16 @@ COMMANDS["user-settings:notification-delivery-preferences"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_userSettings_notificationDeliveryPreferences);
+      const { args, flags } = await this.parse(LinearCommand_userSettings_notificationDeliveryPreferences);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -35752,13 +37254,16 @@ COMMANDS["user-settings:notification-delivery-preferences:mobile"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_userSettings_notificationDeliveryPreferences_mobile);
+      const { args, flags } = await this.parse(LinearCommand_userSettings_notificationDeliveryPreferences_mobile);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -35829,13 +37334,18 @@ COMMANDS["user-settings:notification-delivery-preferences:mobile:schedule"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_userSettings_notificationDeliveryPreferences_mobile_schedule);
+      const { args, flags } = await this.parse(
+        LinearCommand_userSettings_notificationDeliveryPreferences_mobile_schedule
+      );
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -35900,15 +37410,18 @@ COMMANDS["user-settings:notification-delivery-preferences:mobile:schedule:friday
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(
+      const { args, flags } = await this.parse(
         LinearCommand_userSettings_notificationDeliveryPreferences_mobile_schedule_friday
       );
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -35949,15 +37462,18 @@ COMMANDS["user-settings:notification-delivery-preferences:mobile:schedule:monday
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(
+      const { args, flags } = await this.parse(
         LinearCommand_userSettings_notificationDeliveryPreferences_mobile_schedule_monday
       );
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -35998,15 +37514,18 @@ COMMANDS["user-settings:notification-delivery-preferences:mobile:schedule:saturd
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(
+      const { args, flags } = await this.parse(
         LinearCommand_userSettings_notificationDeliveryPreferences_mobile_schedule_saturday
       );
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -36047,15 +37566,18 @@ COMMANDS["user-settings:notification-delivery-preferences:mobile:schedule:sunday
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(
+      const { args, flags } = await this.parse(
         LinearCommand_userSettings_notificationDeliveryPreferences_mobile_schedule_sunday
       );
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -36096,15 +37618,18 @@ COMMANDS["user-settings:notification-delivery-preferences:mobile:schedule:thursd
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(
+      const { args, flags } = await this.parse(
         LinearCommand_userSettings_notificationDeliveryPreferences_mobile_schedule_thursday
       );
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -36145,15 +37670,18 @@ COMMANDS["user-settings:notification-delivery-preferences:mobile:schedule:tuesda
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(
+      const { args, flags } = await this.parse(
         LinearCommand_userSettings_notificationDeliveryPreferences_mobile_schedule_tuesday
       );
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -36194,15 +37722,18 @@ COMMANDS["user-settings:notification-delivery-preferences:mobile:schedule:wednes
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {};
-
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(
+      const { args, flags } = await this.parse(
         LinearCommand_userSettings_notificationDeliveryPreferences_mobile_schedule_wednesday
       );
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -36248,10 +37779,15 @@ COMMANDS["user-settings:theme"] = class LinearCommand_userSettings_theme extends
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_userSettings_theme);
+    const { args, flags } = await this.parse(LinearCommand_userSettings_theme);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -36310,10 +37846,15 @@ COMMANDS["user-settings:theme:custom"] = class LinearCommand_userSettings_theme_
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_userSettings_theme_custom);
+    const { args, flags } = await this.parse(LinearCommand_userSettings_theme_custom);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -36368,10 +37909,15 @@ COMMANDS["user-settings:theme:custom:sidebar"] = class LinearCommand_userSetting
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_userSettings_theme_custom_sidebar);
+    const { args, flags } = await this.parse(LinearCommand_userSettings_theme_custom_sidebar);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -36483,10 +38029,15 @@ COMMANDS["users"] = class LinearCommand_users extends LinearCommand {
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_users);
+    const { args, flags } = await this.parse(LinearCommand_users);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -36579,15 +38130,20 @@ COMMANDS["verify-git-hub-enterprise-server-installation"] =
     public static override enableJsonFlag = true;
     public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-    public static override flags = {
-      integrationId: Flags.string({ required: true }),
+    public static override args = {
+      integrationId: Args.string({ required: true }),
     };
 
     public async run(): Promise<unknown> {
-      const { flags } = await this.parse(LinearCommand_verifyGitHubEnterpriseServerInstallation);
+      const { args, flags } = await this.parse(LinearCommand_verifyGitHubEnterpriseServerInstallation);
       const linearClient = await this.getLinearClient();
 
       const variables: Record<string, unknown> = {};
+
+      for (const [path, value] of Object.entries(args)) {
+        set(variables, path, value);
+      }
+
       for (const [path, value] of Object.entries(flags)) {
         if (path.startsWith("api-") || path === "json") {
           continue;
@@ -36618,13 +38174,16 @@ COMMANDS["viewer"] = class LinearCommand_viewer extends LinearCommand {
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {};
-
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_viewer);
+    const { args, flags } = await this.parse(LinearCommand_viewer);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -36858,10 +38417,15 @@ COMMANDS["viewer:assigned-issues"] = class LinearCommand_viewer_assignedIssues e
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_viewer_assignedIssues);
+    const { args, flags } = await this.parse(LinearCommand_viewer_assignedIssues);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -37288,10 +38852,15 @@ COMMANDS["viewer:created-issues"] = class LinearCommand_viewer_createdIssues ext
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_viewer_createdIssues);
+    const { args, flags } = await this.parse(LinearCommand_viewer_createdIssues);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -37718,10 +39287,15 @@ COMMANDS["viewer:delegated-issues"] = class LinearCommand_viewer_delegatedIssues
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_viewer_delegatedIssues);
+    const { args, flags } = await this.parse(LinearCommand_viewer_delegatedIssues);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -37988,10 +39562,15 @@ COMMANDS["viewer:drafts"] = class LinearCommand_viewer_drafts extends LinearComm
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_viewer_drafts);
+    const { args, flags } = await this.parse(LinearCommand_viewer_drafts);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -38101,10 +39680,15 @@ COMMANDS["viewer:team-memberships"] = class LinearCommand_viewer_teamMemberships
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_viewer_teamMemberships);
+    const { args, flags } = await this.parse(LinearCommand_viewer_teamMemberships);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -38240,10 +39824,15 @@ COMMANDS["viewer:teams"] = class LinearCommand_viewer_teams extends LinearComman
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_viewer_teams);
+    const { args, flags } = await this.parse(LinearCommand_viewer_teams);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -38395,15 +39984,20 @@ COMMANDS["webhook"] = class LinearCommand_webhook extends LinearCommand {
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_webhook);
+    const { args, flags } = await this.parse(LinearCommand_webhook);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -38462,10 +40056,15 @@ COMMANDS["webhooks"] = class LinearCommand_webhooks extends LinearCommand {
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_webhooks);
+    const { args, flags } = await this.parse(LinearCommand_webhooks);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -38539,15 +40138,20 @@ COMMANDS["workflow-state"] = class LinearCommand_workflowState extends LinearCom
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
-  public static override flags = {
-    id: Flags.string({ required: true }),
+  public static override args = {
+    id: Args.string({ required: true }),
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_workflowState);
+    const { args, flags } = await this.parse(LinearCommand_workflowState);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -38593,8 +40197,11 @@ COMMANDS["workflow-state:issues"] = class LinearCommand_workflowState_issues ext
   public static override enableJsonFlag = true;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
 
+  public static override args = {
+    id: Args.string({ required: true }),
+  };
+
   public static override flags = {
-    id: Flags.string({ required: true }),
     after: Flags.string({ required: false }),
     before: Flags.string({ required: false }),
     "filter.accumulatedStateUpdatedAt.null": Flags.boolean({ required: false }),
@@ -38764,10 +40371,15 @@ COMMANDS["workflow-state:issues"] = class LinearCommand_workflowState_issues ext
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_workflowState_issues);
+    const { args, flags } = await this.parse(LinearCommand_workflowState_issues);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
@@ -39088,10 +40700,15 @@ COMMANDS["workflow-states"] = class LinearCommand_workflowStates extends LinearC
   };
 
   public async run(): Promise<unknown> {
-    const { flags } = await this.parse(LinearCommand_workflowStates);
+    const { args, flags } = await this.parse(LinearCommand_workflowStates);
     const linearClient = await this.getLinearClient();
 
     const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, path, value);
+    }
+
     for (const [path, value] of Object.entries(flags)) {
       if (path.startsWith("api-") || path === "json") {
         continue;
