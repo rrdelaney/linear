@@ -26,20 +26,104 @@ function Markdown({ children }: { children: string }) {
  */
 interface TableColumn<T> {
   header: string;
-  width: number;
+  width?: number; // Optional fixed width
+  minWidth?: number; // Minimum width constraint
+  maxWidth?: number; // Maximum width constraint
+  padding?: number; // Padding around content (default: 2)
   render: (row: T, index: number) => React.ReactNode;
+}
+
+/**
+ * Strip ANSI codes and calculate visual width of text.
+ * This handles colored text and other ANSI escape sequences.
+ */
+function getVisualWidth(text: string): number {
+  // Remove ANSI escape codes
+  const stripped = text.replace(/\x1b\[[0-9;]*m/g, "");
+  return stripped.length;
+}
+
+/**
+ * Calculate optimal column widths based on content.
+ * Returns an array of widths corresponding to each column.
+ */
+function calculateColumnWidths<T>(columns: TableColumn<T>[], data: T[]): number[] {
+  return columns.map((column, _colIndex) => {
+    // If width is explicitly set, use it
+    if (column.width !== undefined) {
+      return column.width;
+    }
+
+    const padding = column.padding ?? 2;
+
+    // Start with header width
+    let maxWidth = getVisualWidth(column.header) + padding;
+
+    // Check all data rows for this column
+    for (let rowIndex = 0; rowIndex < data.length; rowIndex++) {
+      const row = data[rowIndex];
+      const rendered = column.render(row, rowIndex);
+
+      // Extract text content from React node
+      let textContent = "";
+      if (rendered && typeof rendered === "object" && "props" in rendered) {
+        const props = (rendered as any).props;
+        if (props.children) {
+          // Handle nested Text components and strings
+          const extractText = (node: any): string => {
+            if (typeof node === "string") {
+              return node;
+            }
+            if (typeof node === "number") {
+              return String(node);
+            }
+            if (Array.isArray(node)) {
+              return node.map(extractText).join("");
+            }
+            if (node && typeof node === "object" && "props" in node && node.props.children) {
+              return extractText(node.props.children);
+            }
+            return "";
+          };
+          textContent = extractText(props.children);
+        }
+      } else if (typeof rendered === "string") {
+        textContent = rendered;
+      } else if (typeof rendered === "number") {
+        textContent = String(rendered);
+      }
+
+      const contentWidth = getVisualWidth(textContent) + padding;
+      if (contentWidth > maxWidth) {
+        maxWidth = contentWidth;
+      }
+    }
+
+    // Apply min/max constraints
+    if (column.minWidth !== undefined && maxWidth < column.minWidth) {
+      maxWidth = column.minWidth;
+    }
+    if (column.maxWidth !== undefined && maxWidth > column.maxWidth) {
+      maxWidth = column.maxWidth;
+    }
+
+    return maxWidth;
+  });
 }
 
 /**
  * Generic table component for rendering data in columns.
  */
 function DataTable<T>({ columns, data }: { columns: TableColumn<T>[]; data: T[] }) {
+  // Calculate dynamic widths based on content
+  const columnWidths = calculateColumnWidths(columns, data);
+
   return (
     <Box flexDirection="column">
       {/* Table Header */}
       <Box>
         {columns.map((column, index) => (
-          <Box key={index} width={column.width}>
+          <Box key={index} width={columnWidths[index]}>
             <Text bold underline>
               {column.header}
             </Text>
@@ -51,7 +135,7 @@ function DataTable<T>({ columns, data }: { columns: TableColumn<T>[]; data: T[] 
       {data.map((row, rowIndex) => (
         <Box key={rowIndex}>
           {columns.map((column, colIndex) => (
-            <Box key={colIndex} width={column.width}>
+            <Box key={colIndex} width={columnWidths[colIndex]}>
               {column.render(row, rowIndex)}
             </Box>
           ))}
@@ -255,21 +339,20 @@ export function renderProjectConnection(connection: any): void {
   const columns: TableColumn<any>[] = [
     {
       header: "NAME",
-      width: 30,
+      maxWidth: 40,
       render: (project: any) => (
         <InkLink url={project.url}>
-          <Text bold>{project.name}</Text>
+          <Text bold>{truncateText(project.name, 40)}</Text>
         </InkLink>
       ),
     },
     {
       header: "LEAD",
-      width: 20,
-      render: (project: any) => <Text>{project.lead?.displayName || "-"}</Text>,
+      maxWidth: 25,
+      render: (project: any) => <Text>{truncateText(project.lead?.displayName || "-", 25)}</Text>,
     },
     {
       header: "HEALTH",
-      width: 12,
       render: (project: any) => {
         const healthLabels: Record<string, string> = {
           onTrack: "On Track",
@@ -283,7 +366,6 @@ export function renderProjectConnection(connection: any): void {
     },
     {
       header: "PROGRESS",
-      width: 10,
       render: (project: any) => {
         const progressPercent = Math.round((project.progress || 0) * 100);
         return <Text>{progressPercent}%</Text>;
@@ -291,7 +373,6 @@ export function renderProjectConnection(connection: any): void {
     },
     {
       header: "UPDATED",
-      width: 20,
       render: (project: any) => (
         <Text dimColor>{formatDistanceToNow(new Date(project.updatedAt), { addSuffix: true })}</Text>
       ),
@@ -429,25 +510,24 @@ export function renderUserConnection(connection: any): void {
   const totalUsers = nodes.length;
   const activeUsers = nodes.filter((user: any) => user.active);
 
-  // Define table columns
+  // Define table columns with dynamic widths
   const columns: TableColumn<any>[] = [
     {
       header: "NAME",
-      width: 25,
+      maxWidth: 30,
       render: user => (
         <InkLink url={user.url}>
-          <Text color="green">{truncateText(user.displayName, 25)}</Text>
+          <Text color="green">{truncateText(user.displayName, 30)}</Text>
         </InkLink>
       ),
     },
     {
       header: "EMAIL",
-      width: 30,
-      render: user => <Text>{truncateText(user.email, 30)}</Text>,
+      maxWidth: 40,
+      render: user => <Text>{truncateText(user.email, 40)}</Text>,
     },
     {
       header: "ROLE",
-      width: 10,
       render: user => {
         const role = getUserRole(user);
         return <Text color={role.color}>{role.label}</Text>;
@@ -455,12 +535,10 @@ export function renderUserConnection(connection: any): void {
     },
     {
       header: "STATUS",
-      width: 10,
       render: user => <Text color={user.active ? "green" : "red"}>{user.active ? "Active" : "Inactive"}</Text>,
     },
     {
       header: "LAST SEEN",
-      width: 20,
       render: user => (
         <Text dimColor>
           {user.lastSeen ? formatDistanceToNow(new Date(user.lastSeen), { addSuffix: true }) : "Never"}
@@ -981,27 +1059,23 @@ export function renderTeamConnection(connection: any): void {
   const columns: TableColumn<any>[] = [
     {
       header: "KEY",
-      width: 8,
       render: (team: any) => <Text bold>{team.key}</Text>,
     },
     {
       header: "NAME",
-      width: 30,
-      render: (team: any) => <Text>{team.displayName || team.name}</Text>,
+      maxWidth: 40,
+      render: (team: any) => <Text>{truncateText(team.displayName || team.name, 40)}</Text>,
     },
     {
       header: "ISSUES",
-      width: 10,
       render: (team: any) => <Text>{team.issueCount}</Text>,
     },
     {
       header: "PRIVATE",
-      width: 10,
       render: (team: any) => <Text>{team.private ? "Yes" : "No"}</Text>,
     },
     {
       header: "UPDATED",
-      width: 20,
       render: (team: any) => <Text dimColor>{formatDistanceToNow(new Date(team.updatedAt), { addSuffix: true })}</Text>,
     },
   ];
@@ -1016,13 +1090,19 @@ export function renderTeamConnection(connection: any): void {
 }
 
 /**
- * Helper to truncate text to a given width.
+ * Helper to truncate text to a given width based on visual width.
+ * This accounts for ANSI codes and ensures accurate truncation.
  */
 function truncateText(text: string, width: number): string {
-  if (text.length <= width) {
+  const visualWidth = getVisualWidth(text);
+  if (visualWidth <= width) {
     return text;
   }
-  return text.slice(0, width - 3) + "...";
+
+  // Strip ANSI codes for accurate slicing
+  const stripped = text.replace(/\x1b\[[0-9;]*m/g, "");
+  const truncated = stripped.slice(0, width - 3) + "...";
+  return truncated;
 }
 
 /**
@@ -1053,11 +1133,10 @@ export function renderIssueConnection(connection: any): void {
   const openIssues = nodes.filter((issue: any) => !issue.completedAt && !issue.canceledAt);
   const totalIssues = nodes.length;
 
-  // Define table columns
+  // Define table columns with dynamic widths
   const columns: TableColumn<any>[] = [
     {
       header: "ID",
-      width: 8,
       render: issue => (
         <InkLink url={issue.url}>
           <Text color="green">{issue.identifier}</Text>
@@ -1066,30 +1145,27 @@ export function renderIssueConnection(connection: any): void {
     },
     {
       header: "STATUS",
-      width: 15,
       render: issue => {
         const status = getIssueStatus(issue);
-        return <Text color={status.color}>{truncateText(status.label, 15)}</Text>;
+        return <Text color={status.color}>{status.label}</Text>;
       },
     },
     {
       header: "TITLE",
-      width: 35,
-      render: issue => <Text>{truncateText(issue.title, 35)}</Text>,
+      maxWidth: 60,
+      render: issue => <Text>{truncateText(issue.title, 60)}</Text>,
     },
     {
       header: "PRIORITY",
-      width: 12,
-      render: issue => <Text>{truncateText(issue.priorityLabel || "None", 12)}</Text>,
+      render: issue => <Text>{issue.priorityLabel || "None"}</Text>,
     },
     {
       header: "ASSIGNEE",
-      width: 15,
-      render: issue => <Text>{truncateText(issue.assignee?.displayName || "Unassigned", 15)}</Text>,
+      maxWidth: 20,
+      render: issue => <Text>{truncateText(issue.assignee?.displayName || "Unassigned", 20)}</Text>,
     },
     {
       header: "UPDATED",
-      width: 20,
       render: issue => <Text dimColor>{formatDistanceToNow(new Date(issue.updatedAt), { addSuffix: true })}</Text>,
     },
   ];
