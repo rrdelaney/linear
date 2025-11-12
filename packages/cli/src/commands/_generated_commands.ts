@@ -102,6 +102,7 @@ COMMANDS["administrable-teams"] = class LinearCommand_administrableTeams extends
   __typename
   nodes {
     ...Team
+    name
   }
   pageInfo {
     ...PageInfo
@@ -339,6 +340,9 @@ fragment AgentActivity on AgentActivity {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
   ephemeral
 }
@@ -469,6 +473,9 @@ COMMANDS["agent-activity"] = class LinearCommand_agentActivity extends LinearCom
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
   ephemeral
 }
@@ -554,6 +561,9 @@ COMMANDS["agent-session"] = class LinearCommand_agentSession extends LinearComma
   externalLink
   appUser {
     id
+    __typename
+    displayName
+    email
   }
   comment {
     id
@@ -561,9 +571,14 @@ COMMANDS["agent-session"] = class LinearCommand_agentSession extends LinearComma
   status
   creator {
     id
+    __typename
+    displayName
+    email
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   archivedAt
@@ -696,6 +711,9 @@ fragment AgentActivity on AgentActivity {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
   ephemeral
 }
@@ -814,6 +832,9 @@ fragment AgentSession on AgentSession {
   externalLink
   appUser {
     id
+    __typename
+    displayName
+    email
   }
   comment {
     id
@@ -821,9 +842,14 @@ fragment AgentSession on AgentSession {
   status
   creator {
     id
+    __typename
+    displayName
+    email
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   archivedAt
@@ -943,12 +969,19 @@ COMMANDS["attachment"] = class LinearCommand_attachment extends LinearCommand {
   bodyData
   creator {
     id
+    __typename
+    displayName
+    email
   }
   issue {
     id
+    title
+    url
   }
   originalIssue {
     id
+    title
+    url
   }
   updatedAt
   externalUserCreator {
@@ -1011,6 +1044,9 @@ COMMANDS["attachment-issue"] = class LinearCommand_attachmentIssue extends Linea
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -1034,6 +1070,9 @@ COMMANDS["attachment-issue"] = class LinearCommand_attachmentIssue extends Linea
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -1048,10 +1087,14 @@ COMMANDS["attachment-issue"] = class LinearCommand_attachmentIssue extends Linea
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -1061,6 +1104,7 @@ COMMANDS["attachment-issue"] = class LinearCommand_attachmentIssue extends Linea
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -1083,12 +1127,21 @@ COMMANDS["attachment-issue"] = class LinearCommand_attachmentIssue extends Linea
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -1112,6 +1165,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -1122,6 +1177,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -1177,6 +1235,8 @@ fragment ExternalEntitySlackMetadata on ExternalEntitySlackMetadata {
 query attachmentIssue($id: String!) {
   attachmentIssue(id: $id) {
     ...Issue
+    title
+    url
   }
 }
 `;
@@ -1303,12 +1363,19 @@ fragment Attachment on Attachment {
   bodyData
   creator {
     id
+    __typename
+    displayName
+    email
   }
   issue {
     id
+    title
+    url
   }
   originalIssue {
     id
+    title
+    url
   }
   updatedAt
   externalUserCreator {
@@ -1340,6 +1407,8 @@ query attachmentIssue_attachments($id: String!, $after: String, $before: String,
     ) {
       ...AttachmentConnection
     }
+    title
+    url
   }
 }
 `;
@@ -1387,6 +1456,8 @@ query attachmentIssue_botActor($id: String!) {
     botActor {
       ...ActorBot
     }
+    title
+    url
   }
 }
 `;
@@ -1589,6 +1660,8 @@ COMMANDS["attachment-issue:children"] = class LinearCommand_attachmentIssue_chil
   __typename
   nodes {
     ...Issue
+    title
+    url
   }
   pageInfo {
     ...PageInfo
@@ -1612,6 +1685,9 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -1635,6 +1711,9 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -1649,10 +1728,14 @@ fragment Issue on Issue {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -1662,6 +1745,7 @@ fragment Issue on Issue {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -1684,12 +1768,21 @@ fragment Issue on Issue {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -1713,6 +1806,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -1723,6 +1818,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -1796,6 +1894,8 @@ query attachmentIssue_children($id: String!, $after: String, $before: String, $f
     ) {
       ...IssueConnection
     }
+    title
+    url
   }
 }
 `;
@@ -1904,6 +2004,8 @@ fragment Comment on Comment {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   parent {
@@ -1920,9 +2022,15 @@ fragment Comment on Comment {
   id
   resolvingUser {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -1940,6 +2048,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -1950,6 +2060,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -1978,6 +2091,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -1985,6 +2100,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -2000,6 +2117,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -2076,6 +2196,8 @@ query attachmentIssue_comments($id: String!, $after: String, $before: String, $f
     ) {
       ...CommentConnection
     }
+    title
+    url
   }
 }
 `;
@@ -2171,6 +2293,8 @@ fragment Document on Document {
   }
   issue {
     id
+    title
+    url
   }
   lastAppliedTemplate {
     id
@@ -2179,6 +2303,8 @@ fragment Document on Document {
   sortOrder
   project {
     id
+    name
+    url
   }
   hiddenAt
   archivedAt
@@ -2186,9 +2312,15 @@ fragment Document on Document {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -2213,6 +2345,8 @@ query attachmentIssue_documents($id: String!, $after: String, $before: String, $
     ) {
       ...DocumentConnection
     }
+    title
+    url
   }
 }
 `;
@@ -2341,12 +2475,19 @@ fragment Attachment on Attachment {
   bodyData
   creator {
     id
+    __typename
+    displayName
+    email
   }
   issue {
     id
+    title
+    url
   }
   originalIssue {
     id
+    title
+    url
   }
   updatedAt
   externalUserCreator {
@@ -2378,6 +2519,8 @@ query attachmentIssue_formerAttachments($id: String!, $after: String, $before: S
     ) {
       ...AttachmentConnection
     }
+    title
+    url
   }
 }
 `;
@@ -2449,15 +2592,22 @@ fragment CustomerNeed on CustomerNeed {
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   customer {
     id
   }
   originalIssue {
     id
+    title
+    url
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   body
@@ -2466,6 +2616,8 @@ fragment CustomerNeed on CustomerNeed {
   }
   project {
     id
+    name
+    url
   }
   archivedAt
   createdAt
@@ -2481,6 +2633,9 @@ fragment ProjectAttachment on ProjectAttachment {
   subtitle
   creator {
     id
+    __typename
+    displayName
+    email
   }
   updatedAt
   archivedAt
@@ -2511,6 +2666,8 @@ query attachmentIssue_formerNeeds($id: String!, $after: String, $before: String,
     ) {
       ...CustomerNeedConnection
     }
+    title
+    url
   }
 }
 `;
@@ -2569,18 +2726,33 @@ fragment IssueHistory on IssueHistory {
   removedLabelIds
   actor {
     id
+    __typename
+    displayName
+    email
   }
   descriptionUpdatedBy {
     ...User
+    __typename
+    displayName
+    email
   }
   actors {
     ...User
+    __typename
+    displayName
+    email
   }
   fromDelegate {
     id
+    __typename
+    displayName
+    email
   }
   toDelegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -2612,6 +2784,8 @@ fragment IssueHistory on IssueHistory {
   }
   issue {
     id
+    title
+    url
   }
   addedLabels {
     ...IssueLabel
@@ -2625,18 +2799,28 @@ fragment IssueHistory on IssueHistory {
   }
   toConvertedProject {
     id
+    name
+    url
   }
   fromParent {
     id
+    title
+    url
   }
   toParent {
     id
+    title
+    url
   }
   fromProject {
     id
+    name
+    url
   }
   toProject {
     id
+    name
+    url
   }
   fromState {
     id
@@ -2646,21 +2830,32 @@ fragment IssueHistory on IssueHistory {
   }
   fromTeam {
     id
+    name
   }
   toTeam {
     id
+    name
   }
   archivedAt
   createdAt
   id
   toAssignee {
     id
+    __typename
+    displayName
+    email
   }
   fromAssignee {
     id
+    __typename
+    displayName
+    email
   }
   triageResponsibilityNotifiedUsers {
     ...User
+    __typename
+    displayName
+    email
   }
   fromDueDate
   toDueDate
@@ -2763,15 +2958,22 @@ fragment IssueLabel on IssueLabel {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   retiredBy {
     id
+    __typename
+    displayName
+    email
   }
   isGroup
 }
@@ -2796,6 +2998,8 @@ query attachmentIssue_history($id: String!, $after: String, $before: String, $fi
     ) {
       ...IssueHistoryConnection
     }
+    title
+    url
   }
 }
 `;
@@ -2850,10 +3054,14 @@ fragment IssueRelation on IssueRelation {
   __typename
   issue {
     id
+    title
+    url
   }
   updatedAt
   relatedIssue {
     id
+    title
+    url
   }
   type
   archivedAt
@@ -2881,6 +3089,8 @@ query attachmentIssue_inverseRelations($id: String!, $after: String, $before: St
     ) {
       ...IssueRelationConnection
     }
+    title
+    url
   }
 }
 `;
@@ -2964,15 +3174,22 @@ fragment IssueLabel on IssueLabel {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   retiredBy {
     id
+    __typename
+    displayName
+    email
   }
   isGroup
 }
@@ -2998,6 +3215,8 @@ query attachmentIssue_labels($id: String!, $after: String, $before: String, $fil
     ) {
       ...IssueLabelConnection
     }
+    title
+    url
   }
 }
 `;
@@ -3069,15 +3288,22 @@ fragment CustomerNeed on CustomerNeed {
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   customer {
     id
   }
   originalIssue {
     id
+    title
+    url
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   body
@@ -3086,6 +3312,8 @@ fragment CustomerNeed on CustomerNeed {
   }
   project {
     id
+    name
+    url
   }
   archivedAt
   createdAt
@@ -3101,6 +3329,9 @@ fragment ProjectAttachment on ProjectAttachment {
   subtitle
   creator {
     id
+    __typename
+    displayName
+    email
   }
   updatedAt
   archivedAt
@@ -3131,6 +3362,8 @@ query attachmentIssue_needs($id: String!, $after: String, $before: String, $filt
     ) {
       ...CustomerNeedConnection
     }
+    title
+    url
   }
 }
 `;
@@ -3183,10 +3416,14 @@ fragment IssueRelation on IssueRelation {
   __typename
   issue {
     id
+    title
+    url
   }
   updatedAt
   relatedIssue {
     id
+    title
+    url
   }
   type
   archivedAt
@@ -3214,6 +3451,8 @@ query attachmentIssue_relations($id: String!, $after: String, $before: String, $
     ) {
       ...IssueRelationConnection
     }
+    title
+    url
   }
 }
 `;
@@ -3319,6 +3558,9 @@ COMMANDS["attachment-issue:subscribers"] = class LinearCommand_attachmentIssue_s
   __typename
   nodes {
     ...User
+    __typename
+    displayName
+    email
   }
   pageInfo {
     ...PageInfo
@@ -3383,6 +3625,8 @@ query attachmentIssue_subscribers($id: String!, $after: String, $before: String,
     ) {
       ...UserConnection
     }
+    title
+    url
   }
 }
 `;
@@ -3508,12 +3752,19 @@ fragment Attachment on Attachment {
   bodyData
   creator {
     id
+    __typename
+    displayName
+    email
   }
   issue {
     id
+    title
+    url
   }
   originalIssue {
     id
+    title
+    url
   }
   updatedAt
   externalUserCreator {
@@ -3603,12 +3854,19 @@ fragment Attachment on Attachment {
   bodyData
   creator {
     id
+    __typename
+    displayName
+    email
   }
   issue {
     id
+    title
+    url
   }
   originalIssue {
     id
+    title
+    url
   }
   updatedAt
   externalUserCreator {
@@ -3747,6 +4005,9 @@ fragment AuditEntry on AuditEntry {
   id
   actor {
     id
+    __typename
+    displayName
+    email
   }
   type
 }
@@ -4027,6 +4288,8 @@ COMMANDS["comment"] = class LinearCommand_comment extends LinearCommand {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   parent {
@@ -4043,9 +4306,15 @@ COMMANDS["comment"] = class LinearCommand_comment extends LinearCommand {
   id
   resolvingUser {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -4063,6 +4332,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -4073,6 +4344,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -4101,6 +4375,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -4108,6 +4384,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -4123,6 +4401,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -4338,6 +4619,8 @@ fragment Comment on Comment {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   parent {
@@ -4354,9 +4637,15 @@ fragment Comment on Comment {
   id
   resolvingUser {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -4374,6 +4663,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -4384,6 +4675,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -4412,6 +4706,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -4419,6 +4715,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -4434,6 +4732,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -4713,6 +5014,8 @@ COMMANDS["comment:created-issues"] = class LinearCommand_comment_createdIssues e
   __typename
   nodes {
     ...Issue
+    title
+    url
   }
   pageInfo {
     ...PageInfo
@@ -4736,6 +5039,9 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -4759,6 +5065,9 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -4773,10 +5082,14 @@ fragment Issue on Issue {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -4786,6 +5099,7 @@ fragment Issue on Issue {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -4808,12 +5122,21 @@ fragment Issue on Issue {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -4837,6 +5160,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -4847,6 +5172,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -4968,6 +5296,8 @@ COMMANDS["comment:document-content"] = class LinearCommand_comment_documentConte
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -4975,6 +5305,8 @@ COMMANDS["comment:document-content"] = class LinearCommand_comment_documentConte
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -4990,6 +5322,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -5040,6 +5375,9 @@ COMMANDS["comment:document-content:ai-prompt-rules"] =
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -5208,6 +5546,8 @@ fragment Comment on Comment {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   parent {
@@ -5224,9 +5564,15 @@ fragment Comment on Comment {
   id
   resolvingUser {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -5244,6 +5590,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -5254,6 +5602,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -5282,6 +5633,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -5289,6 +5642,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -5304,6 +5659,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -5435,18 +5793,28 @@ COMMANDS["custom-view"] = class LinearCommand_customView extends LinearCommand {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
   owner {
     id
+    __typename
+    displayName
+    email
   }
   shared
 }
@@ -5662,9 +6030,15 @@ fragment Initiative on Initiative {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   owner {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -5683,6 +6057,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -5690,6 +6066,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -5705,6 +6083,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -5932,6 +6313,8 @@ COMMANDS["custom-view:issues"] = class LinearCommand_customView_issues extends L
   __typename
   nodes {
     ...Issue
+    title
+    url
   }
   pageInfo {
     ...PageInfo
@@ -5955,6 +6338,9 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -5978,6 +6364,9 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -5992,10 +6381,14 @@ fragment Issue on Issue {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -6005,6 +6398,7 @@ fragment Issue on Issue {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -6027,12 +6421,21 @@ fragment Issue on Issue {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -6056,6 +6459,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -6066,6 +6471,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -6432,6 +6840,8 @@ COMMANDS["custom-view:projects"] = class LinearCommand_customView_projects exten
   __typename
   nodes {
     ...Project
+    name
+    url
   }
   pageInfo {
     ...PageInfo
@@ -6473,9 +6883,14 @@ fragment Project on Project {
   priority
   lead {
     id
+    __typename
+    displayName
+    email
   }
   convertedFromIssue {
     id
+    title
+    url
   }
   color
   content
@@ -6503,6 +6918,9 @@ fragment Project on Project {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -6528,6 +6946,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -6535,6 +6955,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -6550,6 +6972,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -6876,18 +7301,28 @@ fragment CustomView on CustomView {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
   owner {
     id
+    __typename
+    displayName
+    email
   }
   shared
 }
@@ -6991,6 +7426,9 @@ COMMANDS["customer"] = class LinearCommand_customer extends LinearCommand {
   id
   owner {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -7041,15 +7479,22 @@ COMMANDS["customer-need"] = class LinearCommand_customerNeed extends LinearComma
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   customer {
     id
   }
   originalIssue {
     id
+    title
+    url
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   body
@@ -7058,6 +7503,8 @@ COMMANDS["customer-need"] = class LinearCommand_customerNeed extends LinearComma
   }
   project {
     id
+    name
+    url
   }
   archivedAt
   createdAt
@@ -7073,6 +7520,9 @@ fragment ProjectAttachment on ProjectAttachment {
   subtitle
   creator {
     id
+    __typename
+    displayName
+    email
   }
   updatedAt
   archivedAt
@@ -7128,6 +7578,9 @@ COMMANDS["customer-need:project-attachment"] = class LinearCommand_customerNeed_
   subtitle
   creator {
     id
+    __typename
+    displayName
+    email
   }
   updatedAt
   archivedAt
@@ -7212,15 +7665,22 @@ fragment CustomerNeed on CustomerNeed {
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   customer {
     id
   }
   originalIssue {
     id
+    title
+    url
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   body
@@ -7229,6 +7689,8 @@ fragment CustomerNeed on CustomerNeed {
   }
   project {
     id
+    name
+    url
   }
   archivedAt
   createdAt
@@ -7244,6 +7706,9 @@ fragment ProjectAttachment on ProjectAttachment {
   subtitle
   creator {
     id
+    __typename
+    displayName
+    email
   }
   updatedAt
   archivedAt
@@ -7649,6 +8114,9 @@ fragment Customer on Customer {
   id
   owner {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -7722,6 +8190,7 @@ COMMANDS["cycle"] = class LinearCommand_cycle extends LinearCommand {
   startsAt
   team {
     id
+    name
   }
   autoArchivedAt
   archivedAt
@@ -7941,6 +8410,8 @@ COMMANDS["cycle:issues"] = class LinearCommand_cycle_issues extends LinearComman
   __typename
   nodes {
     ...Issue
+    title
+    url
   }
   pageInfo {
     ...PageInfo
@@ -7964,6 +8435,9 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -7987,6 +8461,9 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -8001,10 +8478,14 @@ fragment Issue on Issue {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -8014,6 +8495,7 @@ fragment Issue on Issue {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -8036,12 +8518,21 @@ fragment Issue on Issue {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -8065,6 +8556,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -8075,6 +8568,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -8352,6 +8848,8 @@ COMMANDS["cycle:uncompleted-issues-upon-close"] = class LinearCommand_cycle_unco
   __typename
   nodes {
     ...Issue
+    title
+    url
   }
   pageInfo {
     ...PageInfo
@@ -8375,6 +8873,9 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -8398,6 +8899,9 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -8412,10 +8916,14 @@ fragment Issue on Issue {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -8425,6 +8933,7 @@ fragment Issue on Issue {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -8447,12 +8956,21 @@ fragment Issue on Issue {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -8476,6 +8994,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -8486,6 +9006,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -8660,6 +9183,7 @@ fragment Cycle on Cycle {
   startsAt
   team {
     id
+    name
   }
   autoArchivedAt
   archivedAt
@@ -8740,6 +9264,8 @@ COMMANDS["document"] = class LinearCommand_document extends LinearCommand {
   }
   issue {
     id
+    title
+    url
   }
   lastAppliedTemplate {
     id
@@ -8748,6 +9274,8 @@ COMMANDS["document"] = class LinearCommand_document extends LinearCommand {
   sortOrder
   project {
     id
+    name
+    url
   }
   hiddenAt
   archivedAt
@@ -8755,9 +9283,15 @@ COMMANDS["document"] = class LinearCommand_document extends LinearCommand {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -8872,6 +9406,8 @@ fragment Comment on Comment {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   parent {
@@ -8888,9 +9424,15 @@ fragment Comment on Comment {
   id
   resolvingUser {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -8908,6 +9450,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -8918,6 +9462,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -8946,6 +9493,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -8953,6 +9502,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -8968,6 +9519,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -9189,6 +9743,8 @@ fragment Document on Document {
   }
   issue {
     id
+    title
+    url
   }
   lastAppliedTemplate {
     id
@@ -9197,6 +9753,8 @@ fragment Document on Document {
   sortOrder
   project {
     id
+    name
+    url
   }
   hiddenAt
   archivedAt
@@ -9204,9 +9762,15 @@ fragment Document on Document {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -9274,6 +9838,7 @@ COMMANDS["email-intake-address"] = class LinearCommand_emailIntakeAddress extend
   senderName
   team {
     id
+    name
   }
   template {
     id
@@ -9284,6 +9849,9 @@ COMMANDS["email-intake-address"] = class LinearCommand_emailIntakeAddress extend
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   address
   repliesEnabled
@@ -9308,6 +9876,9 @@ fragment SesDomainIdentity on SesDomainIdentity {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   canSendFromCustomDomain
 }
@@ -9369,6 +9940,9 @@ COMMANDS["email-intake-address:ses-domain-identity"] =
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   canSendFromCustomDomain
 }
@@ -9429,6 +10003,9 @@ COMMANDS["emoji"] = class LinearCommand_emoji extends LinearCommand {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -9493,6 +10070,9 @@ fragment Emoji on Emoji {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -9560,6 +10140,9 @@ COMMANDS["entity-external-link"] = class LinearCommand_entityExternalLink extend
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -9743,6 +10326,8 @@ COMMANDS["favorite"] = class LinearCommand_favorite extends LinearCommand {
   }
   issue {
     id
+    title
+    url
   }
   label {
     id
@@ -9752,15 +10337,23 @@ COMMANDS["favorite"] = class LinearCommand_favorite extends LinearCommand {
   }
   project {
     id
+    name
+    url
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
   updatedAt
   folderName
   sortOrder
   owner {
     id
+    __typename
+    displayName
+    email
   }
   parent {
     id
@@ -9769,6 +10362,7 @@ COMMANDS["favorite"] = class LinearCommand_favorite extends LinearCommand {
   projectTab
   predefinedViewTeam {
     id
+    name
   }
   archivedAt
   createdAt
@@ -9778,6 +10372,7 @@ COMMANDS["favorite"] = class LinearCommand_favorite extends LinearCommand {
   url
   projectTeam {
     id
+    name
   }
 }
 
@@ -9851,6 +10446,8 @@ fragment Favorite on Favorite {
   }
   issue {
     id
+    title
+    url
   }
   label {
     id
@@ -9860,15 +10457,23 @@ fragment Favorite on Favorite {
   }
   project {
     id
+    name
+    url
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
   updatedAt
   folderName
   sortOrder
   owner {
     id
+    __typename
+    displayName
+    email
   }
   parent {
     id
@@ -9877,6 +10482,7 @@ fragment Favorite on Favorite {
   projectTab
   predefinedViewTeam {
     id
+    name
   }
   archivedAt
   createdAt
@@ -9886,6 +10492,7 @@ fragment Favorite on Favorite {
   url
   projectTeam {
     id
+    name
   }
 }
 
@@ -9975,6 +10582,8 @@ fragment Favorite on Favorite {
   }
   issue {
     id
+    title
+    url
   }
   label {
     id
@@ -9984,15 +10593,23 @@ fragment Favorite on Favorite {
   }
   project {
     id
+    name
+    url
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
   updatedAt
   folderName
   sortOrder
   owner {
     id
+    __typename
+    displayName
+    email
   }
   parent {
     id
@@ -10001,6 +10618,7 @@ fragment Favorite on Favorite {
   projectTab
   predefinedViewTeam {
     id
+    name
   }
   archivedAt
   createdAt
@@ -10010,6 +10628,7 @@ fragment Favorite on Favorite {
   url
   projectTeam {
     id
+    name
   }
 }
 
@@ -10104,9 +10723,15 @@ COMMANDS["initiative"] = class LinearCommand_initiative extends LinearCommand {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   owner {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -10125,6 +10750,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -10132,6 +10759,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -10147,6 +10776,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -10200,6 +10832,8 @@ COMMANDS["initiative:document-content"] = class LinearCommand_initiative_documen
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -10207,6 +10841,8 @@ COMMANDS["initiative:document-content"] = class LinearCommand_initiative_documen
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -10222,6 +10858,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -10271,6 +10910,9 @@ COMMANDS["initiative:document-content:ai-prompt-rules"] =
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -10376,6 +11018,8 @@ fragment Document on Document {
   }
   issue {
     id
+    title
+    url
   }
   lastAppliedTemplate {
     id
@@ -10384,6 +11028,8 @@ fragment Document on Document {
   sortOrder
   project {
     id
+    name
+    url
   }
   hiddenAt
   archivedAt
@@ -10391,9 +11037,15 @@ fragment Document on Document {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -10560,6 +11212,9 @@ fragment EntityExternalLink on EntityExternalLink {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -10769,6 +11424,8 @@ COMMANDS["initiative:projects"] = class LinearCommand_initiative_projects extend
   __typename
   nodes {
     ...Project
+    name
+    url
   }
   pageInfo {
     ...PageInfo
@@ -10810,9 +11467,14 @@ fragment Project on Project {
   priority
   lead {
     id
+    __typename
+    displayName
+    email
   }
   convertedFromIssue {
     id
+    title
+    url
   }
   color
   content
@@ -10840,6 +11502,9 @@ fragment Project on Project {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -10865,6 +11530,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -10872,6 +11539,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -10887,6 +11556,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -11101,9 +11773,15 @@ fragment Initiative on Initiative {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   owner {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -11122,6 +11800,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -11129,6 +11809,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -11144,6 +11826,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -11206,6 +11891,9 @@ COMMANDS["initiative-relation"] = class LinearCommand_initiativeRelation extends
   updatedAt
   user {
     id
+    __typename
+    displayName
+    email
   }
   projectMilestone {
     id
@@ -11215,9 +11903,13 @@ COMMANDS["initiative-relation"] = class LinearCommand_initiativeRelation extends
   }
   project {
     id
+    name
+    url
   }
   relatedProject {
     id
+    name
+    url
   }
   type
   archivedAt
@@ -11285,6 +11977,9 @@ fragment InitiativeRelation on InitiativeRelation {
   updatedAt
   user {
     id
+    __typename
+    displayName
+    email
   }
   initiative {
     id
@@ -11353,6 +12048,8 @@ COMMANDS["initiative-to-project"] = class LinearCommand_initiativeToProject exte
   updatedAt
   project {
     id
+    name
+    url
   }
   sortOrder
   archivedAt
@@ -11418,6 +12115,8 @@ fragment InitiativeToProject on InitiativeToProject {
   updatedAt
   project {
     id
+    name
+    url
   }
   sortOrder
   archivedAt
@@ -11497,6 +12196,9 @@ COMMANDS["initiative-update"] = class LinearCommand_initiativeUpdate extends Lin
   slugId
   user {
     id
+    __typename
+    displayName
+    email
   }
   isDiffHidden
   isStale
@@ -11516,6 +12218,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -11526,6 +12230,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -11640,6 +12347,8 @@ fragment Comment on Comment {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   parent {
@@ -11656,9 +12365,15 @@ fragment Comment on Comment {
   id
   resolvingUser {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -11676,6 +12391,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -11686,6 +12403,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -11714,6 +12434,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -11721,6 +12443,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -11736,6 +12460,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -11881,6 +12608,9 @@ fragment InitiativeUpdate on InitiativeUpdate {
   slugId
   user {
     id
+    __typename
+    displayName
+    email
   }
   isDiffHidden
   isStale
@@ -11900,6 +12630,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -11910,6 +12642,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -12119,9 +12854,15 @@ fragment Initiative on Initiative {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   owner {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -12140,6 +12881,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -12147,6 +12890,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -12162,6 +12907,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -12223,12 +12971,16 @@ COMMANDS["integration"] = class LinearCommand_integration extends LinearCommand 
   updatedAt
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -12418,12 +13170,16 @@ fragment Integration on Integration {
   updatedAt
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -12484,9 +13240,12 @@ COMMANDS["integrations-settings"] = class LinearCommand_integrationsSettings ext
   }
   project {
     id
+    name
+    url
   }
   team {
     id
+    name
   }
   updatedAt
   archivedAt
@@ -12559,6 +13318,9 @@ COMMANDS["issue"] = class LinearCommand_issue extends LinearCommand {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -12582,6 +13344,9 @@ COMMANDS["issue"] = class LinearCommand_issue extends LinearCommand {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -12596,10 +13361,14 @@ COMMANDS["issue"] = class LinearCommand_issue extends LinearCommand {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -12609,6 +13378,7 @@ COMMANDS["issue"] = class LinearCommand_issue extends LinearCommand {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -12631,12 +13401,21 @@ COMMANDS["issue"] = class LinearCommand_issue extends LinearCommand {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -12660,6 +13439,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -12670,6 +13451,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -12725,6 +13509,8 @@ fragment ExternalEntitySlackMetadata on ExternalEntitySlackMetadata {
 query issue($id: String!) {
   issue(id: $id) {
     ...Issue
+    title
+    url
   }
 }
 `;
@@ -12851,12 +13637,19 @@ fragment Attachment on Attachment {
   bodyData
   creator {
     id
+    __typename
+    displayName
+    email
   }
   issue {
     id
+    title
+    url
   }
   originalIssue {
     id
+    title
+    url
   }
   updatedAt
   externalUserCreator {
@@ -12888,6 +13681,8 @@ query issue_attachments($id: String!, $after: String, $before: String, $filter: 
     ) {
       ...AttachmentConnection
     }
+    title
+    url
   }
 }
 `;
@@ -12935,6 +13730,8 @@ query issue_botActor($id: String!) {
     botActor {
       ...ActorBot
     }
+    title
+    url
   }
 }
 `;
@@ -13137,6 +13934,8 @@ COMMANDS["issue:children"] = class LinearCommand_issue_children extends LinearCo
   __typename
   nodes {
     ...Issue
+    title
+    url
   }
   pageInfo {
     ...PageInfo
@@ -13160,6 +13959,9 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -13183,6 +13985,9 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -13197,10 +14002,14 @@ fragment Issue on Issue {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -13210,6 +14019,7 @@ fragment Issue on Issue {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -13232,12 +14042,21 @@ fragment Issue on Issue {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -13261,6 +14080,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -13271,6 +14092,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -13344,6 +14168,8 @@ query issue_children($id: String!, $after: String, $before: String, $filter: Iss
     ) {
       ...IssueConnection
     }
+    title
+    url
   }
 }
 `;
@@ -13452,6 +14278,8 @@ fragment Comment on Comment {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   parent {
@@ -13468,9 +14296,15 @@ fragment Comment on Comment {
   id
   resolvingUser {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -13488,6 +14322,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -13498,6 +14334,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -13526,6 +14365,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -13533,6 +14374,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -13548,6 +14391,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -13624,6 +14470,8 @@ query issue_comments($id: String!, $after: String, $before: String, $filter: Com
     ) {
       ...CommentConnection
     }
+    title
+    url
   }
 }
 `;
@@ -13719,6 +14567,8 @@ fragment Document on Document {
   }
   issue {
     id
+    title
+    url
   }
   lastAppliedTemplate {
     id
@@ -13727,6 +14577,8 @@ fragment Document on Document {
   sortOrder
   project {
     id
+    name
+    url
   }
   hiddenAt
   archivedAt
@@ -13734,9 +14586,15 @@ fragment Document on Document {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -13761,6 +14619,8 @@ query issue_documents($id: String!, $after: String, $before: String, $filter: Do
     ) {
       ...DocumentConnection
     }
+    title
+    url
   }
 }
 `;
@@ -13887,12 +14747,19 @@ fragment Attachment on Attachment {
   bodyData
   creator {
     id
+    __typename
+    displayName
+    email
   }
   issue {
     id
+    title
+    url
   }
   originalIssue {
     id
+    title
+    url
   }
   updatedAt
   externalUserCreator {
@@ -13924,6 +14791,8 @@ query issue_formerAttachments($id: String!, $after: String, $before: String, $fi
     ) {
       ...AttachmentConnection
     }
+    title
+    url
   }
 }
 `;
@@ -13995,15 +14864,22 @@ fragment CustomerNeed on CustomerNeed {
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   customer {
     id
   }
   originalIssue {
     id
+    title
+    url
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   body
@@ -14012,6 +14888,8 @@ fragment CustomerNeed on CustomerNeed {
   }
   project {
     id
+    name
+    url
   }
   archivedAt
   createdAt
@@ -14027,6 +14905,9 @@ fragment ProjectAttachment on ProjectAttachment {
   subtitle
   creator {
     id
+    __typename
+    displayName
+    email
   }
   updatedAt
   archivedAt
@@ -14057,6 +14938,8 @@ query issue_formerNeeds($id: String!, $after: String, $before: String, $filter: 
     ) {
       ...CustomerNeedConnection
     }
+    title
+    url
   }
 }
 `;
@@ -14115,18 +14998,33 @@ fragment IssueHistory on IssueHistory {
   removedLabelIds
   actor {
     id
+    __typename
+    displayName
+    email
   }
   descriptionUpdatedBy {
     ...User
+    __typename
+    displayName
+    email
   }
   actors {
     ...User
+    __typename
+    displayName
+    email
   }
   fromDelegate {
     id
+    __typename
+    displayName
+    email
   }
   toDelegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -14158,6 +15056,8 @@ fragment IssueHistory on IssueHistory {
   }
   issue {
     id
+    title
+    url
   }
   addedLabels {
     ...IssueLabel
@@ -14171,18 +15071,28 @@ fragment IssueHistory on IssueHistory {
   }
   toConvertedProject {
     id
+    name
+    url
   }
   fromParent {
     id
+    title
+    url
   }
   toParent {
     id
+    title
+    url
   }
   fromProject {
     id
+    name
+    url
   }
   toProject {
     id
+    name
+    url
   }
   fromState {
     id
@@ -14192,21 +15102,32 @@ fragment IssueHistory on IssueHistory {
   }
   fromTeam {
     id
+    name
   }
   toTeam {
     id
+    name
   }
   archivedAt
   createdAt
   id
   toAssignee {
     id
+    __typename
+    displayName
+    email
   }
   fromAssignee {
     id
+    __typename
+    displayName
+    email
   }
   triageResponsibilityNotifiedUsers {
     ...User
+    __typename
+    displayName
+    email
   }
   fromDueDate
   toDueDate
@@ -14309,15 +15230,22 @@ fragment IssueLabel on IssueLabel {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   retiredBy {
     id
+    __typename
+    displayName
+    email
   }
   isGroup
 }
@@ -14342,6 +15270,8 @@ query issue_history($id: String!, $after: String, $before: String, $first: Int, 
     ) {
       ...IssueHistoryConnection
     }
+    title
+    url
   }
 }
 `;
@@ -14394,10 +15324,14 @@ fragment IssueRelation on IssueRelation {
   __typename
   issue {
     id
+    title
+    url
   }
   updatedAt
   relatedIssue {
     id
+    title
+    url
   }
   type
   archivedAt
@@ -14425,6 +15359,8 @@ query issue_inverseRelations($id: String!, $after: String, $before: String, $fir
     ) {
       ...IssueRelationConnection
     }
+    title
+    url
   }
 }
 `;
@@ -14508,15 +15444,22 @@ fragment IssueLabel on IssueLabel {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   retiredBy {
     id
+    __typename
+    displayName
+    email
   }
   isGroup
 }
@@ -14542,6 +15485,8 @@ query issue_labels($id: String!, $after: String, $before: String, $filter: Issue
     ) {
       ...IssueLabelConnection
     }
+    title
+    url
   }
 }
 `;
@@ -14613,15 +15558,22 @@ fragment CustomerNeed on CustomerNeed {
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   customer {
     id
   }
   originalIssue {
     id
+    title
+    url
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   body
@@ -14630,6 +15582,8 @@ fragment CustomerNeed on CustomerNeed {
   }
   project {
     id
+    name
+    url
   }
   archivedAt
   createdAt
@@ -14645,6 +15599,9 @@ fragment ProjectAttachment on ProjectAttachment {
   subtitle
   creator {
     id
+    __typename
+    displayName
+    email
   }
   updatedAt
   archivedAt
@@ -14675,6 +15632,8 @@ query issue_needs($id: String!, $after: String, $before: String, $filter: Custom
     ) {
       ...CustomerNeedConnection
     }
+    title
+    url
   }
 }
 `;
@@ -14727,10 +15686,14 @@ fragment IssueRelation on IssueRelation {
   __typename
   issue {
     id
+    title
+    url
   }
   updatedAt
   relatedIssue {
     id
+    title
+    url
   }
   type
   archivedAt
@@ -14758,6 +15721,8 @@ query issue_relations($id: String!, $after: String, $before: String, $first: Int
     ) {
       ...IssueRelationConnection
     }
+    title
+    url
   }
 }
 `;
@@ -14863,6 +15828,9 @@ COMMANDS["issue:subscribers"] = class LinearCommand_issue_subscribers extends Li
   __typename
   nodes {
     ...User
+    __typename
+    displayName
+    email
   }
   pageInfo {
     ...PageInfo
@@ -14927,6 +15895,8 @@ query issue_subscribers($id: String!, $after: String, $before: String, $filter: 
     ) {
       ...UserConnection
     }
+    title
+    url
   }
 }
 `;
@@ -14969,6 +15939,8 @@ COMMANDS["issue-figma-file-key-search"] = class LinearCommand_issueFigmaFileKeyS
   __typename
   nodes {
     ...Issue
+    title
+    url
   }
   pageInfo {
     ...PageInfo
@@ -14992,6 +15964,9 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -15015,6 +15990,9 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -15029,10 +16007,14 @@ fragment Issue on Issue {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -15042,6 +16024,7 @@ fragment Issue on Issue {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -15064,12 +16047,21 @@ fragment Issue on Issue {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -15093,6 +16085,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -15103,6 +16097,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -15397,15 +16394,22 @@ COMMANDS["issue-label"] = class LinearCommand_issueLabel extends LinearCommand {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   retiredBy {
     id
+    __typename
+    displayName
+    email
   }
   isGroup
 }
@@ -15496,15 +16500,22 @@ fragment IssueLabel on IssueLabel {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   retiredBy {
     id
+    __typename
+    displayName
+    email
   }
   isGroup
 }
@@ -15732,6 +16743,8 @@ COMMANDS["issue-label:issues"] = class LinearCommand_issueLabel_issues extends L
   __typename
   nodes {
     ...Issue
+    title
+    url
   }
   pageInfo {
     ...PageInfo
@@ -15755,6 +16768,9 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -15778,6 +16794,9 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -15792,10 +16811,14 @@ fragment Issue on Issue {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -15805,6 +16828,7 @@ fragment Issue on Issue {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -15827,12 +16851,21 @@ fragment Issue on Issue {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -15856,6 +16889,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -15866,6 +16901,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -16021,15 +17059,22 @@ fragment IssueLabel on IssueLabel {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   retiredBy {
     id
+    __typename
+    displayName
+    email
   }
   isGroup
 }
@@ -16128,10 +17173,14 @@ COMMANDS["issue-relation"] = class LinearCommand_issueRelation extends LinearCom
   __typename
   issue {
     id
+    title
+    url
   }
   updatedAt
   relatedIssue {
     id
+    title
+    url
   }
   type
   archivedAt
@@ -16193,10 +17242,14 @@ fragment IssueRelation on IssueRelation {
   __typename
   issue {
     id
+    title
+    url
   }
   updatedAt
   relatedIssue {
     id
+    title
+    url
   }
   type
   archivedAt
@@ -16424,6 +17477,8 @@ COMMANDS["issue-search"] = class LinearCommand_issueSearch extends LinearCommand
   __typename
   nodes {
     ...Issue
+    title
+    url
   }
   pageInfo {
     ...PageInfo
@@ -16447,6 +17502,9 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -16470,6 +17528,9 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -16484,10 +17545,14 @@ fragment Issue on Issue {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -16497,6 +17562,7 @@ fragment Issue on Issue {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -16519,12 +17585,21 @@ fragment Issue on Issue {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -16548,6 +17623,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -16558,6 +17635,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -16721,6 +17801,9 @@ COMMANDS["issue-vcs-branch-search"] = class LinearCommand_issueVcsBranchSearch e
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -16744,6 +17827,9 @@ COMMANDS["issue-vcs-branch-search"] = class LinearCommand_issueVcsBranchSearch e
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -16758,10 +17844,14 @@ COMMANDS["issue-vcs-branch-search"] = class LinearCommand_issueVcsBranchSearch e
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -16771,6 +17861,7 @@ COMMANDS["issue-vcs-branch-search"] = class LinearCommand_issueVcsBranchSearch e
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -16793,12 +17884,21 @@ COMMANDS["issue-vcs-branch-search"] = class LinearCommand_issueVcsBranchSearch e
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -16822,6 +17922,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -16832,6 +17934,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -16887,6 +17992,8 @@ fragment ExternalEntitySlackMetadata on ExternalEntitySlackMetadata {
 query issueVcsBranchSearch($branchName: String!) {
   issueVcsBranchSearch(branchName: $branchName) {
     ...Issue
+    title
+    url
   }
 }
 `;
@@ -17015,12 +18122,19 @@ fragment Attachment on Attachment {
   bodyData
   creator {
     id
+    __typename
+    displayName
+    email
   }
   issue {
     id
+    title
+    url
   }
   originalIssue {
     id
+    title
+    url
   }
   updatedAt
   externalUserCreator {
@@ -17052,6 +18166,8 @@ query issueVcsBranchSearch_attachments($branchName: String!, $after: String, $be
     ) {
       ...AttachmentConnection
     }
+    title
+    url
   }
 }
 `;
@@ -17101,6 +18217,8 @@ query issueVcsBranchSearch_botActor($branchName: String!) {
     botActor {
       ...ActorBot
     }
+    title
+    url
   }
 }
 `;
@@ -17303,6 +18421,8 @@ COMMANDS["issue-vcs-branch-search:children"] = class LinearCommand_issueVcsBranc
   __typename
   nodes {
     ...Issue
+    title
+    url
   }
   pageInfo {
     ...PageInfo
@@ -17326,6 +18446,9 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -17349,6 +18472,9 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -17363,10 +18489,14 @@ fragment Issue on Issue {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -17376,6 +18506,7 @@ fragment Issue on Issue {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -17398,12 +18529,21 @@ fragment Issue on Issue {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -17427,6 +18567,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -17437,6 +18579,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -17510,6 +18655,8 @@ query issueVcsBranchSearch_children($branchName: String!, $after: String, $befor
     ) {
       ...IssueConnection
     }
+    title
+    url
   }
 }
 `;
@@ -17618,6 +18765,8 @@ fragment Comment on Comment {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   parent {
@@ -17634,9 +18783,15 @@ fragment Comment on Comment {
   id
   resolvingUser {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -17654,6 +18809,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -17664,6 +18821,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -17692,6 +18852,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -17699,6 +18861,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -17714,6 +18878,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -17790,6 +18957,8 @@ query issueVcsBranchSearch_comments($branchName: String!, $after: String, $befor
     ) {
       ...CommentConnection
     }
+    title
+    url
   }
 }
 `;
@@ -17887,6 +19056,8 @@ fragment Document on Document {
   }
   issue {
     id
+    title
+    url
   }
   lastAppliedTemplate {
     id
@@ -17895,6 +19066,8 @@ fragment Document on Document {
   sortOrder
   project {
     id
+    name
+    url
   }
   hiddenAt
   archivedAt
@@ -17902,9 +19075,15 @@ fragment Document on Document {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -17929,6 +19108,8 @@ query issueVcsBranchSearch_documents($branchName: String!, $after: String, $befo
     ) {
       ...DocumentConnection
     }
+    title
+    url
   }
 }
 `;
@@ -18056,12 +19237,19 @@ fragment Attachment on Attachment {
   bodyData
   creator {
     id
+    __typename
+    displayName
+    email
   }
   issue {
     id
+    title
+    url
   }
   originalIssue {
     id
+    title
+    url
   }
   updatedAt
   externalUserCreator {
@@ -18093,6 +19281,8 @@ query issueVcsBranchSearch_formerAttachments($branchName: String!, $after: Strin
     ) {
       ...AttachmentConnection
     }
+    title
+    url
   }
 }
 `;
@@ -18166,15 +19356,22 @@ fragment CustomerNeed on CustomerNeed {
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   customer {
     id
   }
   originalIssue {
     id
+    title
+    url
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   body
@@ -18183,6 +19380,8 @@ fragment CustomerNeed on CustomerNeed {
   }
   project {
     id
+    name
+    url
   }
   archivedAt
   createdAt
@@ -18198,6 +19397,9 @@ fragment ProjectAttachment on ProjectAttachment {
   subtitle
   creator {
     id
+    __typename
+    displayName
+    email
   }
   updatedAt
   archivedAt
@@ -18228,6 +19430,8 @@ query issueVcsBranchSearch_formerNeeds($branchName: String!, $after: String, $be
     ) {
       ...CustomerNeedConnection
     }
+    title
+    url
   }
 }
 `;
@@ -18286,18 +19490,33 @@ fragment IssueHistory on IssueHistory {
   removedLabelIds
   actor {
     id
+    __typename
+    displayName
+    email
   }
   descriptionUpdatedBy {
     ...User
+    __typename
+    displayName
+    email
   }
   actors {
     ...User
+    __typename
+    displayName
+    email
   }
   fromDelegate {
     id
+    __typename
+    displayName
+    email
   }
   toDelegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -18329,6 +19548,8 @@ fragment IssueHistory on IssueHistory {
   }
   issue {
     id
+    title
+    url
   }
   addedLabels {
     ...IssueLabel
@@ -18342,18 +19563,28 @@ fragment IssueHistory on IssueHistory {
   }
   toConvertedProject {
     id
+    name
+    url
   }
   fromParent {
     id
+    title
+    url
   }
   toParent {
     id
+    title
+    url
   }
   fromProject {
     id
+    name
+    url
   }
   toProject {
     id
+    name
+    url
   }
   fromState {
     id
@@ -18363,21 +19594,32 @@ fragment IssueHistory on IssueHistory {
   }
   fromTeam {
     id
+    name
   }
   toTeam {
     id
+    name
   }
   archivedAt
   createdAt
   id
   toAssignee {
     id
+    __typename
+    displayName
+    email
   }
   fromAssignee {
     id
+    __typename
+    displayName
+    email
   }
   triageResponsibilityNotifiedUsers {
     ...User
+    __typename
+    displayName
+    email
   }
   fromDueDate
   toDueDate
@@ -18480,15 +19722,22 @@ fragment IssueLabel on IssueLabel {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   retiredBy {
     id
+    __typename
+    displayName
+    email
   }
   isGroup
 }
@@ -18513,6 +19762,8 @@ query issueVcsBranchSearch_history($branchName: String!, $after: String, $before
     ) {
       ...IssueHistoryConnection
     }
+    title
+    url
   }
 }
 `;
@@ -18566,10 +19817,14 @@ fragment IssueRelation on IssueRelation {
   __typename
   issue {
     id
+    title
+    url
   }
   updatedAt
   relatedIssue {
     id
+    title
+    url
   }
   type
   archivedAt
@@ -18597,6 +19852,8 @@ query issueVcsBranchSearch_inverseRelations($branchName: String!, $after: String
     ) {
       ...IssueRelationConnection
     }
+    title
+    url
   }
 }
 `;
@@ -18680,15 +19937,22 @@ fragment IssueLabel on IssueLabel {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   retiredBy {
     id
+    __typename
+    displayName
+    email
   }
   isGroup
 }
@@ -18714,6 +19978,8 @@ query issueVcsBranchSearch_labels($branchName: String!, $after: String, $before:
     ) {
       ...IssueLabelConnection
     }
+    title
+    url
   }
 }
 `;
@@ -18785,15 +20051,22 @@ fragment CustomerNeed on CustomerNeed {
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   customer {
     id
   }
   originalIssue {
     id
+    title
+    url
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   body
@@ -18802,6 +20075,8 @@ fragment CustomerNeed on CustomerNeed {
   }
   project {
     id
+    name
+    url
   }
   archivedAt
   createdAt
@@ -18817,6 +20092,9 @@ fragment ProjectAttachment on ProjectAttachment {
   subtitle
   creator {
     id
+    __typename
+    displayName
+    email
   }
   updatedAt
   archivedAt
@@ -18847,6 +20125,8 @@ query issueVcsBranchSearch_needs($branchName: String!, $after: String, $before: 
     ) {
       ...CustomerNeedConnection
     }
+    title
+    url
   }
 }
 `;
@@ -18901,10 +20181,14 @@ fragment IssueRelation on IssueRelation {
   __typename
   issue {
     id
+    title
+    url
   }
   updatedAt
   relatedIssue {
     id
+    title
+    url
   }
   type
   archivedAt
@@ -18932,6 +20216,8 @@ query issueVcsBranchSearch_relations($branchName: String!, $after: String, $befo
     ) {
       ...IssueRelationConnection
     }
+    title
+    url
   }
 }
 `;
@@ -19039,6 +20325,9 @@ COMMANDS["issue-vcs-branch-search:subscribers"] = class LinearCommand_issueVcsBr
   __typename
   nodes {
     ...User
+    __typename
+    displayName
+    email
   }
   pageInfo {
     ...PageInfo
@@ -19103,6 +20392,8 @@ query issueVcsBranchSearch_subscribers($branchName: String!, $after: String, $be
     ) {
       ...UserConnection
     }
+    title
+    url
   }
 }
 `;
@@ -19304,6 +20595,8 @@ COMMANDS["issues"] = class LinearCommand_issues extends LinearCommand {
   __typename
   nodes {
     ...Issue
+    title
+    url
   }
   pageInfo {
     ...PageInfo
@@ -19327,6 +20620,9 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -19350,6 +20646,9 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -19364,10 +20663,14 @@ fragment Issue on Issue {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -19377,6 +20680,7 @@ fragment Issue on Issue {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -19399,12 +20703,21 @@ fragment Issue on Issue {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -19428,6 +20741,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -19438,6 +20753,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -19562,9 +20880,15 @@ COMMANDS["notification"] = class LinearCommand_notification extends LinearComman
   id
   actor {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
   ... on CustomerNeedNotification {
     ...CustomerNeedNotification
@@ -19621,10 +20945,14 @@ fragment CustomerNeedNotification on CustomerNeedNotification {
   }
   relatedIssue {
     id
+    title
+    url
   }
   updatedAt
   relatedProject {
     id
+    name
+    url
   }
   emailedAt
   readAt
@@ -19635,9 +20963,15 @@ fragment CustomerNeedNotification on CustomerNeedNotification {
   id
   actor {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -19665,9 +20999,15 @@ fragment CustomerNotification on CustomerNotification {
   id
   actor {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -19695,9 +21035,15 @@ fragment DocumentNotification on DocumentNotification {
   id
   actor {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -19741,9 +21087,15 @@ fragment InitiativeNotification on InitiativeNotification {
   id
   actor {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -19766,6 +21118,8 @@ fragment IssueNotification on IssueNotification {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   parentComment {
@@ -19776,6 +21130,7 @@ fragment IssueNotification on IssueNotification {
   }
   team {
     id
+    name
   }
   emailedAt
   readAt
@@ -19786,9 +21141,15 @@ fragment IssueNotification on IssueNotification {
   id
   actor {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -19808,6 +21169,8 @@ fragment NotificationSubscription on NotificationSubscription {
   }
   project {
     id
+    name
+    url
   }
   customer {
     id
@@ -19815,6 +21178,7 @@ fragment NotificationSubscription on NotificationSubscription {
   updatedAt
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -19823,9 +21187,15 @@ fragment NotificationSubscription on NotificationSubscription {
   id
   subscriber {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
   active
 }
@@ -19854,9 +21224,15 @@ fragment OauthClientApprovalNotification on OauthClientApprovalNotification {
   id
   actor {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -19900,9 +21276,15 @@ fragment PostNotification on PostNotification {
   id
   actor {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -19934,6 +21316,8 @@ fragment ProjectNotification on ProjectNotification {
   }
   project {
     id
+    name
+    url
   }
   projectUpdate {
     id
@@ -19947,9 +21331,15 @@ fragment ProjectNotification on ProjectNotification {
   id
   actor {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -19975,9 +21365,15 @@ fragment PullRequestNotification on PullRequestNotification {
   id
   actor {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -20032,6 +21428,8 @@ COMMANDS["notification-subscription"] = class LinearCommand_notificationSubscrip
   }
   project {
     id
+    name
+    url
   }
   customer {
     id
@@ -20039,6 +21437,7 @@ COMMANDS["notification-subscription"] = class LinearCommand_notificationSubscrip
   updatedAt
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -20047,9 +21446,15 @@ COMMANDS["notification-subscription"] = class LinearCommand_notificationSubscrip
   id
   subscriber {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
   active
 }
@@ -20120,6 +21525,8 @@ fragment NotificationSubscription on NotificationSubscription {
   }
   project {
     id
+    name
+    url
   }
   customer {
     id
@@ -20127,6 +21534,7 @@ fragment NotificationSubscription on NotificationSubscription {
   updatedAt
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -20135,9 +21543,15 @@ fragment NotificationSubscription on NotificationSubscription {
   id
   subscriber {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
   active
 }
@@ -20243,9 +21657,15 @@ fragment Notification on Notification {
   id
   actor {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
   ... on CustomerNeedNotification {
     ...CustomerNeedNotification
@@ -20302,10 +21722,14 @@ fragment CustomerNeedNotification on CustomerNeedNotification {
   }
   relatedIssue {
     id
+    title
+    url
   }
   updatedAt
   relatedProject {
     id
+    name
+    url
   }
   emailedAt
   readAt
@@ -20316,9 +21740,15 @@ fragment CustomerNeedNotification on CustomerNeedNotification {
   id
   actor {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -20346,9 +21776,15 @@ fragment CustomerNotification on CustomerNotification {
   id
   actor {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -20376,9 +21812,15 @@ fragment DocumentNotification on DocumentNotification {
   id
   actor {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -20422,9 +21864,15 @@ fragment InitiativeNotification on InitiativeNotification {
   id
   actor {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -20447,6 +21895,8 @@ fragment IssueNotification on IssueNotification {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   parentComment {
@@ -20457,6 +21907,7 @@ fragment IssueNotification on IssueNotification {
   }
   team {
     id
+    name
   }
   emailedAt
   readAt
@@ -20467,9 +21918,15 @@ fragment IssueNotification on IssueNotification {
   id
   actor {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -20489,6 +21946,8 @@ fragment NotificationSubscription on NotificationSubscription {
   }
   project {
     id
+    name
+    url
   }
   customer {
     id
@@ -20496,6 +21955,7 @@ fragment NotificationSubscription on NotificationSubscription {
   updatedAt
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -20504,9 +21964,15 @@ fragment NotificationSubscription on NotificationSubscription {
   id
   subscriber {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
   active
 }
@@ -20535,9 +22001,15 @@ fragment OauthClientApprovalNotification on OauthClientApprovalNotification {
   id
   actor {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -20581,9 +22053,15 @@ fragment PostNotification on PostNotification {
   id
   actor {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -20615,6 +22093,8 @@ fragment ProjectNotification on ProjectNotification {
   }
   project {
     id
+    name
+    url
   }
   projectUpdate {
     id
@@ -20628,9 +22108,15 @@ fragment ProjectNotification on ProjectNotification {
   id
   actor {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -20656,9 +22142,15 @@ fragment PullRequestNotification on PullRequestNotification {
   id
   actor {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -20794,6 +22286,9 @@ fragment PaidSubscription on PaidSubscription {
   collectionMethod
   creator {
     id
+    __typename
+    displayName
+    email
   }
   cancelAt
   canceledAt
@@ -20865,12 +22360,16 @@ fragment Integration on Integration {
   updatedAt
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -20976,15 +22475,22 @@ fragment IssueLabel on IssueLabel {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   retiredBy {
     id
+    __typename
+    displayName
+    email
   }
   isGroup
 }
@@ -21091,9 +22597,15 @@ fragment ProjectLabel on ProjectLabel {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   retiredBy {
     id
+    __typename
+    displayName
+    email
   }
   isGroup
 }
@@ -21154,6 +22666,9 @@ COMMANDS["organization:subscription"] = class LinearCommand_organization_subscri
   collectionMethod
   creator {
     id
+    __typename
+    displayName
+    email
   }
   cancelAt
   canceledAt
@@ -21267,6 +22782,7 @@ COMMANDS["organization:teams"] = class LinearCommand_organization_teams extends 
   __typename
   nodes {
     ...Team
+    name
   }
   pageInfo {
     ...PageInfo
@@ -21482,15 +22998,22 @@ fragment Template on Template {
   sortOrder
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   lastUpdatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -21557,6 +23080,9 @@ COMMANDS["organization:users"] = class LinearCommand_organization_users extends 
   __typename
   nodes {
     ...User
+    __typename
+    displayName
+    email
   }
   pageInfo {
     ...PageInfo
@@ -21707,9 +23233,15 @@ COMMANDS["organization-invite"] = class LinearCommand_organizationInvite extends
   role
   inviter {
     id
+    __typename
+    displayName
+    email
   }
   invitee {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -21777,9 +23309,15 @@ fragment OrganizationInvite on OrganizationInvite {
   role
   inviter {
     id
+    __typename
+    displayName
+    email
   }
   invitee {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -21868,9 +23406,14 @@ COMMANDS["project"] = class LinearCommand_project extends LinearCommand {
   priority
   lead {
     id
+    __typename
+    displayName
+    email
   }
   convertedFromIssue {
     id
+    title
+    url
   }
   color
   content
@@ -21898,6 +23441,9 @@ COMMANDS["project"] = class LinearCommand_project extends LinearCommand {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -21923,6 +23469,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -21930,6 +23478,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -21945,12 +23495,17 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
 query project($id: String!) {
   project(id: $id) {
     ...Project
+    name
+    url
   }
 }
 `;
@@ -22059,6 +23614,8 @@ fragment Comment on Comment {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   parent {
@@ -22075,9 +23632,15 @@ fragment Comment on Comment {
   id
   resolvingUser {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -22095,6 +23658,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -22105,6 +23670,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -22133,6 +23701,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -22140,6 +23710,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -22155,6 +23727,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -22231,6 +23806,8 @@ query project_comments($id: String!, $after: String, $before: String, $filter: C
     ) {
       ...CommentConnection
     }
+    name
+    url
   }
 }
 `;
@@ -22278,6 +23855,8 @@ COMMANDS["project:document-content"] = class LinearCommand_project_documentConte
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -22285,6 +23864,8 @@ COMMANDS["project:document-content"] = class LinearCommand_project_documentConte
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -22300,6 +23881,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -22308,6 +23892,8 @@ query project_documentContent($id: String!) {
     documentContent {
       ...DocumentContent
     }
+    name
+    url
   }
 }
 `;
@@ -22349,6 +23935,9 @@ COMMANDS["project:document-content:ai-prompt-rules"] =
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -22359,6 +23948,8 @@ query project_documentContent_aiPromptRules($id: String!) {
         ...AiPromptRules
       }
     }
+    name
+    url
   }
 }
 `;
@@ -22454,6 +24045,8 @@ fragment Document on Document {
   }
   issue {
     id
+    title
+    url
   }
   lastAppliedTemplate {
     id
@@ -22462,6 +24055,8 @@ fragment Document on Document {
   sortOrder
   project {
     id
+    name
+    url
   }
   hiddenAt
   archivedAt
@@ -22469,9 +24064,15 @@ fragment Document on Document {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -22496,6 +24097,8 @@ query project_documents($id: String!, $after: String, $before: String, $filter: 
     ) {
       ...DocumentConnection
     }
+    name
+    url
   }
 }
 `;
@@ -22558,6 +24161,9 @@ fragment EntityExternalLink on EntityExternalLink {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -22581,6 +24187,8 @@ query project_externalLinks($id: String!, $after: String, $before: String, $firs
     ) {
       ...EntityExternalLinkConnection
     }
+    name
+    url
   }
 }
 `;
@@ -22635,6 +24243,8 @@ fragment ProjectHistory on ProjectHistory {
   updatedAt
   project {
     id
+    name
+    url
   }
   archivedAt
   createdAt
@@ -22661,6 +24271,8 @@ query project_history($id: String!, $after: String, $before: String, $first: Int
     ) {
       ...ProjectHistoryConnection
     }
+    name
+    url
   }
 }
 `;
@@ -22750,9 +24362,15 @@ fragment Initiative on Initiative {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   owner {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -22771,6 +24389,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -22778,6 +24398,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -22793,6 +24415,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -22816,6 +24441,8 @@ query project_initiatives($id: String!, $after: String, $before: String, $first:
     ) {
       ...InitiativeConnection
     }
+    name
+    url
   }
 }
 `;
@@ -22869,6 +24496,9 @@ fragment ProjectRelation on ProjectRelation {
   updatedAt
   user {
     id
+    __typename
+    displayName
+    email
   }
   projectMilestone {
     id
@@ -22878,9 +24508,13 @@ fragment ProjectRelation on ProjectRelation {
   }
   project {
     id
+    name
+    url
   }
   relatedProject {
     id
+    name
+    url
   }
   type
   archivedAt
@@ -22910,6 +24544,8 @@ query project_inverseRelations($id: String!, $after: String, $before: String, $f
     ) {
       ...ProjectRelationConnection
     }
+    name
+    url
   }
 }
 `;
@@ -23112,6 +24748,8 @@ COMMANDS["project:issues"] = class LinearCommand_project_issues extends LinearCo
   __typename
   nodes {
     ...Issue
+    title
+    url
   }
   pageInfo {
     ...PageInfo
@@ -23135,6 +24773,9 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -23158,6 +24799,9 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -23172,10 +24816,14 @@ fragment Issue on Issue {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -23185,6 +24833,7 @@ fragment Issue on Issue {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -23207,12 +24856,21 @@ fragment Issue on Issue {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -23236,6 +24894,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -23246,6 +24906,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -23319,6 +24982,8 @@ query project_issues($id: String!, $after: String, $before: String, $filter: Iss
     ) {
       ...IssueConnection
     }
+    name
+    url
   }
 }
 `;
@@ -23401,9 +25066,15 @@ fragment ProjectLabel on ProjectLabel {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   retiredBy {
     id
+    __typename
+    displayName
+    email
   }
   isGroup
 }
@@ -23429,6 +25100,8 @@ query project_labels($id: String!, $after: String, $before: String, $filter: Pro
     ) {
       ...ProjectLabelConnection
     }
+    name
+    url
   }
 }
 `;
@@ -23534,6 +25207,9 @@ COMMANDS["project:members"] = class LinearCommand_project_members extends Linear
   __typename
   nodes {
     ...User
+    __typename
+    displayName
+    email
   }
   pageInfo {
     ...PageInfo
@@ -23598,6 +25274,8 @@ query project_members($id: String!, $after: String, $before: String, $filter: Us
     ) {
       ...UserConnection
     }
+    name
+    url
   }
 }
 `;
@@ -23669,15 +25347,22 @@ fragment CustomerNeed on CustomerNeed {
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   customer {
     id
   }
   originalIssue {
     id
+    title
+    url
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   body
@@ -23686,6 +25371,8 @@ fragment CustomerNeed on CustomerNeed {
   }
   project {
     id
+    name
+    url
   }
   archivedAt
   createdAt
@@ -23701,6 +25388,9 @@ fragment ProjectAttachment on ProjectAttachment {
   subtitle
   creator {
     id
+    __typename
+    displayName
+    email
   }
   updatedAt
   archivedAt
@@ -23731,6 +25421,8 @@ query project_needs($id: String!, $after: String, $before: String, $filter: Cust
     ) {
       ...CustomerNeedConnection
     }
+    name
+    url
   }
 }
 `;
@@ -23810,6 +25502,8 @@ fragment ProjectMilestone on ProjectMilestone {
   description
   project {
     id
+    name
+    url
   }
   status
   archivedAt
@@ -23832,6 +25526,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -23839,6 +25535,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -23854,6 +25552,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -23878,6 +25579,8 @@ query project_projectMilestones($id: String!, $after: String, $before: String, $
     ) {
       ...ProjectMilestoneConnection
     }
+    name
+    url
   }
 }
 `;
@@ -23939,6 +25642,8 @@ fragment ProjectUpdate on ProjectUpdate {
   updatedAt
   project {
     id
+    name
+    url
   }
   archivedAt
   createdAt
@@ -23948,6 +25653,9 @@ fragment ProjectUpdate on ProjectUpdate {
   slugId
   user {
     id
+    __typename
+    displayName
+    email
   }
   isDiffHidden
   isStale
@@ -23967,6 +25675,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -23977,6 +25687,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -24000,6 +25713,8 @@ query project_projectUpdates($id: String!, $after: String, $before: String, $fir
     ) {
       ...ProjectUpdateConnection
     }
+    name
+    url
   }
 }
 `;
@@ -24053,6 +25768,9 @@ fragment ProjectRelation on ProjectRelation {
   updatedAt
   user {
     id
+    __typename
+    displayName
+    email
   }
   projectMilestone {
     id
@@ -24062,9 +25780,13 @@ fragment ProjectRelation on ProjectRelation {
   }
   project {
     id
+    name
+    url
   }
   relatedProject {
     id
+    name
+    url
   }
   type
   archivedAt
@@ -24094,6 +25816,8 @@ query project_relations($id: String!, $after: String, $before: String, $first: I
     ) {
       ...ProjectRelationConnection
     }
+    name
+    url
   }
 }
 `;
@@ -24188,6 +25912,7 @@ COMMANDS["project:teams"] = class LinearCommand_project_teams extends LinearComm
   __typename
   nodes {
     ...Team
+    name
   }
   pageInfo {
     ...PageInfo
@@ -24310,6 +26035,8 @@ query project_teams($id: String!, $after: String, $before: String, $filter: Team
     ) {
       ...TeamConnection
     }
+    name
+    url
   }
 }
 `;
@@ -24398,9 +26125,15 @@ COMMANDS["project-label"] = class LinearCommand_projectLabel extends LinearComma
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   retiredBy {
     id
+    __typename
+    displayName
+    email
   }
   isGroup
 }
@@ -24490,9 +26223,15 @@ fragment ProjectLabel on ProjectLabel {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   retiredBy {
     id
+    __typename
+    displayName
+    email
   }
   isGroup
 }
@@ -24703,6 +26442,8 @@ COMMANDS["project-label:projects"] = class LinearCommand_projectLabel_projects e
   __typename
   nodes {
     ...Project
+    name
+    url
   }
   pageInfo {
     ...PageInfo
@@ -24744,9 +26485,14 @@ fragment Project on Project {
   priority
   lead {
     id
+    __typename
+    displayName
+    email
   }
   convertedFromIssue {
     id
+    title
+    url
   }
   color
   content
@@ -24774,6 +26520,9 @@ fragment Project on Project {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -24799,6 +26548,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -24806,6 +26557,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -24821,6 +26574,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -24927,9 +26683,15 @@ fragment ProjectLabel on ProjectLabel {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   retiredBy {
     id
+    __typename
+    displayName
+    email
   }
   isGroup
 }
@@ -24998,6 +26760,8 @@ COMMANDS["project-milestone"] = class LinearCommand_projectMilestone extends Lin
   description
   project {
     id
+    name
+    url
   }
   status
   archivedAt
@@ -25020,6 +26784,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -25027,6 +26793,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -25042,6 +26810,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -25097,6 +26868,8 @@ COMMANDS["project-milestone:document-content"] = class LinearCommand_projectMile
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -25104,6 +26877,8 @@ COMMANDS["project-milestone:document-content"] = class LinearCommand_projectMile
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -25119,6 +26894,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -25168,6 +26946,9 @@ COMMANDS["project-milestone:document-content:ai-prompt-rules"] =
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -25380,6 +27161,8 @@ COMMANDS["project-milestone:issues"] = class LinearCommand_projectMilestone_issu
   __typename
   nodes {
     ...Issue
+    title
+    url
   }
   pageInfo {
     ...PageInfo
@@ -25403,6 +27186,9 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -25426,6 +27212,9 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -25440,10 +27229,14 @@ fragment Issue on Issue {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -25453,6 +27246,7 @@ fragment Issue on Issue {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -25475,12 +27269,21 @@ fragment Issue on Issue {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -25504,6 +27307,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -25514,6 +27319,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -25665,6 +27473,8 @@ fragment ProjectMilestone on ProjectMilestone {
   description
   project {
     id
+    name
+    url
   }
   status
   archivedAt
@@ -25687,6 +27497,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -25694,6 +27506,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -25709,6 +27523,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -25768,6 +27585,9 @@ COMMANDS["project-relation"] = class LinearCommand_projectRelation extends Linea
   updatedAt
   user {
     id
+    __typename
+    displayName
+    email
   }
   projectMilestone {
     id
@@ -25777,9 +27597,13 @@ COMMANDS["project-relation"] = class LinearCommand_projectRelation extends Linea
   }
   project {
     id
+    name
+    url
   }
   relatedProject {
     id
+    name
+    url
   }
   type
   archivedAt
@@ -25844,6 +27668,9 @@ fragment ProjectRelation on ProjectRelation {
   updatedAt
   user {
     id
+    __typename
+    displayName
+    email
   }
   projectMilestone {
     id
@@ -25853,9 +27680,13 @@ fragment ProjectRelation on ProjectRelation {
   }
   project {
     id
+    name
+    url
   }
   relatedProject {
     id
+    name
+    url
   }
   type
   archivedAt
@@ -26056,6 +27887,8 @@ COMMANDS["project-update"] = class LinearCommand_projectUpdate extends LinearCom
   updatedAt
   project {
     id
+    name
+    url
   }
   archivedAt
   createdAt
@@ -26065,6 +27898,9 @@ COMMANDS["project-update"] = class LinearCommand_projectUpdate extends LinearCom
   slugId
   user {
     id
+    __typename
+    displayName
+    email
   }
   isDiffHidden
   isStale
@@ -26084,6 +27920,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -26094,6 +27932,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -26208,6 +28049,8 @@ fragment Comment on Comment {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   parent {
@@ -26224,9 +28067,15 @@ fragment Comment on Comment {
   id
   resolvingUser {
     id
+    __typename
+    displayName
+    email
   }
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -26244,6 +28093,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -26254,6 +28105,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -26282,6 +28136,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -26289,6 +28145,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -26304,6 +28162,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -26440,6 +28301,8 @@ fragment ProjectUpdate on ProjectUpdate {
   updatedAt
   project {
     id
+    name
+    url
   }
   archivedAt
   createdAt
@@ -26449,6 +28312,9 @@ fragment ProjectUpdate on ProjectUpdate {
   slugId
   user {
     id
+    __typename
+    displayName
+    email
   }
   isDiffHidden
   isStale
@@ -26468,6 +28334,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -26478,6 +28346,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -26684,6 +28555,8 @@ COMMANDS["projects"] = class LinearCommand_projects extends LinearCommand {
   __typename
   nodes {
     ...Project
+    name
+    url
   }
   pageInfo {
     ...PageInfo
@@ -26725,9 +28598,14 @@ fragment Project on Project {
   priority
   lead {
     id
+    __typename
+    displayName
+    email
   }
   convertedFromIssue {
     id
+    title
+    url
   }
   color
   content
@@ -26755,6 +28633,9 @@ fragment Project on Project {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -26780,6 +28661,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -26787,6 +28670,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -26802,6 +28687,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -26964,9 +28852,15 @@ COMMANDS["roadmap"] = class LinearCommand_roadmap extends LinearCommand {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   owner {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -27158,6 +29052,8 @@ COMMANDS["roadmap:projects"] = class LinearCommand_roadmap_projects extends Line
   __typename
   nodes {
     ...Project
+    name
+    url
   }
   pageInfo {
     ...PageInfo
@@ -27199,9 +29095,14 @@ fragment Project on Project {
   priority
   lead {
     id
+    __typename
+    displayName
+    email
   }
   convertedFromIssue {
     id
+    title
+    url
   }
   color
   content
@@ -27229,6 +29130,9 @@ fragment Project on Project {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -27254,6 +29158,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -27261,6 +29167,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -27276,6 +29184,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -27337,6 +29248,8 @@ COMMANDS["roadmap-to-project"] = class LinearCommand_roadmapToProject extends Li
   updatedAt
   project {
     id
+    name
+    url
   }
   roadmap {
     id
@@ -27402,6 +29315,8 @@ fragment RoadmapToProject on RoadmapToProject {
   updatedAt
   project {
     id
+    name
+    url
   }
   roadmap {
     id
@@ -27491,9 +29406,15 @@ fragment Roadmap on Roadmap {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   owner {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -27593,6 +29514,8 @@ fragment DocumentSearchResult on DocumentSearchResult {
   }
   issue {
     id
+    title
+    url
   }
   lastAppliedTemplate {
     id
@@ -27601,6 +29524,8 @@ fragment DocumentSearchResult on DocumentSearchResult {
   sortOrder
   project {
     id
+    name
+    url
   }
   hiddenAt
   archivedAt
@@ -27608,9 +29533,15 @@ fragment DocumentSearchResult on DocumentSearchResult {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -27940,6 +29871,9 @@ fragment IssueSearchResult on IssueSearchResult {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -27963,6 +29897,9 @@ fragment IssueSearchResult on IssueSearchResult {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -27977,10 +29914,14 @@ fragment IssueSearchResult on IssueSearchResult {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -27990,6 +29931,7 @@ fragment IssueSearchResult on IssueSearchResult {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -28012,12 +29954,21 @@ fragment IssueSearchResult on IssueSearchResult {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -28041,6 +29992,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -28051,6 +30004,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -28447,9 +30403,14 @@ fragment ProjectSearchResult on ProjectSearchResult {
   priority
   lead {
     id
+    __typename
+    displayName
+    email
   }
   convertedFromIssue {
     id
+    title
+    url
   }
   color
   content
@@ -28477,6 +30438,9 @@ fragment ProjectSearchResult on ProjectSearchResult {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -28502,6 +30466,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -28509,6 +30475,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -28524,6 +30492,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -28664,9 +30635,13 @@ fragment SemanticSearchResult on SemanticSearchResult {
   }
   issue {
     id
+    title
+    url
   }
   project {
     id
+    name
+    url
   }
   type
   id
@@ -28854,6 +30829,7 @@ COMMANDS["team"] = class LinearCommand_team extends LinearCommand {
 query team($id: String!) {
   team(id: $id) {
     ...Team
+    name
   }
 }
 `;
@@ -28956,6 +30932,7 @@ fragment Cycle on Cycle {
   startsAt
   team {
     id
+    name
   }
   autoArchivedAt
   archivedAt
@@ -28991,6 +30968,7 @@ query team_cycles($id: String!, $after: String, $before: String, $filter: CycleF
     ) {
       ...CycleConnection
     }
+    name
   }
 }
 `;
@@ -29051,6 +31029,7 @@ fragment GitAutomationState on GitAutomationState {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -29064,6 +31043,7 @@ fragment GitAutomationTargetBranch on GitAutomationTargetBranch {
   branchPattern
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -29091,6 +31071,7 @@ query team_gitAutomationStates($id: String!, $after: String, $before: String, $f
     ) {
       ...GitAutomationStateConnection
     }
+    name
   }
 }
 `;
@@ -29294,6 +31275,8 @@ COMMANDS["team:issues"] = class LinearCommand_team_issues extends LinearCommand 
   __typename
   nodes {
     ...Issue
+    title
+    url
   }
   pageInfo {
     ...PageInfo
@@ -29317,6 +31300,9 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -29340,6 +31326,9 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -29354,10 +31343,14 @@ fragment Issue on Issue {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -29367,6 +31360,7 @@ fragment Issue on Issue {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -29389,12 +31383,21 @@ fragment Issue on Issue {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -29418,6 +31421,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -29428,6 +31433,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -29502,6 +31510,7 @@ query team_issues($id: String!, $after: String, $before: String, $filter: IssueF
     ) {
       ...IssueConnection
     }
+    name
   }
 }
 `;
@@ -29585,15 +31594,22 @@ fragment IssueLabel on IssueLabel {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   retiredBy {
     id
+    __typename
+    displayName
+    email
   }
   isGroup
 }
@@ -29619,6 +31635,7 @@ query team_labels($id: String!, $after: String, $before: String, $filter: IssueL
     ) {
       ...IssueLabelConnection
     }
+    name
   }
 }
 `;
@@ -29724,6 +31741,9 @@ COMMANDS["team:members"] = class LinearCommand_team_members extends LinearComman
   __typename
   nodes {
     ...User
+    __typename
+    displayName
+    email
   }
   pageInfo {
     ...PageInfo
@@ -29788,6 +31808,7 @@ query team_members($id: String!, $after: String, $before: String, $filter: UserF
     ) {
       ...UserConnection
     }
+    name
   }
 }
 `;
@@ -29842,12 +31863,16 @@ fragment TeamMembership on TeamMembership {
   sortOrder
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
   owner
 }
@@ -29872,6 +31897,7 @@ query team_memberships($id: String!, $after: String, $before: String, $first: In
     ) {
       ...TeamMembershipConnection
     }
+    name
   }
 }
 `;
@@ -30058,6 +32084,8 @@ COMMANDS["team:projects"] = class LinearCommand_team_projects extends LinearComm
   __typename
   nodes {
     ...Project
+    name
+    url
   }
   pageInfo {
     ...PageInfo
@@ -30099,9 +32127,14 @@ fragment Project on Project {
   priority
   lead {
     id
+    __typename
+    displayName
+    email
   }
   convertedFromIssue {
     id
+    title
+    url
   }
   color
   content
@@ -30129,6 +32162,9 @@ fragment Project on Project {
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -30154,6 +32190,8 @@ fragment DocumentContent on DocumentContent {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectMilestone {
@@ -30161,6 +32199,8 @@ fragment DocumentContent on DocumentContent {
   }
   project {
     id
+    name
+    url
   }
   restoredAt
   archivedAt
@@ -30176,6 +32216,9 @@ fragment AiPromptRules on AiPromptRules {
   id
   updatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -30202,6 +32245,7 @@ query team_projects($id: String!, $after: String, $before: String, $filter: Proj
     ) {
       ...ProjectConnection
     }
+    name
   }
 }
 `;
@@ -30318,6 +32362,7 @@ fragment WorkflowState on WorkflowState {
   name
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -30346,6 +32391,7 @@ query team_states($id: String!, $after: String, $before: String, $filter: Workfl
     ) {
       ...WorkflowStateConnection
     }
+    name
   }
 }
 `;
@@ -30440,15 +32486,22 @@ fragment Template on Template {
   sortOrder
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   lastUpdatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -30473,6 +32526,7 @@ query team_templates($id: String!, $after: String, $before: String, $filter: Nul
     ) {
       ...TemplateConnection
     }
+    name
   }
 }
 `;
@@ -30528,12 +32582,16 @@ fragment Webhook on Webhook {
   resourceTypes
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   url
   label
@@ -30561,6 +32619,7 @@ query team_webhooks($id: String!, $after: String, $before: String, $first: Int, 
     ) {
       ...WebhookConnection
     }
+    name
   }
 }
 `;
@@ -30599,12 +32658,16 @@ COMMANDS["team-membership"] = class LinearCommand_teamMembership extends LinearC
   sortOrder
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
   owner
 }
@@ -30665,12 +32728,16 @@ fragment TeamMembership on TeamMembership {
   sortOrder
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
   owner
 }
@@ -30786,6 +32853,7 @@ COMMANDS["teams"] = class LinearCommand_teams extends LinearCommand {
   __typename
   nodes {
     ...Team
+    name
   }
   pageInfo {
     ...PageInfo
@@ -30951,15 +33019,22 @@ COMMANDS["template"] = class LinearCommand_template extends LinearCommand {
   sortOrder
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   lastUpdatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -31009,15 +33084,22 @@ COMMANDS["templates"] = class LinearCommand_templates extends LinearCommand {
   sortOrder
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   lastUpdatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -31069,15 +33151,22 @@ COMMANDS["templates-for-integration"] = class LinearCommand_templatesForIntegrat
   sortOrder
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   lastUpdatedBy {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -31290,6 +33379,7 @@ fragment TriageResponsibility on TriageResponsibility {
   updatedAt
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -31299,6 +33389,9 @@ fragment TriageResponsibility on TriageResponsibility {
   id
   currentUser {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -31366,6 +33459,7 @@ COMMANDS["triage-responsibility"] = class LinearCommand_triageResponsibility ext
   updatedAt
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -31375,6 +33469,9 @@ COMMANDS["triage-responsibility"] = class LinearCommand_triageResponsibility ext
   id
   currentUser {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -31501,6 +33598,9 @@ COMMANDS["user"] = class LinearCommand_user extends LinearCommand {
 query user($id: String!) {
   user(id: $id) {
     ...User
+    __typename
+    displayName
+    email
   }
 }
 `;
@@ -31703,6 +33803,8 @@ COMMANDS["user:assigned-issues"] = class LinearCommand_user_assignedIssues exten
   __typename
   nodes {
     ...Issue
+    title
+    url
   }
   pageInfo {
     ...PageInfo
@@ -31726,6 +33828,9 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -31749,6 +33854,9 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -31763,10 +33871,14 @@ fragment Issue on Issue {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -31776,6 +33888,7 @@ fragment Issue on Issue {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -31798,12 +33911,21 @@ fragment Issue on Issue {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -31827,6 +33949,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -31837,6 +33961,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -31910,6 +34037,9 @@ query user_assignedIssues($id: String!, $after: String, $before: String, $filter
     ) {
       ...IssueConnection
     }
+    __typename
+    displayName
+    email
   }
 }
 `;
@@ -32112,6 +34242,8 @@ COMMANDS["user:created-issues"] = class LinearCommand_user_createdIssues extends
   __typename
   nodes {
     ...Issue
+    title
+    url
   }
   pageInfo {
     ...PageInfo
@@ -32135,6 +34267,9 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -32158,6 +34293,9 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -32172,10 +34310,14 @@ fragment Issue on Issue {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -32185,6 +34327,7 @@ fragment Issue on Issue {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -32207,12 +34350,21 @@ fragment Issue on Issue {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -32236,6 +34388,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -32246,6 +34400,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -32319,6 +34476,9 @@ query user_createdIssues($id: String!, $after: String, $before: String, $filter:
     ) {
       ...IssueConnection
     }
+    __typename
+    displayName
+    email
   }
 }
 `;
@@ -32521,6 +34681,8 @@ COMMANDS["user:delegated-issues"] = class LinearCommand_user_delegatedIssues ext
   __typename
   nodes {
     ...Issue
+    title
+    url
   }
   pageInfo {
     ...PageInfo
@@ -32544,6 +34706,9 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -32567,6 +34732,9 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -32581,10 +34749,14 @@ fragment Issue on Issue {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -32594,6 +34766,7 @@ fragment Issue on Issue {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -32616,12 +34789,21 @@ fragment Issue on Issue {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -32645,6 +34827,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -32655,6 +34839,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -32728,6 +34915,9 @@ query user_delegatedIssues($id: String!, $after: String, $before: String, $filte
     ) {
       ...IssueConnection
     }
+    __typename
+    displayName
+    email
   }
 }
 `;
@@ -32793,16 +34983,21 @@ fragment Draft on Draft {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   project {
     id
+    name
+    url
   }
   projectUpdate {
     id
   }
   team {
     id
+    name
   }
   bodyData
   archivedAt
@@ -32810,6 +35005,9 @@ fragment Draft on Draft {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
   isAutogenerated
 }
@@ -32834,6 +35032,9 @@ query user_drafts($id: String!, $after: String, $before: String, $first: Int, $i
     ) {
       ...DraftConnection
     }
+    __typename
+    displayName
+    email
   }
 }
 `;
@@ -32888,12 +35089,16 @@ fragment TeamMembership on TeamMembership {
   sortOrder
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
   owner
 }
@@ -32918,6 +35123,9 @@ query user_teamMemberships($id: String!, $after: String, $before: String, $first
     ) {
       ...TeamMembershipConnection
     }
+    __typename
+    displayName
+    email
   }
 }
 `;
@@ -33012,6 +35220,7 @@ COMMANDS["user:teams"] = class LinearCommand_user_teams extends LinearCommand {
   __typename
   nodes {
     ...Team
+    name
   }
   pageInfo {
     ...PageInfo
@@ -33134,6 +35343,9 @@ query user_teams($id: String!, $after: String, $before: String, $filter: TeamFil
     ) {
       ...TeamConnection
     }
+    __typename
+    displayName
+    email
   }
 }
 `;
@@ -33177,6 +35389,9 @@ COMMANDS["user-settings"] = class LinearCommand_userSettings extends LinearComma
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
   feedSummarySchedule
   feedLastSeenTime
@@ -35016,6 +37231,9 @@ COMMANDS["users"] = class LinearCommand_users extends LinearCommand {
   __typename
   nodes {
     ...User
+    __typename
+    displayName
+    email
   }
   pageInfo {
     ...PageInfo
@@ -35189,6 +37407,9 @@ COMMANDS["viewer"] = class LinearCommand_viewer extends LinearCommand {
 query viewer {
   viewer {
     ...User
+    __typename
+    displayName
+    email
   }
 }
 `;
@@ -35390,6 +37611,8 @@ COMMANDS["viewer:assigned-issues"] = class LinearCommand_viewer_assignedIssues e
   __typename
   nodes {
     ...Issue
+    title
+    url
   }
   pageInfo {
     ...PageInfo
@@ -35413,6 +37636,9 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -35436,6 +37662,9 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -35450,10 +37679,14 @@ fragment Issue on Issue {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -35463,6 +37696,7 @@ fragment Issue on Issue {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -35485,12 +37719,21 @@ fragment Issue on Issue {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -35514,6 +37757,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -35524,6 +37769,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -35597,6 +37845,9 @@ query viewer_assignedIssues($after: String, $before: String, $filter: IssueFilte
     ) {
       ...IssueConnection
     }
+    __typename
+    displayName
+    email
   }
 }
 `;
@@ -35798,6 +38049,8 @@ COMMANDS["viewer:created-issues"] = class LinearCommand_viewer_createdIssues ext
   __typename
   nodes {
     ...Issue
+    title
+    url
   }
   pageInfo {
     ...PageInfo
@@ -35821,6 +38074,9 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -35844,6 +38100,9 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -35858,10 +38117,14 @@ fragment Issue on Issue {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -35871,6 +38134,7 @@ fragment Issue on Issue {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -35893,12 +38157,21 @@ fragment Issue on Issue {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -35922,6 +38195,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -35932,6 +38207,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -36005,6 +38283,9 @@ query viewer_createdIssues($after: String, $before: String, $filter: IssueFilter
     ) {
       ...IssueConnection
     }
+    __typename
+    displayName
+    email
   }
 }
 `;
@@ -36206,6 +38487,8 @@ COMMANDS["viewer:delegated-issues"] = class LinearCommand_viewer_delegatedIssues
   __typename
   nodes {
     ...Issue
+    title
+    url
   }
   pageInfo {
     ...PageInfo
@@ -36229,6 +38512,9 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -36252,6 +38538,9 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -36266,10 +38555,14 @@ fragment Issue on Issue {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -36279,6 +38572,7 @@ fragment Issue on Issue {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -36301,12 +38595,21 @@ fragment Issue on Issue {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -36330,6 +38633,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -36340,6 +38645,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -36413,6 +38721,9 @@ query viewer_delegatedIssues($after: String, $before: String, $filter: IssueFilt
     ) {
       ...IssueConnection
     }
+    __typename
+    displayName
+    email
   }
 }
 `;
@@ -36477,16 +38788,21 @@ fragment Draft on Draft {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   project {
     id
+    name
+    url
   }
   projectUpdate {
     id
   }
   team {
     id
+    name
   }
   bodyData
   archivedAt
@@ -36494,6 +38810,9 @@ fragment Draft on Draft {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
   isAutogenerated
 }
@@ -36518,6 +38837,9 @@ query viewer_drafts($after: String, $before: String, $first: Int, $includeArchiv
     ) {
       ...DraftConnection
     }
+    __typename
+    displayName
+    email
   }
 }
 `;
@@ -36571,12 +38893,16 @@ fragment TeamMembership on TeamMembership {
   sortOrder
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
   owner
 }
@@ -36601,6 +38927,9 @@ query viewer_teamMemberships($after: String, $before: String, $first: Int, $incl
     ) {
       ...TeamMembershipConnection
     }
+    __typename
+    displayName
+    email
   }
 }
 `;
@@ -36694,6 +39023,7 @@ COMMANDS["viewer:teams"] = class LinearCommand_viewer_teams extends LinearComman
   __typename
   nodes {
     ...Team
+    name
   }
   pageInfo {
     ...PageInfo
@@ -36816,6 +39146,9 @@ query viewer_teams($after: String, $before: String, $filter: TeamFilter, $first:
     ) {
       ...TeamConnection
     }
+    __typename
+    displayName
+    email
   }
 }
 `;
@@ -36855,12 +39188,16 @@ COMMANDS["webhook"] = class LinearCommand_webhook extends LinearCommand {
   resourceTypes
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   url
   label
@@ -36925,12 +39262,16 @@ fragment Webhook on Webhook {
   resourceTypes
   team {
     id
+    name
   }
   archivedAt
   createdAt
   id
   creator {
     id
+    __typename
+    displayName
+    email
   }
   url
   label
@@ -37000,6 +39341,7 @@ COMMANDS["workflow-state"] = class LinearCommand_workflowState extends LinearCom
   name
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -37212,6 +39554,8 @@ COMMANDS["workflow-state:issues"] = class LinearCommand_workflowState_issues ext
   __typename
   nodes {
     ...Issue
+    title
+    url
   }
   pageInfo {
     ...PageInfo
@@ -37235,6 +39579,9 @@ fragment Issue on Issue {
   branchName
   delegate {
     id
+    __typename
+    displayName
+    email
   }
   botActor {
     ...ActorBot
@@ -37258,6 +39605,9 @@ fragment Issue on Issue {
   }
   asksRequester {
     id
+    __typename
+    displayName
+    email
   }
   description
   title
@@ -37272,10 +39622,14 @@ fragment Issue on Issue {
   subIssueSortOrder
   parent {
     id
+    title
+    url
   }
   priority
   project {
     id
+    name
+    url
   }
   projectMilestone {
     id
@@ -37285,6 +39639,7 @@ fragment Issue on Issue {
   }
   team {
     id
+    name
   }
   archivedAt
   createdAt
@@ -37307,12 +39662,21 @@ fragment Issue on Issue {
   id
   assignee {
     id
+    __typename
+    displayName
+    email
   }
   creator {
     id
+    __typename
+    displayName
+    email
   }
   snoozedBy {
     id
+    __typename
+    displayName
+    email
   }
   favorite {
     id
@@ -37336,6 +39700,8 @@ fragment Reaction on Reaction {
   }
   issue {
     id
+    title
+    url
   }
   updatedAt
   projectUpdate {
@@ -37346,6 +39712,9 @@ fragment Reaction on Reaction {
   id
   user {
     id
+    __typename
+    displayName
+    email
   }
 }
 
@@ -37534,6 +39903,7 @@ fragment WorkflowState on WorkflowState {
   name
   team {
     id
+    name
   }
   archivedAt
   createdAt

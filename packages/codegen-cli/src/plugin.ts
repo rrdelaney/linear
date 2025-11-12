@@ -2,12 +2,16 @@ import { PluginFunction, Types } from "@graphql-codegen/plugin-helpers";
 import { logger } from "@linear/codegen-doc";
 import {
   DocumentNode,
+  FieldNode,
   FragmentDefinitionNode,
   GraphQLSchema,
   OperationDefinitionNode,
   print,
   SelectionSetNode,
+  TypeInfo,
   TypeNode,
+  visit,
+  visitWithTypeInfo,
 } from "graphql";
 import { CliPluginConfig } from "./types";
 
@@ -21,7 +25,6 @@ export const plugin: PluginFunction<CliPluginConfig> = async (
 ) => {
   const operationDefinitions = new Map<string, OperationDefinitionNode>();
   const fragmentDefinitions = new Map<string, FragmentDefinitionNode>();
-
   documents
     .flatMap(doc => doc.document?.definitions ?? [])
     .forEach(def => {
@@ -89,6 +92,7 @@ export { COMMANDS };
 `;
 };
 
+/** Creates a new class representing an OClif command for a given operation. */
 function classDefinitionForOperation(
   operation: OperationDefinitionNode,
   schema: GraphQLSchema,
@@ -99,7 +103,7 @@ function classDefinitionForOperation(
     throw new Error("Cannot create command class for anonymous operation definition!");
   }
 
-  const documentNode = createDocumentForOperation(operation, fragmentDefinitions);
+  const documentNode = createDocumentForOperation(operation, schema, fragmentDefinitions);
   const flags = getFlagsForOperation(operation, schema);
 
   return `class LinearCommand_${opName} extends LinearCommand {
@@ -161,6 +165,7 @@ function getFlagsForOperation(operation: OperationDefinitionNode, schema: GraphQ
   );
 }
 
+/** Defines how a given GraphQL type maps to an OClif flag type. */
 const primitiveToFlagType = new Map<string, CommandFlag["type"]>([
   ["Float", "integer"],
   ["Int", "integer"],
@@ -227,7 +232,7 @@ function flagsFromVariable(
         if (operation.operation === "mutation") {
           throw new Error(`Could not handle ListType[${innerType}] at ${pathForError}`);
         } else {
-          logger.info(log, `Skipping ${pathForError}: ListType[${innerType}]`);
+          // logger.info(log, `Skipping ${pathForError}: ListType[${innerType}]`);
           return [];
         }
       }
@@ -281,7 +286,7 @@ function flagsFromVariable(
         if (operation.operation === "mutation") {
           throw new Error(`Could not handle ${t.name.value} at ${pathForError}`);
         } else {
-          logger.info(log, `Skipping ${pathForError}: [${namedType}]`);
+          // logger.info(log, `Skipping ${pathForError}: [${namedType}]`);
           return [];
         }
       }
@@ -298,31 +303,40 @@ function flagsFromVariable(
   }
 }
 
+/** Defines the minimum fields that should be queried for a given type. */
+const REQUIRED_FIELDS_FOR_TYPE = new Map<string, ReadonlySet<string>>([
+  ["User", new Set(["__typename", "displayName", "email"])],
+  ["Project", new Set(["name", "url"])],
+  ["Team", new Set(["name"])],
+  ["Issue", new Set(["title", "url"])],
+]);
+
+/** Creates a GraphQL document suitable to be sent to the Linear API for a given operation. */
 function createDocumentForOperation(
   operation: OperationDefinitionNode,
+  schema: GraphQLSchema,
   fragmentDefinitions: Map<string, FragmentDefinitionNode>
 ): DocumentNode {
   const consumedFragments = new Set<string>();
-
-  function visitFragments(selectionSet: SelectionSetNode) {
+  function collectedUsedFragments(selectionSet: SelectionSetNode) {
     selectionSet.selections.forEach(selection => {
       switch (selection.kind) {
         case "FragmentSpread": {
           consumedFragments.add(selection.name.value);
           const fragmentDef = fragmentDefinitions.get(selection.name.value);
           if (fragmentDef) {
-            visitFragments(fragmentDef.selectionSet);
+            collectedUsedFragments(fragmentDef.selectionSet);
           }
           return;
         }
 
         case "InlineFragment":
-          visitFragments(selection.selectionSet);
+          collectedUsedFragments(selection.selectionSet);
           return;
 
         case "Field":
           if (selection.selectionSet) {
-            visitFragments(selection.selectionSet);
+            collectedUsedFragments(selection.selectionSet);
           }
           return;
 
@@ -332,14 +346,61 @@ function createDocumentForOperation(
     });
   }
 
-  visitFragments(operation.selectionSet);
+  // The operation we get only contains a query. We need to send any fragments that
+  // query references along in the request as well, so we recurively look for queries
+  // referenced, and collect those into a new "slim" DocumentNode.
+  collectedUsedFragments(operation.selectionSet);
   const documentNode: DocumentNode = {
     kind: "Document",
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     definitions: [...Array.from(consumedFragments).map(fragment => fragmentDefinitions.get(fragment)!), operation],
   };
 
-  return documentNode;
+  // To make the returned output human-friendly there's a minimum set of fields we should add
+  // to each type, e.g. User.displayName. To do that we visit each selection set in the AST,
+  // find the parent type, and add out display fields if not yet present.
+  const typeInfo = new TypeInfo(schema);
+  return visit(
+    documentNode,
+    visitWithTypeInfo(typeInfo, {
+      SelectionSet: {
+        leave: node => {
+          const selectedType = typeInfo.getParentType();
+          if (!selectedType) {
+            return undefined;
+          }
+
+          // Set of fields already selected on this type.
+          const selectedFields = new Set(
+            node.selections.filter((s): s is FieldNode => s.kind === "Field").map(s => s.name.value)
+          );
+
+          // Additional selections we need to add to display this type.
+          const requiredFields = REQUIRED_FIELDS_FOR_TYPE.get(selectedType.name);
+          if (!requiredFields) {
+            return undefined;
+          }
+
+          // Add the required fields to the selection set and return the updated value.
+          const requiedFieldNodes = Array.from(requiredFields)
+            .filter(fieldName => !selectedFields.has(fieldName))
+            .map((fieldName): FieldNode => {
+              return {
+                kind: "Field",
+                name: { kind: "Name", value: fieldName },
+              };
+            });
+
+          const updatedNode: SelectionSetNode = {
+            ...node,
+            selections: [...node.selections, ...requiedFieldNodes],
+          };
+
+          return updatedNode;
+        },
+      },
+    })
+  );
 }
 
 function commandNameForOperation(operation: OperationDefinitionNode): string | undefined {
