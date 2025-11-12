@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "declarationDir": "dist",
+    "emitDeclarationOnly": false,
+    "module": "es2022",
+    "target": "es2022"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["scripts", "src/_tests", "dist"]
+}

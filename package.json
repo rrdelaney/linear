@@ -13,6 +13,7 @@
   "scripts": {
     "build:import": "lerna run build:import",
     "build:sdk": "lerna run build:sdk",
+    "build:cli": "lerna run build:cli",
     "build:types": "npx tsc --project tsconfig.check.json",
     "build": "run-s generate build:sdk generate:test build:import build:types docs",
     "dev": "NODE_ENV=development yarn build",
@@ -20,8 +21,9 @@
     "generate:clean": "lerna run generate:clean",
     "generate:doc": "lerna run build:codegen-doc && lerna run generate:doc",
     "generate:sdk": "lerna run build:codegen-sdk && lerna run generate:sdk",
+    "generate:cli": "lerna run build:codegen-cli && lerna run generate:cli",
     "generate:test": "lerna run build:codegen-test && lerna run generate:test",
-    "generate": "run-s generate:clean generate:doc generate:sdk",
+    "generate": "run-s generate:clean generate:doc generate:sdk generate:cli",
     "lint": "npx eslint --max-warnings 0 --ext .ts,.tsx **/src/*",
     "mock": "npx graphql-faker packages/sdk/src/schema.graphql",
     "schema": "yarn update:schema",

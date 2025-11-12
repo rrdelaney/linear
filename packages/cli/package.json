@@ -1,0 +1,75 @@
+{
+  "name": "@linear/cli",
+  "description": "CLI interface for Linear",
+  "version": "0.0.0",
+  "private": true,
+  "author": "Linear Orbit, Inc.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build:cli": "shx rm -rf dist tsconfig.tsbuildinfo && npx tsc -b",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "prepack": "oclif manifest && oclif readme",
+    "version": "oclif readme && git add README.md",
+    "generate:cli": "npx graphql-codegen --config codegen.cli.yml"
+  },
+  "bin": {
+    "linear": "./bin/run.js"
+  },
+  "dependencies": {
+    "@oclif/core": "4",
+    "@oclif/plugin-help": "6",
+    "@oclif/plugin-plugins": "5",
+    "dotenv": "6.2.0",
+    "lodash.set": "^4.3.2",
+    "open": "10.2.0",
+    "terminal-link": "5.0.0",
+    "undici": "7.16.0",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@types/dotenv": "4.0.3",
+    "@types/lodash.set": "^4.3.9",
+    "oclif": "4",
+    "shx": "0.3.3",
+    "ts-node": "10.9.2"
+  },
+  "engines": {
+    "node": ">=22.20"
+  },
+  "files": [
+    "./bin",
+    "./dist",
+    "./oclif.manifest.json",
+    "./theme.json"
+  ],
+  "homepage": "https://github.com/linear/linear-app",
+  "keywords": [
+    "oclif"
+  ],
+  "oclif": {
+    "bin": "linear",
+    "dirname": "linear",
+    "// commands": "./dist/commands",
+    "commands": {
+      "strategy": "explicit",
+      "target": "./dist/commands/index.js",
+      "identifier": "COMMANDS"
+    },
+    "plugins": [
+      "@oclif/plugin-help"
+    ],
+    "theme": "./theme.json",
+    "topicSeparator": " ",
+    "topics": {
+      "auth": {
+        "description": "Authenticate with Linear"
+      }
+    },
+    "hooks": {
+      "init": "./dist/hooks/init/dotenv"
+    }
+  },
+  "repository": "linear/linear-app",
+  "types": "dist/index.d.ts",
+  "type": "module"
+}

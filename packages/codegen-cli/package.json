@@ -1,0 +1,36 @@
+{
+  "name": "@linear/codegen-cli",
+  "private": true,
+  "description": "Plugin for generating commands for the Linear CLI from fragments and documents",
+  "version": "3.3.2",
+  "author": "Linear Orbit, Inc",
+  "license": "MIT",
+  "main": "dist/index-cjs.min.js",
+  "module": "dist/index-es.min.js",
+  "types": "dist/index.d.ts",
+  "repository": "https://github.com/linear/linear",
+  "engines": {
+    "node": ">=12.x",
+    "yarn": "1.x"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build:clean": "npx rimraf -G dist .rollup-cache tsconfig.tsbuildinfo",
+    "build:codegen-cli": "run-s build:clean build:rollup",
+    "build:rollup": "npx rollup -c"
+  },
+  "devDependencies": {
+    "@graphql-codegen/plugin-helpers": "^2.7.0",
+    "@graphql-codegen/visitor-plugin-common": "^2.13.0",
+    "@graphql-tools/graphql-file-loader": "^6.2.5",
+    "@graphql-tools/load": "^6.2.5",
+    "@rollup/plugin-typescript": "^12.1.4",
+    "auto-bind": "^4.0.0",
+    "graphql": "^15.4.0",
+    "rollup": "^2.38.3",
+    "rollup-plugin-gzip": "^4.1.1",
+    "rollup-plugin-terser": "^7.0.2"
+  }
+}

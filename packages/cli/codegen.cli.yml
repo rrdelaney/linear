@@ -1,0 +1,10 @@
+overwrite: true
+schema: ../sdk/src/schema.graphql
+documents: ../sdk/src/_generated_documents.graphql
+hooks:
+  afterOneFileWrite:
+    - prettier --write
+generates:
+  src/commands/_generated_commands.ts:
+    plugins:
+      - "@linear/codegen-cli"
