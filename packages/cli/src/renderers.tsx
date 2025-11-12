@@ -4,7 +4,6 @@ import React from "react";
 import { render as inkRender, Box, Text } from "ink";
 import InkLink from "ink-link";
 import { formatDistanceToNow } from "date-fns";
-import { TitledBox, titleStyles } from "@mishieck/ink-titled-box";
 import { marked } from "marked";
 import { markedTerminal } from "marked-terminal";
 
@@ -152,13 +151,14 @@ function DataTable<T>({ columns, data }: { columns: TableColumn<T>[]; data: T[] 
  */
 export function renderIssue(issue: any): void {
   const IssueComponent = () => (
-    <TitledBox
-      titles={[issue.identifier, issue.title]}
-      flexDirection="column"
-      padding={1}
-      borderStyle="bold"
-      titleStyles={titleStyles.pill}
-    >
+    <Box flexDirection="column" paddingY={1}>
+      {/* Title header */}
+      <Box marginBottom={1}>
+        <Text bold>{issue.identifier}</Text>
+        <Text bold> • </Text>
+        <Text bold>{issue.title}</Text>
+      </Box>
+
       {/* Status line */}
       <Box marginBottom={1}>
         <Text color={issue.completedAt ? "magenta" : "green"}>{issue.completedAt ? "Closed" : "Open"}</Text>
@@ -214,7 +214,7 @@ export function renderIssue(issue: any): void {
           <Text color="cyan">{issue.url}</Text>
         </InkLink>
       </Box>
-    </TitledBox>
+    </Box>
   );
 
   inkRender(<IssueComponent />);
@@ -253,13 +253,12 @@ export function renderProject(project: any): void {
     const progressPercent = Math.round((project.progress || 0) * 100);
 
     return (
-      <TitledBox
-        titles={[project.name]}
-        flexDirection="column"
-        padding={1}
-        borderStyle="bold"
-        titleStyles={titleStyles.pill}
-      >
+      <Box flexDirection="column" paddingY={1}>
+        {/* Title header */}
+        <Box marginBottom={1}>
+          <Text bold>{project.name}</Text>
+        </Box>
+
         {/* Status line */}
         <Box marginBottom={1}>
           <Text color={stateInfo.color}>{stateInfo.label}</Text>
@@ -315,7 +314,7 @@ export function renderProject(project: any): void {
             <Text color="cyan">{project.url}</Text>
           </InkLink>
         </Box>
-      </TitledBox>
+      </Box>
     );
   };
 
@@ -412,13 +411,12 @@ export function renderUser(user: any): void {
     const roleInfo = getRoleInfo();
 
     return (
-      <TitledBox
-        titles={[user.displayName]}
-        flexDirection="column"
-        padding={1}
-        borderStyle="bold"
-        titleStyles={titleStyles.pill}
-      >
+      <Box flexDirection="column" paddingY={1}>
+        {/* Title header */}
+        <Box marginBottom={1}>
+          <Text bold>{user.displayName}</Text>
+        </Box>
+
         {/* Role and Status */}
         <Box marginBottom={1}>
           <Text color={roleInfo.color}>{roleInfo.label}</Text>
@@ -476,7 +474,7 @@ export function renderUser(user: any): void {
             <Text color="cyan">{user.url}</Text>
           </InkLink>
         </Box>
-      </TitledBox>
+      </Box>
     );
   };
 
@@ -589,7 +587,7 @@ export function renderCommentConnection(connection: any): void {
     repliesByParent.get(reply.parentId).push(reply);
   }
 
-  const CommentItem = ({ comment, depth = 0 }: { comment: any; depth?: number }) => {
+  const CommentItem = ({ comment, depth = 0, isLast = false }: { comment: any; depth?: number; isLast?: boolean }) => {
     const childReplies = repliesByParent.get(comment.id) || [];
     const reactionSummary =
       comment.reactionData && comment.reactionData.length > 0
@@ -598,37 +596,41 @@ export function renderCommentConnection(connection: any): void {
 
     const authorName = comment.user?.displayName || "Unknown";
     const timestamp = formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true });
+    const isReply = depth > 0;
 
     return (
-      <Box flexDirection="column" marginLeft={depth * 4}>
-        <TitledBox titles={[authorName]} borderStyle="round" padding={depth === 0 ? 1 : 0}>
-          <Box flexDirection="column">
-            {/* Timestamp and edited status */}
-            <Box marginBottom={1}>
-              <Text dimColor>{timestamp}</Text>
-              {comment.editedAt && (
-                <>
-                  <Text dimColor> • </Text>
-                  <Text dimColor italic>
-                    edited
-                  </Text>
-                </>
-              )}
-            </Box>
-
-            {/* Comment body */}
-            <Box>
-              <Markdown>{comment.body}</Markdown>
-            </Box>
-
-            {/* Reactions */}
-            {reactionSummary && (
-              <Box marginTop={1}>
-                <Text dimColor>{reactionSummary}</Text>
-              </Box>
+      <Box flexDirection="column" marginLeft={depth * 2}>
+        <Box flexDirection="column">
+          {/* Author and timestamp header - compact */}
+          <Box marginBottom={1}>
+            {isReply && <Text dimColor>↳ </Text>}
+            <Text bold>{authorName}</Text>
+            <Text dimColor> • </Text>
+            <Text dimColor>{timestamp}</Text>
+            {comment.editedAt && (
+              <>
+                <Text dimColor> • </Text>
+                <Text dimColor italic>
+                  edited
+                </Text>
+              </>
             )}
           </Box>
-        </TitledBox>
+
+          {/* Comment body - indented */}
+          <Box flexDirection="column">
+            <Box paddingLeft={2}>
+              <Markdown>{comment.body}</Markdown>
+            </Box>
+          </Box>
+
+          {/* Reactions */}
+          {reactionSummary && (
+            <Box marginTop={1}>
+              <Text dimColor>{reactionSummary}</Text>
+            </Box>
+          )}
+        </Box>
 
         {/* Replies */}
         {childReplies.length > 0 && (
@@ -640,7 +642,11 @@ export function renderCommentConnection(connection: any): void {
         )}
 
         {/* Separator between top-level comments */}
-        {depth === 0 && <Box marginBottom={1} />}
+        {depth === 0 && !isLast && (
+          <Box marginTop={1} marginBottom={1}>
+            <Text dimColor>{"─".repeat(80)}</Text>
+          </Box>
+        )}
       </Box>
     );
   };
@@ -653,8 +659,8 @@ export function renderCommentConnection(connection: any): void {
         </Text>
       </Box>
 
-      {topLevelComments.map((comment: any) => (
-        <CommentItem key={comment.id} comment={comment} depth={0} />
+      {topLevelComments.map((comment: any, index: number) => (
+        <CommentItem key={comment.id} comment={comment} depth={0} isLast={index === topLevelComments.length - 1} />
       ))}
     </Box>
   );
@@ -689,13 +695,12 @@ export function renderProjectUpdate(projectUpdate: any): void {
       : null;
 
   const ProjectUpdateComponent = () => (
-    <TitledBox
-      titles={[projectUpdate.project?.name || "Project Update"]}
-      flexDirection="column"
-      padding={1}
-      borderStyle="bold"
-      titleStyles={titleStyles.pill}
-    >
+    <Box flexDirection="column" paddingY={1}>
+      {/* Title header */}
+      <Box marginBottom={1}>
+        <Text bold>{projectUpdate.project?.name || "Project Update"}</Text>
+      </Box>
+
       {/* Health and author line */}
       <Box marginBottom={1}>
         <Text color={healthColor}>{healthLabel}</Text>
@@ -758,7 +763,7 @@ export function renderProjectUpdate(projectUpdate: any): void {
           <Text color="cyan">{projectUpdate.url}</Text>
         </InkLink>
       </Box>
-    </TitledBox>
+    </Box>
   );
 
   inkRender(<ProjectUpdateComponent />);
@@ -785,7 +790,7 @@ export function renderProjectUpdateConnection(connection: any): void {
     offTrack: "Off Track",
   };
 
-  const UpdateItem = ({ update }: { update: any }) => {
+  const UpdateItem = ({ update, isLast }: { update: any; isLast: boolean }) => {
     const healthColor = healthColors[update.health] || "gray";
     const healthLabel = healthLabels[update.health] || update.health;
 
@@ -795,41 +800,51 @@ export function renderProjectUpdateConnection(connection: any): void {
         : null;
 
     return (
-      <Box flexDirection="column" marginBottom={1}>
-        <TitledBox titles={[update.project?.name || "Project Update"]} borderStyle="round" padding={1}>
+      <Box flexDirection="column">
+        {/* Project name header */}
+        <Box marginBottom={1}>
+          <Text bold>{update.project?.name || "Project Update"}</Text>
+        </Box>
+
+        {/* Health and timestamp */}
+        <Box marginBottom={1}>
+          <Text color={healthColor}>{healthLabel}</Text>
+          <Text dimColor> • </Text>
+          <Text dimColor>{update.user?.displayName || "Unknown"}</Text>
+          <Text dimColor> • </Text>
+          <Text dimColor>{formatDistanceToNow(new Date(update.createdAt), { addSuffix: true })}</Text>
+          {update.editedAt && (
+            <>
+              <Text dimColor> • </Text>
+              <Text dimColor italic>
+                edited
+              </Text>
+            </>
+          )}
+        </Box>
+
+        {/* Body */}
+        {update.body && (
           <Box flexDirection="column">
-            {/* Health and timestamp */}
-            <Box marginBottom={1}>
-              <Text color={healthColor}>{healthLabel}</Text>
-              <Text dimColor> • </Text>
-              <Text dimColor>{update.user?.displayName || "Unknown"}</Text>
-              <Text dimColor> • </Text>
-              <Text dimColor>{formatDistanceToNow(new Date(update.createdAt), { addSuffix: true })}</Text>
-              {update.editedAt && (
-                <>
-                  <Text dimColor> • </Text>
-                  <Text dimColor italic>
-                    edited
-                  </Text>
-                </>
-              )}
+            <Box paddingLeft={2}>
+              <Markdown>{update.body}</Markdown>
             </Box>
-
-            {/* Body */}
-            {update.body && (
-              <Box marginBottom={1}>
-                <Markdown>{update.body}</Markdown>
-              </Box>
-            )}
-
-            {/* Reactions */}
-            {reactionSummary && (
-              <Box>
-                <Text dimColor>{reactionSummary}</Text>
-              </Box>
-            )}
           </Box>
-        </TitledBox>
+        )}
+
+        {/* Reactions */}
+        {reactionSummary && (
+          <Box marginTop={1}>
+            <Text dimColor>{reactionSummary}</Text>
+          </Box>
+        )}
+
+        {/* Separator line */}
+        {!isLast && (
+          <Box marginTop={1} marginBottom={1}>
+            <Text dimColor>{"─".repeat(80)}</Text>
+          </Box>
+        )}
       </Box>
     );
   };
@@ -842,8 +857,8 @@ export function renderProjectUpdateConnection(connection: any): void {
         </Text>
       </Box>
 
-      {nodes.map((update: any) => (
-        <UpdateItem key={update.id} update={update} />
+      {nodes.map((update: any, index: number) => (
+        <UpdateItem key={update.id} update={update} isLast={index === nodes.length - 1} />
       ))}
     </Box>
   );
@@ -858,13 +873,12 @@ export function renderProjectUpdateConnection(connection: any): void {
  */
 export function renderDocument(document: any): void {
   const DocumentComponent = () => (
-    <TitledBox
-      titles={[document.title || "Document"]}
-      flexDirection="column"
-      padding={1}
-      borderStyle="bold"
-      titleStyles={titleStyles.pill}
-    >
+    <Box flexDirection="column" paddingY={1}>
+      {/* Title header */}
+      <Box marginBottom={1}>
+        <Text bold>{document.title || "Document"}</Text>
+      </Box>
+
       {/* Creator and timestamp line */}
       <Box marginBottom={1}>
         {document.creator && (
@@ -913,74 +927,64 @@ export function renderDocument(document: any): void {
           <Text color="cyan">{document.url}</Text>
         </InkLink>
       </Box>
-    </TitledBox>
+    </Box>
   );
 
   inkRender(<DocumentComponent />);
 }
 
 /**
- * Renders a DocumentConnection (list of documents) as a list of boxes.
+ * Renders a DocumentConnection (list of documents) as a table.
  *
  * @param connection - The DocumentConnection object to render
  */
 export function renderDocumentConnection(connection: any): void {
   const nodes = connection.nodes || [];
-  const totalDocuments = nodes.length;
 
-  const DocumentItem = ({ document }: { document: any }) => {
-    return (
-      <Box flexDirection="column" marginBottom={1}>
-        <TitledBox titles={[document.title || "Document"]} borderStyle="round" padding={1}>
-          <Box flexDirection="column">
-            {/* Creator and updated info */}
-            <Box marginBottom={1}>
-              {document.creator && (
-                <>
-                  <Text dimColor>{document.creator.displayName}</Text>
-                  <Text dimColor> • </Text>
-                </>
-              )}
-              <Text dimColor>Updated {formatDistanceToNow(new Date(document.updatedAt), { addSuffix: true })}</Text>
-            </Box>
+  const columns: TableColumn<any>[] = [
+    {
+      header: "TITLE",
+      maxWidth: 40,
+      render: (document: any) => (
+        <InkLink url={document.url}>
+          <Text bold color="green">
+            {truncateText(document.title || "Document", 40)}
+          </Text>
+        </InkLink>
+      ),
+    },
+    {
+      header: "CREATOR",
+      maxWidth: 25,
+      render: (document: any) => <Text>{truncateText(document.creator?.displayName || "-", 25)}</Text>,
+    },
+    {
+      header: "PROJECT",
+      maxWidth: 30,
+      render: (document: any) =>
+        document.project ? (
+          <InkLink url={document.project.url}>
+            <Text>{truncateText(document.project.name, 30)}</Text>
+          </InkLink>
+        ) : (
+          <Text dimColor>-</Text>
+        ),
+    },
+    {
+      header: "UPDATED",
+      render: (document: any) => (
+        <Text dimColor>{formatDistanceToNow(new Date(document.updatedAt), { addSuffix: true })}</Text>
+      ),
+    },
+  ];
 
-            {/* Project */}
-            {document.project && (
-              <Box marginBottom={1}>
-                <Text dimColor>Project: </Text>
-                <InkLink url={document.project.url}>
-                  <Text>{document.project.name}</Text>
-                </InkLink>
-              </Box>
-            )}
-
-            {/* URL */}
-            <Box>
-              <InkLink url={document.url}>
-                <Text color="cyan">{document.url}</Text>
-              </InkLink>
-            </Box>
-          </Box>
-        </TitledBox>
-      </Box>
-    );
-  };
-
-  const DocumentListComponent = () => (
+  const DocumentTableComponent = () => (
     <Box flexDirection="column" paddingY={1}>
-      <Box marginBottom={1}>
-        <Text dimColor>
-          {totalDocuments} {totalDocuments === 1 ? "document" : "documents"}
-        </Text>
-      </Box>
-
-      {nodes.map((document: any) => (
-        <DocumentItem key={document.id} document={document} />
-      ))}
+      <DataTable columns={columns} data={nodes} />
     </Box>
   );
 
-  inkRender(<DocumentListComponent />);
+  inkRender(<DocumentTableComponent />);
 }
 
 /**
@@ -990,13 +994,14 @@ export function renderDocumentConnection(connection: any): void {
  */
 export function renderTeam(team: any): void {
   const TeamComponent = () => (
-    <TitledBox
-      titles={[team.key, team.displayName || team.name]}
-      flexDirection="column"
-      padding={1}
-      borderStyle="bold"
-      titleStyles={titleStyles.pill}
-    >
+    <Box flexDirection="column" paddingY={1}>
+      {/* Title header */}
+      <Box marginBottom={1}>
+        <Text bold>{team.key}</Text>
+        <Text bold> • </Text>
+        <Text bold>{team.displayName || team.name}</Text>
+      </Box>
+
       {/* Created timestamp */}
       <Box marginBottom={1}>
         <Text dimColor>Created {formatDistanceToNow(new Date(team.createdAt), { addSuffix: true })}</Text>
@@ -1042,7 +1047,7 @@ export function renderTeam(team: any): void {
           </Box>
         </Box>
       )}
-    </TitledBox>
+    </Box>
   );
 
   inkRender(<TeamComponent />);
