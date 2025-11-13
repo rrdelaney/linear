@@ -18,6 +18,7 @@
   "dependencies": {
     "@mishieck/ink-titled-box": "^0.3.0",
     "@oclif/core": "4",
+    "@oclif/plugin-autocomplete": "^3.2.39",
     "@oclif/plugin-help": "6",
     "@oclif/plugin-plugins": "5",
     "date-fns": "^4.1.0",
@@ -59,14 +60,14 @@
   "oclif": {
     "bin": "linear",
     "dirname": "linear",
-    "// commands": "./dist/commands",
     "commands": {
       "strategy": "explicit",
       "target": "./dist/commands/index.js",
       "identifier": "COMMANDS"
     },
     "plugins": [
-      "@oclif/plugin-help"
+      "@oclif/plugin-help",
+      "@oclif/plugin-autocomplete"
     ],
     "theme": "./theme.json",
     "topicSeparator": " ",
