@@ -74,6 +74,48 @@
     "topics": {
       "auth": {
         "description": "Authenticate with Linear"
+      },
+      "comment": {
+        "description": "Manage comments on issues and documents"
+      },
+      "cycle": {
+        "description": "Manage cycles and their issues"
+      },
+      "document": {
+        "description": "Manage documents and their comments"
+      },
+      "initiative": {
+        "description": "Manage initiatives and their content"
+      },
+      "initiative-update": {
+        "description": "Manage initiative updates and comments"
+      },
+      "issue": {
+        "description": "Manage issues and their attachments"
+      },
+      "organization": {
+        "description": "View and manage organization settings"
+      },
+      "project": {
+        "description": "Manage projects and their comments"
+      },
+      "project-status": {
+        "description": "Manage project statuses"
+      },
+      "project-update": {
+        "description": "Manage project updates and comments"
+      },
+      "roadmap": {
+        "description": "Manage roadmaps"
+      },
+      "team": {
+        "description": "Manage teams and their cycles"
+      },
+      "user": {
+        "description": "View and manage user information and assignments"
+      },
+      "viewer": {
+        "description": "View information about the current user"
       }
     },
     "hooks": {

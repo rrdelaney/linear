@@ -16,10 +16,6 @@ config:
     updateIssue: "issue:update"
 
   overrides:
-    agentActivities: "agent-activity:list"
-    agentActivity: "agent-activity:view"
-    agentSession: "agent-session:view"
-    agentSessions: "agent-session:list"
     comment: "comment:view"
     comments: "comment:list"
     cycle: "cycle:view"
@@ -49,6 +45,11 @@ config:
 
   ignoreOperations:
     - administrableTeams
+    - agentActivities
+    - agentActivity
+    - agentSession
+    - agentSession_activities
+    - agentSessions
     - attachments
     - attachmentsForURL
     - auditEntries
