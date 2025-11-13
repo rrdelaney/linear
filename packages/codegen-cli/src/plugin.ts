@@ -34,7 +34,7 @@ export const plugin: PluginFunction<CliPluginConfig> = async (
 
         case "OperationDefinition":
           // TODO: Remove that this is only for queries.
-          if (def.name && def.operation === "query") {
+          if (def.name) {
             operationDefinitions.set(def.name.value, def);
           }
           return;
@@ -89,11 +89,19 @@ function classDefinitionForOperation(
   }
 
   const documentNode = createDocumentForOperation(operation, schema, fragmentDefinitions);
-  const allFlags = getFlagsForOperation(operation, schema);
+  let allFlags = getFlagsForOperation(operation, schema);
+
+  // Flatten flags if they all belong to the same root variable, e.g. input.
+  let rootVariableName = "";
+  const rootVariables = new Set(allFlags.map(f => f.name.split(".")[0]));
+  if (allFlags.length > 1 && rootVariables.size === 1) {
+    rootVariableName = Array.from(rootVariables)[0] + ".";
+    allFlags = allFlags.map(f => ({ ...f, name: f.name.replace(rootVariableName, "") }));
+  }
 
   // Check if there's exactly one required flag - if so, make it a positional argument
   const requiredFlags = allFlags.filter(flag => flag.required);
-  const hasPositionalArg = requiredFlags.length === 1;
+  const hasPositionalArg = operation.operation === "query" && requiredFlags.length === 1;
   const positionalArg = hasPositionalArg ? requiredFlags[0] : undefined;
   const flags = hasPositionalArg ? allFlags.filter(flag => !flag.required) : allFlags;
 
@@ -135,10 +143,11 @@ ${argsSection}${flagsSection}
     const linearClient = await this.getLinearClient();
 
 
+    const rootVariableName = "${rootVariableName}";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -146,7 +155,7 @@ ${argsSection}${flagsSection}
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = \`${print(documentNode)}\`;
@@ -263,19 +272,33 @@ function flagsFromVariable(
         throw new Error(`Could not handle NonNullType[ListType] at ${pathForError}}`);
       }
 
-      const flagType = getFlagTypeForNamedType(t.type.name.value, schema);
-      if (!flagType) {
-        throw new Error(`Could not handle NonNullType[${t.type.name.value}] at ${pathForError}`);
+      const namedType = schema.getType(t.type.name.value)?.astNode;
+      if (namedType && namedType.kind === "InputObjectTypeDefinition") {
+        // Non-nullable named type must have _at least_ 1 non-nullable field
+        // to ensure they are always provided. In the case we cannot find one
+        // non-nullable field we cannot provide this input.
+        // We should add validation for this, but for now we can assume this
+        // is the case.
+        return (
+          namedType.fields?.flatMap(field => {
+            return flagsFromVariable(field.type, schema, operation, [...path, field.name.value]);
+          }) ?? []
+        );
       }
 
-      return [
-        {
-          ...flagType,
-          name: path.join("."),
-          multiple: undefined,
-          required: true,
-        },
-      ];
+      const flagType = getFlagTypeForNamedType(t.type.name.value, schema);
+      if (flagType) {
+        return [
+          {
+            ...flagType,
+            name: path.join("."),
+            multiple: undefined,
+            required: true,
+          },
+        ];
+      }
+
+      throw new Error(`Could not handle NonNullType[${t.type.name.value}] at ${pathForError}`);
     }
 
     case "NamedType": {
@@ -293,13 +316,8 @@ function flagsFromVariable(
 
       const namedType = schema.getType(t.name.value)?.astNode;
       if (!namedType || namedType.kind !== "InputObjectTypeDefinition") {
-        // Hard fail when we cannot generate the type for a mutation.
-        if (operation.operation === "mutation") {
-          throw new Error(`Could not handle ${t.name.value} at ${pathForError}`);
-        } else {
-          // logger.info(log, `Skipping ${pathForError}: [${namedType}]`);
-          return [];
-        }
+        // logger.info(log, `Skipping ${pathForError}: [${namedType}]`);
+        return [];
       }
 
       return (
@@ -414,10 +432,21 @@ function createDocumentForOperation(
   );
 }
 
+/**
+ * Generates a command name for a given GraphQL operation. If undefined
+ * is returned the command should not be generated.
+ */
 function commandNameForOperation(operation: OperationDefinitionNode, config: CliPluginConfig): string | undefined {
   const opName = operation.name?.value;
   if (!opName) {
     return undefined;
+  }
+
+  // For mutations we only generate a command if it's explicitly
+  // specific in the configuration, as they should all be remapped
+  // under the appropriate topic.
+  if (operation.operation === "mutation") {
+    return config.mutations?.[opName];
   }
 
   if (config.overrides?.[opName]) {

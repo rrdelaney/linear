@@ -10,6 +10,11 @@ generates:
       - "@linear/codegen-cli"
 
 config:
+  mutations:
+    createComment: "comment:create"
+    createIssue: "issue:create"
+    updateIssue: "issue:update"
+
   overrides:
     agentActivities: "agent-activity:list"
     agentActivity: "agent-activity:view"

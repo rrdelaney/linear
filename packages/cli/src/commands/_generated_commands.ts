@@ -56,10 +56,11 @@ COMMANDS["agent-activity:list"] = class LinearCommand_agentActivities extends Li
     const { args, flags } = await this.parse(LinearCommand_agentActivities);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -67,7 +68,7 @@ COMMANDS["agent-activity:list"] = class LinearCommand_agentActivities extends Li
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment AgentActivityConnection on AgentActivityConnection {
@@ -202,10 +203,11 @@ COMMANDS["agent-activity:view"] = class LinearCommand_agentActivity extends Line
     const { args, flags } = await this.parse(LinearCommand_agentActivity);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -213,7 +215,7 @@ COMMANDS["agent-activity:view"] = class LinearCommand_agentActivity extends Line
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment AgentActivity on AgentActivity {
@@ -322,10 +324,11 @@ COMMANDS["agent-session:view"] = class LinearCommand_agentSession extends Linear
     const { args, flags } = await this.parse(LinearCommand_agentSession);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -333,7 +336,7 @@ COMMANDS["agent-session:view"] = class LinearCommand_agentSession extends Linear
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment AgentSession on AgentSession {
@@ -438,10 +441,11 @@ COMMANDS["agent-session:activities"] = class LinearCommand_agentSession_activiti
     const { args, flags } = await this.parse(LinearCommand_agentSession_activities);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -449,7 +453,7 @@ COMMANDS["agent-session:activities"] = class LinearCommand_agentSession_activiti
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment AgentActivityConnection on AgentActivityConnection {
@@ -591,10 +595,11 @@ COMMANDS["agent-session:list"] = class LinearCommand_agentSessions extends Linea
     const { args, flags } = await this.parse(LinearCommand_agentSessions);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -602,7 +607,7 @@ COMMANDS["agent-session:list"] = class LinearCommand_agentSessions extends Linea
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment AgentSessionConnection on AgentSessionConnection {
@@ -691,10 +696,11 @@ COMMANDS["comment:view"] = class LinearCommand_comment extends LinearCommand {
     const { args, flags } = await this.parse(LinearCommand_comment);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -702,7 +708,7 @@ COMMANDS["comment:view"] = class LinearCommand_comment extends LinearCommand {
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment Comment on Comment {
@@ -964,10 +970,11 @@ COMMANDS["comment:children"] = class LinearCommand_comment_children extends Line
     const { args, flags } = await this.parse(LinearCommand_comment_children);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -975,7 +982,7 @@ COMMANDS["comment:children"] = class LinearCommand_comment_children extends Line
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment CommentConnection on CommentConnection {
@@ -1405,10 +1412,11 @@ COMMANDS["comment:created-issues"] = class LinearCommand_comment_createdIssues e
     const { args, flags } = await this.parse(LinearCommand_comment_createdIssues);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -1416,7 +1424,7 @@ COMMANDS["comment:created-issues"] = class LinearCommand_comment_createdIssues e
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment IssueConnection on IssueConnection {
@@ -1674,10 +1682,11 @@ COMMANDS["comment:document-content"] = class LinearCommand_comment_documentConte
     const { args, flags } = await this.parse(LinearCommand_comment_documentContent);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -1685,7 +1694,7 @@ COMMANDS["comment:document-content"] = class LinearCommand_comment_documentConte
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment DocumentContent on DocumentContent {
@@ -1763,10 +1772,11 @@ COMMANDS["comment:document-content:ai-prompt-rules"] =
       const { args, flags } = await this.parse(LinearCommand_comment_documentContent_aiPromptRules);
       const linearClient = await this.getLinearClient();
 
+      const rootVariableName = "";
       const variables: Record<string, unknown> = {};
 
       for (const [path, value] of Object.entries(args)) {
-        set(variables, path, value);
+        set(variables, rootVariableName + path, value);
       }
 
       for (const [path, value] of Object.entries(flags)) {
@@ -1774,7 +1784,7 @@ COMMANDS["comment:document-content:ai-prompt-rules"] =
           continue;
         }
 
-        set(variables, path, value);
+        set(variables, rootVariableName + path, value);
       }
 
       const query = `fragment AiPromptRules on AiPromptRules {
@@ -1820,10 +1830,11 @@ COMMANDS["comment:external-thread"] = class LinearCommand_comment_externalThread
     const { args, flags } = await this.parse(LinearCommand_comment_externalThread);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -1831,7 +1842,7 @@ COMMANDS["comment:external-thread"] = class LinearCommand_comment_externalThread
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment SyncedExternalThread on SyncedExternalThread {
@@ -1899,10 +1910,11 @@ COMMANDS["comment:list"] = class LinearCommand_comments extends LinearCommand {
     const { args, flags } = await this.parse(LinearCommand_comments);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -1910,7 +1922,7 @@ COMMANDS["comment:list"] = class LinearCommand_comments extends LinearCommand {
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment CommentConnection on CommentConnection {
@@ -2171,10 +2183,11 @@ COMMANDS["cycle:view"] = class LinearCommand_cycle extends LinearCommand {
     const { args, flags } = await this.parse(LinearCommand_cycle);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -2182,7 +2195,7 @@ COMMANDS["cycle:view"] = class LinearCommand_cycle extends LinearCommand {
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment Cycle on Cycle {
@@ -2412,10 +2425,11 @@ COMMANDS["cycle:issues"] = class LinearCommand_cycle_issues extends LinearComman
     const { args, flags } = await this.parse(LinearCommand_cycle_issues);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -2423,7 +2437,7 @@ COMMANDS["cycle:issues"] = class LinearCommand_cycle_issues extends LinearComman
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment IssueConnection on IssueConnection {
@@ -2851,10 +2865,11 @@ COMMANDS["cycle:uncompleted-issues-upon-close"] = class LinearCommand_cycle_unco
     const { args, flags } = await this.parse(LinearCommand_cycle_uncompletedIssuesUponClose);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -2862,7 +2877,7 @@ COMMANDS["cycle:uncompleted-issues-upon-close"] = class LinearCommand_cycle_unco
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment IssueConnection on IssueConnection {
@@ -3160,10 +3175,11 @@ COMMANDS["cycle:list"] = class LinearCommand_cycles extends LinearCommand {
     const { args, flags } = await this.parse(LinearCommand_cycles);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -3171,7 +3187,7 @@ COMMANDS["cycle:list"] = class LinearCommand_cycles extends LinearCommand {
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment CycleConnection on CycleConnection {
@@ -3258,10 +3274,11 @@ COMMANDS["document:view"] = class LinearCommand_document extends LinearCommand {
     const { args, flags } = await this.parse(LinearCommand_document);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -3269,7 +3286,7 @@ COMMANDS["document:view"] = class LinearCommand_document extends LinearCommand {
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment Document on Document {
@@ -3370,10 +3387,11 @@ COMMANDS["document:comments"] = class LinearCommand_document_comments extends Li
     const { args, flags } = await this.parse(LinearCommand_document_comments);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -3381,7 +3399,7 @@ COMMANDS["document:comments"] = class LinearCommand_document_comments extends Li
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment CommentConnection on CommentConnection {
@@ -3681,10 +3699,11 @@ COMMANDS["document:list"] = class LinearCommand_documents extends LinearCommand 
     const { args, flags } = await this.parse(LinearCommand_documents);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -3692,7 +3711,7 @@ COMMANDS["document:list"] = class LinearCommand_documents extends LinearCommand 
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment DocumentConnection on DocumentConnection {
@@ -3790,10 +3809,11 @@ COMMANDS["initiative:view"] = class LinearCommand_initiative extends LinearComma
     const { args, flags } = await this.parse(LinearCommand_initiative);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -3801,7 +3821,7 @@ COMMANDS["initiative:view"] = class LinearCommand_initiative extends LinearComma
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment Initiative on Initiative {
@@ -3926,10 +3946,11 @@ COMMANDS["initiative:document-content"] = class LinearCommand_initiative_documen
     const { args, flags } = await this.parse(LinearCommand_initiative_documentContent);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -3937,7 +3958,7 @@ COMMANDS["initiative:document-content"] = class LinearCommand_initiative_documen
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment DocumentContent on DocumentContent {
@@ -4014,10 +4035,11 @@ COMMANDS["initiative:document-content:ai-prompt-rules"] =
       const { args, flags } = await this.parse(LinearCommand_initiative_documentContent_aiPromptRules);
       const linearClient = await this.getLinearClient();
 
+      const rootVariableName = "";
       const variables: Record<string, unknown> = {};
 
       for (const [path, value] of Object.entries(args)) {
-        set(variables, path, value);
+        set(variables, rootVariableName + path, value);
       }
 
       for (const [path, value] of Object.entries(flags)) {
@@ -4025,7 +4047,7 @@ COMMANDS["initiative:document-content:ai-prompt-rules"] =
           continue;
         }
 
-        set(variables, path, value);
+        set(variables, rootVariableName + path, value);
       }
 
       const query = `fragment AiPromptRules on AiPromptRules {
@@ -4111,10 +4133,11 @@ COMMANDS["initiative:documents"] = class LinearCommand_initiative_documents exte
     const { args, flags } = await this.parse(LinearCommand_initiative_documents);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -4122,7 +4145,7 @@ COMMANDS["initiative:documents"] = class LinearCommand_initiative_documents exte
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment DocumentConnection on DocumentConnection {
@@ -4231,10 +4254,11 @@ COMMANDS["initiative:history"] = class LinearCommand_initiative_history extends 
     const { args, flags } = await this.parse(LinearCommand_initiative_history);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -4242,7 +4266,7 @@ COMMANDS["initiative:history"] = class LinearCommand_initiative_history extends 
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment InitiativeHistoryConnection on InitiativeHistoryConnection {
@@ -4318,10 +4342,11 @@ COMMANDS["initiative:links"] = class LinearCommand_initiative_links extends Line
     const { args, flags } = await this.parse(LinearCommand_initiative_links);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -4329,7 +4354,7 @@ COMMANDS["initiative:links"] = class LinearCommand_initiative_links extends Line
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment EntityExternalLinkConnection on EntityExternalLinkConnection {
@@ -4556,10 +4581,11 @@ COMMANDS["initiative:projects"] = class LinearCommand_initiative_projects extend
     const { args, flags } = await this.parse(LinearCommand_initiative_projects);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -4567,7 +4593,7 @@ COMMANDS["initiative:projects"] = class LinearCommand_initiative_projects extend
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment ProjectConnection on ProjectConnection {
@@ -4862,10 +4888,11 @@ COMMANDS["initiative:sub-initiatives"] = class LinearCommand_initiative_subIniti
     const { args, flags } = await this.parse(LinearCommand_initiative_subInitiatives);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -4873,7 +4900,7 @@ COMMANDS["initiative:sub-initiatives"] = class LinearCommand_initiative_subIniti
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment InitiativeConnection on InitiativeConnection {
@@ -5027,10 +5054,11 @@ COMMANDS["initiative-update:view"] = class LinearCommand_initiativeUpdate extend
     const { args, flags } = await this.parse(LinearCommand_initiativeUpdate);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -5038,7 +5066,7 @@ COMMANDS["initiative-update:view"] = class LinearCommand_initiativeUpdate extend
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment InitiativeUpdate on InitiativeUpdate {
@@ -5155,10 +5183,11 @@ COMMANDS["initiative-update:comments"] = class LinearCommand_initiativeUpdate_co
     const { args, flags } = await this.parse(LinearCommand_initiativeUpdate_comments);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -5166,7 +5195,7 @@ COMMANDS["initiative-update:comments"] = class LinearCommand_initiativeUpdate_co
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment CommentConnection on CommentConnection {
@@ -5434,10 +5463,11 @@ COMMANDS["initiative-update:list"] = class LinearCommand_initiativeUpdates exten
     const { args, flags } = await this.parse(LinearCommand_initiativeUpdates);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -5445,7 +5475,7 @@ COMMANDS["initiative-update:list"] = class LinearCommand_initiativeUpdates exten
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment InitiativeUpdateConnection on InitiativeUpdateConnection {
@@ -5663,10 +5693,11 @@ COMMANDS["initiative:list"] = class LinearCommand_initiatives extends LinearComm
     const { args, flags } = await this.parse(LinearCommand_initiatives);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -5674,7 +5705,7 @@ COMMANDS["initiative:list"] = class LinearCommand_initiatives extends LinearComm
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment InitiativeConnection on InitiativeConnection {
@@ -5826,10 +5857,11 @@ COMMANDS["issue:view"] = class LinearCommand_issue extends LinearCommand {
     const { args, flags } = await this.parse(LinearCommand_issue);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -5837,7 +5869,7 @@ COMMANDS["issue:view"] = class LinearCommand_issue extends LinearCommand {
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment Issue on Issue {
@@ -6141,10 +6173,11 @@ COMMANDS["issue:attachments"] = class LinearCommand_issue_attachments extends Li
     const { args, flags } = await this.parse(LinearCommand_issue_attachments);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -6152,7 +6185,7 @@ COMMANDS["issue:attachments"] = class LinearCommand_issue_attachments extends Li
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment AttachmentConnection on AttachmentConnection {
@@ -6244,10 +6277,11 @@ COMMANDS["issue:bot-actor"] = class LinearCommand_issue_botActor extends LinearC
     const { args, flags } = await this.parse(LinearCommand_issue_botActor);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -6255,7 +6289,7 @@ COMMANDS["issue:bot-actor"] = class LinearCommand_issue_botActor extends LinearC
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment ActorBot on ActorBot {
@@ -6466,10 +6500,11 @@ COMMANDS["issue:children"] = class LinearCommand_issue_children extends LinearCo
     const { args, flags } = await this.parse(LinearCommand_issue_children);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -6477,7 +6512,7 @@ COMMANDS["issue:children"] = class LinearCommand_issue_children extends LinearCo
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment IssueConnection on IssueConnection {
@@ -6765,10 +6800,11 @@ COMMANDS["issue:comments"] = class LinearCommand_issue_comments extends LinearCo
     const { args, flags } = await this.parse(LinearCommand_issue_comments);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -6776,7 +6812,7 @@ COMMANDS["issue:comments"] = class LinearCommand_issue_comments extends LinearCo
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment CommentConnection on CommentConnection {
@@ -7082,10 +7118,11 @@ COMMANDS["issue:documents"] = class LinearCommand_issue_documents extends Linear
     const { args, flags } = await this.parse(LinearCommand_issue_documents);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -7093,7 +7130,7 @@ COMMANDS["issue:documents"] = class LinearCommand_issue_documents extends Linear
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment DocumentConnection on DocumentConnection {
@@ -7270,10 +7307,11 @@ COMMANDS["issue:former-attachments"] = class LinearCommand_issue_formerAttachmen
     const { args, flags } = await this.parse(LinearCommand_issue_formerAttachments);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -7281,7 +7319,7 @@ COMMANDS["issue:former-attachments"] = class LinearCommand_issue_formerAttachmen
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment AttachmentConnection on AttachmentConnection {
@@ -7394,10 +7432,11 @@ COMMANDS["issue:former-needs"] = class LinearCommand_issue_formerNeeds extends L
     const { args, flags } = await this.parse(LinearCommand_issue_formerNeeds);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -7405,7 +7444,7 @@ COMMANDS["issue:former-needs"] = class LinearCommand_issue_formerNeeds extends L
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment CustomerNeedConnection on CustomerNeedConnection {
@@ -7534,10 +7573,11 @@ COMMANDS["issue:history"] = class LinearCommand_issue_history extends LinearComm
     const { args, flags } = await this.parse(LinearCommand_issue_history);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -7545,7 +7585,7 @@ COMMANDS["issue:history"] = class LinearCommand_issue_history extends LinearComm
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment IssueHistoryConnection on IssueHistoryConnection {
@@ -7863,10 +7903,11 @@ COMMANDS["issue:inverse-relations"] = class LinearCommand_issue_inverseRelations
     const { args, flags } = await this.parse(LinearCommand_issue_inverseRelations);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -7874,7 +7915,7 @@ COMMANDS["issue:inverse-relations"] = class LinearCommand_issue_inverseRelations
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment IssueRelationConnection on IssueRelationConnection {
@@ -7979,10 +8020,11 @@ COMMANDS["issue:labels"] = class LinearCommand_issue_labels extends LinearComman
     const { args, flags } = await this.parse(LinearCommand_issue_labels);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -7990,7 +8032,7 @@ COMMANDS["issue:labels"] = class LinearCommand_issue_labels extends LinearComman
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment IssueLabelConnection on IssueLabelConnection {
@@ -8102,10 +8144,11 @@ COMMANDS["issue:needs"] = class LinearCommand_issue_needs extends LinearCommand 
     const { args, flags } = await this.parse(LinearCommand_issue_needs);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -8113,7 +8156,7 @@ COMMANDS["issue:needs"] = class LinearCommand_issue_needs extends LinearCommand 
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment CustomerNeedConnection on CustomerNeedConnection {
@@ -8242,10 +8285,11 @@ COMMANDS["issue:relations"] = class LinearCommand_issue_relations extends Linear
     const { args, flags } = await this.parse(LinearCommand_issue_relations);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -8253,7 +8297,7 @@ COMMANDS["issue:relations"] = class LinearCommand_issue_relations extends Linear
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment IssueRelationConnection on IssueRelationConnection {
@@ -8401,10 +8445,11 @@ COMMANDS["issue:subscribers"] = class LinearCommand_issue_subscribers extends Li
     const { args, flags } = await this.parse(LinearCommand_issue_subscribers);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -8412,7 +8457,7 @@ COMMANDS["issue:subscribers"] = class LinearCommand_issue_subscribers extends Li
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment UserConnection on UserConnection {
@@ -8674,10 +8719,11 @@ COMMANDS["issue:list"] = class LinearCommand_issues extends LinearCommand {
     const { args, flags } = await this.parse(LinearCommand_issues);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -8685,7 +8731,7 @@ COMMANDS["issue:list"] = class LinearCommand_issues extends LinearCommand {
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment IssueConnection on IssueConnection {
@@ -8937,10 +8983,11 @@ COMMANDS["organization"] = class LinearCommand_organization extends LinearComman
     const { args, flags } = await this.parse(LinearCommand_organization);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -8948,7 +8995,7 @@ COMMANDS["organization"] = class LinearCommand_organization extends LinearComman
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment Organization on Organization {
@@ -9081,10 +9128,11 @@ COMMANDS["organization:integrations"] = class LinearCommand_organization_integra
     const { args, flags } = await this.parse(LinearCommand_organization_integrations);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -9092,7 +9140,7 @@ COMMANDS["organization:integrations"] = class LinearCommand_organization_integra
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment IntegrationConnection on IntegrationConnection {
@@ -9190,10 +9238,11 @@ COMMANDS["organization:labels"] = class LinearCommand_organization_labels extend
     const { args, flags } = await this.parse(LinearCommand_organization_labels);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -9201,7 +9250,7 @@ COMMANDS["organization:labels"] = class LinearCommand_organization_labels extend
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment IssueLabelConnection on IssueLabelConnection {
@@ -9314,10 +9363,11 @@ COMMANDS["organization:project-labels"] = class LinearCommand_organization_proje
     const { args, flags } = await this.parse(LinearCommand_organization_projectLabels);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -9325,7 +9375,7 @@ COMMANDS["organization:project-labels"] = class LinearCommand_organization_proje
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment ProjectLabelConnection on ProjectLabelConnection {
@@ -9403,10 +9453,11 @@ COMMANDS["organization:subscription"] = class LinearCommand_organization_subscri
     const { args, flags } = await this.parse(LinearCommand_organization_subscription);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -9414,7 +9465,7 @@ COMMANDS["organization:subscription"] = class LinearCommand_organization_subscri
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment PaidSubscription on PaidSubscription {
@@ -9523,10 +9574,11 @@ COMMANDS["organization:teams"] = class LinearCommand_organization_teams extends 
     const { args, flags } = await this.parse(LinearCommand_organization_teams);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -9534,7 +9586,7 @@ COMMANDS["organization:teams"] = class LinearCommand_organization_teams extends 
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment TeamConnection on TeamConnection {
@@ -9724,10 +9776,11 @@ COMMANDS["organization:templates"] = class LinearCommand_organization_templates 
     const { args, flags } = await this.parse(LinearCommand_organization_templates);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -9735,7 +9788,7 @@ COMMANDS["organization:templates"] = class LinearCommand_organization_templates 
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment TemplateConnection on TemplateConnection {
@@ -9827,10 +9880,11 @@ COMMANDS["organization:users"] = class LinearCommand_organization_users extends 
     const { args, flags } = await this.parse(LinearCommand_organization_users);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -9838,7 +9892,7 @@ COMMANDS["organization:users"] = class LinearCommand_organization_users extends 
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment UserConnection on UserConnection {
@@ -9932,10 +9986,11 @@ COMMANDS["project:view"] = class LinearCommand_project extends LinearCommand {
     const { args, flags } = await this.parse(LinearCommand_project);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -9943,7 +9998,7 @@ COMMANDS["project:view"] = class LinearCommand_project extends LinearCommand {
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment Project on Project {
@@ -10129,10 +10184,11 @@ COMMANDS["project:comments"] = class LinearCommand_project_comments extends Line
     const { args, flags } = await this.parse(LinearCommand_project_comments);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -10140,7 +10196,7 @@ COMMANDS["project:comments"] = class LinearCommand_project_comments extends Line
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment CommentConnection on CommentConnection {
@@ -10405,10 +10461,11 @@ COMMANDS["project:document-content"] = class LinearCommand_project_documentConte
     const { args, flags } = await this.parse(LinearCommand_project_documentContent);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -10416,7 +10473,7 @@ COMMANDS["project:document-content"] = class LinearCommand_project_documentConte
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment DocumentContent on DocumentContent {
@@ -10495,10 +10552,11 @@ COMMANDS["project:document-content:ai-prompt-rules"] =
       const { args, flags } = await this.parse(LinearCommand_project_documentContent_aiPromptRules);
       const linearClient = await this.getLinearClient();
 
+      const rootVariableName = "";
       const variables: Record<string, unknown> = {};
 
       for (const [path, value] of Object.entries(args)) {
-        set(variables, path, value);
+        set(variables, rootVariableName + path, value);
       }
 
       for (const [path, value] of Object.entries(flags)) {
@@ -10506,7 +10564,7 @@ COMMANDS["project:document-content:ai-prompt-rules"] =
           continue;
         }
 
-        set(variables, path, value);
+        set(variables, rootVariableName + path, value);
       }
 
       const query = `fragment AiPromptRules on AiPromptRules {
@@ -10594,10 +10652,11 @@ COMMANDS["project:documents"] = class LinearCommand_project_documents extends Li
     const { args, flags } = await this.parse(LinearCommand_project_documents);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -10605,7 +10664,7 @@ COMMANDS["project:documents"] = class LinearCommand_project_documents extends Li
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment DocumentConnection on DocumentConnection {
@@ -10716,10 +10775,11 @@ COMMANDS["project:external-links"] = class LinearCommand_project_externalLinks e
     const { args, flags } = await this.parse(LinearCommand_project_externalLinks);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -10727,7 +10787,7 @@ COMMANDS["project:external-links"] = class LinearCommand_project_externalLinks e
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment EntityExternalLinkConnection on EntityExternalLinkConnection {
@@ -10812,10 +10872,11 @@ COMMANDS["project:history"] = class LinearCommand_project_history extends Linear
     const { args, flags } = await this.parse(LinearCommand_project_history);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -10823,7 +10884,7 @@ COMMANDS["project:history"] = class LinearCommand_project_history extends Linear
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment ProjectHistoryConnection on ProjectHistoryConnection {
@@ -10903,10 +10964,11 @@ COMMANDS["project:initiatives"] = class LinearCommand_project_initiatives extend
     const { args, flags } = await this.parse(LinearCommand_project_initiatives);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -10914,7 +10976,7 @@ COMMANDS["project:initiatives"] = class LinearCommand_project_initiatives extend
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment InitiativeConnection on InitiativeConnection {
@@ -11237,10 +11299,11 @@ COMMANDS["project:issues"] = class LinearCommand_project_issues extends LinearCo
     const { args, flags } = await this.parse(LinearCommand_project_issues);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -11248,7 +11311,7 @@ COMMANDS["project:issues"] = class LinearCommand_project_issues extends LinearCo
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment IssueConnection on IssueConnection {
@@ -11535,10 +11598,11 @@ COMMANDS["project:labels"] = class LinearCommand_project_labels extends LinearCo
     const { args, flags } = await this.parse(LinearCommand_project_labels);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -11546,7 +11610,7 @@ COMMANDS["project:labels"] = class LinearCommand_project_labels extends LinearCo
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment ProjectLabelConnection on ProjectLabelConnection {
@@ -11702,10 +11766,11 @@ COMMANDS["project:members"] = class LinearCommand_project_members extends Linear
     const { args, flags } = await this.parse(LinearCommand_project_members);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -11713,7 +11778,7 @@ COMMANDS["project:members"] = class LinearCommand_project_members extends Linear
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment UserConnection on UserConnection {
@@ -11831,10 +11896,11 @@ COMMANDS["project:needs"] = class LinearCommand_project_needs extends LinearComm
     const { args, flags } = await this.parse(LinearCommand_project_needs);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -11842,7 +11908,7 @@ COMMANDS["project:needs"] = class LinearCommand_project_needs extends LinearComm
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment CustomerNeedConnection on CustomerNeedConnection {
@@ -11989,10 +12055,11 @@ COMMANDS["project:milestones"] = class LinearCommand_project_projectMilestones e
     const { args, flags } = await this.parse(LinearCommand_project_projectMilestones);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -12000,7 +12067,7 @@ COMMANDS["project:milestones"] = class LinearCommand_project_projectMilestones e
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment ProjectMilestoneConnection on ProjectMilestoneConnection {
@@ -12135,10 +12202,11 @@ COMMANDS["project:updates"] = class LinearCommand_project_projectUpdates extends
     const { args, flags } = await this.parse(LinearCommand_project_projectUpdates);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -12146,7 +12214,7 @@ COMMANDS["project:updates"] = class LinearCommand_project_projectUpdates extends
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment ProjectUpdateConnection on ProjectUpdateConnection {
@@ -12274,10 +12342,11 @@ COMMANDS["project:relations"] = class LinearCommand_project_relations extends Li
     const { args, flags } = await this.parse(LinearCommand_project_relations);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -12285,7 +12354,7 @@ COMMANDS["project:relations"] = class LinearCommand_project_relations extends Li
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment ProjectRelationConnection on ProjectRelationConnection {
@@ -12435,10 +12504,11 @@ COMMANDS["project:teams"] = class LinearCommand_project_teams extends LinearComm
     const { args, flags } = await this.parse(LinearCommand_project_teams);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -12446,7 +12516,7 @@ COMMANDS["project:teams"] = class LinearCommand_project_teams extends LinearComm
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment TeamConnection on TeamConnection {
@@ -12600,10 +12670,11 @@ COMMANDS["project-status:view"] = class LinearCommand_projectStatus extends Line
     const { args, flags } = await this.parse(LinearCommand_projectStatus);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -12611,7 +12682,7 @@ COMMANDS["project-status:view"] = class LinearCommand_projectStatus extends Line
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment ProjectStatus on ProjectStatus {
@@ -12658,10 +12729,11 @@ COMMANDS["project-status:list"] = class LinearCommand_projectStatuses extends Li
     const { args, flags } = await this.parse(LinearCommand_projectStatuses);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -12669,7 +12741,7 @@ COMMANDS["project-status:list"] = class LinearCommand_projectStatuses extends Li
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment ProjectStatusConnection on ProjectStatusConnection {
@@ -12736,10 +12808,11 @@ COMMANDS["project-update:view"] = class LinearCommand_projectUpdate extends Line
     const { args, flags } = await this.parse(LinearCommand_projectUpdate);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -12747,7 +12820,7 @@ COMMANDS["project-update:view"] = class LinearCommand_projectUpdate extends Line
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment ProjectUpdate on ProjectUpdate {
@@ -12866,10 +12939,11 @@ COMMANDS["project-update:comments"] = class LinearCommand_projectUpdate_comments
     const { args, flags } = await this.parse(LinearCommand_projectUpdate_comments);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -12877,7 +12951,7 @@ COMMANDS["project-update:comments"] = class LinearCommand_projectUpdate_comments
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment CommentConnection on CommentConnection {
@@ -13145,10 +13219,11 @@ COMMANDS["project-update:list"] = class LinearCommand_projectUpdates extends Lin
     const { args, flags } = await this.parse(LinearCommand_projectUpdates);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -13156,7 +13231,7 @@ COMMANDS["project-update:list"] = class LinearCommand_projectUpdates extends Lin
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment ProjectUpdateConnection on ProjectUpdateConnection {
@@ -13420,10 +13495,11 @@ COMMANDS["project:list"] = class LinearCommand_projects extends LinearCommand {
     const { args, flags } = await this.parse(LinearCommand_projects);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -13431,7 +13507,7 @@ COMMANDS["project:list"] = class LinearCommand_projects extends LinearCommand {
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment ProjectConnection on ProjectConnection {
@@ -13615,10 +13691,11 @@ COMMANDS["roadmap:view"] = class LinearCommand_roadmap extends LinearCommand {
     const { args, flags } = await this.parse(LinearCommand_roadmap);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -13626,7 +13703,7 @@ COMMANDS["roadmap:view"] = class LinearCommand_roadmap extends LinearCommand {
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment Roadmap on Roadmap {
@@ -13830,10 +13907,11 @@ COMMANDS["roadmap:projects"] = class LinearCommand_roadmap_projects extends Line
     const { args, flags } = await this.parse(LinearCommand_roadmap_projects);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -13841,7 +13919,7 @@ COMMANDS["roadmap:projects"] = class LinearCommand_roadmap_projects extends Line
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment ProjectConnection on ProjectConnection {
@@ -14031,10 +14109,11 @@ COMMANDS["roadmap:list"] = class LinearCommand_roadmaps extends LinearCommand {
     const { args, flags } = await this.parse(LinearCommand_roadmaps);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -14042,7 +14121,7 @@ COMMANDS["roadmap:list"] = class LinearCommand_roadmaps extends LinearCommand {
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment RoadmapConnection on RoadmapConnection {
@@ -14119,10 +14198,11 @@ COMMANDS["team:view"] = class LinearCommand_team extends LinearCommand {
     const { args, flags } = await this.parse(LinearCommand_team);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -14130,7 +14210,7 @@ COMMANDS["team:view"] = class LinearCommand_team extends LinearCommand {
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment Team on Team {
@@ -14299,10 +14379,11 @@ COMMANDS["team:cycles"] = class LinearCommand_team_cycles extends LinearCommand 
     const { args, flags } = await this.parse(LinearCommand_team_cycles);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -14310,7 +14391,7 @@ COMMANDS["team:cycles"] = class LinearCommand_team_cycles extends LinearCommand 
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment CycleConnection on CycleConnection {
@@ -14409,10 +14490,11 @@ COMMANDS["team:git-automation-states"] = class LinearCommand_team_gitAutomationS
     const { args, flags } = await this.parse(LinearCommand_team_gitAutomationStates);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -14420,7 +14502,7 @@ COMMANDS["team:git-automation-states"] = class LinearCommand_team_gitAutomationS
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment GitAutomationStateConnection on GitAutomationStateConnection {
@@ -14680,10 +14762,11 @@ COMMANDS["team:issues"] = class LinearCommand_team_issues extends LinearCommand 
     const { args, flags } = await this.parse(LinearCommand_team_issues);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -14691,7 +14774,7 @@ COMMANDS["team:issues"] = class LinearCommand_team_issues extends LinearCommand 
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment IssueConnection on IssueConnection {
@@ -14979,10 +15062,11 @@ COMMANDS["team:labels"] = class LinearCommand_team_labels extends LinearCommand 
     const { args, flags } = await this.parse(LinearCommand_team_labels);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -14990,7 +15074,7 @@ COMMANDS["team:labels"] = class LinearCommand_team_labels extends LinearCommand 
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment IssueLabelConnection on IssueLabelConnection {
@@ -15152,10 +15236,11 @@ COMMANDS["team:members"] = class LinearCommand_team_members extends LinearComman
     const { args, flags } = await this.parse(LinearCommand_team_members);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -15163,7 +15248,7 @@ COMMANDS["team:members"] = class LinearCommand_team_members extends LinearComman
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment UserConnection on UserConnection {
@@ -15268,10 +15353,11 @@ COMMANDS["team:memberships"] = class LinearCommand_team_memberships extends Line
     const { args, flags } = await this.parse(LinearCommand_team_memberships);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -15279,7 +15365,7 @@ COMMANDS["team:memberships"] = class LinearCommand_team_memberships extends Line
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment TeamMembershipConnection on TeamMembershipConnection {
@@ -15507,10 +15593,11 @@ COMMANDS["team:projects"] = class LinearCommand_team_projects extends LinearComm
     const { args, flags } = await this.parse(LinearCommand_team_projects);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -15518,7 +15605,7 @@ COMMANDS["team:projects"] = class LinearCommand_team_projects extends LinearComm
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment ProjectConnection on ProjectConnection {
@@ -15771,10 +15858,11 @@ COMMANDS["team:states"] = class LinearCommand_team_states extends LinearCommand 
     const { args, flags } = await this.parse(LinearCommand_team_states);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -15782,7 +15870,7 @@ COMMANDS["team:states"] = class LinearCommand_team_states extends LinearCommand 
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment WorkflowStateConnection on WorkflowStateConnection {
@@ -15901,10 +15989,11 @@ COMMANDS["team:templates"] = class LinearCommand_team_templates extends LinearCo
     const { args, flags } = await this.parse(LinearCommand_team_templates);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -15912,7 +16001,7 @@ COMMANDS["team:templates"] = class LinearCommand_team_templates extends LinearCo
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment TemplateConnection on TemplateConnection {
@@ -16056,10 +16145,11 @@ COMMANDS["team:list"] = class LinearCommand_teams extends LinearCommand {
     const { args, flags } = await this.parse(LinearCommand_teams);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -16067,7 +16157,7 @@ COMMANDS["team:list"] = class LinearCommand_teams extends LinearCommand {
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment TeamConnection on TeamConnection {
@@ -16217,10 +16307,11 @@ COMMANDS["user:view"] = class LinearCommand_user extends LinearCommand {
     const { args, flags } = await this.parse(LinearCommand_user);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -16228,7 +16319,7 @@ COMMANDS["user:view"] = class LinearCommand_user extends LinearCommand {
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment User on User {
@@ -16463,10 +16554,11 @@ COMMANDS["user:assigned-issues"] = class LinearCommand_user_assignedIssues exten
     const { args, flags } = await this.parse(LinearCommand_user_assignedIssues);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -16474,7 +16566,7 @@ COMMANDS["user:assigned-issues"] = class LinearCommand_user_assignedIssues exten
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment IssueConnection on IssueConnection {
@@ -16902,10 +16994,11 @@ COMMANDS["user:created-issues"] = class LinearCommand_user_createdIssues extends
     const { args, flags } = await this.parse(LinearCommand_user_createdIssues);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -16913,7 +17006,7 @@ COMMANDS["user:created-issues"] = class LinearCommand_user_createdIssues extends
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment IssueConnection on IssueConnection {
@@ -17341,10 +17434,11 @@ COMMANDS["user:delegated-issues"] = class LinearCommand_user_delegatedIssues ext
     const { args, flags } = await this.parse(LinearCommand_user_delegatedIssues);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -17352,7 +17446,7 @@ COMMANDS["user:delegated-issues"] = class LinearCommand_user_delegatedIssues ext
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment IssueConnection on IssueConnection {
@@ -17620,10 +17714,11 @@ COMMANDS["user:drafts"] = class LinearCommand_user_drafts extends LinearCommand 
     const { args, flags } = await this.parse(LinearCommand_user_drafts);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -17631,7 +17726,7 @@ COMMANDS["user:drafts"] = class LinearCommand_user_drafts extends LinearCommand 
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment DraftConnection on DraftConnection {
@@ -17742,10 +17837,11 @@ COMMANDS["user:team-memberships"] = class LinearCommand_user_teamMemberships ext
     const { args, flags } = await this.parse(LinearCommand_user_teamMemberships);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -17753,7 +17849,7 @@ COMMANDS["user:team-memberships"] = class LinearCommand_user_teamMemberships ext
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment TeamMembershipConnection on TeamMembershipConnection {
@@ -17890,10 +17986,11 @@ COMMANDS["user:teams"] = class LinearCommand_user_teams extends LinearCommand {
     const { args, flags } = await this.parse(LinearCommand_user_teams);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -17901,7 +17998,7 @@ COMMANDS["user:teams"] = class LinearCommand_user_teams extends LinearCommand {
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment TeamConnection on TeamConnection {
@@ -18123,10 +18220,11 @@ COMMANDS["user:list"] = class LinearCommand_users extends LinearCommand {
     const { args, flags } = await this.parse(LinearCommand_users);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -18134,7 +18232,7 @@ COMMANDS["user:list"] = class LinearCommand_users extends LinearCommand {
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment UserConnection on UserConnection {
@@ -18224,10 +18322,11 @@ COMMANDS["viewer"] = class LinearCommand_viewer extends LinearCommand {
     const { args, flags } = await this.parse(LinearCommand_viewer);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -18235,7 +18334,7 @@ COMMANDS["viewer"] = class LinearCommand_viewer extends LinearCommand {
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment User on User {
@@ -18466,10 +18565,11 @@ COMMANDS["viewer:assigned-issues"] = class LinearCommand_viewer_assignedIssues e
     const { args, flags } = await this.parse(LinearCommand_viewer_assignedIssues);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -18477,7 +18577,7 @@ COMMANDS["viewer:assigned-issues"] = class LinearCommand_viewer_assignedIssues e
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment IssueConnection on IssueConnection {
@@ -18901,10 +19001,11 @@ COMMANDS["viewer:created-issues"] = class LinearCommand_viewer_createdIssues ext
     const { args, flags } = await this.parse(LinearCommand_viewer_createdIssues);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -18912,7 +19013,7 @@ COMMANDS["viewer:created-issues"] = class LinearCommand_viewer_createdIssues ext
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment IssueConnection on IssueConnection {
@@ -19336,10 +19437,11 @@ COMMANDS["viewer:delegated-issues"] = class LinearCommand_viewer_delegatedIssues
     const { args, flags } = await this.parse(LinearCommand_viewer_delegatedIssues);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -19347,7 +19449,7 @@ COMMANDS["viewer:delegated-issues"] = class LinearCommand_viewer_delegatedIssues
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment IssueConnection on IssueConnection {
@@ -19611,10 +19713,11 @@ COMMANDS["viewer:drafts"] = class LinearCommand_viewer_drafts extends LinearComm
     const { args, flags } = await this.parse(LinearCommand_viewer_drafts);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -19622,7 +19725,7 @@ COMMANDS["viewer:drafts"] = class LinearCommand_viewer_drafts extends LinearComm
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment DraftConnection on DraftConnection {
@@ -19729,10 +19832,11 @@ COMMANDS["viewer:team-memberships"] = class LinearCommand_viewer_teamMemberships
     const { args, flags } = await this.parse(LinearCommand_viewer_teamMemberships);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -19740,7 +19844,7 @@ COMMANDS["viewer:team-memberships"] = class LinearCommand_viewer_teamMemberships
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment TeamMembershipConnection on TeamMembershipConnection {
@@ -19873,10 +19977,11 @@ COMMANDS["viewer:teams"] = class LinearCommand_viewer_teams extends LinearComman
     const { args, flags } = await this.parse(LinearCommand_viewer_teams);
     const linearClient = await this.getLinearClient();
 
+    const rootVariableName = "";
     const variables: Record<string, unknown> = {};
 
     for (const [path, value] of Object.entries(args)) {
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     for (const [path, value] of Object.entries(flags)) {
@@ -19884,7 +19989,7 @@ COMMANDS["viewer:teams"] = class LinearCommand_viewer_teams extends LinearComman
         continue;
       }
 
-      set(variables, path, value);
+      set(variables, rootVariableName + path, value);
     }
 
     const query = `fragment TeamConnection on TeamConnection {
@@ -20016,6 +20121,221 @@ query viewer_teams($after: String, $before: String, $filter: TeamFilter, $first:
     }
     displayName
     email
+  }
+}
+`;
+
+    const response = await linearClient.client.rawRequest(query, variables);
+    return this.render(response.data);
+  }
+};
+
+COMMANDS["comment:create"] = class LinearCommand_createComment extends LinearCommand {
+  public static override description = "Runs createComment";
+  public static override enableJsonFlag = true;
+  public static override examples = ["<%= config.bin %> <%= command.id %>"];
+
+  public static override flags = {
+    body: Flags.string({ required: false }),
+    createAsUser: Flags.string({ required: false }),
+    createOnSyncedSlackThread: Flags.boolean({ required: false }),
+    displayIconUrl: Flags.string({ required: false }),
+    doNotSubscribeToIssue: Flags.boolean({ required: false }),
+    documentContentId: Flags.string({ required: false }),
+    id: Flags.string({ required: false }),
+    initiativeUpdateId: Flags.string({ required: false }),
+    issueId: Flags.string({ required: false }),
+    parentId: Flags.string({ required: false }),
+    postId: Flags.string({ required: false }),
+    projectUpdateId: Flags.string({ required: false }),
+    quotedText: Flags.string({ required: false }),
+    subscriberIds: Flags.string({ multiple: true, required: false }),
+  };
+
+  public async run(): Promise<unknown> {
+    const { args, flags } = await this.parse(LinearCommand_createComment);
+    const linearClient = await this.getLinearClient();
+
+    const rootVariableName = "input.";
+    const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, rootVariableName + path, value);
+    }
+
+    for (const [path, value] of Object.entries(flags)) {
+      if (path.startsWith("api-") || path === "json") {
+        continue;
+      }
+
+      set(variables, rootVariableName + path, value);
+    }
+
+    const query = `fragment CommentPayload on CommentPayload {
+  __typename
+  comment {
+    id
+  }
+  lastSyncId
+  success
+}
+
+mutation createComment($input: CommentCreateInput!) {
+  commentCreate(input: $input) {
+    ...CommentPayload
+  }
+}
+`;
+
+    const response = await linearClient.client.rawRequest(query, variables);
+    return this.render(response.data);
+  }
+};
+
+COMMANDS["issue:create"] = class LinearCommand_createIssue extends LinearCommand {
+  public static override description = "Runs createIssue";
+  public static override enableJsonFlag = true;
+  public static override examples = ["<%= config.bin %> <%= command.id %>"];
+
+  public static override flags = {
+    assigneeId: Flags.string({ required: false }),
+    createAsUser: Flags.string({ required: false }),
+    cycleId: Flags.string({ required: false }),
+    delegateId: Flags.string({ required: false }),
+    description: Flags.string({ required: false }),
+    displayIconUrl: Flags.string({ required: false }),
+    estimate: Flags.integer({ required: false }),
+    id: Flags.string({ required: false }),
+    labelIds: Flags.string({ multiple: true, required: false }),
+    lastAppliedTemplateId: Flags.string({ required: false }),
+    parentId: Flags.string({ required: false }),
+    preserveSortOrderOnCreate: Flags.boolean({ required: false }),
+    priority: Flags.integer({ required: false }),
+    prioritySortOrder: Flags.integer({ required: false }),
+    projectId: Flags.string({ required: false }),
+    projectMilestoneId: Flags.string({ required: false }),
+    referenceCommentId: Flags.string({ required: false }),
+    slaType: Flags.string({ required: false, options: ["all", "onlyBusinessDays"] }),
+    sortOrder: Flags.integer({ required: false }),
+    sourceCommentId: Flags.string({ required: false }),
+    sourcePullRequestCommentId: Flags.string({ required: false }),
+    stateId: Flags.string({ required: false }),
+    subIssueSortOrder: Flags.integer({ required: false }),
+    subscriberIds: Flags.string({ multiple: true, required: false }),
+    teamId: Flags.string({ required: true }),
+    templateId: Flags.string({ required: false }),
+    title: Flags.string({ required: false }),
+    useDefaultTemplate: Flags.boolean({ required: false }),
+  };
+
+  public async run(): Promise<unknown> {
+    const { args, flags } = await this.parse(LinearCommand_createIssue);
+    const linearClient = await this.getLinearClient();
+
+    const rootVariableName = "input.";
+    const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, rootVariableName + path, value);
+    }
+
+    for (const [path, value] of Object.entries(flags)) {
+      if (path.startsWith("api-") || path === "json") {
+        continue;
+      }
+
+      set(variables, rootVariableName + path, value);
+    }
+
+    const query = `fragment IssuePayload on IssuePayload {
+  __typename
+  lastSyncId
+  issue {
+    id
+    title
+    url
+  }
+  success
+}
+
+mutation createIssue($input: IssueCreateInput!) {
+  issueCreate(input: $input) {
+    ...IssuePayload
+  }
+}
+`;
+
+    const response = await linearClient.client.rawRequest(query, variables);
+    return this.render(response.data);
+  }
+};
+
+COMMANDS["issue:update"] = class LinearCommand_updateIssue extends LinearCommand {
+  public static override description = "Runs updateIssue";
+  public static override enableJsonFlag = true;
+  public static override examples = ["<%= config.bin %> <%= command.id %>"];
+
+  public static override flags = {
+    id: Flags.string({ required: true }),
+    "input.addedLabelIds": Flags.string({ multiple: true, required: false }),
+    "input.assigneeId": Flags.string({ required: false }),
+    "input.autoClosedByParentClosing": Flags.boolean({ required: false }),
+    "input.cycleId": Flags.string({ required: false }),
+    "input.delegateId": Flags.string({ required: false }),
+    "input.description": Flags.string({ required: false }),
+    "input.estimate": Flags.integer({ required: false }),
+    "input.labelIds": Flags.string({ multiple: true, required: false }),
+    "input.lastAppliedTemplateId": Flags.string({ required: false }),
+    "input.parentId": Flags.string({ required: false }),
+    "input.priority": Flags.integer({ required: false }),
+    "input.prioritySortOrder": Flags.integer({ required: false }),
+    "input.projectId": Flags.string({ required: false }),
+    "input.projectMilestoneId": Flags.string({ required: false }),
+    "input.removedLabelIds": Flags.string({ multiple: true, required: false }),
+    "input.slaType": Flags.string({ required: false, options: ["all", "onlyBusinessDays"] }),
+    "input.snoozedById": Flags.string({ required: false }),
+    "input.sortOrder": Flags.integer({ required: false }),
+    "input.stateId": Flags.string({ required: false }),
+    "input.subIssueSortOrder": Flags.integer({ required: false }),
+    "input.subscriberIds": Flags.string({ multiple: true, required: false }),
+    "input.teamId": Flags.string({ required: false }),
+    "input.title": Flags.string({ required: false }),
+    "input.trashed": Flags.boolean({ required: false }),
+  };
+
+  public async run(): Promise<unknown> {
+    const { args, flags } = await this.parse(LinearCommand_updateIssue);
+    const linearClient = await this.getLinearClient();
+
+    const rootVariableName = "";
+    const variables: Record<string, unknown> = {};
+
+    for (const [path, value] of Object.entries(args)) {
+      set(variables, rootVariableName + path, value);
+    }
+
+    for (const [path, value] of Object.entries(flags)) {
+      if (path.startsWith("api-") || path === "json") {
+        continue;
+      }
+
+      set(variables, rootVariableName + path, value);
+    }
+
+    const query = `fragment IssuePayload on IssuePayload {
+  __typename
+  lastSyncId
+  issue {
+    id
+    title
+    url
+  }
+  success
+}
+
+mutation updateIssue($id: String!, $input: IssueUpdateInput!) {
+  issueUpdate(id: $id, input: $input) {
+    ...IssuePayload
   }
 }
 `;
