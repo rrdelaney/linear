@@ -20,8 +20,7 @@ const log = "codegen-cli:plugin:";
 export const plugin: PluginFunction<CliPluginConfig> = async (
   schema: GraphQLSchema,
   documents: Types.DocumentFile[],
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _config: CliPluginConfig
+  config: CliPluginConfig
 ) => {
   const operationDefinitions = new Map<string, OperationDefinitionNode>();
   const fragmentDefinitions = new Map<string, FragmentDefinitionNode>();
@@ -47,7 +46,7 @@ export const plugin: PluginFunction<CliPluginConfig> = async (
 
   const commandDefinitions = new Map<string, string>();
   operationDefinitions.forEach(def => {
-    const commandName = commandNameForOperation(def);
+    const commandName = commandNameForOperation(def, config);
     if (!commandName) {
       return;
     }
@@ -415,8 +414,24 @@ function createDocumentForOperation(
   );
 }
 
-function commandNameForOperation(operation: OperationDefinitionNode): string | undefined {
-  return operation.name?.value.split("_").filter(Boolean).map(kebabify).join(":");
+function commandNameForOperation(operation: OperationDefinitionNode, config: CliPluginConfig): string | undefined {
+  const opName = operation.name?.value;
+  if (!opName) {
+    return undefined;
+  }
+
+  if (config.overrides?.[opName]) {
+    return config.overrides[opName];
+  } else if (config.ignoreOperations?.includes(opName)) {
+    return undefined;
+  }
+
+  const commandParts = opName.split("_").filter(Boolean).map(kebabify);
+  if (config.ignoreTopics?.includes(commandParts[0])) {
+    return undefined;
+  }
+
+  return commandParts.join(":");
 }
 
 function kebabify(str: string): string {
