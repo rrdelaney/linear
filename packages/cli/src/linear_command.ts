@@ -48,6 +48,12 @@ export abstract class LinearCommand extends Command {
       env: "LINEAR_API_URL",
       helpGroup: "GLOBAL",
     }),
+    "linear-url": Flags.string({
+      default: "https://linear.app",
+      description: "Linear instance URL",
+      env: "LINEAR_URL",
+      helpGroup: "GLOBAL",
+    }),
   };
   public static override enableJsonFlag = true;
 

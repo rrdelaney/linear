@@ -2,6 +2,7 @@ import { LinearClient } from "@linear/sdk";
 import { Args, Flags } from "@oclif/core";
 import { EventSourceParserStream } from "eventsource-parser/stream";
 import { Box, render as inkRender, Text, useInput } from "ink";
+import InkLink from "ink-link";
 import Spinner from "ink-spinner";
 import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { fetch } from "undici";
@@ -228,6 +229,7 @@ export default class LinearAgent extends LinearCommand {
 
     const linearClient = await this.getLinearClient();
     const conversationId = flags.conversation ?? (await this.createConversation()).aiConversation.id;
+    const linearUrl = flags["linear-url"];
 
     if (this.jsonEnabled()) {
       if (!args.prompt) {
@@ -241,7 +243,12 @@ export default class LinearAgent extends LinearCommand {
       }
     } else {
       const { waitUntilExit } = inkRender(
-        <MessagesApp linearClient={linearClient} conversationId={conversationId} initialPrompt={args.prompt} />
+        <MessagesApp
+          linearClient={linearClient}
+          conversationId={conversationId}
+          initialPrompt={args.prompt}
+          linearUrl={linearUrl}
+        />
       );
       await waitUntilExit();
     }
@@ -378,10 +385,12 @@ function MessagesApp({
   conversationId,
   linearClient,
   initialPrompt,
+  linearUrl,
 }: {
   conversationId: string;
   linearClient: LinearClient;
   initialPrompt?: string;
+  linearUrl: string;
 }) {
   const [{ isStreaming, messageIds, messages }, handleChunk] = useReducer(conversationStateReducer, {
     isStreaming: !!initialPrompt,
@@ -431,7 +440,7 @@ function MessagesApp({
         return (
           <Box key={messageId} flexDirection="row">
             {message.type === "user" && <UserMessage message={message} />}
-            {message.type === "text" && <AssistantMessage message={message} />}
+            {message.type === "text" && <AssistantMessage message={message} linearUrl={linearUrl} />}
             {message.type === "reasoning" && <ReasoningMessage message={message} />}
           </Box>
         );
@@ -478,14 +487,111 @@ function UserMessage({ message }: { message: ConversationMessage }) {
   );
 }
 
-function AssistantMessage({ message }: { message: ConversationMessage }) {
+interface EntitySegment {
+  type: "text" | "entity";
+  content: string;
+  entityType?: string;
+  entityId?: string;
+}
+
+function parseEntityTags(text: string): EntitySegment[] {
+  const segments: EntitySegment[] = [];
+  let i = 0;
+
+  while (i < text.length) {
+    // Look for opening tag
+    const openTagStart = text.indexOf("<", i);
+
+    if (openTagStart === -1) {
+      // No more tags, rest is plain text
+      if (i < text.length) {
+        segments.push({ type: "text", content: text.substring(i) });
+      }
+      break;
+    }
+
+    // Add text before tag
+    if (openTagStart > i) {
+      segments.push({ type: "text", content: text.substring(i, openTagStart) });
+    }
+
+    // Try to parse the opening tag: <entityType id="uuid">
+    const tagMatch = text.substring(openTagStart).match(/^<(\w+)\s+id="([^"]+)">/);
+
+    if (!tagMatch) {
+      // Not a valid entity tag, treat as plain text
+      segments.push({ type: "text", content: text.substring(openTagStart, openTagStart + 1) });
+      i = openTagStart + 1;
+      continue;
+    }
+
+    const entityType = tagMatch[1];
+    const entityId = tagMatch[2];
+    const tagEnd = openTagStart + tagMatch[0].length;
+
+    // Find closing tag
+    const closingTag = `</${entityType}>`;
+    const closeTagStart = text.indexOf(closingTag, tagEnd);
+
+    let entityContent: string;
+    let nextIndex: number;
+
+    if (closeTagStart === -1) {
+      // No closing tag yet (streaming), take everything after opening tag
+      entityContent = text.substring(tagEnd);
+      nextIndex = text.length;
+    } else {
+      // Found closing tag
+      entityContent = text.substring(tagEnd, closeTagStart);
+      nextIndex = closeTagStart + closingTag.length;
+    }
+
+    segments.push({
+      type: "entity",
+      content: entityContent,
+      entityType,
+      entityId,
+    });
+
+    i = nextIndex;
+  }
+
+  return segments;
+}
+
+function AssistantMessage({ message, linearUrl }: { message: ConversationMessage; linearUrl: string }) {
+  const segments = parseEntityTags(message.text);
+
   return (
     <Box flexDirection="row" columnGap={1} alignItems="flex-start">
       <Box width={1}>
         <Text>{"⬤"}</Text>
       </Box>
       <Box>
-        <Text>{message.text}</Text>
+        {segments.map((segment, index) => {
+          if (segment.type === "text") {
+            return <Text key={index}>{segment.content}</Text>;
+          }
+
+          // Entity segment - render with color and bold
+          if (segment.entityType === "issue") {
+            const link = new URL(`/issue/${segment.entityId}`, linearUrl).href;
+            return (
+              <InkLink key={index} url={link}>
+                <Text color="cyan" bold>
+                  {segment.content}
+                </Text>
+              </InkLink>
+            );
+          }
+
+          // For other entity types, just render as colored and bold without link
+          return (
+            <Text key={index} color="cyan" bold>
+              {segment.content}
+            </Text>
+          );
+        })}
       </Box>
     </Box>
   );

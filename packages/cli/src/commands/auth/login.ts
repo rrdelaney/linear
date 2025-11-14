@@ -1,4 +1,4 @@
-import { Flags, ux } from "@oclif/core";
+import { ux } from "@oclif/core";
 import { randomBytes } from "node:crypto";
 import { createServer } from "node:http";
 import open from "open";
@@ -18,14 +18,6 @@ export default class AuthLogin extends LinearCommand {
   public static override description = "Logs in to Linear using a browser-based OAuth flow.";
   public static override enableJsonFlag = false;
   public static override examples = ["<%= config.bin %> <%= command.id %>"];
-
-  public static override flags = {
-    "linear-url": Flags.string({
-      default: "https://linear.app",
-      description: "Linear instance to authorize against",
-      env: "LINEAR_URL",
-    }),
-  };
 
   private readonly oauthCallbackUrl = new URL("/callback", "http://localhost:11347");
 

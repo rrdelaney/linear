@@ -51,6 +51,7 @@
     "node": ">=22.20"
   },
   "files": [
+    "README.md",
     "./bin",
     "./dist",
     "./oclif.manifest.json",
