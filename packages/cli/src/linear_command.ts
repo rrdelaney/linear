@@ -243,28 +243,36 @@ export abstract class LinearCommand extends Command {
     return data;
   }
 
+  private linearClient?: Promise<LinearClient>;
+
   /** Returns a LinearClient initialized from flags and env vars. */
   protected async getLinearClient(accessToken?: string): Promise<LinearClient> {
-    const { flags } = await this.parse({
-      baseFlags: LinearCommand.baseFlags,
-      flags: this.ctor.flags,
-      args: this.ctor.args,
-      enableJsonFlag: this.ctor.enableJsonFlag,
-    });
-    const apiKey = flags["api-key"];
-    const apiUrl = new URL("/graphql", flags["api-url"]).href;
+    if (!this.linearClient) {
+      this.linearClient = (async () => {
+        const { flags } = await this.parse({
+          baseFlags: LinearCommand.baseFlags,
+          flags: this.ctor.flags,
+          args: this.ctor.args,
+          enableJsonFlag: this.ctor.enableJsonFlag,
+        });
+        const apiKey = flags["api-key"];
+        const apiUrl = new URL("/graphql", flags["api-url"]).href;
 
-    if (apiKey) {
-      this.debug("Using API key authentication");
-      return new LinearClient({ apiKey, apiUrl });
+        if (apiKey) {
+          this.debug("Using API key authentication");
+          return new LinearClient({ apiKey, apiUrl });
+        }
+
+        if (!accessToken) {
+          accessToken = await this.getAccessToken(apiUrl);
+        }
+
+        this.debug("Using access token authentication");
+        return new LinearClient({ accessToken, apiUrl });
+      })();
     }
 
-    if (!accessToken) {
-      accessToken = await this.getAccessToken(apiUrl);
-    }
-
-    this.debug("Using access token authentication");
-    return new LinearClient({ accessToken, apiUrl });
+    return this.linearClient;
   }
 
   /**

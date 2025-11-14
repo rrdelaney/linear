@@ -1,4 +1,5 @@
 import { Command } from "@oclif/core";
+import LinearAgent from "./agent.js";
 import AuthLogin from "./auth/login.js";
 import AuthLogout from "./auth/logout.js";
 import AuthStatus from "./auth/status.js";
@@ -10,5 +11,6 @@ export const COMMANDS: Record<string, Command.Class> = {
   "auth:login": AuthLogin,
   "auth:logout": AuthLogout,
   "auth:status": AuthStatus,
+  agent: LinearAgent,
   graphql: Graphql,
 };

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import { render as inkRender, Box, Text } from "ink";
+import { render as inkRender, Box, Text, TextProps } from "ink";
 import InkLink from "ink-link";
 import { formatDistanceToNow } from "date-fns";
 import { marked } from "marked";
@@ -13,11 +13,11 @@ marked.use(markedTerminal() as any);
 /**
  * Generic Markdown component that renders markdown text to terminal format.
  */
-function Markdown({ children }: { children: string }) {
+export function Markdown({ children, ...textProps }: Omit<TextProps, "children"> & { children: string }) {
   const rendered = marked(children) as string;
   // Remove trailing newline added by marked
   const trimmed = rendered.replace(/\n$/, "");
-  return <Text>{trimmed}</Text>;
+  return <Text {...textProps}>{trimmed}</Text>;
 }
 
 /**
@@ -47,7 +47,7 @@ function getVisualWidth(text: string): number {
  * Returns an array of widths corresponding to each column.
  */
 function calculateColumnWidths<T>(columns: TableColumn<T>[], data: T[]): number[] {
-  return columns.map((column, _colIndex) => {
+  return columns.map(column => {
     // If width is explicitly set, use it
     if (column.width !== undefined) {
       return column.width;
