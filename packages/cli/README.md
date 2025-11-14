@@ -31,16 +31,13 @@ USAGE
 # Commands
 
 <!-- commands -->
-* [`linear agent-activity list`](#linear-agent-activity-list)
-* [`linear agent-activity view ID`](#linear-agent-activity-view-id)
-* [`linear agent-session activities ID`](#linear-agent-session-activities-id)
-* [`linear agent-session list`](#linear-agent-session-list)
-* [`linear agent-session view ID`](#linear-agent-session-view-id)
+* [`linear agent [PROMPT]`](#linear-agent-prompt)
 * [`linear auth login`](#linear-auth-login)
 * [`linear auth logout`](#linear-auth-logout)
 * [`linear auth status`](#linear-auth-status)
 * [`linear autocomplete [SHELL]`](#linear-autocomplete-shell)
 * [`linear comment children`](#linear-comment-children)
+* [`linear comment create`](#linear-comment-create)
 * [`linear comment created-issues`](#linear-comment-created-issues)
 * [`linear comment document-content`](#linear-comment-document-content)
 * [`linear comment document-content ai-prompt-rules`](#linear-comment-document-content-ai-prompt-rules)
@@ -72,6 +69,7 @@ USAGE
 * [`linear issue bot-actor ID`](#linear-issue-bot-actor-id)
 * [`linear issue children ID`](#linear-issue-children-id)
 * [`linear issue comments ID`](#linear-issue-comments-id)
+* [`linear issue create`](#linear-issue-create)
 * [`linear issue documents ID`](#linear-issue-documents-id)
 * [`linear issue former-attachments ID`](#linear-issue-former-attachments-id)
 * [`linear issue former-needs ID`](#linear-issue-former-needs-id)
@@ -82,6 +80,7 @@ USAGE
 * [`linear issue needs ID`](#linear-issue-needs-id)
 * [`linear issue relations ID`](#linear-issue-relations-id)
 * [`linear issue subscribers ID`](#linear-issue-subscribers-id)
+* [`linear issue update`](#linear-issue-update)
 * [`linear issue view ID`](#linear-issue-view-id)
 * [`linear organization`](#linear-organization)
 * [`linear organization integrations`](#linear-organization-integrations)
@@ -116,6 +115,7 @@ USAGE
 * [`linear roadmap list`](#linear-roadmap-list)
 * [`linear roadmap projects ID`](#linear-roadmap-projects-id)
 * [`linear roadmap view ID`](#linear-roadmap-view-id)
+* [`linear start ISSUE`](#linear-start-issue)
 * [`linear team cycles ID`](#linear-team-cycles-id)
 * [`linear team git-automation-states ID`](#linear-team-git-automation-states-id)
 * [`linear team issues ID`](#linear-team-issues-id)
@@ -143,225 +143,21 @@ USAGE
 * [`linear viewer team-memberships`](#linear-viewer-team-memberships)
 * [`linear viewer teams`](#linear-viewer-teams)
 
-## `linear agent-activity list`
-
-Runs agentActivities
+## `linear agent [PROMPT]`
 
 ```
 USAGE
-  $ linear agent-activity list [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.agentSessionId.contains <value>] [--filter.agentSessionId.containsIgnoreCase <value>]
-    [--filter.agentSessionId.containsIgnoreCaseAndAccent <value>] [--filter.agentSessionId.endsWith <value>]
-    [--filter.agentSessionId.eq <value>] [--filter.agentSessionId.eqIgnoreCase <value>] [--filter.agentSessionId.in
-    <value>...] [--filter.agentSessionId.neq <value>] [--filter.agentSessionId.neqIgnoreCase <value>]
-    [--filter.agentSessionId.nin <value>...] [--filter.agentSessionId.notContains <value>]
-    [--filter.agentSessionId.notContainsIgnoreCase <value>] [--filter.agentSessionId.notEndsWith <value>]
-    [--filter.agentSessionId.notStartsWith <value>] [--filter.agentSessionId.startsWith <value>]
-    [--filter.agentSessionId.startsWithIgnoreCase <value>] [--filter.sourceComment.null] [--filter.type.contains
-    <value>] [--filter.type.containsIgnoreCase <value>] [--filter.type.containsIgnoreCaseAndAccent <value>]
-    [--filter.type.endsWith <value>] [--filter.type.eq <value>] [--filter.type.eqIgnoreCase <value>] [--filter.type.in
-    <value>...] [--filter.type.neq <value>] [--filter.type.neqIgnoreCase <value>] [--filter.type.nin <value>...]
-    [--filter.type.notContains <value>] [--filter.type.notContainsIgnoreCase <value>] [--filter.type.notEndsWith
-    <value>] [--filter.type.notStartsWith <value>] [--filter.type.startsWith <value>]
-    [--filter.type.startsWithIgnoreCase <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy
-    createdAt|updatedAt]
+  $ linear agent [PROMPT] [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
+    [--conversation <value>]
 
 FLAGS
-  --after=<value>
-  --before=<value>
-  --filter.agentSessionId.contains=<value>
-  --filter.agentSessionId.containsIgnoreCase=<value>
-  --filter.agentSessionId.containsIgnoreCaseAndAccent=<value>
-  --filter.agentSessionId.endsWith=<value>
-  --filter.agentSessionId.eq=<value>
-  --filter.agentSessionId.eqIgnoreCase=<value>
-  --filter.agentSessionId.in=<value>...
-  --filter.agentSessionId.neq=<value>
-  --filter.agentSessionId.neqIgnoreCase=<value>
-  --filter.agentSessionId.nin=<value>...
-  --filter.agentSessionId.notContains=<value>
-  --filter.agentSessionId.notContainsIgnoreCase=<value>
-  --filter.agentSessionId.notEndsWith=<value>
-  --filter.agentSessionId.notStartsWith=<value>
-  --filter.agentSessionId.startsWith=<value>
-  --filter.agentSessionId.startsWithIgnoreCase=<value>
-  --filter.sourceComment.null
-  --filter.type.contains=<value>
-  --filter.type.containsIgnoreCase=<value>
-  --filter.type.containsIgnoreCaseAndAccent=<value>
-  --filter.type.endsWith=<value>
-  --filter.type.eq=<value>
-  --filter.type.eqIgnoreCase=<value>
-  --filter.type.in=<value>...
-  --filter.type.neq=<value>
-  --filter.type.neqIgnoreCase=<value>
-  --filter.type.nin=<value>...
-  --filter.type.notContains=<value>
-  --filter.type.notContainsIgnoreCase=<value>
-  --filter.type.notEndsWith=<value>
-  --filter.type.notStartsWith=<value>
-  --filter.type.startsWith=<value>
-  --filter.type.startsWithIgnoreCase=<value>
-  --first=<value>
-  --includeArchived
-  --last=<value>
-  --orderBy=<option>                                           <options: createdAt|updatedAt>
+  --conversation=<value>  What conversation to continue using
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
-
-DESCRIPTION
-  Runs agentActivities
-
-EXAMPLES
-  $ linear agent-activity list
-```
-
-## `linear agent-activity view ID`
-
-Runs agentActivity
-
-```
-USAGE
-  $ linear agent-activity view ID [--json] [--api-key <value>] [--api-url <value>]
-
-GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
-
-DESCRIPTION
-  Runs agentActivity
-
-EXAMPLES
-  $ linear agent-activity view
-```
-
-## `linear agent-session activities ID`
-
-Runs agentSession_activities
-
-```
-USAGE
-  $ linear agent-session activities ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.agentSessionId.contains <value>] [--filter.agentSessionId.containsIgnoreCase <value>]
-    [--filter.agentSessionId.containsIgnoreCaseAndAccent <value>] [--filter.agentSessionId.endsWith <value>]
-    [--filter.agentSessionId.eq <value>] [--filter.agentSessionId.eqIgnoreCase <value>] [--filter.agentSessionId.in
-    <value>...] [--filter.agentSessionId.neq <value>] [--filter.agentSessionId.neqIgnoreCase <value>]
-    [--filter.agentSessionId.nin <value>...] [--filter.agentSessionId.notContains <value>]
-    [--filter.agentSessionId.notContainsIgnoreCase <value>] [--filter.agentSessionId.notEndsWith <value>]
-    [--filter.agentSessionId.notStartsWith <value>] [--filter.agentSessionId.startsWith <value>]
-    [--filter.agentSessionId.startsWithIgnoreCase <value>] [--filter.sourceComment.null] [--filter.type.contains
-    <value>] [--filter.type.containsIgnoreCase <value>] [--filter.type.containsIgnoreCaseAndAccent <value>]
-    [--filter.type.endsWith <value>] [--filter.type.eq <value>] [--filter.type.eqIgnoreCase <value>] [--filter.type.in
-    <value>...] [--filter.type.neq <value>] [--filter.type.neqIgnoreCase <value>] [--filter.type.nin <value>...]
-    [--filter.type.notContains <value>] [--filter.type.notContainsIgnoreCase <value>] [--filter.type.notEndsWith
-    <value>] [--filter.type.notStartsWith <value>] [--filter.type.startsWith <value>]
-    [--filter.type.startsWithIgnoreCase <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy
-    createdAt|updatedAt]
-
-FLAGS
-  --after=<value>
-  --before=<value>
-  --filter.agentSessionId.contains=<value>
-  --filter.agentSessionId.containsIgnoreCase=<value>
-  --filter.agentSessionId.containsIgnoreCaseAndAccent=<value>
-  --filter.agentSessionId.endsWith=<value>
-  --filter.agentSessionId.eq=<value>
-  --filter.agentSessionId.eqIgnoreCase=<value>
-  --filter.agentSessionId.in=<value>...
-  --filter.agentSessionId.neq=<value>
-  --filter.agentSessionId.neqIgnoreCase=<value>
-  --filter.agentSessionId.nin=<value>...
-  --filter.agentSessionId.notContains=<value>
-  --filter.agentSessionId.notContainsIgnoreCase=<value>
-  --filter.agentSessionId.notEndsWith=<value>
-  --filter.agentSessionId.notStartsWith=<value>
-  --filter.agentSessionId.startsWith=<value>
-  --filter.agentSessionId.startsWithIgnoreCase=<value>
-  --filter.sourceComment.null
-  --filter.type.contains=<value>
-  --filter.type.containsIgnoreCase=<value>
-  --filter.type.containsIgnoreCaseAndAccent=<value>
-  --filter.type.endsWith=<value>
-  --filter.type.eq=<value>
-  --filter.type.eqIgnoreCase=<value>
-  --filter.type.in=<value>...
-  --filter.type.neq=<value>
-  --filter.type.neqIgnoreCase=<value>
-  --filter.type.nin=<value>...
-  --filter.type.notContains=<value>
-  --filter.type.notContainsIgnoreCase=<value>
-  --filter.type.notEndsWith=<value>
-  --filter.type.notStartsWith=<value>
-  --filter.type.startsWith=<value>
-  --filter.type.startsWithIgnoreCase=<value>
-  --first=<value>
-  --includeArchived
-  --last=<value>
-  --orderBy=<option>                                           <options: createdAt|updatedAt>
-
-GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
-
-DESCRIPTION
-  Runs agentSession_activities
-
-EXAMPLES
-  $ linear agent-session activities
-```
-
-## `linear agent-session list`
-
-Runs agentSessions
-
-```
-USAGE
-  $ linear agent-session list [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
-
-FLAGS
-  --after=<value>
-  --before=<value>
-  --first=<value>
-  --includeArchived
-  --last=<value>
-  --orderBy=<option>  <options: createdAt|updatedAt>
-
-GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
-
-DESCRIPTION
-  Runs agentSessions
-
-EXAMPLES
-  $ linear agent-session list
-```
-
-## `linear agent-session view ID`
-
-Runs agentSession
-
-```
-USAGE
-  $ linear agent-session view ID [--json] [--api-key <value>] [--api-url <value>]
-
-GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
-
-DESCRIPTION
-  Runs agentSession
-
-EXAMPLES
-  $ linear agent-session view
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 ```
 
 ## `linear auth login`
@@ -372,12 +168,10 @@ Logs in to Linear using a browser-based OAuth flow.
 USAGE
   $ linear auth login [--api-key <value>] [--api-url <value>] [--linear-url <value>]
 
-FLAGS
-  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance to authorize against
-
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Logs in to Linear using a browser-based OAuth flow.
@@ -392,12 +186,13 @@ Logs out of Linear by removing stored authentication credentials
 
 ```
 USAGE
-  $ linear auth logout [--json] [--api-key <value>] [--api-url <value>]
+  $ linear auth logout [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Logs out of Linear by removing stored authentication credentials
@@ -412,12 +207,13 @@ Displays the current authentication status for Linear
 
 ```
 USAGE
-  $ linear auth status [--json] [--api-key <value>] [--api-url <value>]
+  $ linear auth status [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Displays the current authentication status for Linear
@@ -463,15 +259,16 @@ Runs comment_children
 
 ```
 USAGE
-  $ linear comment children [--json] [--api-key <value>] [--api-url <value>] [--hash <value>] [--id <value>] [--after
-    <value>] [--before <value>] [--filter.body.contains <value>] [--filter.body.containsIgnoreCase <value>]
-    [--filter.body.containsIgnoreCaseAndAccent <value>] [--filter.body.endsWith <value>] [--filter.body.eq <value>]
-    [--filter.body.eqIgnoreCase <value>] [--filter.body.in <value>...] [--filter.body.neq <value>]
-    [--filter.body.neqIgnoreCase <value>] [--filter.body.nin <value>...] [--filter.body.notContains <value>]
-    [--filter.body.notContainsIgnoreCase <value>] [--filter.body.notEndsWith <value>] [--filter.body.notStartsWith
-    <value>] [--filter.body.startsWith <value>] [--filter.body.startsWithIgnoreCase <value>]
-    [--filter.documentContent.null] [--filter.issue.null] [--filter.parent.null] [--filter.projectUpdate.null] [--first
-    <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear comment children [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--hash <value>]
+    [--id <value>] [--after <value>] [--before <value>] [--filter.body.contains <value>]
+    [--filter.body.containsIgnoreCase <value>] [--filter.body.containsIgnoreCaseAndAccent <value>]
+    [--filter.body.endsWith <value>] [--filter.body.eq <value>] [--filter.body.eqIgnoreCase <value>] [--filter.body.in
+    <value>...] [--filter.body.neq <value>] [--filter.body.neqIgnoreCase <value>] [--filter.body.nin <value>...]
+    [--filter.body.notContains <value>] [--filter.body.notContainsIgnoreCase <value>] [--filter.body.notEndsWith
+    <value>] [--filter.body.notStartsWith <value>] [--filter.body.startsWith <value>]
+    [--filter.body.startsWithIgnoreCase <value>] [--filter.documentContent.null] [--filter.issue.null]
+    [--filter.parent.null] [--filter.projectUpdate.null] [--first <value>] [--includeArchived] [--last <value>]
+    [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -504,9 +301,10 @@ FLAGS
   --orderBy=<option>                                 <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs comment_children
@@ -515,13 +313,439 @@ EXAMPLES
   $ linear comment children
 ```
 
+## `linear comment create`
+
+Runs createComment
+
+```
+USAGE
+  $ linear comment create [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--body <value>]
+    [--createAsUser <value>] [--createOnSyncedSlackThread] [--displayIconUrl <value>] [--doNotSubscribeToIssue]
+    [--documentContentId <value>] [--id <value>] [--initiativeUpdateId <value>] [--issueId <value>] [--parentId <value>]
+    [--postId <value>] [--projectUpdateId <value>] [--quotedText <value>] [--subscriberIds <value>...]
+
+FLAGS
+  --body=<value>
+  --createAsUser=<value>
+  --createOnSyncedSlackThread
+  --displayIconUrl=<value>
+  --doNotSubscribeToIssue
+  --documentContentId=<value>
+  --id=<value>
+  --initiativeUpdateId=<value>
+  --issueId=<value>
+  --parentId=<value>
+  --postId=<value>
+  --projectUpdateId=<value>
+  --quotedText=<value>
+  --subscriberIds=<value>...
+
+GLOBAL FLAGS
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
+
+DESCRIPTION
+  Runs createComment
+
+EXAMPLES
+  $ linear comment create
+```
+
 ## `linear comment created-issues`
 
 Runs comment_createdIssues
 
 ```
 USAGE
-  $ linear comment created-issues [--json] [--api-key <value>] [--api-url <value>] [--hash <value>] [--id <value>] [--after
+  $ linear comment created-issues [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--hash <value>]
+    [--id <value>] [--after <value>] [--before <value>] [--filter.accumulatedStateUpdatedAt.null]
+    [--filter.addedToCycleAt.null] [--filter.addedToCyclePeriod.eq after|before|during] [--filter.addedToCyclePeriod.in
+    after|before|during...] [--filter.addedToCyclePeriod.neq after|before|during] [--filter.addedToCyclePeriod.nin
+    after|before|during...] [--filter.addedToCyclePeriod.null] [--filter.ageTime.null] [--filter.archivedAt.null]
+    [--filter.assignee.null] [--filter.autoArchivedAt.null] [--filter.autoClosedAt.null] [--filter.canceledAt.null]
+    [--filter.completedAt.null] [--filter.creator.null] [--filter.customerCount.eq <value>] [--filter.customerCount.gt
+    <value>] [--filter.customerCount.gte <value>] [--filter.customerCount.in <value>...] [--filter.customerCount.lt
+    <value>] [--filter.customerCount.lte <value>] [--filter.customerCount.neq <value>] [--filter.customerCount.nin
+    <value>...] [--filter.customerImportantCount.eq <value>] [--filter.customerImportantCount.gt <value>]
+    [--filter.customerImportantCount.gte <value>] [--filter.customerImportantCount.in <value>...]
+    [--filter.customerImportantCount.lt <value>] [--filter.customerImportantCount.lte <value>]
+    [--filter.customerImportantCount.neq <value>] [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null]
+    [--filter.cycleTime.null] [--filter.delegate.null] [--filter.description.contains <value>]
+    [--filter.description.containsIgnoreCase <value>] [--filter.description.containsIgnoreCaseAndAccent <value>]
+    [--filter.description.endsWith <value>] [--filter.description.eq <value>] [--filter.description.eqIgnoreCase
+    <value>] [--filter.description.in <value>...] [--filter.description.neq <value>] [--filter.description.neqIgnoreCase
+    <value>] [--filter.description.nin <value>...] [--filter.description.notContains <value>]
+    [--filter.description.notContainsIgnoreCase <value>] [--filter.description.notEndsWith <value>]
+    [--filter.description.notStartsWith <value>] [--filter.description.null] [--filter.description.startsWith <value>]
+    [--filter.description.startsWithIgnoreCase <value>] [--filter.dueDate.null] [--filter.estimate.eq <value>]
+    [--filter.estimate.gt <value>] [--filter.estimate.gte <value>] [--filter.estimate.in <value>...]
+    [--filter.estimate.lt <value>] [--filter.estimate.lte <value>] [--filter.estimate.neq <value>]
+    [--filter.estimate.nin <value>...] [--filter.estimate.null] [--filter.hasBlockedByRelations.eq]
+    [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq] [--filter.hasBlockingRelations.neq]
+    [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq] [--filter.hasRelatedRelations.eq]
+    [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq] [--filter.hasSuggestedAssignees.neq]
+    [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq] [--filter.hasSuggestedProjects.eq]
+    [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq] [--filter.hasSuggestedRelatedIssues.neq]
+    [--filter.hasSuggestedSimilarIssues.eq] [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq]
+    [--filter.hasSuggestedTeams.neq] [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null]
+    [--filter.number.eq <value>] [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in
+    <value>...] [--filter.number.lt <value>] [--filter.number.lte <value>] [--filter.number.neq <value>]
+    [--filter.number.nin <value>...] [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt
+    <value>] [--filter.priority.gte <value>] [--filter.priority.in <value>...] [--filter.priority.lt <value>]
+    [--filter.priority.lte <value>] [--filter.priority.neq <value>] [--filter.priority.nin <value>...]
+    [--filter.priority.null] [--filter.project.null] [--filter.projectMilestone.null]
+    [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains <value>]
+    [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
+    Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.in
+    Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk...] [--filter.slaStatus.neq
+    Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.nin
+    Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk...] [--filter.slaStatus.null] [--filter.snoozedBy.null]
+    [--filter.snoozedUntilAt.null] [--filter.sourceMetadata.eq <value>] [--filter.sourceMetadata.in <value>...]
+    [--filter.sourceMetadata.neq <value>] [--filter.sourceMetadata.nin <value>...] [--filter.sourceMetadata.null]
+    [--filter.startedAt.null] [--filter.title.contains <value>] [--filter.title.containsIgnoreCase <value>]
+    [--filter.title.containsIgnoreCaseAndAccent <value>] [--filter.title.endsWith <value>] [--filter.title.eq <value>]
+    [--filter.title.eqIgnoreCase <value>] [--filter.title.in <value>...] [--filter.title.neq <value>]
+    [--filter.title.neqIgnoreCase <value>] [--filter.title.nin <value>...] [--filter.title.notContains <value>]
+    [--filter.title.notContainsIgnoreCase <value>] [--filter.title.notEndsWith <value>] [--filter.title.notStartsWith
+    <value>] [--filter.title.startsWith <value>] [--filter.title.startsWithIgnoreCase <value>]
+    [--filter.triageTime.null] [--filter.triagedAt.null] [--first <value>] [--includeArchived] [--last <value>]
+    [--orderBy createdAt|updatedAt]
+
+FLAGS
+  --after=<value>
+  --before=<value>
+  --filter.accumulatedStateUpdatedAt.null
+  --filter.addedToCycleAt.null
+  --filter.addedToCyclePeriod.eq=<option>                   <options: after|before|during>
+  --filter.addedToCyclePeriod.in=<option>...                <options: after|before|during>
+  --filter.addedToCyclePeriod.neq=<option>                  <options: after|before|during>
+  --filter.addedToCyclePeriod.nin=<option>...               <options: after|before|during>
+  --filter.addedToCyclePeriod.null
+  --filter.ageTime.null
+  --filter.archivedAt.null
+  --filter.assignee.null
+  --filter.autoArchivedAt.null
+  --filter.autoClosedAt.null
+  --filter.canceledAt.null
+  --filter.completedAt.null
+  --filter.creator.null
+  --filter.customerCount.eq=<value>
+  --filter.customerCount.gt=<value>
+  --filter.customerCount.gte=<value>
+  --filter.customerCount.in=<value>...
+  --filter.customerCount.lt=<value>
+  --filter.customerCount.lte=<value>
+  --filter.customerCount.neq=<value>
+  --filter.customerCount.nin=<value>...
+  --filter.customerImportantCount.eq=<value>
+  --filter.customerImportantCount.gt=<value>
+  --filter.customerImportantCount.gte=<value>
+  --filter.customerImportantCount.in=<value>...
+  --filter.customerImportantCount.lt=<value>
+  --filter.customerImportantCount.lte=<value>
+  --filter.customerImportantCount.neq=<value>
+  --filter.customerImportantCount.nin=<value>...
+  --filter.cycle.null
+  --filter.cycleTime.null
+  --filter.delegate.null
+  --filter.description.contains=<value>
+  --filter.description.containsIgnoreCase=<value>
+  --filter.description.containsIgnoreCaseAndAccent=<value>
+  --filter.description.endsWith=<value>
+  --filter.description.eq=<value>
+  --filter.description.eqIgnoreCase=<value>
+  --filter.description.in=<value>...
+  --filter.description.neq=<value>
+  --filter.description.neqIgnoreCase=<value>
+  --filter.description.nin=<value>...
+  --filter.description.notContains=<value>
+  --filter.description.notContainsIgnoreCase=<value>
+  --filter.description.notEndsWith=<value>
+  --filter.description.notStartsWith=<value>
+  --filter.description.null
+  --filter.description.startsWith=<value>
+  --filter.description.startsWithIgnoreCase=<value>
+  --filter.dueDate.null
+  --filter.estimate.eq=<value>
+  --filter.estimate.gt=<value>
+  --filter.estimate.gte=<value>
+  --filter.estimate.in=<value>...
+  --filter.estimate.lt=<value>
+  --filter.estimate.lte=<value>
+  --filter.estimate.neq=<value>
+  --filter.estimate.nin=<value>...
+  --filter.estimate.null
+  --filter.hasBlockedByRelations.eq
+  --filter.hasBlockedByRelations.neq
+  --filter.hasBlockingRelations.eq
+  --filter.hasBlockingRelations.neq
+  --filter.hasDuplicateRelations.eq
+  --filter.hasDuplicateRelations.neq
+  --filter.hasRelatedRelations.eq
+  --filter.hasRelatedRelations.neq
+  --filter.hasSuggestedAssignees.eq
+  --filter.hasSuggestedAssignees.neq
+  --filter.hasSuggestedLabels.eq
+  --filter.hasSuggestedLabels.neq
+  --filter.hasSuggestedProjects.eq
+  --filter.hasSuggestedProjects.neq
+  --filter.hasSuggestedRelatedIssues.eq
+  --filter.hasSuggestedRelatedIssues.neq
+  --filter.hasSuggestedSimilarIssues.eq
+  --filter.hasSuggestedSimilarIssues.neq
+  --filter.hasSuggestedTeams.eq
+  --filter.hasSuggestedTeams.neq
+  --filter.labels.null
+  --filter.lastAppliedTemplate.null
+  --filter.leadTime.null
+  --filter.number.eq=<value>
+  --filter.number.gt=<value>
+  --filter.number.gte=<value>
+  --filter.number.in=<value>...
+  --filter.number.lt=<value>
+  --filter.number.lte=<value>
+  --filter.number.neq=<value>
+  --filter.number.nin=<value>...
+  --filter.parent.null
+  --filter.priority.eq=<value>
+  --filter.priority.gt=<value>
+  --filter.priority.gte=<value>
+  --filter.priority.in=<value>...
+  --filter.priority.lt=<value>
+  --filter.priority.lte=<value>
+  --filter.priority.neq=<value>
+  --filter.priority.nin=<value>...
+  --filter.priority.null
+  --filter.project.null
+  --filter.projectMilestone.null
+  --filter.recurringIssueTemplate.null
+  --filter.searchableContent.contains=<value>
+  --filter.searchableContent.notContains=<value>
+  --filter.slaStatus.eq=<option>                            <options:
+                                                            Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk>
+  --filter.slaStatus.in=<option>...                         <options:
+                                                            Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk>
+  --filter.slaStatus.neq=<option>                           <options:
+                                                            Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk>
+  --filter.slaStatus.nin=<option>...                        <options:
+                                                            Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk>
+  --filter.slaStatus.null
+  --filter.snoozedBy.null
+  --filter.snoozedUntilAt.null
+  --filter.sourceMetadata.eq=<value>
+  --filter.sourceMetadata.in=<value>...
+  --filter.sourceMetadata.neq=<value>
+  --filter.sourceMetadata.nin=<value>...
+  --filter.sourceMetadata.null
+  --filter.startedAt.null
+  --filter.title.contains=<value>
+  --filter.title.containsIgnoreCase=<value>
+  --filter.title.containsIgnoreCaseAndAccent=<value>
+  --filter.title.endsWith=<value>
+  --filter.title.eq=<value>
+  --filter.title.eqIgnoreCase=<value>
+  --filter.title.in=<value>...
+  --filter.title.neq=<value>
+  --filter.title.neqIgnoreCase=<value>
+  --filter.title.nin=<value>...
+  --filter.title.notContains=<value>
+  --filter.title.notContainsIgnoreCase=<value>
+  --filter.title.notEndsWith=<value>
+  --filter.title.notStartsWith=<value>
+  --filter.title.startsWith=<value>
+  --filter.title.startsWithIgnoreCase=<value>
+  --filter.triageTime.null
+  --filter.triagedAt.null
+  --first=<value>
+  --hash=<value>
+  --id=<value>
+  --includeArchived
+  --last=<value>
+  --orderBy=<option>                                        <options: createdAt|updatedAt>
+
+GLOBAL FLAGS
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
+
+DESCRIPTION
+  Runs comment_createdIssues
+
+EXAMPLES
+  $ linear comment created-issues
+```
+
+## `linear comment document-content`
+
+Runs comment_documentContent
+
+```
+USAGE
+  $ linear comment document-content [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--hash <value>]
+    [--id <value>]
+
+FLAGS
+  --hash=<value>
+  --id=<value>
+
+GLOBAL FLAGS
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
+
+DESCRIPTION
+  Runs comment_documentContent
+
+EXAMPLES
+  $ linear comment document-content
+```
+
+## `linear comment document-content ai-prompt-rules`
+
+Runs comment_documentContent_aiPromptRules
+
+```
+USAGE
+  $ linear comment document-content ai-prompt-rules [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--hash <value>]
+    [--id <value>]
+
+FLAGS
+  --hash=<value>
+  --id=<value>
+
+GLOBAL FLAGS
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
+
+DESCRIPTION
+  Runs comment_documentContent_aiPromptRules
+
+EXAMPLES
+  $ linear comment document-content ai-prompt-rules
+```
+
+## `linear comment external-thread`
+
+Runs comment_externalThread
+
+```
+USAGE
+  $ linear comment external-thread [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--hash <value>]
+    [--id <value>]
+
+FLAGS
+  --hash=<value>
+  --id=<value>
+
+GLOBAL FLAGS
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
+
+DESCRIPTION
+  Runs comment_externalThread
+
+EXAMPLES
+  $ linear comment external-thread
+```
+
+## `linear comment list`
+
+Runs comments
+
+```
+USAGE
+  $ linear comment list [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--filter.body.contains <value>] [--filter.body.containsIgnoreCase <value>]
+    [--filter.body.containsIgnoreCaseAndAccent <value>] [--filter.body.endsWith <value>] [--filter.body.eq <value>]
+    [--filter.body.eqIgnoreCase <value>] [--filter.body.in <value>...] [--filter.body.neq <value>]
+    [--filter.body.neqIgnoreCase <value>] [--filter.body.nin <value>...] [--filter.body.notContains <value>]
+    [--filter.body.notContainsIgnoreCase <value>] [--filter.body.notEndsWith <value>] [--filter.body.notStartsWith
+    <value>] [--filter.body.startsWith <value>] [--filter.body.startsWithIgnoreCase <value>]
+    [--filter.documentContent.null] [--filter.issue.null] [--filter.parent.null] [--filter.projectUpdate.null] [--first
+    <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+
+FLAGS
+  --after=<value>
+  --before=<value>
+  --filter.body.contains=<value>
+  --filter.body.containsIgnoreCase=<value>
+  --filter.body.containsIgnoreCaseAndAccent=<value>
+  --filter.body.endsWith=<value>
+  --filter.body.eq=<value>
+  --filter.body.eqIgnoreCase=<value>
+  --filter.body.in=<value>...
+  --filter.body.neq=<value>
+  --filter.body.neqIgnoreCase=<value>
+  --filter.body.nin=<value>...
+  --filter.body.notContains=<value>
+  --filter.body.notContainsIgnoreCase=<value>
+  --filter.body.notEndsWith=<value>
+  --filter.body.notStartsWith=<value>
+  --filter.body.startsWith=<value>
+  --filter.body.startsWithIgnoreCase=<value>
+  --filter.documentContent.null
+  --filter.issue.null
+  --filter.parent.null
+  --filter.projectUpdate.null
+  --first=<value>
+  --includeArchived
+  --last=<value>
+  --orderBy=<option>                                 <options: createdAt|updatedAt>
+
+GLOBAL FLAGS
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
+
+DESCRIPTION
+  Runs comments
+
+EXAMPLES
+  $ linear comment list
+```
+
+## `linear comment view`
+
+Runs comment
+
+```
+USAGE
+  $ linear comment view [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--hash <value>]
+    [--id <value>]
+
+FLAGS
+  --hash=<value>
+  --id=<value>
+
+GLOBAL FLAGS
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
+
+DESCRIPTION
+  Runs comment
+
+EXAMPLES
+  $ linear comment view
+```
+
+## `linear cycle issues ID`
+
+Runs cycle_issues
+
+```
+USAGE
+  $ linear cycle issues ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
     <value>] [--before <value>] [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null]
     [--filter.addedToCyclePeriod.eq after|before|during] [--filter.addedToCyclePeriod.in after|before|during...]
     [--filter.addedToCyclePeriod.neq after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...]
@@ -721,390 +945,15 @@ FLAGS
   --filter.triageTime.null
   --filter.triagedAt.null
   --first=<value>
-  --hash=<value>
-  --id=<value>
   --includeArchived
   --last=<value>
   --orderBy=<option>                                        <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
-
-DESCRIPTION
-  Runs comment_createdIssues
-
-EXAMPLES
-  $ linear comment created-issues
-```
-
-## `linear comment document-content`
-
-Runs comment_documentContent
-
-```
-USAGE
-  $ linear comment document-content [--json] [--api-key <value>] [--api-url <value>] [--hash <value>] [--id <value>]
-
-FLAGS
-  --hash=<value>
-  --id=<value>
-
-GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
-
-DESCRIPTION
-  Runs comment_documentContent
-
-EXAMPLES
-  $ linear comment document-content
-```
-
-## `linear comment document-content ai-prompt-rules`
-
-Runs comment_documentContent_aiPromptRules
-
-```
-USAGE
-  $ linear comment document-content ai-prompt-rules [--json] [--api-key <value>] [--api-url <value>] [--hash <value>]
-  [--id <value>]
-
-FLAGS
-  --hash=<value>
-  --id=<value>
-
-GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
-
-DESCRIPTION
-  Runs comment_documentContent_aiPromptRules
-
-EXAMPLES
-  $ linear comment document-content ai-prompt-rules
-```
-
-## `linear comment external-thread`
-
-Runs comment_externalThread
-
-```
-USAGE
-  $ linear comment external-thread [--json] [--api-key <value>] [--api-url <value>] [--hash <value>] [--id <value>]
-
-FLAGS
-  --hash=<value>
-  --id=<value>
-
-GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
-
-DESCRIPTION
-  Runs comment_externalThread
-
-EXAMPLES
-  $ linear comment external-thread
-```
-
-## `linear comment list`
-
-Runs comments
-
-```
-USAGE
-  $ linear comment list [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.body.contains <value>] [--filter.body.containsIgnoreCase <value>]
-    [--filter.body.containsIgnoreCaseAndAccent <value>] [--filter.body.endsWith <value>] [--filter.body.eq <value>]
-    [--filter.body.eqIgnoreCase <value>] [--filter.body.in <value>...] [--filter.body.neq <value>]
-    [--filter.body.neqIgnoreCase <value>] [--filter.body.nin <value>...] [--filter.body.notContains <value>]
-    [--filter.body.notContainsIgnoreCase <value>] [--filter.body.notEndsWith <value>] [--filter.body.notStartsWith
-    <value>] [--filter.body.startsWith <value>] [--filter.body.startsWithIgnoreCase <value>]
-    [--filter.documentContent.null] [--filter.issue.null] [--filter.parent.null] [--filter.projectUpdate.null] [--first
-    <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
-
-FLAGS
-  --after=<value>
-  --before=<value>
-  --filter.body.contains=<value>
-  --filter.body.containsIgnoreCase=<value>
-  --filter.body.containsIgnoreCaseAndAccent=<value>
-  --filter.body.endsWith=<value>
-  --filter.body.eq=<value>
-  --filter.body.eqIgnoreCase=<value>
-  --filter.body.in=<value>...
-  --filter.body.neq=<value>
-  --filter.body.neqIgnoreCase=<value>
-  --filter.body.nin=<value>...
-  --filter.body.notContains=<value>
-  --filter.body.notContainsIgnoreCase=<value>
-  --filter.body.notEndsWith=<value>
-  --filter.body.notStartsWith=<value>
-  --filter.body.startsWith=<value>
-  --filter.body.startsWithIgnoreCase=<value>
-  --filter.documentContent.null
-  --filter.issue.null
-  --filter.parent.null
-  --filter.projectUpdate.null
-  --first=<value>
-  --includeArchived
-  --last=<value>
-  --orderBy=<option>                                 <options: createdAt|updatedAt>
-
-GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
-
-DESCRIPTION
-  Runs comments
-
-EXAMPLES
-  $ linear comment list
-```
-
-## `linear comment view`
-
-Runs comment
-
-```
-USAGE
-  $ linear comment view [--json] [--api-key <value>] [--api-url <value>] [--hash <value>] [--id <value>]
-
-FLAGS
-  --hash=<value>
-  --id=<value>
-
-GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
-
-DESCRIPTION
-  Runs comment
-
-EXAMPLES
-  $ linear comment view
-```
-
-## `linear cycle issues ID`
-
-Runs cycle_issues
-
-```
-USAGE
-  $ linear cycle issues ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null] [--filter.addedToCyclePeriod.eq
-    after|before|during] [--filter.addedToCyclePeriod.in after|before|during...] [--filter.addedToCyclePeriod.neq
-    after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...] [--filter.addedToCyclePeriod.null]
-    [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null] [--filter.autoArchivedAt.null]
-    [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null] [--filter.creator.null]
-    [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>] [--filter.customerCount.gte <value>]
-    [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>] [--filter.customerCount.lte <value>]
-    [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...] [--filter.customerImportantCount.eq
-    <value>] [--filter.customerImportantCount.gt <value>] [--filter.customerImportantCount.gte <value>]
-    [--filter.customerImportantCount.in <value>...] [--filter.customerImportantCount.lt <value>]
-    [--filter.customerImportantCount.lte <value>] [--filter.customerImportantCount.neq <value>]
-    [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null] [--filter.cycleTime.null]
-    [--filter.delegate.null] [--filter.description.contains <value>] [--filter.description.containsIgnoreCase <value>]
-    [--filter.description.containsIgnoreCaseAndAccent <value>] [--filter.description.endsWith <value>]
-    [--filter.description.eq <value>] [--filter.description.eqIgnoreCase <value>] [--filter.description.in <value>...]
-    [--filter.description.neq <value>] [--filter.description.neqIgnoreCase <value>] [--filter.description.nin
-    <value>...] [--filter.description.notContains <value>] [--filter.description.notContainsIgnoreCase <value>]
-    [--filter.description.notEndsWith <value>] [--filter.description.notStartsWith <value>] [--filter.description.null]
-    [--filter.description.startsWith <value>] [--filter.description.startsWithIgnoreCase <value>]
-    [--filter.dueDate.null] [--filter.estimate.eq <value>] [--filter.estimate.gt <value>] [--filter.estimate.gte
-    <value>] [--filter.estimate.in <value>...] [--filter.estimate.lt <value>] [--filter.estimate.lte <value>]
-    [--filter.estimate.neq <value>] [--filter.estimate.nin <value>...] [--filter.estimate.null]
-    [--filter.hasBlockedByRelations.eq] [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq]
-    [--filter.hasBlockingRelations.neq] [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq]
-    [--filter.hasRelatedRelations.eq] [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq]
-    [--filter.hasSuggestedAssignees.neq] [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq]
-    [--filter.hasSuggestedProjects.eq] [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq]
-    [--filter.hasSuggestedRelatedIssues.neq] [--filter.hasSuggestedSimilarIssues.eq]
-    [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq] [--filter.hasSuggestedTeams.neq]
-    [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null] [--filter.number.eq <value>]
-    [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in <value>...] [--filter.number.lt
-    <value>] [--filter.number.lte <value>] [--filter.number.neq <value>] [--filter.number.nin <value>...]
-    [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt <value>] [--filter.priority.gte <value>]
-    [--filter.priority.in <value>...] [--filter.priority.lt <value>] [--filter.priority.lte <value>]
-    [--filter.priority.neq <value>] [--filter.priority.nin <value>...] [--filter.priority.null] [--filter.project.null]
-    [--filter.projectMilestone.null] [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains
-    <value>] [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
-    Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.in
-    Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk...] [--filter.slaStatus.neq
-    Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.nin
-    Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk...] [--filter.slaStatus.null] [--filter.snoozedBy.null]
-    [--filter.snoozedUntilAt.null] [--filter.sourceMetadata.eq <value>] [--filter.sourceMetadata.in <value>...]
-    [--filter.sourceMetadata.neq <value>] [--filter.sourceMetadata.nin <value>...] [--filter.sourceMetadata.null]
-    [--filter.startedAt.null] [--filter.title.contains <value>] [--filter.title.containsIgnoreCase <value>]
-    [--filter.title.containsIgnoreCaseAndAccent <value>] [--filter.title.endsWith <value>] [--filter.title.eq <value>]
-    [--filter.title.eqIgnoreCase <value>] [--filter.title.in <value>...] [--filter.title.neq <value>]
-    [--filter.title.neqIgnoreCase <value>] [--filter.title.nin <value>...] [--filter.title.notContains <value>]
-    [--filter.title.notContainsIgnoreCase <value>] [--filter.title.notEndsWith <value>] [--filter.title.notStartsWith
-    <value>] [--filter.title.startsWith <value>] [--filter.title.startsWithIgnoreCase <value>]
-    [--filter.triageTime.null] [--filter.triagedAt.null] [--first <value>] [--includeArchived] [--last <value>]
-    [--orderBy createdAt|updatedAt]
-
-FLAGS
-  --after=<value>
-  --before=<value>
-  --filter.accumulatedStateUpdatedAt.null
-  --filter.addedToCycleAt.null
-  --filter.addedToCyclePeriod.eq=<option>                   <options: after|before|during>
-  --filter.addedToCyclePeriod.in=<option>...                <options: after|before|during>
-  --filter.addedToCyclePeriod.neq=<option>                  <options: after|before|during>
-  --filter.addedToCyclePeriod.nin=<option>...               <options: after|before|during>
-  --filter.addedToCyclePeriod.null
-  --filter.ageTime.null
-  --filter.archivedAt.null
-  --filter.assignee.null
-  --filter.autoArchivedAt.null
-  --filter.autoClosedAt.null
-  --filter.canceledAt.null
-  --filter.completedAt.null
-  --filter.creator.null
-  --filter.customerCount.eq=<value>
-  --filter.customerCount.gt=<value>
-  --filter.customerCount.gte=<value>
-  --filter.customerCount.in=<value>...
-  --filter.customerCount.lt=<value>
-  --filter.customerCount.lte=<value>
-  --filter.customerCount.neq=<value>
-  --filter.customerCount.nin=<value>...
-  --filter.customerImportantCount.eq=<value>
-  --filter.customerImportantCount.gt=<value>
-  --filter.customerImportantCount.gte=<value>
-  --filter.customerImportantCount.in=<value>...
-  --filter.customerImportantCount.lt=<value>
-  --filter.customerImportantCount.lte=<value>
-  --filter.customerImportantCount.neq=<value>
-  --filter.customerImportantCount.nin=<value>...
-  --filter.cycle.null
-  --filter.cycleTime.null
-  --filter.delegate.null
-  --filter.description.contains=<value>
-  --filter.description.containsIgnoreCase=<value>
-  --filter.description.containsIgnoreCaseAndAccent=<value>
-  --filter.description.endsWith=<value>
-  --filter.description.eq=<value>
-  --filter.description.eqIgnoreCase=<value>
-  --filter.description.in=<value>...
-  --filter.description.neq=<value>
-  --filter.description.neqIgnoreCase=<value>
-  --filter.description.nin=<value>...
-  --filter.description.notContains=<value>
-  --filter.description.notContainsIgnoreCase=<value>
-  --filter.description.notEndsWith=<value>
-  --filter.description.notStartsWith=<value>
-  --filter.description.null
-  --filter.description.startsWith=<value>
-  --filter.description.startsWithIgnoreCase=<value>
-  --filter.dueDate.null
-  --filter.estimate.eq=<value>
-  --filter.estimate.gt=<value>
-  --filter.estimate.gte=<value>
-  --filter.estimate.in=<value>...
-  --filter.estimate.lt=<value>
-  --filter.estimate.lte=<value>
-  --filter.estimate.neq=<value>
-  --filter.estimate.nin=<value>...
-  --filter.estimate.null
-  --filter.hasBlockedByRelations.eq
-  --filter.hasBlockedByRelations.neq
-  --filter.hasBlockingRelations.eq
-  --filter.hasBlockingRelations.neq
-  --filter.hasDuplicateRelations.eq
-  --filter.hasDuplicateRelations.neq
-  --filter.hasRelatedRelations.eq
-  --filter.hasRelatedRelations.neq
-  --filter.hasSuggestedAssignees.eq
-  --filter.hasSuggestedAssignees.neq
-  --filter.hasSuggestedLabels.eq
-  --filter.hasSuggestedLabels.neq
-  --filter.hasSuggestedProjects.eq
-  --filter.hasSuggestedProjects.neq
-  --filter.hasSuggestedRelatedIssues.eq
-  --filter.hasSuggestedRelatedIssues.neq
-  --filter.hasSuggestedSimilarIssues.eq
-  --filter.hasSuggestedSimilarIssues.neq
-  --filter.hasSuggestedTeams.eq
-  --filter.hasSuggestedTeams.neq
-  --filter.labels.null
-  --filter.lastAppliedTemplate.null
-  --filter.leadTime.null
-  --filter.number.eq=<value>
-  --filter.number.gt=<value>
-  --filter.number.gte=<value>
-  --filter.number.in=<value>...
-  --filter.number.lt=<value>
-  --filter.number.lte=<value>
-  --filter.number.neq=<value>
-  --filter.number.nin=<value>...
-  --filter.parent.null
-  --filter.priority.eq=<value>
-  --filter.priority.gt=<value>
-  --filter.priority.gte=<value>
-  --filter.priority.in=<value>...
-  --filter.priority.lt=<value>
-  --filter.priority.lte=<value>
-  --filter.priority.neq=<value>
-  --filter.priority.nin=<value>...
-  --filter.priority.null
-  --filter.project.null
-  --filter.projectMilestone.null
-  --filter.recurringIssueTemplate.null
-  --filter.searchableContent.contains=<value>
-  --filter.searchableContent.notContains=<value>
-  --filter.slaStatus.eq=<option>                            <options:
-                                                            Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk>
-  --filter.slaStatus.in=<option>...                         <options:
-                                                            Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk>
-  --filter.slaStatus.neq=<option>                           <options:
-                                                            Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk>
-  --filter.slaStatus.nin=<option>...                        <options:
-                                                            Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk>
-  --filter.slaStatus.null
-  --filter.snoozedBy.null
-  --filter.snoozedUntilAt.null
-  --filter.sourceMetadata.eq=<value>
-  --filter.sourceMetadata.in=<value>...
-  --filter.sourceMetadata.neq=<value>
-  --filter.sourceMetadata.nin=<value>...
-  --filter.sourceMetadata.null
-  --filter.startedAt.null
-  --filter.title.contains=<value>
-  --filter.title.containsIgnoreCase=<value>
-  --filter.title.containsIgnoreCaseAndAccent=<value>
-  --filter.title.endsWith=<value>
-  --filter.title.eq=<value>
-  --filter.title.eqIgnoreCase=<value>
-  --filter.title.in=<value>...
-  --filter.title.neq=<value>
-  --filter.title.neqIgnoreCase=<value>
-  --filter.title.nin=<value>...
-  --filter.title.notContains=<value>
-  --filter.title.notContainsIgnoreCase=<value>
-  --filter.title.notEndsWith=<value>
-  --filter.title.notStartsWith=<value>
-  --filter.title.startsWith=<value>
-  --filter.title.startsWithIgnoreCase=<value>
-  --filter.triageTime.null
-  --filter.triagedAt.null
-  --first=<value>
-  --includeArchived
-  --last=<value>
-  --orderBy=<option>                                        <options: createdAt|updatedAt>
-
-GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs cycle_issues
@@ -1119,8 +968,8 @@ Runs cycles
 
 ```
 USAGE
-  $ linear cycle list [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.isActive.eq] [--filter.isActive.neq] [--filter.isFuture.eq] [--filter.isFuture.neq]
+  $ linear cycle list [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--filter.isActive.eq] [--filter.isActive.neq] [--filter.isFuture.eq] [--filter.isFuture.neq]
     [--filter.isInCooldown.eq] [--filter.isInCooldown.neq] [--filter.isNext.eq] [--filter.isNext.neq]
     [--filter.isPast.eq] [--filter.isPast.neq] [--filter.isPrevious.eq] [--filter.isPrevious.neq]
     [--filter.name.contains <value>] [--filter.name.containsIgnoreCase <value>]
@@ -1178,9 +1027,10 @@ FLAGS
   --orderBy=<option>                                 <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs cycles
@@ -1195,44 +1045,45 @@ Runs cycle_uncompletedIssuesUponClose
 
 ```
 USAGE
-  $ linear cycle uncompleted-issues-upon-close ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null] [--filter.addedToCyclePeriod.eq
-    after|before|during] [--filter.addedToCyclePeriod.in after|before|during...] [--filter.addedToCyclePeriod.neq
-    after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...] [--filter.addedToCyclePeriod.null]
-    [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null] [--filter.autoArchivedAt.null]
-    [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null] [--filter.creator.null]
-    [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>] [--filter.customerCount.gte <value>]
-    [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>] [--filter.customerCount.lte <value>]
-    [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...] [--filter.customerImportantCount.eq
-    <value>] [--filter.customerImportantCount.gt <value>] [--filter.customerImportantCount.gte <value>]
-    [--filter.customerImportantCount.in <value>...] [--filter.customerImportantCount.lt <value>]
-    [--filter.customerImportantCount.lte <value>] [--filter.customerImportantCount.neq <value>]
-    [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null] [--filter.cycleTime.null]
-    [--filter.delegate.null] [--filter.description.contains <value>] [--filter.description.containsIgnoreCase <value>]
-    [--filter.description.containsIgnoreCaseAndAccent <value>] [--filter.description.endsWith <value>]
-    [--filter.description.eq <value>] [--filter.description.eqIgnoreCase <value>] [--filter.description.in <value>...]
-    [--filter.description.neq <value>] [--filter.description.neqIgnoreCase <value>] [--filter.description.nin
-    <value>...] [--filter.description.notContains <value>] [--filter.description.notContainsIgnoreCase <value>]
-    [--filter.description.notEndsWith <value>] [--filter.description.notStartsWith <value>] [--filter.description.null]
-    [--filter.description.startsWith <value>] [--filter.description.startsWithIgnoreCase <value>]
-    [--filter.dueDate.null] [--filter.estimate.eq <value>] [--filter.estimate.gt <value>] [--filter.estimate.gte
-    <value>] [--filter.estimate.in <value>...] [--filter.estimate.lt <value>] [--filter.estimate.lte <value>]
-    [--filter.estimate.neq <value>] [--filter.estimate.nin <value>...] [--filter.estimate.null]
-    [--filter.hasBlockedByRelations.eq] [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq]
-    [--filter.hasBlockingRelations.neq] [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq]
-    [--filter.hasRelatedRelations.eq] [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq]
-    [--filter.hasSuggestedAssignees.neq] [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq]
-    [--filter.hasSuggestedProjects.eq] [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq]
-    [--filter.hasSuggestedRelatedIssues.neq] [--filter.hasSuggestedSimilarIssues.eq]
-    [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq] [--filter.hasSuggestedTeams.neq]
-    [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null] [--filter.number.eq <value>]
-    [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in <value>...] [--filter.number.lt
-    <value>] [--filter.number.lte <value>] [--filter.number.neq <value>] [--filter.number.nin <value>...]
-    [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt <value>] [--filter.priority.gte <value>]
-    [--filter.priority.in <value>...] [--filter.priority.lt <value>] [--filter.priority.lte <value>]
-    [--filter.priority.neq <value>] [--filter.priority.nin <value>...] [--filter.priority.null] [--filter.project.null]
-    [--filter.projectMilestone.null] [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains
-    <value>] [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
+  $ linear cycle uncompleted-issues-upon-close ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null]
+    [--filter.addedToCyclePeriod.eq after|before|during] [--filter.addedToCyclePeriod.in after|before|during...]
+    [--filter.addedToCyclePeriod.neq after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...]
+    [--filter.addedToCyclePeriod.null] [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null]
+    [--filter.autoArchivedAt.null] [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null]
+    [--filter.creator.null] [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>]
+    [--filter.customerCount.gte <value>] [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>]
+    [--filter.customerCount.lte <value>] [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...]
+    [--filter.customerImportantCount.eq <value>] [--filter.customerImportantCount.gt <value>]
+    [--filter.customerImportantCount.gte <value>] [--filter.customerImportantCount.in <value>...]
+    [--filter.customerImportantCount.lt <value>] [--filter.customerImportantCount.lte <value>]
+    [--filter.customerImportantCount.neq <value>] [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null]
+    [--filter.cycleTime.null] [--filter.delegate.null] [--filter.description.contains <value>]
+    [--filter.description.containsIgnoreCase <value>] [--filter.description.containsIgnoreCaseAndAccent <value>]
+    [--filter.description.endsWith <value>] [--filter.description.eq <value>] [--filter.description.eqIgnoreCase
+    <value>] [--filter.description.in <value>...] [--filter.description.neq <value>] [--filter.description.neqIgnoreCase
+    <value>] [--filter.description.nin <value>...] [--filter.description.notContains <value>]
+    [--filter.description.notContainsIgnoreCase <value>] [--filter.description.notEndsWith <value>]
+    [--filter.description.notStartsWith <value>] [--filter.description.null] [--filter.description.startsWith <value>]
+    [--filter.description.startsWithIgnoreCase <value>] [--filter.dueDate.null] [--filter.estimate.eq <value>]
+    [--filter.estimate.gt <value>] [--filter.estimate.gte <value>] [--filter.estimate.in <value>...]
+    [--filter.estimate.lt <value>] [--filter.estimate.lte <value>] [--filter.estimate.neq <value>]
+    [--filter.estimate.nin <value>...] [--filter.estimate.null] [--filter.hasBlockedByRelations.eq]
+    [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq] [--filter.hasBlockingRelations.neq]
+    [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq] [--filter.hasRelatedRelations.eq]
+    [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq] [--filter.hasSuggestedAssignees.neq]
+    [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq] [--filter.hasSuggestedProjects.eq]
+    [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq] [--filter.hasSuggestedRelatedIssues.neq]
+    [--filter.hasSuggestedSimilarIssues.eq] [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq]
+    [--filter.hasSuggestedTeams.neq] [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null]
+    [--filter.number.eq <value>] [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in
+    <value>...] [--filter.number.lt <value>] [--filter.number.lte <value>] [--filter.number.neq <value>]
+    [--filter.number.nin <value>...] [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt
+    <value>] [--filter.priority.gte <value>] [--filter.priority.in <value>...] [--filter.priority.lt <value>]
+    [--filter.priority.lte <value>] [--filter.priority.neq <value>] [--filter.priority.nin <value>...]
+    [--filter.priority.null] [--filter.project.null] [--filter.projectMilestone.null]
+    [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains <value>]
+    [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.in
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk...] [--filter.slaStatus.neq
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.nin
@@ -1399,9 +1250,10 @@ FLAGS
   --orderBy=<option>                                        <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs cycle_uncompletedIssuesUponClose
@@ -1416,12 +1268,13 @@ Runs cycle
 
 ```
 USAGE
-  $ linear cycle view ID [--json] [--api-key <value>] [--api-url <value>]
+  $ linear cycle view ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs cycle
@@ -1436,8 +1289,8 @@ Runs document_comments
 
 ```
 USAGE
-  $ linear document comments ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.body.contains <value>] [--filter.body.containsIgnoreCase <value>]
+  $ linear document comments ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.body.contains <value>] [--filter.body.containsIgnoreCase <value>]
     [--filter.body.containsIgnoreCaseAndAccent <value>] [--filter.body.endsWith <value>] [--filter.body.eq <value>]
     [--filter.body.eqIgnoreCase <value>] [--filter.body.in <value>...] [--filter.body.neq <value>]
     [--filter.body.neqIgnoreCase <value>] [--filter.body.nin <value>...] [--filter.body.notContains <value>]
@@ -1475,9 +1328,10 @@ FLAGS
   --orderBy=<option>                                 <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs document_comments
@@ -1492,8 +1346,8 @@ Runs documents
 
 ```
 USAGE
-  $ linear document list [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.slugId.contains <value>] [--filter.slugId.containsIgnoreCase <value>]
+  $ linear document list [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--filter.slugId.contains <value>] [--filter.slugId.containsIgnoreCase <value>]
     [--filter.slugId.containsIgnoreCaseAndAccent <value>] [--filter.slugId.endsWith <value>] [--filter.slugId.eq
     <value>] [--filter.slugId.eqIgnoreCase <value>] [--filter.slugId.in <value>...] [--filter.slugId.neq <value>]
     [--filter.slugId.neqIgnoreCase <value>] [--filter.slugId.nin <value>...] [--filter.slugId.notContains <value>]
@@ -1548,9 +1402,10 @@ FLAGS
   --orderBy=<option>                                   <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs documents
@@ -1565,12 +1420,13 @@ Runs document
 
 ```
 USAGE
-  $ linear document view ID [--json] [--api-key <value>] [--api-url <value>]
+  $ linear document view ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs document
@@ -1585,7 +1441,7 @@ Execute a GraphQL query against the Linear API
 
 ```
 USAGE
-  $ linear graphql QUERY [--json] [--api-key <value>] [--api-url <value>] [-v <value>]
+  $ linear graphql QUERY [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [-v <value>]
 
 ARGUMENTS
   QUERY  GraphQL query to execute
@@ -1594,9 +1450,10 @@ FLAGS
   -v, --variables=<value>  JSON string of variables to pass to the query
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Execute a GraphQL query against the Linear API
@@ -1635,8 +1492,8 @@ Runs initiativeUpdate_comments
 
 ```
 USAGE
-  $ linear initiative-update comments ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.body.contains <value>] [--filter.body.containsIgnoreCase <value>]
+  $ linear initiative-update comments ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.body.contains <value>] [--filter.body.containsIgnoreCase <value>]
     [--filter.body.containsIgnoreCaseAndAccent <value>] [--filter.body.endsWith <value>] [--filter.body.eq <value>]
     [--filter.body.eqIgnoreCase <value>] [--filter.body.in <value>...] [--filter.body.neq <value>]
     [--filter.body.neqIgnoreCase <value>] [--filter.body.nin <value>...] [--filter.body.notContains <value>]
@@ -1674,9 +1531,10 @@ FLAGS
   --orderBy=<option>                                 <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs initiativeUpdate_comments
@@ -1691,8 +1549,8 @@ Runs initiativeUpdates
 
 ```
 USAGE
-  $ linear initiative-update list [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear initiative-update list [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -1703,9 +1561,10 @@ FLAGS
   --orderBy=<option>  <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs initiativeUpdates
@@ -1720,12 +1579,13 @@ Runs initiativeUpdate
 
 ```
 USAGE
-  $ linear initiative-update view ID [--json] [--api-key <value>] [--api-url <value>]
+  $ linear initiative-update view ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs initiativeUpdate
@@ -1740,12 +1600,13 @@ Runs initiative_documentContent
 
 ```
 USAGE
-  $ linear initiative document-content ID [--json] [--api-key <value>] [--api-url <value>]
+  $ linear initiative document-content ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs initiative_documentContent
@@ -1760,12 +1621,14 @@ Runs initiative_documentContent_aiPromptRules
 
 ```
 USAGE
-  $ linear initiative document-content ai-prompt-rules ID [--json] [--api-key <value>] [--api-url <value>]
+  $ linear initiative document-content ai-prompt-rules ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url
+  <value>]
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs initiative_documentContent_aiPromptRules
@@ -1780,8 +1643,8 @@ Runs initiative_documents
 
 ```
 USAGE
-  $ linear initiative documents ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.slugId.contains <value>] [--filter.slugId.containsIgnoreCase <value>]
+  $ linear initiative documents ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.slugId.contains <value>] [--filter.slugId.containsIgnoreCase <value>]
     [--filter.slugId.containsIgnoreCaseAndAccent <value>] [--filter.slugId.endsWith <value>] [--filter.slugId.eq
     <value>] [--filter.slugId.eqIgnoreCase <value>] [--filter.slugId.in <value>...] [--filter.slugId.neq <value>]
     [--filter.slugId.neqIgnoreCase <value>] [--filter.slugId.nin <value>...] [--filter.slugId.notContains <value>]
@@ -1836,9 +1699,10 @@ FLAGS
   --orderBy=<option>                                   <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs initiative_documents
@@ -1853,8 +1717,8 @@ Runs initiative_history
 
 ```
 USAGE
-  $ linear initiative history ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear initiative history ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -1865,9 +1729,10 @@ FLAGS
   --orderBy=<option>  <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs initiative_history
@@ -1882,8 +1747,8 @@ Runs initiative_links
 
 ```
 USAGE
-  $ linear initiative links ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear initiative links ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -1894,9 +1759,10 @@ FLAGS
   --orderBy=<option>  <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs initiative_links
@@ -1911,8 +1777,8 @@ Runs initiatives
 
 ```
 USAGE
-  $ linear initiative list [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.activityType.contains <value>] [--filter.activityType.containsIgnoreCase <value>]
+  $ linear initiative list [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--filter.activityType.contains <value>] [--filter.activityType.containsIgnoreCase <value>]
     [--filter.activityType.containsIgnoreCaseAndAccent <value>] [--filter.activityType.endsWith <value>]
     [--filter.activityType.eq <value>] [--filter.activityType.eqIgnoreCase <value>] [--filter.activityType.in
     <value>...] [--filter.activityType.neq <value>] [--filter.activityType.neqIgnoreCase <value>]
@@ -2061,9 +1927,10 @@ FLAGS
   --orderBy=<option>                                          <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs initiatives
@@ -2078,9 +1945,9 @@ Runs initiative_projects
 
 ```
 USAGE
-  $ linear initiative projects ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.activityType.contains <value>] [--filter.activityType.containsIgnoreCase <value>]
-    [--filter.activityType.containsIgnoreCaseAndAccent <value>] [--filter.activityType.endsWith <value>]
+  $ linear initiative projects ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.activityType.contains <value>] [--filter.activityType.containsIgnoreCase
+    <value>] [--filter.activityType.containsIgnoreCaseAndAccent <value>] [--filter.activityType.endsWith <value>]
     [--filter.activityType.eq <value>] [--filter.activityType.eqIgnoreCase <value>] [--filter.activityType.in
     <value>...] [--filter.activityType.neq <value>] [--filter.activityType.neqIgnoreCase <value>]
     [--filter.activityType.nin <value>...] [--filter.activityType.notContains <value>]
@@ -2289,9 +2156,10 @@ FLAGS
   --orderBy=<option>                                          <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs initiative_projects
@@ -2306,9 +2174,9 @@ Runs initiative_subInitiatives
 
 ```
 USAGE
-  $ linear initiative sub-initiatives ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.activityType.contains <value>] [--filter.activityType.containsIgnoreCase <value>]
-    [--filter.activityType.containsIgnoreCaseAndAccent <value>] [--filter.activityType.endsWith <value>]
+  $ linear initiative sub-initiatives ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.activityType.contains <value>] [--filter.activityType.containsIgnoreCase
+    <value>] [--filter.activityType.containsIgnoreCaseAndAccent <value>] [--filter.activityType.endsWith <value>]
     [--filter.activityType.eq <value>] [--filter.activityType.eqIgnoreCase <value>] [--filter.activityType.in
     <value>...] [--filter.activityType.neq <value>] [--filter.activityType.neqIgnoreCase <value>]
     [--filter.activityType.nin <value>...] [--filter.activityType.notContains <value>]
@@ -2456,9 +2324,10 @@ FLAGS
   --orderBy=<option>                                          <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs initiative_subInitiatives
@@ -2473,12 +2342,13 @@ Runs initiative
 
 ```
 USAGE
-  $ linear initiative view ID [--json] [--api-key <value>] [--api-url <value>]
+  $ linear initiative view ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs initiative
@@ -2493,22 +2363,22 @@ Runs issue_attachments
 
 ```
 USAGE
-  $ linear issue attachments ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.creator.null] [--filter.sourceType.contains <value>] [--filter.sourceType.containsIgnoreCase <value>]
-    [--filter.sourceType.containsIgnoreCaseAndAccent <value>] [--filter.sourceType.endsWith <value>]
-    [--filter.sourceType.eq <value>] [--filter.sourceType.eqIgnoreCase <value>] [--filter.sourceType.in <value>...]
-    [--filter.sourceType.neq <value>] [--filter.sourceType.neqIgnoreCase <value>] [--filter.sourceType.nin <value>...]
-    [--filter.sourceType.notContains <value>] [--filter.sourceType.notContainsIgnoreCase <value>]
-    [--filter.sourceType.notEndsWith <value>] [--filter.sourceType.notStartsWith <value>]
-    [--filter.sourceType.startsWith <value>] [--filter.sourceType.startsWithIgnoreCase <value>]
-    [--filter.subtitle.contains <value>] [--filter.subtitle.containsIgnoreCase <value>]
-    [--filter.subtitle.containsIgnoreCaseAndAccent <value>] [--filter.subtitle.endsWith <value>] [--filter.subtitle.eq
-    <value>] [--filter.subtitle.eqIgnoreCase <value>] [--filter.subtitle.in <value>...] [--filter.subtitle.neq <value>]
-    [--filter.subtitle.neqIgnoreCase <value>] [--filter.subtitle.nin <value>...] [--filter.subtitle.notContains <value>]
-    [--filter.subtitle.notContainsIgnoreCase <value>] [--filter.subtitle.notEndsWith <value>]
-    [--filter.subtitle.notStartsWith <value>] [--filter.subtitle.null] [--filter.subtitle.startsWith <value>]
-    [--filter.subtitle.startsWithIgnoreCase <value>] [--filter.title.contains <value>]
-    [--filter.title.containsIgnoreCase <value>] [--filter.title.containsIgnoreCaseAndAccent <value>]
+  $ linear issue attachments ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.creator.null] [--filter.sourceType.contains <value>]
+    [--filter.sourceType.containsIgnoreCase <value>] [--filter.sourceType.containsIgnoreCaseAndAccent <value>]
+    [--filter.sourceType.endsWith <value>] [--filter.sourceType.eq <value>] [--filter.sourceType.eqIgnoreCase <value>]
+    [--filter.sourceType.in <value>...] [--filter.sourceType.neq <value>] [--filter.sourceType.neqIgnoreCase <value>]
+    [--filter.sourceType.nin <value>...] [--filter.sourceType.notContains <value>]
+    [--filter.sourceType.notContainsIgnoreCase <value>] [--filter.sourceType.notEndsWith <value>]
+    [--filter.sourceType.notStartsWith <value>] [--filter.sourceType.startsWith <value>]
+    [--filter.sourceType.startsWithIgnoreCase <value>] [--filter.subtitle.contains <value>]
+    [--filter.subtitle.containsIgnoreCase <value>] [--filter.subtitle.containsIgnoreCaseAndAccent <value>]
+    [--filter.subtitle.endsWith <value>] [--filter.subtitle.eq <value>] [--filter.subtitle.eqIgnoreCase <value>]
+    [--filter.subtitle.in <value>...] [--filter.subtitle.neq <value>] [--filter.subtitle.neqIgnoreCase <value>]
+    [--filter.subtitle.nin <value>...] [--filter.subtitle.notContains <value>] [--filter.subtitle.notContainsIgnoreCase
+    <value>] [--filter.subtitle.notEndsWith <value>] [--filter.subtitle.notStartsWith <value>] [--filter.subtitle.null]
+    [--filter.subtitle.startsWith <value>] [--filter.subtitle.startsWithIgnoreCase <value>] [--filter.title.contains
+    <value>] [--filter.title.containsIgnoreCase <value>] [--filter.title.containsIgnoreCaseAndAccent <value>]
     [--filter.title.endsWith <value>] [--filter.title.eq <value>] [--filter.title.eqIgnoreCase <value>]
     [--filter.title.in <value>...] [--filter.title.neq <value>] [--filter.title.neqIgnoreCase <value>]
     [--filter.title.nin <value>...] [--filter.title.notContains <value>] [--filter.title.notContainsIgnoreCase <value>]
@@ -2596,9 +2466,10 @@ FLAGS
   --orderBy=<option>                                       <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs issue_attachments
@@ -2613,12 +2484,13 @@ Runs issue_botActor
 
 ```
 USAGE
-  $ linear issue bot-actor ID [--json] [--api-key <value>] [--api-url <value>]
+  $ linear issue bot-actor ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs issue_botActor
@@ -2633,44 +2505,45 @@ Runs issue_children
 
 ```
 USAGE
-  $ linear issue children ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null] [--filter.addedToCyclePeriod.eq
-    after|before|during] [--filter.addedToCyclePeriod.in after|before|during...] [--filter.addedToCyclePeriod.neq
-    after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...] [--filter.addedToCyclePeriod.null]
-    [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null] [--filter.autoArchivedAt.null]
-    [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null] [--filter.creator.null]
-    [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>] [--filter.customerCount.gte <value>]
-    [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>] [--filter.customerCount.lte <value>]
-    [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...] [--filter.customerImportantCount.eq
-    <value>] [--filter.customerImportantCount.gt <value>] [--filter.customerImportantCount.gte <value>]
-    [--filter.customerImportantCount.in <value>...] [--filter.customerImportantCount.lt <value>]
-    [--filter.customerImportantCount.lte <value>] [--filter.customerImportantCount.neq <value>]
-    [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null] [--filter.cycleTime.null]
-    [--filter.delegate.null] [--filter.description.contains <value>] [--filter.description.containsIgnoreCase <value>]
-    [--filter.description.containsIgnoreCaseAndAccent <value>] [--filter.description.endsWith <value>]
-    [--filter.description.eq <value>] [--filter.description.eqIgnoreCase <value>] [--filter.description.in <value>...]
-    [--filter.description.neq <value>] [--filter.description.neqIgnoreCase <value>] [--filter.description.nin
-    <value>...] [--filter.description.notContains <value>] [--filter.description.notContainsIgnoreCase <value>]
-    [--filter.description.notEndsWith <value>] [--filter.description.notStartsWith <value>] [--filter.description.null]
-    [--filter.description.startsWith <value>] [--filter.description.startsWithIgnoreCase <value>]
-    [--filter.dueDate.null] [--filter.estimate.eq <value>] [--filter.estimate.gt <value>] [--filter.estimate.gte
-    <value>] [--filter.estimate.in <value>...] [--filter.estimate.lt <value>] [--filter.estimate.lte <value>]
-    [--filter.estimate.neq <value>] [--filter.estimate.nin <value>...] [--filter.estimate.null]
-    [--filter.hasBlockedByRelations.eq] [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq]
-    [--filter.hasBlockingRelations.neq] [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq]
-    [--filter.hasRelatedRelations.eq] [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq]
-    [--filter.hasSuggestedAssignees.neq] [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq]
-    [--filter.hasSuggestedProjects.eq] [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq]
-    [--filter.hasSuggestedRelatedIssues.neq] [--filter.hasSuggestedSimilarIssues.eq]
-    [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq] [--filter.hasSuggestedTeams.neq]
-    [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null] [--filter.number.eq <value>]
-    [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in <value>...] [--filter.number.lt
-    <value>] [--filter.number.lte <value>] [--filter.number.neq <value>] [--filter.number.nin <value>...]
-    [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt <value>] [--filter.priority.gte <value>]
-    [--filter.priority.in <value>...] [--filter.priority.lt <value>] [--filter.priority.lte <value>]
-    [--filter.priority.neq <value>] [--filter.priority.nin <value>...] [--filter.priority.null] [--filter.project.null]
-    [--filter.projectMilestone.null] [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains
-    <value>] [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
+  $ linear issue children ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null]
+    [--filter.addedToCyclePeriod.eq after|before|during] [--filter.addedToCyclePeriod.in after|before|during...]
+    [--filter.addedToCyclePeriod.neq after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...]
+    [--filter.addedToCyclePeriod.null] [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null]
+    [--filter.autoArchivedAt.null] [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null]
+    [--filter.creator.null] [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>]
+    [--filter.customerCount.gte <value>] [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>]
+    [--filter.customerCount.lte <value>] [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...]
+    [--filter.customerImportantCount.eq <value>] [--filter.customerImportantCount.gt <value>]
+    [--filter.customerImportantCount.gte <value>] [--filter.customerImportantCount.in <value>...]
+    [--filter.customerImportantCount.lt <value>] [--filter.customerImportantCount.lte <value>]
+    [--filter.customerImportantCount.neq <value>] [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null]
+    [--filter.cycleTime.null] [--filter.delegate.null] [--filter.description.contains <value>]
+    [--filter.description.containsIgnoreCase <value>] [--filter.description.containsIgnoreCaseAndAccent <value>]
+    [--filter.description.endsWith <value>] [--filter.description.eq <value>] [--filter.description.eqIgnoreCase
+    <value>] [--filter.description.in <value>...] [--filter.description.neq <value>] [--filter.description.neqIgnoreCase
+    <value>] [--filter.description.nin <value>...] [--filter.description.notContains <value>]
+    [--filter.description.notContainsIgnoreCase <value>] [--filter.description.notEndsWith <value>]
+    [--filter.description.notStartsWith <value>] [--filter.description.null] [--filter.description.startsWith <value>]
+    [--filter.description.startsWithIgnoreCase <value>] [--filter.dueDate.null] [--filter.estimate.eq <value>]
+    [--filter.estimate.gt <value>] [--filter.estimate.gte <value>] [--filter.estimate.in <value>...]
+    [--filter.estimate.lt <value>] [--filter.estimate.lte <value>] [--filter.estimate.neq <value>]
+    [--filter.estimate.nin <value>...] [--filter.estimate.null] [--filter.hasBlockedByRelations.eq]
+    [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq] [--filter.hasBlockingRelations.neq]
+    [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq] [--filter.hasRelatedRelations.eq]
+    [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq] [--filter.hasSuggestedAssignees.neq]
+    [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq] [--filter.hasSuggestedProjects.eq]
+    [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq] [--filter.hasSuggestedRelatedIssues.neq]
+    [--filter.hasSuggestedSimilarIssues.eq] [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq]
+    [--filter.hasSuggestedTeams.neq] [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null]
+    [--filter.number.eq <value>] [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in
+    <value>...] [--filter.number.lt <value>] [--filter.number.lte <value>] [--filter.number.neq <value>]
+    [--filter.number.nin <value>...] [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt
+    <value>] [--filter.priority.gte <value>] [--filter.priority.in <value>...] [--filter.priority.lt <value>]
+    [--filter.priority.lte <value>] [--filter.priority.neq <value>] [--filter.priority.nin <value>...]
+    [--filter.priority.null] [--filter.project.null] [--filter.projectMilestone.null]
+    [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains <value>]
+    [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.in
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk...] [--filter.slaStatus.neq
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.nin
@@ -2837,9 +2710,10 @@ FLAGS
   --orderBy=<option>                                        <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs issue_children
@@ -2854,8 +2728,8 @@ Runs issue_comments
 
 ```
 USAGE
-  $ linear issue comments ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.body.contains <value>] [--filter.body.containsIgnoreCase <value>]
+  $ linear issue comments ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.body.contains <value>] [--filter.body.containsIgnoreCase <value>]
     [--filter.body.containsIgnoreCaseAndAccent <value>] [--filter.body.endsWith <value>] [--filter.body.eq <value>]
     [--filter.body.eqIgnoreCase <value>] [--filter.body.in <value>...] [--filter.body.neq <value>]
     [--filter.body.neqIgnoreCase <value>] [--filter.body.nin <value>...] [--filter.body.notContains <value>]
@@ -2893,9 +2767,10 @@ FLAGS
   --orderBy=<option>                                 <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs issue_comments
@@ -2904,14 +2779,72 @@ EXAMPLES
   $ linear issue comments
 ```
 
+## `linear issue create`
+
+Runs createIssue
+
+```
+USAGE
+  $ linear issue create --teamId <value> [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
+    [--assigneeId <value>] [--createAsUser <value>] [--cycleId <value>] [--delegateId <value>] [--description <value>]
+    [--displayIconUrl <value>] [--estimate <value>] [--id <value>] [--labelIds <value>...] [--lastAppliedTemplateId
+    <value>] [--parentId <value>] [--preserveSortOrderOnCreate] [--priority <value>] [--prioritySortOrder <value>]
+    [--projectId <value>] [--projectMilestoneId <value>] [--referenceCommentId <value>] [--slaType all|onlyBusinessDays]
+    [--sortOrder <value>] [--sourceCommentId <value>] [--sourcePullRequestCommentId <value>] [--stateId <value>]
+    [--subIssueSortOrder <value>] [--subscriberIds <value>...] [--templateId <value>] [--title <value>]
+    [--useDefaultTemplate]
+
+FLAGS
+  --assigneeId=<value>
+  --createAsUser=<value>
+  --cycleId=<value>
+  --delegateId=<value>
+  --description=<value>
+  --displayIconUrl=<value>
+  --estimate=<value>
+  --id=<value>
+  --labelIds=<value>...
+  --lastAppliedTemplateId=<value>
+  --parentId=<value>
+  --preserveSortOrderOnCreate
+  --priority=<value>
+  --prioritySortOrder=<value>
+  --projectId=<value>
+  --projectMilestoneId=<value>
+  --referenceCommentId=<value>
+  --slaType=<option>                    <options: all|onlyBusinessDays>
+  --sortOrder=<value>
+  --sourceCommentId=<value>
+  --sourcePullRequestCommentId=<value>
+  --stateId=<value>
+  --subIssueSortOrder=<value>
+  --subscriberIds=<value>...
+  --teamId=<value>                      (required)
+  --templateId=<value>
+  --title=<value>
+  --useDefaultTemplate
+
+GLOBAL FLAGS
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
+
+DESCRIPTION
+  Runs createIssue
+
+EXAMPLES
+  $ linear issue create
+```
+
 ## `linear issue documents ID`
 
 Runs issue_documents
 
 ```
 USAGE
-  $ linear issue documents ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.slugId.contains <value>] [--filter.slugId.containsIgnoreCase <value>]
+  $ linear issue documents ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.slugId.contains <value>] [--filter.slugId.containsIgnoreCase <value>]
     [--filter.slugId.containsIgnoreCaseAndAccent <value>] [--filter.slugId.endsWith <value>] [--filter.slugId.eq
     <value>] [--filter.slugId.eqIgnoreCase <value>] [--filter.slugId.in <value>...] [--filter.slugId.neq <value>]
     [--filter.slugId.neqIgnoreCase <value>] [--filter.slugId.nin <value>...] [--filter.slugId.notContains <value>]
@@ -2966,9 +2899,10 @@ FLAGS
   --orderBy=<option>                                   <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs issue_documents
@@ -2983,22 +2917,22 @@ Runs issue_formerAttachments
 
 ```
 USAGE
-  $ linear issue former-attachments ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.creator.null] [--filter.sourceType.contains <value>] [--filter.sourceType.containsIgnoreCase <value>]
-    [--filter.sourceType.containsIgnoreCaseAndAccent <value>] [--filter.sourceType.endsWith <value>]
-    [--filter.sourceType.eq <value>] [--filter.sourceType.eqIgnoreCase <value>] [--filter.sourceType.in <value>...]
-    [--filter.sourceType.neq <value>] [--filter.sourceType.neqIgnoreCase <value>] [--filter.sourceType.nin <value>...]
-    [--filter.sourceType.notContains <value>] [--filter.sourceType.notContainsIgnoreCase <value>]
-    [--filter.sourceType.notEndsWith <value>] [--filter.sourceType.notStartsWith <value>]
-    [--filter.sourceType.startsWith <value>] [--filter.sourceType.startsWithIgnoreCase <value>]
-    [--filter.subtitle.contains <value>] [--filter.subtitle.containsIgnoreCase <value>]
-    [--filter.subtitle.containsIgnoreCaseAndAccent <value>] [--filter.subtitle.endsWith <value>] [--filter.subtitle.eq
-    <value>] [--filter.subtitle.eqIgnoreCase <value>] [--filter.subtitle.in <value>...] [--filter.subtitle.neq <value>]
-    [--filter.subtitle.neqIgnoreCase <value>] [--filter.subtitle.nin <value>...] [--filter.subtitle.notContains <value>]
-    [--filter.subtitle.notContainsIgnoreCase <value>] [--filter.subtitle.notEndsWith <value>]
-    [--filter.subtitle.notStartsWith <value>] [--filter.subtitle.null] [--filter.subtitle.startsWith <value>]
-    [--filter.subtitle.startsWithIgnoreCase <value>] [--filter.title.contains <value>]
-    [--filter.title.containsIgnoreCase <value>] [--filter.title.containsIgnoreCaseAndAccent <value>]
+  $ linear issue former-attachments ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.creator.null] [--filter.sourceType.contains <value>]
+    [--filter.sourceType.containsIgnoreCase <value>] [--filter.sourceType.containsIgnoreCaseAndAccent <value>]
+    [--filter.sourceType.endsWith <value>] [--filter.sourceType.eq <value>] [--filter.sourceType.eqIgnoreCase <value>]
+    [--filter.sourceType.in <value>...] [--filter.sourceType.neq <value>] [--filter.sourceType.neqIgnoreCase <value>]
+    [--filter.sourceType.nin <value>...] [--filter.sourceType.notContains <value>]
+    [--filter.sourceType.notContainsIgnoreCase <value>] [--filter.sourceType.notEndsWith <value>]
+    [--filter.sourceType.notStartsWith <value>] [--filter.sourceType.startsWith <value>]
+    [--filter.sourceType.startsWithIgnoreCase <value>] [--filter.subtitle.contains <value>]
+    [--filter.subtitle.containsIgnoreCase <value>] [--filter.subtitle.containsIgnoreCaseAndAccent <value>]
+    [--filter.subtitle.endsWith <value>] [--filter.subtitle.eq <value>] [--filter.subtitle.eqIgnoreCase <value>]
+    [--filter.subtitle.in <value>...] [--filter.subtitle.neq <value>] [--filter.subtitle.neqIgnoreCase <value>]
+    [--filter.subtitle.nin <value>...] [--filter.subtitle.notContains <value>] [--filter.subtitle.notContainsIgnoreCase
+    <value>] [--filter.subtitle.notEndsWith <value>] [--filter.subtitle.notStartsWith <value>] [--filter.subtitle.null]
+    [--filter.subtitle.startsWith <value>] [--filter.subtitle.startsWithIgnoreCase <value>] [--filter.title.contains
+    <value>] [--filter.title.containsIgnoreCase <value>] [--filter.title.containsIgnoreCaseAndAccent <value>]
     [--filter.title.endsWith <value>] [--filter.title.eq <value>] [--filter.title.eqIgnoreCase <value>]
     [--filter.title.in <value>...] [--filter.title.neq <value>] [--filter.title.neqIgnoreCase <value>]
     [--filter.title.nin <value>...] [--filter.title.notContains <value>] [--filter.title.notContainsIgnoreCase <value>]
@@ -3086,9 +3020,10 @@ FLAGS
   --orderBy=<option>                                       <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs issue_formerAttachments
@@ -3103,10 +3038,10 @@ Runs issue_formerNeeds
 
 ```
 USAGE
-  $ linear issue former-needs ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.comment.null] [--filter.customer.null] [--filter.issue.null] [--filter.priority.eq <value>]
-    [--filter.priority.gt <value>] [--filter.priority.gte <value>] [--filter.priority.in <value>...]
-    [--filter.priority.lt <value>] [--filter.priority.lte <value>] [--filter.priority.neq <value>]
+  $ linear issue former-needs ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.comment.null] [--filter.customer.null] [--filter.issue.null]
+    [--filter.priority.eq <value>] [--filter.priority.gt <value>] [--filter.priority.gte <value>] [--filter.priority.in
+    <value>...] [--filter.priority.lt <value>] [--filter.priority.lte <value>] [--filter.priority.neq <value>]
     [--filter.priority.nin <value>...] [--filter.project.null] [--first <value>] [--includeArchived] [--last <value>]
     [--orderBy createdAt|updatedAt]
 
@@ -3131,9 +3066,10 @@ FLAGS
   --orderBy=<option>                <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs issue_formerNeeds
@@ -3148,8 +3084,8 @@ Runs issue_history
 
 ```
 USAGE
-  $ linear issue history ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear issue history ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -3160,9 +3096,10 @@ FLAGS
   --orderBy=<option>  <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs issue_history
@@ -3177,8 +3114,8 @@ Runs issue_inverseRelations
 
 ```
 USAGE
-  $ linear issue inverse-relations ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear issue inverse-relations ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -3189,9 +3126,10 @@ FLAGS
   --orderBy=<option>  <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs issue_inverseRelations
@@ -3206,15 +3144,15 @@ Runs issue_labels
 
 ```
 USAGE
-  $ linear issue labels ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.creator.null] [--filter.isGroup.eq] [--filter.isGroup.neq] [--filter.name.contains <value>]
-    [--filter.name.containsIgnoreCase <value>] [--filter.name.containsIgnoreCaseAndAccent <value>]
-    [--filter.name.endsWith <value>] [--filter.name.eq <value>] [--filter.name.eqIgnoreCase <value>] [--filter.name.in
-    <value>...] [--filter.name.neq <value>] [--filter.name.neqIgnoreCase <value>] [--filter.name.nin <value>...]
-    [--filter.name.notContains <value>] [--filter.name.notContainsIgnoreCase <value>] [--filter.name.notEndsWith
-    <value>] [--filter.name.notStartsWith <value>] [--filter.name.startsWith <value>]
-    [--filter.name.startsWithIgnoreCase <value>] [--filter.team.null] [--first <value>] [--includeArchived] [--last
-    <value>] [--orderBy createdAt|updatedAt]
+  $ linear issue labels ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.creator.null] [--filter.isGroup.eq] [--filter.isGroup.neq]
+    [--filter.name.contains <value>] [--filter.name.containsIgnoreCase <value>]
+    [--filter.name.containsIgnoreCaseAndAccent <value>] [--filter.name.endsWith <value>] [--filter.name.eq <value>]
+    [--filter.name.eqIgnoreCase <value>] [--filter.name.in <value>...] [--filter.name.neq <value>]
+    [--filter.name.neqIgnoreCase <value>] [--filter.name.nin <value>...] [--filter.name.notContains <value>]
+    [--filter.name.notContainsIgnoreCase <value>] [--filter.name.notEndsWith <value>] [--filter.name.notStartsWith
+    <value>] [--filter.name.startsWith <value>] [--filter.name.startsWithIgnoreCase <value>] [--filter.team.null]
+    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -3245,9 +3183,10 @@ FLAGS
   --orderBy=<option>                                 <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs issue_labels
@@ -3262,44 +3201,45 @@ Runs issues
 
 ```
 USAGE
-  $ linear issue list [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null] [--filter.addedToCyclePeriod.eq
-    after|before|during] [--filter.addedToCyclePeriod.in after|before|during...] [--filter.addedToCyclePeriod.neq
-    after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...] [--filter.addedToCyclePeriod.null]
-    [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null] [--filter.autoArchivedAt.null]
-    [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null] [--filter.creator.null]
-    [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>] [--filter.customerCount.gte <value>]
-    [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>] [--filter.customerCount.lte <value>]
-    [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...] [--filter.customerImportantCount.eq
-    <value>] [--filter.customerImportantCount.gt <value>] [--filter.customerImportantCount.gte <value>]
-    [--filter.customerImportantCount.in <value>...] [--filter.customerImportantCount.lt <value>]
-    [--filter.customerImportantCount.lte <value>] [--filter.customerImportantCount.neq <value>]
-    [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null] [--filter.cycleTime.null]
-    [--filter.delegate.null] [--filter.description.contains <value>] [--filter.description.containsIgnoreCase <value>]
-    [--filter.description.containsIgnoreCaseAndAccent <value>] [--filter.description.endsWith <value>]
-    [--filter.description.eq <value>] [--filter.description.eqIgnoreCase <value>] [--filter.description.in <value>...]
-    [--filter.description.neq <value>] [--filter.description.neqIgnoreCase <value>] [--filter.description.nin
-    <value>...] [--filter.description.notContains <value>] [--filter.description.notContainsIgnoreCase <value>]
-    [--filter.description.notEndsWith <value>] [--filter.description.notStartsWith <value>] [--filter.description.null]
-    [--filter.description.startsWith <value>] [--filter.description.startsWithIgnoreCase <value>]
-    [--filter.dueDate.null] [--filter.estimate.eq <value>] [--filter.estimate.gt <value>] [--filter.estimate.gte
-    <value>] [--filter.estimate.in <value>...] [--filter.estimate.lt <value>] [--filter.estimate.lte <value>]
-    [--filter.estimate.neq <value>] [--filter.estimate.nin <value>...] [--filter.estimate.null]
-    [--filter.hasBlockedByRelations.eq] [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq]
-    [--filter.hasBlockingRelations.neq] [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq]
-    [--filter.hasRelatedRelations.eq] [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq]
-    [--filter.hasSuggestedAssignees.neq] [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq]
-    [--filter.hasSuggestedProjects.eq] [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq]
-    [--filter.hasSuggestedRelatedIssues.neq] [--filter.hasSuggestedSimilarIssues.eq]
-    [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq] [--filter.hasSuggestedTeams.neq]
-    [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null] [--filter.number.eq <value>]
-    [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in <value>...] [--filter.number.lt
-    <value>] [--filter.number.lte <value>] [--filter.number.neq <value>] [--filter.number.nin <value>...]
-    [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt <value>] [--filter.priority.gte <value>]
-    [--filter.priority.in <value>...] [--filter.priority.lt <value>] [--filter.priority.lte <value>]
-    [--filter.priority.neq <value>] [--filter.priority.nin <value>...] [--filter.priority.null] [--filter.project.null]
-    [--filter.projectMilestone.null] [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains
-    <value>] [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
+  $ linear issue list [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null]
+    [--filter.addedToCyclePeriod.eq after|before|during] [--filter.addedToCyclePeriod.in after|before|during...]
+    [--filter.addedToCyclePeriod.neq after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...]
+    [--filter.addedToCyclePeriod.null] [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null]
+    [--filter.autoArchivedAt.null] [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null]
+    [--filter.creator.null] [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>]
+    [--filter.customerCount.gte <value>] [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>]
+    [--filter.customerCount.lte <value>] [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...]
+    [--filter.customerImportantCount.eq <value>] [--filter.customerImportantCount.gt <value>]
+    [--filter.customerImportantCount.gte <value>] [--filter.customerImportantCount.in <value>...]
+    [--filter.customerImportantCount.lt <value>] [--filter.customerImportantCount.lte <value>]
+    [--filter.customerImportantCount.neq <value>] [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null]
+    [--filter.cycleTime.null] [--filter.delegate.null] [--filter.description.contains <value>]
+    [--filter.description.containsIgnoreCase <value>] [--filter.description.containsIgnoreCaseAndAccent <value>]
+    [--filter.description.endsWith <value>] [--filter.description.eq <value>] [--filter.description.eqIgnoreCase
+    <value>] [--filter.description.in <value>...] [--filter.description.neq <value>] [--filter.description.neqIgnoreCase
+    <value>] [--filter.description.nin <value>...] [--filter.description.notContains <value>]
+    [--filter.description.notContainsIgnoreCase <value>] [--filter.description.notEndsWith <value>]
+    [--filter.description.notStartsWith <value>] [--filter.description.null] [--filter.description.startsWith <value>]
+    [--filter.description.startsWithIgnoreCase <value>] [--filter.dueDate.null] [--filter.estimate.eq <value>]
+    [--filter.estimate.gt <value>] [--filter.estimate.gte <value>] [--filter.estimate.in <value>...]
+    [--filter.estimate.lt <value>] [--filter.estimate.lte <value>] [--filter.estimate.neq <value>]
+    [--filter.estimate.nin <value>...] [--filter.estimate.null] [--filter.hasBlockedByRelations.eq]
+    [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq] [--filter.hasBlockingRelations.neq]
+    [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq] [--filter.hasRelatedRelations.eq]
+    [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq] [--filter.hasSuggestedAssignees.neq]
+    [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq] [--filter.hasSuggestedProjects.eq]
+    [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq] [--filter.hasSuggestedRelatedIssues.neq]
+    [--filter.hasSuggestedSimilarIssues.eq] [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq]
+    [--filter.hasSuggestedTeams.neq] [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null]
+    [--filter.number.eq <value>] [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in
+    <value>...] [--filter.number.lt <value>] [--filter.number.lte <value>] [--filter.number.neq <value>]
+    [--filter.number.nin <value>...] [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt
+    <value>] [--filter.priority.gte <value>] [--filter.priority.in <value>...] [--filter.priority.lt <value>]
+    [--filter.priority.lte <value>] [--filter.priority.neq <value>] [--filter.priority.nin <value>...]
+    [--filter.priority.null] [--filter.project.null] [--filter.projectMilestone.null]
+    [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains <value>]
+    [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.in
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk...] [--filter.slaStatus.neq
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.nin
@@ -3466,9 +3406,10 @@ FLAGS
   --orderBy=<option>                                        <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs issues
@@ -3483,10 +3424,10 @@ Runs issue_needs
 
 ```
 USAGE
-  $ linear issue needs ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.comment.null] [--filter.customer.null] [--filter.issue.null] [--filter.priority.eq <value>]
-    [--filter.priority.gt <value>] [--filter.priority.gte <value>] [--filter.priority.in <value>...]
-    [--filter.priority.lt <value>] [--filter.priority.lte <value>] [--filter.priority.neq <value>]
+  $ linear issue needs ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.comment.null] [--filter.customer.null] [--filter.issue.null]
+    [--filter.priority.eq <value>] [--filter.priority.gt <value>] [--filter.priority.gte <value>] [--filter.priority.in
+    <value>...] [--filter.priority.lt <value>] [--filter.priority.lte <value>] [--filter.priority.neq <value>]
     [--filter.priority.nin <value>...] [--filter.project.null] [--first <value>] [--includeArchived] [--last <value>]
     [--orderBy createdAt|updatedAt]
 
@@ -3511,9 +3452,10 @@ FLAGS
   --orderBy=<option>                <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs issue_needs
@@ -3528,8 +3470,8 @@ Runs issue_relations
 
 ```
 USAGE
-  $ linear issue relations ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear issue relations ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -3540,9 +3482,10 @@ FLAGS
   --orderBy=<option>  <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs issue_relations
@@ -3557,30 +3500,30 @@ Runs issue_subscribers
 
 ```
 USAGE
-  $ linear issue subscribers ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.active.eq] [--filter.active.neq] [--filter.admin.eq] [--filter.admin.neq] [--filter.app.eq]
-    [--filter.app.neq] [--filter.displayName.contains <value>] [--filter.displayName.containsIgnoreCase <value>]
-    [--filter.displayName.containsIgnoreCaseAndAccent <value>] [--filter.displayName.endsWith <value>]
-    [--filter.displayName.eq <value>] [--filter.displayName.eqIgnoreCase <value>] [--filter.displayName.in <value>...]
-    [--filter.displayName.neq <value>] [--filter.displayName.neqIgnoreCase <value>] [--filter.displayName.nin
-    <value>...] [--filter.displayName.notContains <value>] [--filter.displayName.notContainsIgnoreCase <value>]
-    [--filter.displayName.notEndsWith <value>] [--filter.displayName.notStartsWith <value>]
-    [--filter.displayName.startsWith <value>] [--filter.displayName.startsWithIgnoreCase <value>]
-    [--filter.email.contains <value>] [--filter.email.containsIgnoreCase <value>]
-    [--filter.email.containsIgnoreCaseAndAccent <value>] [--filter.email.endsWith <value>] [--filter.email.eq <value>]
-    [--filter.email.eqIgnoreCase <value>] [--filter.email.in <value>...] [--filter.email.neq <value>]
-    [--filter.email.neqIgnoreCase <value>] [--filter.email.nin <value>...] [--filter.email.notContains <value>]
-    [--filter.email.notContainsIgnoreCase <value>] [--filter.email.notEndsWith <value>] [--filter.email.notStartsWith
-    <value>] [--filter.email.startsWith <value>] [--filter.email.startsWithIgnoreCase <value>] [--filter.invited.eq]
-    [--filter.invited.neq] [--filter.isInvited.eq] [--filter.isInvited.neq] [--filter.isMe.eq] [--filter.isMe.neq]
-    [--filter.name.contains <value>] [--filter.name.containsIgnoreCase <value>]
-    [--filter.name.containsIgnoreCaseAndAccent <value>] [--filter.name.endsWith <value>] [--filter.name.eq <value>]
-    [--filter.name.eqIgnoreCase <value>] [--filter.name.in <value>...] [--filter.name.neq <value>]
-    [--filter.name.neqIgnoreCase <value>] [--filter.name.nin <value>...] [--filter.name.notContains <value>]
-    [--filter.name.notContainsIgnoreCase <value>] [--filter.name.notEndsWith <value>] [--filter.name.notStartsWith
-    <value>] [--filter.name.startsWith <value>] [--filter.name.startsWithIgnoreCase <value>] [--filter.owner.eq]
-    [--filter.owner.neq] [--first <value>] [--includeArchived] [--includeDisabled] [--last <value>] [--orderBy
-    createdAt|updatedAt]
+  $ linear issue subscribers ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.active.eq] [--filter.active.neq] [--filter.admin.eq] [--filter.admin.neq]
+    [--filter.app.eq] [--filter.app.neq] [--filter.displayName.contains <value>]
+    [--filter.displayName.containsIgnoreCase <value>] [--filter.displayName.containsIgnoreCaseAndAccent <value>]
+    [--filter.displayName.endsWith <value>] [--filter.displayName.eq <value>] [--filter.displayName.eqIgnoreCase
+    <value>] [--filter.displayName.in <value>...] [--filter.displayName.neq <value>] [--filter.displayName.neqIgnoreCase
+    <value>] [--filter.displayName.nin <value>...] [--filter.displayName.notContains <value>]
+    [--filter.displayName.notContainsIgnoreCase <value>] [--filter.displayName.notEndsWith <value>]
+    [--filter.displayName.notStartsWith <value>] [--filter.displayName.startsWith <value>]
+    [--filter.displayName.startsWithIgnoreCase <value>] [--filter.email.contains <value>]
+    [--filter.email.containsIgnoreCase <value>] [--filter.email.containsIgnoreCaseAndAccent <value>]
+    [--filter.email.endsWith <value>] [--filter.email.eq <value>] [--filter.email.eqIgnoreCase <value>]
+    [--filter.email.in <value>...] [--filter.email.neq <value>] [--filter.email.neqIgnoreCase <value>]
+    [--filter.email.nin <value>...] [--filter.email.notContains <value>] [--filter.email.notContainsIgnoreCase <value>]
+    [--filter.email.notEndsWith <value>] [--filter.email.notStartsWith <value>] [--filter.email.startsWith <value>]
+    [--filter.email.startsWithIgnoreCase <value>] [--filter.invited.eq] [--filter.invited.neq] [--filter.isInvited.eq]
+    [--filter.isInvited.neq] [--filter.isMe.eq] [--filter.isMe.neq] [--filter.name.contains <value>]
+    [--filter.name.containsIgnoreCase <value>] [--filter.name.containsIgnoreCaseAndAccent <value>]
+    [--filter.name.endsWith <value>] [--filter.name.eq <value>] [--filter.name.eqIgnoreCase <value>] [--filter.name.in
+    <value>...] [--filter.name.neq <value>] [--filter.name.neqIgnoreCase <value>] [--filter.name.nin <value>...]
+    [--filter.name.notContains <value>] [--filter.name.notContainsIgnoreCase <value>] [--filter.name.notEndsWith
+    <value>] [--filter.name.notStartsWith <value>] [--filter.name.startsWith <value>]
+    [--filter.name.startsWithIgnoreCase <value>] [--filter.owner.eq] [--filter.owner.neq] [--first <value>]
+    [--includeArchived] [--includeDisabled] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -3654,9 +3597,10 @@ FLAGS
   --orderBy=<option>                                        <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs issue_subscribers
@@ -3665,18 +3609,74 @@ EXAMPLES
   $ linear issue subscribers
 ```
 
+## `linear issue update`
+
+Runs updateIssue
+
+```
+USAGE
+  $ linear issue update --id <value> [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
+    [--input.addedLabelIds <value>...] [--input.assigneeId <value>] [--input.autoClosedByParentClosing] [--input.cycleId
+    <value>] [--input.delegateId <value>] [--input.description <value>] [--input.estimate <value>] [--input.labelIds
+    <value>...] [--input.lastAppliedTemplateId <value>] [--input.parentId <value>] [--input.priority <value>]
+    [--input.prioritySortOrder <value>] [--input.projectId <value>] [--input.projectMilestoneId <value>]
+    [--input.removedLabelIds <value>...] [--input.slaType all|onlyBusinessDays] [--input.snoozedById <value>]
+    [--input.sortOrder <value>] [--input.stateId <value>] [--input.subIssueSortOrder <value>] [--input.subscriberIds
+    <value>...] [--input.teamId <value>] [--input.title <value>] [--input.trashed]
+
+FLAGS
+  --id=<value>                           (required)
+  --input.addedLabelIds=<value>...
+  --input.assigneeId=<value>
+  --input.autoClosedByParentClosing
+  --input.cycleId=<value>
+  --input.delegateId=<value>
+  --input.description=<value>
+  --input.estimate=<value>
+  --input.labelIds=<value>...
+  --input.lastAppliedTemplateId=<value>
+  --input.parentId=<value>
+  --input.priority=<value>
+  --input.prioritySortOrder=<value>
+  --input.projectId=<value>
+  --input.projectMilestoneId=<value>
+  --input.removedLabelIds=<value>...
+  --input.slaType=<option>               <options: all|onlyBusinessDays>
+  --input.snoozedById=<value>
+  --input.sortOrder=<value>
+  --input.stateId=<value>
+  --input.subIssueSortOrder=<value>
+  --input.subscriberIds=<value>...
+  --input.teamId=<value>
+  --input.title=<value>
+  --input.trashed
+
+GLOBAL FLAGS
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
+
+DESCRIPTION
+  Runs updateIssue
+
+EXAMPLES
+  $ linear issue update
+```
+
 ## `linear issue view ID`
 
 Runs issue
 
 ```
 USAGE
-  $ linear issue view ID [--json] [--api-key <value>] [--api-url <value>]
+  $ linear issue view ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs issue
@@ -3691,12 +3691,13 @@ Runs organization
 
 ```
 USAGE
-  $ linear organization [--json] [--api-key <value>] [--api-url <value>]
+  $ linear organization [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs organization
@@ -3711,8 +3712,8 @@ Runs organization_integrations
 
 ```
 USAGE
-  $ linear organization integrations [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear organization integrations [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -3723,9 +3724,10 @@ FLAGS
   --orderBy=<option>  <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs organization_integrations
@@ -3740,9 +3742,9 @@ Runs organization_labels
 
 ```
 USAGE
-  $ linear organization labels [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.creator.null] [--filter.isGroup.eq] [--filter.isGroup.neq] [--filter.name.contains <value>]
-    [--filter.name.containsIgnoreCase <value>] [--filter.name.containsIgnoreCaseAndAccent <value>]
+  $ linear organization labels [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--filter.creator.null] [--filter.isGroup.eq] [--filter.isGroup.neq] [--filter.name.contains
+    <value>] [--filter.name.containsIgnoreCase <value>] [--filter.name.containsIgnoreCaseAndAccent <value>]
     [--filter.name.endsWith <value>] [--filter.name.eq <value>] [--filter.name.eqIgnoreCase <value>] [--filter.name.in
     <value>...] [--filter.name.neq <value>] [--filter.name.neqIgnoreCase <value>] [--filter.name.nin <value>...]
     [--filter.name.notContains <value>] [--filter.name.notContainsIgnoreCase <value>] [--filter.name.notEndsWith
@@ -3779,9 +3781,10 @@ FLAGS
   --orderBy=<option>                                 <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs organization_labels
@@ -3796,9 +3799,9 @@ Runs organization_projectLabels
 
 ```
 USAGE
-  $ linear organization project-labels [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.creator.null] [--filter.isGroup.eq] [--filter.isGroup.neq] [--filter.name.contains <value>]
-    [--filter.name.containsIgnoreCase <value>] [--filter.name.containsIgnoreCaseAndAccent <value>]
+  $ linear organization project-labels [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--filter.creator.null] [--filter.isGroup.eq] [--filter.isGroup.neq] [--filter.name.contains
+    <value>] [--filter.name.containsIgnoreCase <value>] [--filter.name.containsIgnoreCaseAndAccent <value>]
     [--filter.name.endsWith <value>] [--filter.name.eq <value>] [--filter.name.eqIgnoreCase <value>] [--filter.name.in
     <value>...] [--filter.name.neq <value>] [--filter.name.neqIgnoreCase <value>] [--filter.name.nin <value>...]
     [--filter.name.notContains <value>] [--filter.name.notContainsIgnoreCase <value>] [--filter.name.notEndsWith
@@ -3834,9 +3837,10 @@ FLAGS
   --orderBy=<option>                                 <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs organization_projectLabels
@@ -3851,12 +3855,13 @@ Runs organization_subscription
 
 ```
 USAGE
-  $ linear organization subscription [--json] [--api-key <value>] [--api-url <value>]
+  $ linear organization subscription [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs organization_subscription
@@ -3871,8 +3876,8 @@ Runs organization_teams
 
 ```
 USAGE
-  $ linear organization teams [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.description.contains <value>] [--filter.description.containsIgnoreCase <value>]
+  $ linear organization teams [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--filter.description.contains <value>] [--filter.description.containsIgnoreCase <value>]
     [--filter.description.containsIgnoreCaseAndAccent <value>] [--filter.description.endsWith <value>]
     [--filter.description.eq <value>] [--filter.description.eqIgnoreCase <value>] [--filter.description.in <value>...]
     [--filter.description.neq <value>] [--filter.description.neqIgnoreCase <value>] [--filter.description.nin
@@ -3954,9 +3959,10 @@ FLAGS
   --orderBy=<option>                                        <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs organization_teams
@@ -3971,8 +3977,8 @@ Runs organization_templates
 
 ```
 USAGE
-  $ linear organization templates [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.name.contains <value>] [--filter.name.containsIgnoreCase <value>]
+  $ linear organization templates [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--filter.name.contains <value>] [--filter.name.containsIgnoreCase <value>]
     [--filter.name.containsIgnoreCaseAndAccent <value>] [--filter.name.endsWith <value>] [--filter.name.eq <value>]
     [--filter.name.eqIgnoreCase <value>] [--filter.name.in <value>...] [--filter.name.neq <value>]
     [--filter.name.neqIgnoreCase <value>] [--filter.name.nin <value>...] [--filter.name.notContains <value>]
@@ -4028,9 +4034,10 @@ FLAGS
   --orderBy=<option>                                 <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs organization_templates
@@ -4045,8 +4052,9 @@ Runs organization_users
 
 ```
 USAGE
-  $ linear organization users [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--includeDisabled] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear organization users [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--first <value>] [--includeArchived] [--includeDisabled] [--last <value>] [--orderBy
+    createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -4058,9 +4066,10 @@ FLAGS
   --orderBy=<option>  <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs organization_users
@@ -4075,8 +4084,8 @@ Runs projectStatuses
 
 ```
 USAGE
-  $ linear project-status list [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear project-status list [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -4087,9 +4096,10 @@ FLAGS
   --orderBy=<option>  <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs projectStatuses
@@ -4104,12 +4114,13 @@ Runs projectStatus
 
 ```
 USAGE
-  $ linear project-status view ID [--json] [--api-key <value>] [--api-url <value>]
+  $ linear project-status view ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs projectStatus
@@ -4124,8 +4135,8 @@ Runs projectUpdate_comments
 
 ```
 USAGE
-  $ linear project-update comments ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.body.contains <value>] [--filter.body.containsIgnoreCase <value>]
+  $ linear project-update comments ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.body.contains <value>] [--filter.body.containsIgnoreCase <value>]
     [--filter.body.containsIgnoreCaseAndAccent <value>] [--filter.body.endsWith <value>] [--filter.body.eq <value>]
     [--filter.body.eqIgnoreCase <value>] [--filter.body.in <value>...] [--filter.body.neq <value>]
     [--filter.body.neqIgnoreCase <value>] [--filter.body.nin <value>...] [--filter.body.notContains <value>]
@@ -4163,9 +4174,10 @@ FLAGS
   --orderBy=<option>                                 <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs projectUpdate_comments
@@ -4180,8 +4192,8 @@ Runs projectUpdates
 
 ```
 USAGE
-  $ linear project-update list [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear project-update list [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -4192,9 +4204,10 @@ FLAGS
   --orderBy=<option>  <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs projectUpdates
@@ -4209,12 +4222,13 @@ Runs projectUpdate
 
 ```
 USAGE
-  $ linear project-update view ID [--json] [--api-key <value>] [--api-url <value>]
+  $ linear project-update view ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs projectUpdate
@@ -4229,8 +4243,8 @@ Runs project_comments
 
 ```
 USAGE
-  $ linear project comments ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.body.contains <value>] [--filter.body.containsIgnoreCase <value>]
+  $ linear project comments ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.body.contains <value>] [--filter.body.containsIgnoreCase <value>]
     [--filter.body.containsIgnoreCaseAndAccent <value>] [--filter.body.endsWith <value>] [--filter.body.eq <value>]
     [--filter.body.eqIgnoreCase <value>] [--filter.body.in <value>...] [--filter.body.neq <value>]
     [--filter.body.neqIgnoreCase <value>] [--filter.body.nin <value>...] [--filter.body.notContains <value>]
@@ -4268,9 +4282,10 @@ FLAGS
   --orderBy=<option>                                 <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs project_comments
@@ -4285,12 +4300,13 @@ Runs project_documentContent
 
 ```
 USAGE
-  $ linear project document-content ID [--json] [--api-key <value>] [--api-url <value>]
+  $ linear project document-content ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs project_documentContent
@@ -4305,12 +4321,14 @@ Runs project_documentContent_aiPromptRules
 
 ```
 USAGE
-  $ linear project document-content ai-prompt-rules ID [--json] [--api-key <value>] [--api-url <value>]
+  $ linear project document-content ai-prompt-rules ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url
+  <value>]
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs project_documentContent_aiPromptRules
@@ -4325,8 +4343,8 @@ Runs project_documents
 
 ```
 USAGE
-  $ linear project documents ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.slugId.contains <value>] [--filter.slugId.containsIgnoreCase <value>]
+  $ linear project documents ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.slugId.contains <value>] [--filter.slugId.containsIgnoreCase <value>]
     [--filter.slugId.containsIgnoreCaseAndAccent <value>] [--filter.slugId.endsWith <value>] [--filter.slugId.eq
     <value>] [--filter.slugId.eqIgnoreCase <value>] [--filter.slugId.in <value>...] [--filter.slugId.neq <value>]
     [--filter.slugId.neqIgnoreCase <value>] [--filter.slugId.nin <value>...] [--filter.slugId.notContains <value>]
@@ -4381,9 +4399,10 @@ FLAGS
   --orderBy=<option>                                   <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs project_documents
@@ -4398,8 +4417,8 @@ Runs project_externalLinks
 
 ```
 USAGE
-  $ linear project external-links ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear project external-links ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -4410,9 +4429,10 @@ FLAGS
   --orderBy=<option>  <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs project_externalLinks
@@ -4427,8 +4447,8 @@ Runs project_history
 
 ```
 USAGE
-  $ linear project history ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear project history ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -4439,9 +4459,10 @@ FLAGS
   --orderBy=<option>  <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs project_history
@@ -4456,8 +4477,8 @@ Runs project_initiatives
 
 ```
 USAGE
-  $ linear project initiatives ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear project initiatives ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -4468,9 +4489,10 @@ FLAGS
   --orderBy=<option>  <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs project_initiatives
@@ -4485,44 +4507,45 @@ Runs project_issues
 
 ```
 USAGE
-  $ linear project issues ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null] [--filter.addedToCyclePeriod.eq
-    after|before|during] [--filter.addedToCyclePeriod.in after|before|during...] [--filter.addedToCyclePeriod.neq
-    after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...] [--filter.addedToCyclePeriod.null]
-    [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null] [--filter.autoArchivedAt.null]
-    [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null] [--filter.creator.null]
-    [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>] [--filter.customerCount.gte <value>]
-    [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>] [--filter.customerCount.lte <value>]
-    [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...] [--filter.customerImportantCount.eq
-    <value>] [--filter.customerImportantCount.gt <value>] [--filter.customerImportantCount.gte <value>]
-    [--filter.customerImportantCount.in <value>...] [--filter.customerImportantCount.lt <value>]
-    [--filter.customerImportantCount.lte <value>] [--filter.customerImportantCount.neq <value>]
-    [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null] [--filter.cycleTime.null]
-    [--filter.delegate.null] [--filter.description.contains <value>] [--filter.description.containsIgnoreCase <value>]
-    [--filter.description.containsIgnoreCaseAndAccent <value>] [--filter.description.endsWith <value>]
-    [--filter.description.eq <value>] [--filter.description.eqIgnoreCase <value>] [--filter.description.in <value>...]
-    [--filter.description.neq <value>] [--filter.description.neqIgnoreCase <value>] [--filter.description.nin
-    <value>...] [--filter.description.notContains <value>] [--filter.description.notContainsIgnoreCase <value>]
-    [--filter.description.notEndsWith <value>] [--filter.description.notStartsWith <value>] [--filter.description.null]
-    [--filter.description.startsWith <value>] [--filter.description.startsWithIgnoreCase <value>]
-    [--filter.dueDate.null] [--filter.estimate.eq <value>] [--filter.estimate.gt <value>] [--filter.estimate.gte
-    <value>] [--filter.estimate.in <value>...] [--filter.estimate.lt <value>] [--filter.estimate.lte <value>]
-    [--filter.estimate.neq <value>] [--filter.estimate.nin <value>...] [--filter.estimate.null]
-    [--filter.hasBlockedByRelations.eq] [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq]
-    [--filter.hasBlockingRelations.neq] [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq]
-    [--filter.hasRelatedRelations.eq] [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq]
-    [--filter.hasSuggestedAssignees.neq] [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq]
-    [--filter.hasSuggestedProjects.eq] [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq]
-    [--filter.hasSuggestedRelatedIssues.neq] [--filter.hasSuggestedSimilarIssues.eq]
-    [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq] [--filter.hasSuggestedTeams.neq]
-    [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null] [--filter.number.eq <value>]
-    [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in <value>...] [--filter.number.lt
-    <value>] [--filter.number.lte <value>] [--filter.number.neq <value>] [--filter.number.nin <value>...]
-    [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt <value>] [--filter.priority.gte <value>]
-    [--filter.priority.in <value>...] [--filter.priority.lt <value>] [--filter.priority.lte <value>]
-    [--filter.priority.neq <value>] [--filter.priority.nin <value>...] [--filter.priority.null] [--filter.project.null]
-    [--filter.projectMilestone.null] [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains
-    <value>] [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
+  $ linear project issues ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null]
+    [--filter.addedToCyclePeriod.eq after|before|during] [--filter.addedToCyclePeriod.in after|before|during...]
+    [--filter.addedToCyclePeriod.neq after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...]
+    [--filter.addedToCyclePeriod.null] [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null]
+    [--filter.autoArchivedAt.null] [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null]
+    [--filter.creator.null] [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>]
+    [--filter.customerCount.gte <value>] [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>]
+    [--filter.customerCount.lte <value>] [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...]
+    [--filter.customerImportantCount.eq <value>] [--filter.customerImportantCount.gt <value>]
+    [--filter.customerImportantCount.gte <value>] [--filter.customerImportantCount.in <value>...]
+    [--filter.customerImportantCount.lt <value>] [--filter.customerImportantCount.lte <value>]
+    [--filter.customerImportantCount.neq <value>] [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null]
+    [--filter.cycleTime.null] [--filter.delegate.null] [--filter.description.contains <value>]
+    [--filter.description.containsIgnoreCase <value>] [--filter.description.containsIgnoreCaseAndAccent <value>]
+    [--filter.description.endsWith <value>] [--filter.description.eq <value>] [--filter.description.eqIgnoreCase
+    <value>] [--filter.description.in <value>...] [--filter.description.neq <value>] [--filter.description.neqIgnoreCase
+    <value>] [--filter.description.nin <value>...] [--filter.description.notContains <value>]
+    [--filter.description.notContainsIgnoreCase <value>] [--filter.description.notEndsWith <value>]
+    [--filter.description.notStartsWith <value>] [--filter.description.null] [--filter.description.startsWith <value>]
+    [--filter.description.startsWithIgnoreCase <value>] [--filter.dueDate.null] [--filter.estimate.eq <value>]
+    [--filter.estimate.gt <value>] [--filter.estimate.gte <value>] [--filter.estimate.in <value>...]
+    [--filter.estimate.lt <value>] [--filter.estimate.lte <value>] [--filter.estimate.neq <value>]
+    [--filter.estimate.nin <value>...] [--filter.estimate.null] [--filter.hasBlockedByRelations.eq]
+    [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq] [--filter.hasBlockingRelations.neq]
+    [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq] [--filter.hasRelatedRelations.eq]
+    [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq] [--filter.hasSuggestedAssignees.neq]
+    [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq] [--filter.hasSuggestedProjects.eq]
+    [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq] [--filter.hasSuggestedRelatedIssues.neq]
+    [--filter.hasSuggestedSimilarIssues.eq] [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq]
+    [--filter.hasSuggestedTeams.neq] [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null]
+    [--filter.number.eq <value>] [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in
+    <value>...] [--filter.number.lt <value>] [--filter.number.lte <value>] [--filter.number.neq <value>]
+    [--filter.number.nin <value>...] [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt
+    <value>] [--filter.priority.gte <value>] [--filter.priority.in <value>...] [--filter.priority.lt <value>]
+    [--filter.priority.lte <value>] [--filter.priority.neq <value>] [--filter.priority.nin <value>...]
+    [--filter.priority.null] [--filter.project.null] [--filter.projectMilestone.null]
+    [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains <value>]
+    [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.in
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk...] [--filter.slaStatus.neq
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.nin
@@ -4689,9 +4712,10 @@ FLAGS
   --orderBy=<option>                                        <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs project_issues
@@ -4706,15 +4730,15 @@ Runs project_labels
 
 ```
 USAGE
-  $ linear project labels ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.creator.null] [--filter.isGroup.eq] [--filter.isGroup.neq] [--filter.name.contains <value>]
-    [--filter.name.containsIgnoreCase <value>] [--filter.name.containsIgnoreCaseAndAccent <value>]
-    [--filter.name.endsWith <value>] [--filter.name.eq <value>] [--filter.name.eqIgnoreCase <value>] [--filter.name.in
-    <value>...] [--filter.name.neq <value>] [--filter.name.neqIgnoreCase <value>] [--filter.name.nin <value>...]
-    [--filter.name.notContains <value>] [--filter.name.notContainsIgnoreCase <value>] [--filter.name.notEndsWith
-    <value>] [--filter.name.notStartsWith <value>] [--filter.name.startsWith <value>]
-    [--filter.name.startsWithIgnoreCase <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy
-    createdAt|updatedAt]
+  $ linear project labels ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.creator.null] [--filter.isGroup.eq] [--filter.isGroup.neq]
+    [--filter.name.contains <value>] [--filter.name.containsIgnoreCase <value>]
+    [--filter.name.containsIgnoreCaseAndAccent <value>] [--filter.name.endsWith <value>] [--filter.name.eq <value>]
+    [--filter.name.eqIgnoreCase <value>] [--filter.name.in <value>...] [--filter.name.neq <value>]
+    [--filter.name.neqIgnoreCase <value>] [--filter.name.nin <value>...] [--filter.name.notContains <value>]
+    [--filter.name.notContainsIgnoreCase <value>] [--filter.name.notEndsWith <value>] [--filter.name.notStartsWith
+    <value>] [--filter.name.startsWith <value>] [--filter.name.startsWithIgnoreCase <value>] [--first <value>]
+    [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -4744,9 +4768,10 @@ FLAGS
   --orderBy=<option>                                 <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs project_labels
@@ -4761,8 +4786,8 @@ Runs projects
 
 ```
 USAGE
-  $ linear project list [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.activityType.contains <value>] [--filter.activityType.containsIgnoreCase <value>]
+  $ linear project list [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--filter.activityType.contains <value>] [--filter.activityType.containsIgnoreCase <value>]
     [--filter.activityType.containsIgnoreCaseAndAccent <value>] [--filter.activityType.endsWith <value>]
     [--filter.activityType.eq <value>] [--filter.activityType.eqIgnoreCase <value>] [--filter.activityType.in
     <value>...] [--filter.activityType.neq <value>] [--filter.activityType.neqIgnoreCase <value>]
@@ -4971,9 +4996,10 @@ FLAGS
   --orderBy=<option>                                          <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs projects
@@ -4988,30 +5014,30 @@ Runs project_members
 
 ```
 USAGE
-  $ linear project members ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.active.eq] [--filter.active.neq] [--filter.admin.eq] [--filter.admin.neq] [--filter.app.eq]
-    [--filter.app.neq] [--filter.displayName.contains <value>] [--filter.displayName.containsIgnoreCase <value>]
-    [--filter.displayName.containsIgnoreCaseAndAccent <value>] [--filter.displayName.endsWith <value>]
-    [--filter.displayName.eq <value>] [--filter.displayName.eqIgnoreCase <value>] [--filter.displayName.in <value>...]
-    [--filter.displayName.neq <value>] [--filter.displayName.neqIgnoreCase <value>] [--filter.displayName.nin
-    <value>...] [--filter.displayName.notContains <value>] [--filter.displayName.notContainsIgnoreCase <value>]
-    [--filter.displayName.notEndsWith <value>] [--filter.displayName.notStartsWith <value>]
-    [--filter.displayName.startsWith <value>] [--filter.displayName.startsWithIgnoreCase <value>]
-    [--filter.email.contains <value>] [--filter.email.containsIgnoreCase <value>]
-    [--filter.email.containsIgnoreCaseAndAccent <value>] [--filter.email.endsWith <value>] [--filter.email.eq <value>]
-    [--filter.email.eqIgnoreCase <value>] [--filter.email.in <value>...] [--filter.email.neq <value>]
-    [--filter.email.neqIgnoreCase <value>] [--filter.email.nin <value>...] [--filter.email.notContains <value>]
-    [--filter.email.notContainsIgnoreCase <value>] [--filter.email.notEndsWith <value>] [--filter.email.notStartsWith
-    <value>] [--filter.email.startsWith <value>] [--filter.email.startsWithIgnoreCase <value>] [--filter.invited.eq]
-    [--filter.invited.neq] [--filter.isInvited.eq] [--filter.isInvited.neq] [--filter.isMe.eq] [--filter.isMe.neq]
-    [--filter.name.contains <value>] [--filter.name.containsIgnoreCase <value>]
-    [--filter.name.containsIgnoreCaseAndAccent <value>] [--filter.name.endsWith <value>] [--filter.name.eq <value>]
-    [--filter.name.eqIgnoreCase <value>] [--filter.name.in <value>...] [--filter.name.neq <value>]
-    [--filter.name.neqIgnoreCase <value>] [--filter.name.nin <value>...] [--filter.name.notContains <value>]
-    [--filter.name.notContainsIgnoreCase <value>] [--filter.name.notEndsWith <value>] [--filter.name.notStartsWith
-    <value>] [--filter.name.startsWith <value>] [--filter.name.startsWithIgnoreCase <value>] [--filter.owner.eq]
-    [--filter.owner.neq] [--first <value>] [--includeArchived] [--includeDisabled] [--last <value>] [--orderBy
-    createdAt|updatedAt]
+  $ linear project members ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.active.eq] [--filter.active.neq] [--filter.admin.eq] [--filter.admin.neq]
+    [--filter.app.eq] [--filter.app.neq] [--filter.displayName.contains <value>]
+    [--filter.displayName.containsIgnoreCase <value>] [--filter.displayName.containsIgnoreCaseAndAccent <value>]
+    [--filter.displayName.endsWith <value>] [--filter.displayName.eq <value>] [--filter.displayName.eqIgnoreCase
+    <value>] [--filter.displayName.in <value>...] [--filter.displayName.neq <value>] [--filter.displayName.neqIgnoreCase
+    <value>] [--filter.displayName.nin <value>...] [--filter.displayName.notContains <value>]
+    [--filter.displayName.notContainsIgnoreCase <value>] [--filter.displayName.notEndsWith <value>]
+    [--filter.displayName.notStartsWith <value>] [--filter.displayName.startsWith <value>]
+    [--filter.displayName.startsWithIgnoreCase <value>] [--filter.email.contains <value>]
+    [--filter.email.containsIgnoreCase <value>] [--filter.email.containsIgnoreCaseAndAccent <value>]
+    [--filter.email.endsWith <value>] [--filter.email.eq <value>] [--filter.email.eqIgnoreCase <value>]
+    [--filter.email.in <value>...] [--filter.email.neq <value>] [--filter.email.neqIgnoreCase <value>]
+    [--filter.email.nin <value>...] [--filter.email.notContains <value>] [--filter.email.notContainsIgnoreCase <value>]
+    [--filter.email.notEndsWith <value>] [--filter.email.notStartsWith <value>] [--filter.email.startsWith <value>]
+    [--filter.email.startsWithIgnoreCase <value>] [--filter.invited.eq] [--filter.invited.neq] [--filter.isInvited.eq]
+    [--filter.isInvited.neq] [--filter.isMe.eq] [--filter.isMe.neq] [--filter.name.contains <value>]
+    [--filter.name.containsIgnoreCase <value>] [--filter.name.containsIgnoreCaseAndAccent <value>]
+    [--filter.name.endsWith <value>] [--filter.name.eq <value>] [--filter.name.eqIgnoreCase <value>] [--filter.name.in
+    <value>...] [--filter.name.neq <value>] [--filter.name.neqIgnoreCase <value>] [--filter.name.nin <value>...]
+    [--filter.name.notContains <value>] [--filter.name.notContainsIgnoreCase <value>] [--filter.name.notEndsWith
+    <value>] [--filter.name.notStartsWith <value>] [--filter.name.startsWith <value>]
+    [--filter.name.startsWithIgnoreCase <value>] [--filter.owner.eq] [--filter.owner.neq] [--first <value>]
+    [--includeArchived] [--includeDisabled] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -5085,9 +5111,10 @@ FLAGS
   --orderBy=<option>                                        <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs project_members
@@ -5102,8 +5129,8 @@ Runs project_projectMilestones
 
 ```
 USAGE
-  $ linear project milestones ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.name.contains <value>] [--filter.name.containsIgnoreCase <value>]
+  $ linear project milestones ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.name.contains <value>] [--filter.name.containsIgnoreCase <value>]
     [--filter.name.containsIgnoreCaseAndAccent <value>] [--filter.name.endsWith <value>] [--filter.name.eq <value>]
     [--filter.name.eqIgnoreCase <value>] [--filter.name.in <value>...] [--filter.name.neq <value>]
     [--filter.name.neqIgnoreCase <value>] [--filter.name.nin <value>...] [--filter.name.notContains <value>]
@@ -5138,9 +5165,10 @@ FLAGS
   --orderBy=<option>                                 <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs project_projectMilestones
@@ -5155,10 +5183,10 @@ Runs project_needs
 
 ```
 USAGE
-  $ linear project needs ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.comment.null] [--filter.customer.null] [--filter.issue.null] [--filter.priority.eq <value>]
-    [--filter.priority.gt <value>] [--filter.priority.gte <value>] [--filter.priority.in <value>...]
-    [--filter.priority.lt <value>] [--filter.priority.lte <value>] [--filter.priority.neq <value>]
+  $ linear project needs ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.comment.null] [--filter.customer.null] [--filter.issue.null]
+    [--filter.priority.eq <value>] [--filter.priority.gt <value>] [--filter.priority.gte <value>] [--filter.priority.in
+    <value>...] [--filter.priority.lt <value>] [--filter.priority.lte <value>] [--filter.priority.neq <value>]
     [--filter.priority.nin <value>...] [--filter.project.null] [--first <value>] [--includeArchived] [--last <value>]
     [--orderBy createdAt|updatedAt]
 
@@ -5183,9 +5211,10 @@ FLAGS
   --orderBy=<option>                <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs project_needs
@@ -5200,8 +5229,8 @@ Runs project_relations
 
 ```
 USAGE
-  $ linear project relations ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear project relations ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -5212,9 +5241,10 @@ FLAGS
   --orderBy=<option>  <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs project_relations
@@ -5229,9 +5259,9 @@ Runs project_teams
 
 ```
 USAGE
-  $ linear project teams ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.description.contains <value>] [--filter.description.containsIgnoreCase <value>]
-    [--filter.description.containsIgnoreCaseAndAccent <value>] [--filter.description.endsWith <value>]
+  $ linear project teams ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.description.contains <value>] [--filter.description.containsIgnoreCase
+    <value>] [--filter.description.containsIgnoreCaseAndAccent <value>] [--filter.description.endsWith <value>]
     [--filter.description.eq <value>] [--filter.description.eqIgnoreCase <value>] [--filter.description.in <value>...]
     [--filter.description.neq <value>] [--filter.description.neqIgnoreCase <value>] [--filter.description.nin
     <value>...] [--filter.description.notContains <value>] [--filter.description.notContainsIgnoreCase <value>]
@@ -5312,9 +5342,10 @@ FLAGS
   --orderBy=<option>                                        <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs project_teams
@@ -5329,8 +5360,8 @@ Runs project_projectUpdates
 
 ```
 USAGE
-  $ linear project updates ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear project updates ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -5341,9 +5372,10 @@ FLAGS
   --orderBy=<option>  <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs project_projectUpdates
@@ -5358,12 +5390,13 @@ Runs project
 
 ```
 USAGE
-  $ linear project view ID [--json] [--api-key <value>] [--api-url <value>]
+  $ linear project view ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs project
@@ -5378,8 +5411,8 @@ Runs roadmaps
 
 ```
 USAGE
-  $ linear roadmap list [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear roadmap list [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -5390,9 +5423,10 @@ FLAGS
   --orderBy=<option>  <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs roadmaps
@@ -5407,9 +5441,9 @@ Runs roadmap_projects
 
 ```
 USAGE
-  $ linear roadmap projects ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.activityType.contains <value>] [--filter.activityType.containsIgnoreCase <value>]
-    [--filter.activityType.containsIgnoreCaseAndAccent <value>] [--filter.activityType.endsWith <value>]
+  $ linear roadmap projects ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.activityType.contains <value>] [--filter.activityType.containsIgnoreCase
+    <value>] [--filter.activityType.containsIgnoreCaseAndAccent <value>] [--filter.activityType.endsWith <value>]
     [--filter.activityType.eq <value>] [--filter.activityType.eqIgnoreCase <value>] [--filter.activityType.in
     <value>...] [--filter.activityType.neq <value>] [--filter.activityType.neqIgnoreCase <value>]
     [--filter.activityType.nin <value>...] [--filter.activityType.notContains <value>]
@@ -5617,9 +5651,10 @@ FLAGS
   --orderBy=<option>                                          <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs roadmap_projects
@@ -5634,12 +5669,13 @@ Runs roadmap
 
 ```
 USAGE
-  $ linear roadmap view ID [--json] [--api-key <value>] [--api-url <value>]
+  $ linear roadmap view ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs roadmap
@@ -5648,16 +5684,42 @@ EXAMPLES
   $ linear roadmap view
 ```
 
+## `linear start ISSUE`
+
+Start working on an issue: updates status to In Progress, creates/switches to the git branch, and displays the issue.
+
+```
+USAGE
+  $ linear start ISSUE [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
+
+ARGUMENTS
+  ISSUE  Issue ID (e.g., WT-123)
+
+GLOBAL FLAGS
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
+
+DESCRIPTION
+  Start working on an issue: updates status to In Progress, creates/switches to the git branch, and displays the issue.
+
+EXAMPLES
+  $ linear start WT-123
+
+  $ linear start LIN-456
+```
+
 ## `linear team cycles ID`
 
 Runs team_cycles
 
 ```
 USAGE
-  $ linear team cycles ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.isActive.eq] [--filter.isActive.neq] [--filter.isFuture.eq] [--filter.isFuture.neq]
-    [--filter.isInCooldown.eq] [--filter.isInCooldown.neq] [--filter.isNext.eq] [--filter.isNext.neq]
-    [--filter.isPast.eq] [--filter.isPast.neq] [--filter.isPrevious.eq] [--filter.isPrevious.neq]
+  $ linear team cycles ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.isActive.eq] [--filter.isActive.neq] [--filter.isFuture.eq]
+    [--filter.isFuture.neq] [--filter.isInCooldown.eq] [--filter.isInCooldown.neq] [--filter.isNext.eq]
+    [--filter.isNext.neq] [--filter.isPast.eq] [--filter.isPast.neq] [--filter.isPrevious.eq] [--filter.isPrevious.neq]
     [--filter.name.contains <value>] [--filter.name.containsIgnoreCase <value>]
     [--filter.name.containsIgnoreCaseAndAccent <value>] [--filter.name.endsWith <value>] [--filter.name.eq <value>]
     [--filter.name.eqIgnoreCase <value>] [--filter.name.in <value>...] [--filter.name.neq <value>]
@@ -5713,9 +5775,10 @@ FLAGS
   --orderBy=<option>                                 <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs team_cycles
@@ -5730,8 +5793,8 @@ Runs team_gitAutomationStates
 
 ```
 USAGE
-  $ linear team git-automation-states ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear team git-automation-states ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -5742,9 +5805,10 @@ FLAGS
   --orderBy=<option>  <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs team_gitAutomationStates
@@ -5759,44 +5823,45 @@ Runs team_issues
 
 ```
 USAGE
-  $ linear team issues ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null] [--filter.addedToCyclePeriod.eq
-    after|before|during] [--filter.addedToCyclePeriod.in after|before|during...] [--filter.addedToCyclePeriod.neq
-    after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...] [--filter.addedToCyclePeriod.null]
-    [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null] [--filter.autoArchivedAt.null]
-    [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null] [--filter.creator.null]
-    [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>] [--filter.customerCount.gte <value>]
-    [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>] [--filter.customerCount.lte <value>]
-    [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...] [--filter.customerImportantCount.eq
-    <value>] [--filter.customerImportantCount.gt <value>] [--filter.customerImportantCount.gte <value>]
-    [--filter.customerImportantCount.in <value>...] [--filter.customerImportantCount.lt <value>]
-    [--filter.customerImportantCount.lte <value>] [--filter.customerImportantCount.neq <value>]
-    [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null] [--filter.cycleTime.null]
-    [--filter.delegate.null] [--filter.description.contains <value>] [--filter.description.containsIgnoreCase <value>]
-    [--filter.description.containsIgnoreCaseAndAccent <value>] [--filter.description.endsWith <value>]
-    [--filter.description.eq <value>] [--filter.description.eqIgnoreCase <value>] [--filter.description.in <value>...]
-    [--filter.description.neq <value>] [--filter.description.neqIgnoreCase <value>] [--filter.description.nin
-    <value>...] [--filter.description.notContains <value>] [--filter.description.notContainsIgnoreCase <value>]
-    [--filter.description.notEndsWith <value>] [--filter.description.notStartsWith <value>] [--filter.description.null]
-    [--filter.description.startsWith <value>] [--filter.description.startsWithIgnoreCase <value>]
-    [--filter.dueDate.null] [--filter.estimate.eq <value>] [--filter.estimate.gt <value>] [--filter.estimate.gte
-    <value>] [--filter.estimate.in <value>...] [--filter.estimate.lt <value>] [--filter.estimate.lte <value>]
-    [--filter.estimate.neq <value>] [--filter.estimate.nin <value>...] [--filter.estimate.null]
-    [--filter.hasBlockedByRelations.eq] [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq]
-    [--filter.hasBlockingRelations.neq] [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq]
-    [--filter.hasRelatedRelations.eq] [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq]
-    [--filter.hasSuggestedAssignees.neq] [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq]
-    [--filter.hasSuggestedProjects.eq] [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq]
-    [--filter.hasSuggestedRelatedIssues.neq] [--filter.hasSuggestedSimilarIssues.eq]
-    [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq] [--filter.hasSuggestedTeams.neq]
-    [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null] [--filter.number.eq <value>]
-    [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in <value>...] [--filter.number.lt
-    <value>] [--filter.number.lte <value>] [--filter.number.neq <value>] [--filter.number.nin <value>...]
-    [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt <value>] [--filter.priority.gte <value>]
-    [--filter.priority.in <value>...] [--filter.priority.lt <value>] [--filter.priority.lte <value>]
-    [--filter.priority.neq <value>] [--filter.priority.nin <value>...] [--filter.priority.null] [--filter.project.null]
-    [--filter.projectMilestone.null] [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains
-    <value>] [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
+  $ linear team issues ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null]
+    [--filter.addedToCyclePeriod.eq after|before|during] [--filter.addedToCyclePeriod.in after|before|during...]
+    [--filter.addedToCyclePeriod.neq after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...]
+    [--filter.addedToCyclePeriod.null] [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null]
+    [--filter.autoArchivedAt.null] [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null]
+    [--filter.creator.null] [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>]
+    [--filter.customerCount.gte <value>] [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>]
+    [--filter.customerCount.lte <value>] [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...]
+    [--filter.customerImportantCount.eq <value>] [--filter.customerImportantCount.gt <value>]
+    [--filter.customerImportantCount.gte <value>] [--filter.customerImportantCount.in <value>...]
+    [--filter.customerImportantCount.lt <value>] [--filter.customerImportantCount.lte <value>]
+    [--filter.customerImportantCount.neq <value>] [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null]
+    [--filter.cycleTime.null] [--filter.delegate.null] [--filter.description.contains <value>]
+    [--filter.description.containsIgnoreCase <value>] [--filter.description.containsIgnoreCaseAndAccent <value>]
+    [--filter.description.endsWith <value>] [--filter.description.eq <value>] [--filter.description.eqIgnoreCase
+    <value>] [--filter.description.in <value>...] [--filter.description.neq <value>] [--filter.description.neqIgnoreCase
+    <value>] [--filter.description.nin <value>...] [--filter.description.notContains <value>]
+    [--filter.description.notContainsIgnoreCase <value>] [--filter.description.notEndsWith <value>]
+    [--filter.description.notStartsWith <value>] [--filter.description.null] [--filter.description.startsWith <value>]
+    [--filter.description.startsWithIgnoreCase <value>] [--filter.dueDate.null] [--filter.estimate.eq <value>]
+    [--filter.estimate.gt <value>] [--filter.estimate.gte <value>] [--filter.estimate.in <value>...]
+    [--filter.estimate.lt <value>] [--filter.estimate.lte <value>] [--filter.estimate.neq <value>]
+    [--filter.estimate.nin <value>...] [--filter.estimate.null] [--filter.hasBlockedByRelations.eq]
+    [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq] [--filter.hasBlockingRelations.neq]
+    [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq] [--filter.hasRelatedRelations.eq]
+    [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq] [--filter.hasSuggestedAssignees.neq]
+    [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq] [--filter.hasSuggestedProjects.eq]
+    [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq] [--filter.hasSuggestedRelatedIssues.neq]
+    [--filter.hasSuggestedSimilarIssues.eq] [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq]
+    [--filter.hasSuggestedTeams.neq] [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null]
+    [--filter.number.eq <value>] [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in
+    <value>...] [--filter.number.lt <value>] [--filter.number.lte <value>] [--filter.number.neq <value>]
+    [--filter.number.nin <value>...] [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt
+    <value>] [--filter.priority.gte <value>] [--filter.priority.in <value>...] [--filter.priority.lt <value>]
+    [--filter.priority.lte <value>] [--filter.priority.neq <value>] [--filter.priority.nin <value>...]
+    [--filter.priority.null] [--filter.project.null] [--filter.projectMilestone.null]
+    [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains <value>]
+    [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.in
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk...] [--filter.slaStatus.neq
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.nin
@@ -5964,9 +6029,10 @@ FLAGS
   --orderBy=<option>                                        <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs team_issues
@@ -5981,15 +6047,15 @@ Runs team_labels
 
 ```
 USAGE
-  $ linear team labels ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.creator.null] [--filter.isGroup.eq] [--filter.isGroup.neq] [--filter.name.contains <value>]
-    [--filter.name.containsIgnoreCase <value>] [--filter.name.containsIgnoreCaseAndAccent <value>]
-    [--filter.name.endsWith <value>] [--filter.name.eq <value>] [--filter.name.eqIgnoreCase <value>] [--filter.name.in
-    <value>...] [--filter.name.neq <value>] [--filter.name.neqIgnoreCase <value>] [--filter.name.nin <value>...]
-    [--filter.name.notContains <value>] [--filter.name.notContainsIgnoreCase <value>] [--filter.name.notEndsWith
-    <value>] [--filter.name.notStartsWith <value>] [--filter.name.startsWith <value>]
-    [--filter.name.startsWithIgnoreCase <value>] [--filter.team.null] [--first <value>] [--includeArchived] [--last
-    <value>] [--orderBy createdAt|updatedAt]
+  $ linear team labels ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.creator.null] [--filter.isGroup.eq] [--filter.isGroup.neq]
+    [--filter.name.contains <value>] [--filter.name.containsIgnoreCase <value>]
+    [--filter.name.containsIgnoreCaseAndAccent <value>] [--filter.name.endsWith <value>] [--filter.name.eq <value>]
+    [--filter.name.eqIgnoreCase <value>] [--filter.name.in <value>...] [--filter.name.neq <value>]
+    [--filter.name.neqIgnoreCase <value>] [--filter.name.nin <value>...] [--filter.name.notContains <value>]
+    [--filter.name.notContainsIgnoreCase <value>] [--filter.name.notEndsWith <value>] [--filter.name.notStartsWith
+    <value>] [--filter.name.startsWith <value>] [--filter.name.startsWithIgnoreCase <value>] [--filter.team.null]
+    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -6020,9 +6086,10 @@ FLAGS
   --orderBy=<option>                                 <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs team_labels
@@ -6037,8 +6104,8 @@ Runs teams
 
 ```
 USAGE
-  $ linear team list [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.description.contains <value>] [--filter.description.containsIgnoreCase <value>]
+  $ linear team list [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--filter.description.contains <value>] [--filter.description.containsIgnoreCase <value>]
     [--filter.description.containsIgnoreCaseAndAccent <value>] [--filter.description.endsWith <value>]
     [--filter.description.eq <value>] [--filter.description.eqIgnoreCase <value>] [--filter.description.in <value>...]
     [--filter.description.neq <value>] [--filter.description.neqIgnoreCase <value>] [--filter.description.nin
@@ -6120,9 +6187,10 @@ FLAGS
   --orderBy=<option>                                        <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs teams
@@ -6137,30 +6205,30 @@ Runs team_members
 
 ```
 USAGE
-  $ linear team members ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.active.eq] [--filter.active.neq] [--filter.admin.eq] [--filter.admin.neq] [--filter.app.eq]
-    [--filter.app.neq] [--filter.displayName.contains <value>] [--filter.displayName.containsIgnoreCase <value>]
-    [--filter.displayName.containsIgnoreCaseAndAccent <value>] [--filter.displayName.endsWith <value>]
-    [--filter.displayName.eq <value>] [--filter.displayName.eqIgnoreCase <value>] [--filter.displayName.in <value>...]
-    [--filter.displayName.neq <value>] [--filter.displayName.neqIgnoreCase <value>] [--filter.displayName.nin
-    <value>...] [--filter.displayName.notContains <value>] [--filter.displayName.notContainsIgnoreCase <value>]
-    [--filter.displayName.notEndsWith <value>] [--filter.displayName.notStartsWith <value>]
-    [--filter.displayName.startsWith <value>] [--filter.displayName.startsWithIgnoreCase <value>]
-    [--filter.email.contains <value>] [--filter.email.containsIgnoreCase <value>]
-    [--filter.email.containsIgnoreCaseAndAccent <value>] [--filter.email.endsWith <value>] [--filter.email.eq <value>]
-    [--filter.email.eqIgnoreCase <value>] [--filter.email.in <value>...] [--filter.email.neq <value>]
-    [--filter.email.neqIgnoreCase <value>] [--filter.email.nin <value>...] [--filter.email.notContains <value>]
-    [--filter.email.notContainsIgnoreCase <value>] [--filter.email.notEndsWith <value>] [--filter.email.notStartsWith
-    <value>] [--filter.email.startsWith <value>] [--filter.email.startsWithIgnoreCase <value>] [--filter.invited.eq]
-    [--filter.invited.neq] [--filter.isInvited.eq] [--filter.isInvited.neq] [--filter.isMe.eq] [--filter.isMe.neq]
-    [--filter.name.contains <value>] [--filter.name.containsIgnoreCase <value>]
-    [--filter.name.containsIgnoreCaseAndAccent <value>] [--filter.name.endsWith <value>] [--filter.name.eq <value>]
-    [--filter.name.eqIgnoreCase <value>] [--filter.name.in <value>...] [--filter.name.neq <value>]
-    [--filter.name.neqIgnoreCase <value>] [--filter.name.nin <value>...] [--filter.name.notContains <value>]
-    [--filter.name.notContainsIgnoreCase <value>] [--filter.name.notEndsWith <value>] [--filter.name.notStartsWith
-    <value>] [--filter.name.startsWith <value>] [--filter.name.startsWithIgnoreCase <value>] [--filter.owner.eq]
-    [--filter.owner.neq] [--first <value>] [--includeArchived] [--includeDisabled] [--last <value>] [--orderBy
-    createdAt|updatedAt]
+  $ linear team members ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.active.eq] [--filter.active.neq] [--filter.admin.eq] [--filter.admin.neq]
+    [--filter.app.eq] [--filter.app.neq] [--filter.displayName.contains <value>]
+    [--filter.displayName.containsIgnoreCase <value>] [--filter.displayName.containsIgnoreCaseAndAccent <value>]
+    [--filter.displayName.endsWith <value>] [--filter.displayName.eq <value>] [--filter.displayName.eqIgnoreCase
+    <value>] [--filter.displayName.in <value>...] [--filter.displayName.neq <value>] [--filter.displayName.neqIgnoreCase
+    <value>] [--filter.displayName.nin <value>...] [--filter.displayName.notContains <value>]
+    [--filter.displayName.notContainsIgnoreCase <value>] [--filter.displayName.notEndsWith <value>]
+    [--filter.displayName.notStartsWith <value>] [--filter.displayName.startsWith <value>]
+    [--filter.displayName.startsWithIgnoreCase <value>] [--filter.email.contains <value>]
+    [--filter.email.containsIgnoreCase <value>] [--filter.email.containsIgnoreCaseAndAccent <value>]
+    [--filter.email.endsWith <value>] [--filter.email.eq <value>] [--filter.email.eqIgnoreCase <value>]
+    [--filter.email.in <value>...] [--filter.email.neq <value>] [--filter.email.neqIgnoreCase <value>]
+    [--filter.email.nin <value>...] [--filter.email.notContains <value>] [--filter.email.notContainsIgnoreCase <value>]
+    [--filter.email.notEndsWith <value>] [--filter.email.notStartsWith <value>] [--filter.email.startsWith <value>]
+    [--filter.email.startsWithIgnoreCase <value>] [--filter.invited.eq] [--filter.invited.neq] [--filter.isInvited.eq]
+    [--filter.isInvited.neq] [--filter.isMe.eq] [--filter.isMe.neq] [--filter.name.contains <value>]
+    [--filter.name.containsIgnoreCase <value>] [--filter.name.containsIgnoreCaseAndAccent <value>]
+    [--filter.name.endsWith <value>] [--filter.name.eq <value>] [--filter.name.eqIgnoreCase <value>] [--filter.name.in
+    <value>...] [--filter.name.neq <value>] [--filter.name.neqIgnoreCase <value>] [--filter.name.nin <value>...]
+    [--filter.name.notContains <value>] [--filter.name.notContainsIgnoreCase <value>] [--filter.name.notEndsWith
+    <value>] [--filter.name.notStartsWith <value>] [--filter.name.startsWith <value>]
+    [--filter.name.startsWithIgnoreCase <value>] [--filter.owner.eq] [--filter.owner.neq] [--first <value>]
+    [--includeArchived] [--includeDisabled] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -6234,9 +6302,10 @@ FLAGS
   --orderBy=<option>                                        <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs team_members
@@ -6251,8 +6320,8 @@ Runs team_memberships
 
 ```
 USAGE
-  $ linear team memberships ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear team memberships ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -6263,9 +6332,10 @@ FLAGS
   --orderBy=<option>  <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs team_memberships
@@ -6280,9 +6350,9 @@ Runs team_projects
 
 ```
 USAGE
-  $ linear team projects ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.activityType.contains <value>] [--filter.activityType.containsIgnoreCase <value>]
-    [--filter.activityType.containsIgnoreCaseAndAccent <value>] [--filter.activityType.endsWith <value>]
+  $ linear team projects ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.activityType.contains <value>] [--filter.activityType.containsIgnoreCase
+    <value>] [--filter.activityType.containsIgnoreCaseAndAccent <value>] [--filter.activityType.endsWith <value>]
     [--filter.activityType.eq <value>] [--filter.activityType.eqIgnoreCase <value>] [--filter.activityType.in
     <value>...] [--filter.activityType.neq <value>] [--filter.activityType.neqIgnoreCase <value>]
     [--filter.activityType.nin <value>...] [--filter.activityType.notContains <value>]
@@ -6491,9 +6561,10 @@ FLAGS
   --orderBy=<option>                                          <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs team_projects
@@ -6508,9 +6579,9 @@ Runs team_states
 
 ```
 USAGE
-  $ linear team states ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.description.contains <value>] [--filter.description.containsIgnoreCase <value>]
-    [--filter.description.containsIgnoreCaseAndAccent <value>] [--filter.description.endsWith <value>]
+  $ linear team states ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.description.contains <value>] [--filter.description.containsIgnoreCase
+    <value>] [--filter.description.containsIgnoreCaseAndAccent <value>] [--filter.description.endsWith <value>]
     [--filter.description.eq <value>] [--filter.description.eqIgnoreCase <value>] [--filter.description.in <value>...]
     [--filter.description.neq <value>] [--filter.description.neqIgnoreCase <value>] [--filter.description.nin
     <value>...] [--filter.description.notContains <value>] [--filter.description.notContainsIgnoreCase <value>]
@@ -6597,9 +6668,10 @@ FLAGS
   --orderBy=<option>                                        <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs team_states
@@ -6614,8 +6686,8 @@ Runs team_templates
 
 ```
 USAGE
-  $ linear team templates ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.name.contains <value>] [--filter.name.containsIgnoreCase <value>]
+  $ linear team templates ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.name.contains <value>] [--filter.name.containsIgnoreCase <value>]
     [--filter.name.containsIgnoreCaseAndAccent <value>] [--filter.name.endsWith <value>] [--filter.name.eq <value>]
     [--filter.name.eqIgnoreCase <value>] [--filter.name.in <value>...] [--filter.name.neq <value>]
     [--filter.name.neqIgnoreCase <value>] [--filter.name.nin <value>...] [--filter.name.notContains <value>]
@@ -6671,9 +6743,10 @@ FLAGS
   --orderBy=<option>                                 <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs team_templates
@@ -6688,12 +6761,13 @@ Runs team
 
 ```
 USAGE
-  $ linear team view ID [--json] [--api-key <value>] [--api-url <value>]
+  $ linear team view ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs team
@@ -6708,44 +6782,45 @@ Runs user_assignedIssues
 
 ```
 USAGE
-  $ linear user assigned-issues ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null] [--filter.addedToCyclePeriod.eq
-    after|before|during] [--filter.addedToCyclePeriod.in after|before|during...] [--filter.addedToCyclePeriod.neq
-    after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...] [--filter.addedToCyclePeriod.null]
-    [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null] [--filter.autoArchivedAt.null]
-    [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null] [--filter.creator.null]
-    [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>] [--filter.customerCount.gte <value>]
-    [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>] [--filter.customerCount.lte <value>]
-    [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...] [--filter.customerImportantCount.eq
-    <value>] [--filter.customerImportantCount.gt <value>] [--filter.customerImportantCount.gte <value>]
-    [--filter.customerImportantCount.in <value>...] [--filter.customerImportantCount.lt <value>]
-    [--filter.customerImportantCount.lte <value>] [--filter.customerImportantCount.neq <value>]
-    [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null] [--filter.cycleTime.null]
-    [--filter.delegate.null] [--filter.description.contains <value>] [--filter.description.containsIgnoreCase <value>]
-    [--filter.description.containsIgnoreCaseAndAccent <value>] [--filter.description.endsWith <value>]
-    [--filter.description.eq <value>] [--filter.description.eqIgnoreCase <value>] [--filter.description.in <value>...]
-    [--filter.description.neq <value>] [--filter.description.neqIgnoreCase <value>] [--filter.description.nin
-    <value>...] [--filter.description.notContains <value>] [--filter.description.notContainsIgnoreCase <value>]
-    [--filter.description.notEndsWith <value>] [--filter.description.notStartsWith <value>] [--filter.description.null]
-    [--filter.description.startsWith <value>] [--filter.description.startsWithIgnoreCase <value>]
-    [--filter.dueDate.null] [--filter.estimate.eq <value>] [--filter.estimate.gt <value>] [--filter.estimate.gte
-    <value>] [--filter.estimate.in <value>...] [--filter.estimate.lt <value>] [--filter.estimate.lte <value>]
-    [--filter.estimate.neq <value>] [--filter.estimate.nin <value>...] [--filter.estimate.null]
-    [--filter.hasBlockedByRelations.eq] [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq]
-    [--filter.hasBlockingRelations.neq] [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq]
-    [--filter.hasRelatedRelations.eq] [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq]
-    [--filter.hasSuggestedAssignees.neq] [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq]
-    [--filter.hasSuggestedProjects.eq] [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq]
-    [--filter.hasSuggestedRelatedIssues.neq] [--filter.hasSuggestedSimilarIssues.eq]
-    [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq] [--filter.hasSuggestedTeams.neq]
-    [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null] [--filter.number.eq <value>]
-    [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in <value>...] [--filter.number.lt
-    <value>] [--filter.number.lte <value>] [--filter.number.neq <value>] [--filter.number.nin <value>...]
-    [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt <value>] [--filter.priority.gte <value>]
-    [--filter.priority.in <value>...] [--filter.priority.lt <value>] [--filter.priority.lte <value>]
-    [--filter.priority.neq <value>] [--filter.priority.nin <value>...] [--filter.priority.null] [--filter.project.null]
-    [--filter.projectMilestone.null] [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains
-    <value>] [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
+  $ linear user assigned-issues ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null]
+    [--filter.addedToCyclePeriod.eq after|before|during] [--filter.addedToCyclePeriod.in after|before|during...]
+    [--filter.addedToCyclePeriod.neq after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...]
+    [--filter.addedToCyclePeriod.null] [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null]
+    [--filter.autoArchivedAt.null] [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null]
+    [--filter.creator.null] [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>]
+    [--filter.customerCount.gte <value>] [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>]
+    [--filter.customerCount.lte <value>] [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...]
+    [--filter.customerImportantCount.eq <value>] [--filter.customerImportantCount.gt <value>]
+    [--filter.customerImportantCount.gte <value>] [--filter.customerImportantCount.in <value>...]
+    [--filter.customerImportantCount.lt <value>] [--filter.customerImportantCount.lte <value>]
+    [--filter.customerImportantCount.neq <value>] [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null]
+    [--filter.cycleTime.null] [--filter.delegate.null] [--filter.description.contains <value>]
+    [--filter.description.containsIgnoreCase <value>] [--filter.description.containsIgnoreCaseAndAccent <value>]
+    [--filter.description.endsWith <value>] [--filter.description.eq <value>] [--filter.description.eqIgnoreCase
+    <value>] [--filter.description.in <value>...] [--filter.description.neq <value>] [--filter.description.neqIgnoreCase
+    <value>] [--filter.description.nin <value>...] [--filter.description.notContains <value>]
+    [--filter.description.notContainsIgnoreCase <value>] [--filter.description.notEndsWith <value>]
+    [--filter.description.notStartsWith <value>] [--filter.description.null] [--filter.description.startsWith <value>]
+    [--filter.description.startsWithIgnoreCase <value>] [--filter.dueDate.null] [--filter.estimate.eq <value>]
+    [--filter.estimate.gt <value>] [--filter.estimate.gte <value>] [--filter.estimate.in <value>...]
+    [--filter.estimate.lt <value>] [--filter.estimate.lte <value>] [--filter.estimate.neq <value>]
+    [--filter.estimate.nin <value>...] [--filter.estimate.null] [--filter.hasBlockedByRelations.eq]
+    [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq] [--filter.hasBlockingRelations.neq]
+    [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq] [--filter.hasRelatedRelations.eq]
+    [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq] [--filter.hasSuggestedAssignees.neq]
+    [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq] [--filter.hasSuggestedProjects.eq]
+    [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq] [--filter.hasSuggestedRelatedIssues.neq]
+    [--filter.hasSuggestedSimilarIssues.eq] [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq]
+    [--filter.hasSuggestedTeams.neq] [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null]
+    [--filter.number.eq <value>] [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in
+    <value>...] [--filter.number.lt <value>] [--filter.number.lte <value>] [--filter.number.neq <value>]
+    [--filter.number.nin <value>...] [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt
+    <value>] [--filter.priority.gte <value>] [--filter.priority.in <value>...] [--filter.priority.lt <value>]
+    [--filter.priority.lte <value>] [--filter.priority.neq <value>] [--filter.priority.nin <value>...]
+    [--filter.priority.null] [--filter.project.null] [--filter.projectMilestone.null]
+    [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains <value>]
+    [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.in
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk...] [--filter.slaStatus.neq
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.nin
@@ -6912,9 +6987,10 @@ FLAGS
   --orderBy=<option>                                        <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs user_assignedIssues
@@ -6929,44 +7005,45 @@ Runs user_createdIssues
 
 ```
 USAGE
-  $ linear user created-issues ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null] [--filter.addedToCyclePeriod.eq
-    after|before|during] [--filter.addedToCyclePeriod.in after|before|during...] [--filter.addedToCyclePeriod.neq
-    after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...] [--filter.addedToCyclePeriod.null]
-    [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null] [--filter.autoArchivedAt.null]
-    [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null] [--filter.creator.null]
-    [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>] [--filter.customerCount.gte <value>]
-    [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>] [--filter.customerCount.lte <value>]
-    [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...] [--filter.customerImportantCount.eq
-    <value>] [--filter.customerImportantCount.gt <value>] [--filter.customerImportantCount.gte <value>]
-    [--filter.customerImportantCount.in <value>...] [--filter.customerImportantCount.lt <value>]
-    [--filter.customerImportantCount.lte <value>] [--filter.customerImportantCount.neq <value>]
-    [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null] [--filter.cycleTime.null]
-    [--filter.delegate.null] [--filter.description.contains <value>] [--filter.description.containsIgnoreCase <value>]
-    [--filter.description.containsIgnoreCaseAndAccent <value>] [--filter.description.endsWith <value>]
-    [--filter.description.eq <value>] [--filter.description.eqIgnoreCase <value>] [--filter.description.in <value>...]
-    [--filter.description.neq <value>] [--filter.description.neqIgnoreCase <value>] [--filter.description.nin
-    <value>...] [--filter.description.notContains <value>] [--filter.description.notContainsIgnoreCase <value>]
-    [--filter.description.notEndsWith <value>] [--filter.description.notStartsWith <value>] [--filter.description.null]
-    [--filter.description.startsWith <value>] [--filter.description.startsWithIgnoreCase <value>]
-    [--filter.dueDate.null] [--filter.estimate.eq <value>] [--filter.estimate.gt <value>] [--filter.estimate.gte
-    <value>] [--filter.estimate.in <value>...] [--filter.estimate.lt <value>] [--filter.estimate.lte <value>]
-    [--filter.estimate.neq <value>] [--filter.estimate.nin <value>...] [--filter.estimate.null]
-    [--filter.hasBlockedByRelations.eq] [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq]
-    [--filter.hasBlockingRelations.neq] [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq]
-    [--filter.hasRelatedRelations.eq] [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq]
-    [--filter.hasSuggestedAssignees.neq] [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq]
-    [--filter.hasSuggestedProjects.eq] [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq]
-    [--filter.hasSuggestedRelatedIssues.neq] [--filter.hasSuggestedSimilarIssues.eq]
-    [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq] [--filter.hasSuggestedTeams.neq]
-    [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null] [--filter.number.eq <value>]
-    [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in <value>...] [--filter.number.lt
-    <value>] [--filter.number.lte <value>] [--filter.number.neq <value>] [--filter.number.nin <value>...]
-    [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt <value>] [--filter.priority.gte <value>]
-    [--filter.priority.in <value>...] [--filter.priority.lt <value>] [--filter.priority.lte <value>]
-    [--filter.priority.neq <value>] [--filter.priority.nin <value>...] [--filter.priority.null] [--filter.project.null]
-    [--filter.projectMilestone.null] [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains
-    <value>] [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
+  $ linear user created-issues ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null]
+    [--filter.addedToCyclePeriod.eq after|before|during] [--filter.addedToCyclePeriod.in after|before|during...]
+    [--filter.addedToCyclePeriod.neq after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...]
+    [--filter.addedToCyclePeriod.null] [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null]
+    [--filter.autoArchivedAt.null] [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null]
+    [--filter.creator.null] [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>]
+    [--filter.customerCount.gte <value>] [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>]
+    [--filter.customerCount.lte <value>] [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...]
+    [--filter.customerImportantCount.eq <value>] [--filter.customerImportantCount.gt <value>]
+    [--filter.customerImportantCount.gte <value>] [--filter.customerImportantCount.in <value>...]
+    [--filter.customerImportantCount.lt <value>] [--filter.customerImportantCount.lte <value>]
+    [--filter.customerImportantCount.neq <value>] [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null]
+    [--filter.cycleTime.null] [--filter.delegate.null] [--filter.description.contains <value>]
+    [--filter.description.containsIgnoreCase <value>] [--filter.description.containsIgnoreCaseAndAccent <value>]
+    [--filter.description.endsWith <value>] [--filter.description.eq <value>] [--filter.description.eqIgnoreCase
+    <value>] [--filter.description.in <value>...] [--filter.description.neq <value>] [--filter.description.neqIgnoreCase
+    <value>] [--filter.description.nin <value>...] [--filter.description.notContains <value>]
+    [--filter.description.notContainsIgnoreCase <value>] [--filter.description.notEndsWith <value>]
+    [--filter.description.notStartsWith <value>] [--filter.description.null] [--filter.description.startsWith <value>]
+    [--filter.description.startsWithIgnoreCase <value>] [--filter.dueDate.null] [--filter.estimate.eq <value>]
+    [--filter.estimate.gt <value>] [--filter.estimate.gte <value>] [--filter.estimate.in <value>...]
+    [--filter.estimate.lt <value>] [--filter.estimate.lte <value>] [--filter.estimate.neq <value>]
+    [--filter.estimate.nin <value>...] [--filter.estimate.null] [--filter.hasBlockedByRelations.eq]
+    [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq] [--filter.hasBlockingRelations.neq]
+    [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq] [--filter.hasRelatedRelations.eq]
+    [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq] [--filter.hasSuggestedAssignees.neq]
+    [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq] [--filter.hasSuggestedProjects.eq]
+    [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq] [--filter.hasSuggestedRelatedIssues.neq]
+    [--filter.hasSuggestedSimilarIssues.eq] [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq]
+    [--filter.hasSuggestedTeams.neq] [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null]
+    [--filter.number.eq <value>] [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in
+    <value>...] [--filter.number.lt <value>] [--filter.number.lte <value>] [--filter.number.neq <value>]
+    [--filter.number.nin <value>...] [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt
+    <value>] [--filter.priority.gte <value>] [--filter.priority.in <value>...] [--filter.priority.lt <value>]
+    [--filter.priority.lte <value>] [--filter.priority.neq <value>] [--filter.priority.nin <value>...]
+    [--filter.priority.null] [--filter.project.null] [--filter.projectMilestone.null]
+    [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains <value>]
+    [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.in
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk...] [--filter.slaStatus.neq
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.nin
@@ -7133,9 +7210,10 @@ FLAGS
   --orderBy=<option>                                        <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs user_createdIssues
@@ -7150,44 +7228,45 @@ Runs user_delegatedIssues
 
 ```
 USAGE
-  $ linear user delegated-issues ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null] [--filter.addedToCyclePeriod.eq
-    after|before|during] [--filter.addedToCyclePeriod.in after|before|during...] [--filter.addedToCyclePeriod.neq
-    after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...] [--filter.addedToCyclePeriod.null]
-    [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null] [--filter.autoArchivedAt.null]
-    [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null] [--filter.creator.null]
-    [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>] [--filter.customerCount.gte <value>]
-    [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>] [--filter.customerCount.lte <value>]
-    [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...] [--filter.customerImportantCount.eq
-    <value>] [--filter.customerImportantCount.gt <value>] [--filter.customerImportantCount.gte <value>]
-    [--filter.customerImportantCount.in <value>...] [--filter.customerImportantCount.lt <value>]
-    [--filter.customerImportantCount.lte <value>] [--filter.customerImportantCount.neq <value>]
-    [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null] [--filter.cycleTime.null]
-    [--filter.delegate.null] [--filter.description.contains <value>] [--filter.description.containsIgnoreCase <value>]
-    [--filter.description.containsIgnoreCaseAndAccent <value>] [--filter.description.endsWith <value>]
-    [--filter.description.eq <value>] [--filter.description.eqIgnoreCase <value>] [--filter.description.in <value>...]
-    [--filter.description.neq <value>] [--filter.description.neqIgnoreCase <value>] [--filter.description.nin
-    <value>...] [--filter.description.notContains <value>] [--filter.description.notContainsIgnoreCase <value>]
-    [--filter.description.notEndsWith <value>] [--filter.description.notStartsWith <value>] [--filter.description.null]
-    [--filter.description.startsWith <value>] [--filter.description.startsWithIgnoreCase <value>]
-    [--filter.dueDate.null] [--filter.estimate.eq <value>] [--filter.estimate.gt <value>] [--filter.estimate.gte
-    <value>] [--filter.estimate.in <value>...] [--filter.estimate.lt <value>] [--filter.estimate.lte <value>]
-    [--filter.estimate.neq <value>] [--filter.estimate.nin <value>...] [--filter.estimate.null]
-    [--filter.hasBlockedByRelations.eq] [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq]
-    [--filter.hasBlockingRelations.neq] [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq]
-    [--filter.hasRelatedRelations.eq] [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq]
-    [--filter.hasSuggestedAssignees.neq] [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq]
-    [--filter.hasSuggestedProjects.eq] [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq]
-    [--filter.hasSuggestedRelatedIssues.neq] [--filter.hasSuggestedSimilarIssues.eq]
-    [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq] [--filter.hasSuggestedTeams.neq]
-    [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null] [--filter.number.eq <value>]
-    [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in <value>...] [--filter.number.lt
-    <value>] [--filter.number.lte <value>] [--filter.number.neq <value>] [--filter.number.nin <value>...]
-    [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt <value>] [--filter.priority.gte <value>]
-    [--filter.priority.in <value>...] [--filter.priority.lt <value>] [--filter.priority.lte <value>]
-    [--filter.priority.neq <value>] [--filter.priority.nin <value>...] [--filter.priority.null] [--filter.project.null]
-    [--filter.projectMilestone.null] [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains
-    <value>] [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
+  $ linear user delegated-issues ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null]
+    [--filter.addedToCyclePeriod.eq after|before|during] [--filter.addedToCyclePeriod.in after|before|during...]
+    [--filter.addedToCyclePeriod.neq after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...]
+    [--filter.addedToCyclePeriod.null] [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null]
+    [--filter.autoArchivedAt.null] [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null]
+    [--filter.creator.null] [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>]
+    [--filter.customerCount.gte <value>] [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>]
+    [--filter.customerCount.lte <value>] [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...]
+    [--filter.customerImportantCount.eq <value>] [--filter.customerImportantCount.gt <value>]
+    [--filter.customerImportantCount.gte <value>] [--filter.customerImportantCount.in <value>...]
+    [--filter.customerImportantCount.lt <value>] [--filter.customerImportantCount.lte <value>]
+    [--filter.customerImportantCount.neq <value>] [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null]
+    [--filter.cycleTime.null] [--filter.delegate.null] [--filter.description.contains <value>]
+    [--filter.description.containsIgnoreCase <value>] [--filter.description.containsIgnoreCaseAndAccent <value>]
+    [--filter.description.endsWith <value>] [--filter.description.eq <value>] [--filter.description.eqIgnoreCase
+    <value>] [--filter.description.in <value>...] [--filter.description.neq <value>] [--filter.description.neqIgnoreCase
+    <value>] [--filter.description.nin <value>...] [--filter.description.notContains <value>]
+    [--filter.description.notContainsIgnoreCase <value>] [--filter.description.notEndsWith <value>]
+    [--filter.description.notStartsWith <value>] [--filter.description.null] [--filter.description.startsWith <value>]
+    [--filter.description.startsWithIgnoreCase <value>] [--filter.dueDate.null] [--filter.estimate.eq <value>]
+    [--filter.estimate.gt <value>] [--filter.estimate.gte <value>] [--filter.estimate.in <value>...]
+    [--filter.estimate.lt <value>] [--filter.estimate.lte <value>] [--filter.estimate.neq <value>]
+    [--filter.estimate.nin <value>...] [--filter.estimate.null] [--filter.hasBlockedByRelations.eq]
+    [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq] [--filter.hasBlockingRelations.neq]
+    [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq] [--filter.hasRelatedRelations.eq]
+    [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq] [--filter.hasSuggestedAssignees.neq]
+    [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq] [--filter.hasSuggestedProjects.eq]
+    [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq] [--filter.hasSuggestedRelatedIssues.neq]
+    [--filter.hasSuggestedSimilarIssues.eq] [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq]
+    [--filter.hasSuggestedTeams.neq] [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null]
+    [--filter.number.eq <value>] [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in
+    <value>...] [--filter.number.lt <value>] [--filter.number.lte <value>] [--filter.number.neq <value>]
+    [--filter.number.nin <value>...] [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt
+    <value>] [--filter.priority.gte <value>] [--filter.priority.in <value>...] [--filter.priority.lt <value>]
+    [--filter.priority.lte <value>] [--filter.priority.neq <value>] [--filter.priority.nin <value>...]
+    [--filter.priority.null] [--filter.project.null] [--filter.projectMilestone.null]
+    [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains <value>]
+    [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.in
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk...] [--filter.slaStatus.neq
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.nin
@@ -7354,9 +7433,10 @@ FLAGS
   --orderBy=<option>                                        <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs user_delegatedIssues
@@ -7371,8 +7451,8 @@ Runs user_drafts
 
 ```
 USAGE
-  $ linear user drafts ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear user drafts ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -7383,9 +7463,10 @@ FLAGS
   --orderBy=<option>  <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs user_drafts
@@ -7400,30 +7481,30 @@ Runs users
 
 ```
 USAGE
-  $ linear user list [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.active.eq] [--filter.active.neq] [--filter.admin.eq] [--filter.admin.neq] [--filter.app.eq]
-    [--filter.app.neq] [--filter.displayName.contains <value>] [--filter.displayName.containsIgnoreCase <value>]
-    [--filter.displayName.containsIgnoreCaseAndAccent <value>] [--filter.displayName.endsWith <value>]
-    [--filter.displayName.eq <value>] [--filter.displayName.eqIgnoreCase <value>] [--filter.displayName.in <value>...]
-    [--filter.displayName.neq <value>] [--filter.displayName.neqIgnoreCase <value>] [--filter.displayName.nin
-    <value>...] [--filter.displayName.notContains <value>] [--filter.displayName.notContainsIgnoreCase <value>]
-    [--filter.displayName.notEndsWith <value>] [--filter.displayName.notStartsWith <value>]
-    [--filter.displayName.startsWith <value>] [--filter.displayName.startsWithIgnoreCase <value>]
-    [--filter.email.contains <value>] [--filter.email.containsIgnoreCase <value>]
-    [--filter.email.containsIgnoreCaseAndAccent <value>] [--filter.email.endsWith <value>] [--filter.email.eq <value>]
-    [--filter.email.eqIgnoreCase <value>] [--filter.email.in <value>...] [--filter.email.neq <value>]
-    [--filter.email.neqIgnoreCase <value>] [--filter.email.nin <value>...] [--filter.email.notContains <value>]
-    [--filter.email.notContainsIgnoreCase <value>] [--filter.email.notEndsWith <value>] [--filter.email.notStartsWith
-    <value>] [--filter.email.startsWith <value>] [--filter.email.startsWithIgnoreCase <value>] [--filter.invited.eq]
-    [--filter.invited.neq] [--filter.isInvited.eq] [--filter.isInvited.neq] [--filter.isMe.eq] [--filter.isMe.neq]
-    [--filter.name.contains <value>] [--filter.name.containsIgnoreCase <value>]
-    [--filter.name.containsIgnoreCaseAndAccent <value>] [--filter.name.endsWith <value>] [--filter.name.eq <value>]
-    [--filter.name.eqIgnoreCase <value>] [--filter.name.in <value>...] [--filter.name.neq <value>]
-    [--filter.name.neqIgnoreCase <value>] [--filter.name.nin <value>...] [--filter.name.notContains <value>]
-    [--filter.name.notContainsIgnoreCase <value>] [--filter.name.notEndsWith <value>] [--filter.name.notStartsWith
-    <value>] [--filter.name.startsWith <value>] [--filter.name.startsWithIgnoreCase <value>] [--filter.owner.eq]
-    [--filter.owner.neq] [--first <value>] [--includeArchived] [--includeDisabled] [--last <value>] [--orderBy
-    createdAt|updatedAt]
+  $ linear user list [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--filter.active.eq] [--filter.active.neq] [--filter.admin.eq] [--filter.admin.neq]
+    [--filter.app.eq] [--filter.app.neq] [--filter.displayName.contains <value>]
+    [--filter.displayName.containsIgnoreCase <value>] [--filter.displayName.containsIgnoreCaseAndAccent <value>]
+    [--filter.displayName.endsWith <value>] [--filter.displayName.eq <value>] [--filter.displayName.eqIgnoreCase
+    <value>] [--filter.displayName.in <value>...] [--filter.displayName.neq <value>] [--filter.displayName.neqIgnoreCase
+    <value>] [--filter.displayName.nin <value>...] [--filter.displayName.notContains <value>]
+    [--filter.displayName.notContainsIgnoreCase <value>] [--filter.displayName.notEndsWith <value>]
+    [--filter.displayName.notStartsWith <value>] [--filter.displayName.startsWith <value>]
+    [--filter.displayName.startsWithIgnoreCase <value>] [--filter.email.contains <value>]
+    [--filter.email.containsIgnoreCase <value>] [--filter.email.containsIgnoreCaseAndAccent <value>]
+    [--filter.email.endsWith <value>] [--filter.email.eq <value>] [--filter.email.eqIgnoreCase <value>]
+    [--filter.email.in <value>...] [--filter.email.neq <value>] [--filter.email.neqIgnoreCase <value>]
+    [--filter.email.nin <value>...] [--filter.email.notContains <value>] [--filter.email.notContainsIgnoreCase <value>]
+    [--filter.email.notEndsWith <value>] [--filter.email.notStartsWith <value>] [--filter.email.startsWith <value>]
+    [--filter.email.startsWithIgnoreCase <value>] [--filter.invited.eq] [--filter.invited.neq] [--filter.isInvited.eq]
+    [--filter.isInvited.neq] [--filter.isMe.eq] [--filter.isMe.neq] [--filter.name.contains <value>]
+    [--filter.name.containsIgnoreCase <value>] [--filter.name.containsIgnoreCaseAndAccent <value>]
+    [--filter.name.endsWith <value>] [--filter.name.eq <value>] [--filter.name.eqIgnoreCase <value>] [--filter.name.in
+    <value>...] [--filter.name.neq <value>] [--filter.name.neqIgnoreCase <value>] [--filter.name.nin <value>...]
+    [--filter.name.notContains <value>] [--filter.name.notContainsIgnoreCase <value>] [--filter.name.notEndsWith
+    <value>] [--filter.name.notStartsWith <value>] [--filter.name.startsWith <value>]
+    [--filter.name.startsWithIgnoreCase <value>] [--filter.owner.eq] [--filter.owner.neq] [--first <value>]
+    [--includeArchived] [--includeDisabled] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -7497,9 +7578,10 @@ FLAGS
   --orderBy=<option>                                        <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs users
@@ -7514,8 +7596,8 @@ Runs user_teamMemberships
 
 ```
 USAGE
-  $ linear user team-memberships ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear user team-memberships ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -7526,9 +7608,10 @@ FLAGS
   --orderBy=<option>  <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs user_teamMemberships
@@ -7543,9 +7626,9 @@ Runs user_teams
 
 ```
 USAGE
-  $ linear user teams ID [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.description.contains <value>] [--filter.description.containsIgnoreCase <value>]
-    [--filter.description.containsIgnoreCaseAndAccent <value>] [--filter.description.endsWith <value>]
+  $ linear user teams ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after
+    <value>] [--before <value>] [--filter.description.contains <value>] [--filter.description.containsIgnoreCase
+    <value>] [--filter.description.containsIgnoreCaseAndAccent <value>] [--filter.description.endsWith <value>]
     [--filter.description.eq <value>] [--filter.description.eqIgnoreCase <value>] [--filter.description.in <value>...]
     [--filter.description.neq <value>] [--filter.description.neqIgnoreCase <value>] [--filter.description.nin
     <value>...] [--filter.description.notContains <value>] [--filter.description.notContainsIgnoreCase <value>]
@@ -7626,9 +7709,10 @@ FLAGS
   --orderBy=<option>                                        <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs user_teams
@@ -7643,12 +7727,13 @@ Runs user
 
 ```
 USAGE
-  $ linear user view ID [--json] [--api-key <value>] [--api-url <value>]
+  $ linear user view ID [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs user
@@ -7663,12 +7748,13 @@ Runs viewer
 
 ```
 USAGE
-  $ linear viewer [--json] [--api-key <value>] [--api-url <value>]
+  $ linear viewer [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>]
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs viewer
@@ -7683,44 +7769,45 @@ Runs viewer_assignedIssues
 
 ```
 USAGE
-  $ linear viewer assigned-issues [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null] [--filter.addedToCyclePeriod.eq
-    after|before|during] [--filter.addedToCyclePeriod.in after|before|during...] [--filter.addedToCyclePeriod.neq
-    after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...] [--filter.addedToCyclePeriod.null]
-    [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null] [--filter.autoArchivedAt.null]
-    [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null] [--filter.creator.null]
-    [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>] [--filter.customerCount.gte <value>]
-    [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>] [--filter.customerCount.lte <value>]
-    [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...] [--filter.customerImportantCount.eq
-    <value>] [--filter.customerImportantCount.gt <value>] [--filter.customerImportantCount.gte <value>]
-    [--filter.customerImportantCount.in <value>...] [--filter.customerImportantCount.lt <value>]
-    [--filter.customerImportantCount.lte <value>] [--filter.customerImportantCount.neq <value>]
-    [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null] [--filter.cycleTime.null]
-    [--filter.delegate.null] [--filter.description.contains <value>] [--filter.description.containsIgnoreCase <value>]
-    [--filter.description.containsIgnoreCaseAndAccent <value>] [--filter.description.endsWith <value>]
-    [--filter.description.eq <value>] [--filter.description.eqIgnoreCase <value>] [--filter.description.in <value>...]
-    [--filter.description.neq <value>] [--filter.description.neqIgnoreCase <value>] [--filter.description.nin
-    <value>...] [--filter.description.notContains <value>] [--filter.description.notContainsIgnoreCase <value>]
-    [--filter.description.notEndsWith <value>] [--filter.description.notStartsWith <value>] [--filter.description.null]
-    [--filter.description.startsWith <value>] [--filter.description.startsWithIgnoreCase <value>]
-    [--filter.dueDate.null] [--filter.estimate.eq <value>] [--filter.estimate.gt <value>] [--filter.estimate.gte
-    <value>] [--filter.estimate.in <value>...] [--filter.estimate.lt <value>] [--filter.estimate.lte <value>]
-    [--filter.estimate.neq <value>] [--filter.estimate.nin <value>...] [--filter.estimate.null]
-    [--filter.hasBlockedByRelations.eq] [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq]
-    [--filter.hasBlockingRelations.neq] [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq]
-    [--filter.hasRelatedRelations.eq] [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq]
-    [--filter.hasSuggestedAssignees.neq] [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq]
-    [--filter.hasSuggestedProjects.eq] [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq]
-    [--filter.hasSuggestedRelatedIssues.neq] [--filter.hasSuggestedSimilarIssues.eq]
-    [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq] [--filter.hasSuggestedTeams.neq]
-    [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null] [--filter.number.eq <value>]
-    [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in <value>...] [--filter.number.lt
-    <value>] [--filter.number.lte <value>] [--filter.number.neq <value>] [--filter.number.nin <value>...]
-    [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt <value>] [--filter.priority.gte <value>]
-    [--filter.priority.in <value>...] [--filter.priority.lt <value>] [--filter.priority.lte <value>]
-    [--filter.priority.neq <value>] [--filter.priority.nin <value>...] [--filter.priority.null] [--filter.project.null]
-    [--filter.projectMilestone.null] [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains
-    <value>] [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
+  $ linear viewer assigned-issues [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null]
+    [--filter.addedToCyclePeriod.eq after|before|during] [--filter.addedToCyclePeriod.in after|before|during...]
+    [--filter.addedToCyclePeriod.neq after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...]
+    [--filter.addedToCyclePeriod.null] [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null]
+    [--filter.autoArchivedAt.null] [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null]
+    [--filter.creator.null] [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>]
+    [--filter.customerCount.gte <value>] [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>]
+    [--filter.customerCount.lte <value>] [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...]
+    [--filter.customerImportantCount.eq <value>] [--filter.customerImportantCount.gt <value>]
+    [--filter.customerImportantCount.gte <value>] [--filter.customerImportantCount.in <value>...]
+    [--filter.customerImportantCount.lt <value>] [--filter.customerImportantCount.lte <value>]
+    [--filter.customerImportantCount.neq <value>] [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null]
+    [--filter.cycleTime.null] [--filter.delegate.null] [--filter.description.contains <value>]
+    [--filter.description.containsIgnoreCase <value>] [--filter.description.containsIgnoreCaseAndAccent <value>]
+    [--filter.description.endsWith <value>] [--filter.description.eq <value>] [--filter.description.eqIgnoreCase
+    <value>] [--filter.description.in <value>...] [--filter.description.neq <value>] [--filter.description.neqIgnoreCase
+    <value>] [--filter.description.nin <value>...] [--filter.description.notContains <value>]
+    [--filter.description.notContainsIgnoreCase <value>] [--filter.description.notEndsWith <value>]
+    [--filter.description.notStartsWith <value>] [--filter.description.null] [--filter.description.startsWith <value>]
+    [--filter.description.startsWithIgnoreCase <value>] [--filter.dueDate.null] [--filter.estimate.eq <value>]
+    [--filter.estimate.gt <value>] [--filter.estimate.gte <value>] [--filter.estimate.in <value>...]
+    [--filter.estimate.lt <value>] [--filter.estimate.lte <value>] [--filter.estimate.neq <value>]
+    [--filter.estimate.nin <value>...] [--filter.estimate.null] [--filter.hasBlockedByRelations.eq]
+    [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq] [--filter.hasBlockingRelations.neq]
+    [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq] [--filter.hasRelatedRelations.eq]
+    [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq] [--filter.hasSuggestedAssignees.neq]
+    [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq] [--filter.hasSuggestedProjects.eq]
+    [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq] [--filter.hasSuggestedRelatedIssues.neq]
+    [--filter.hasSuggestedSimilarIssues.eq] [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq]
+    [--filter.hasSuggestedTeams.neq] [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null]
+    [--filter.number.eq <value>] [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in
+    <value>...] [--filter.number.lt <value>] [--filter.number.lte <value>] [--filter.number.neq <value>]
+    [--filter.number.nin <value>...] [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt
+    <value>] [--filter.priority.gte <value>] [--filter.priority.in <value>...] [--filter.priority.lt <value>]
+    [--filter.priority.lte <value>] [--filter.priority.neq <value>] [--filter.priority.nin <value>...]
+    [--filter.priority.null] [--filter.project.null] [--filter.projectMilestone.null]
+    [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains <value>]
+    [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.in
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk...] [--filter.slaStatus.neq
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.nin
@@ -7887,9 +7974,10 @@ FLAGS
   --orderBy=<option>                                        <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs viewer_assignedIssues
@@ -7904,44 +7992,45 @@ Runs viewer_createdIssues
 
 ```
 USAGE
-  $ linear viewer created-issues [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null] [--filter.addedToCyclePeriod.eq
-    after|before|during] [--filter.addedToCyclePeriod.in after|before|during...] [--filter.addedToCyclePeriod.neq
-    after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...] [--filter.addedToCyclePeriod.null]
-    [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null] [--filter.autoArchivedAt.null]
-    [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null] [--filter.creator.null]
-    [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>] [--filter.customerCount.gte <value>]
-    [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>] [--filter.customerCount.lte <value>]
-    [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...] [--filter.customerImportantCount.eq
-    <value>] [--filter.customerImportantCount.gt <value>] [--filter.customerImportantCount.gte <value>]
-    [--filter.customerImportantCount.in <value>...] [--filter.customerImportantCount.lt <value>]
-    [--filter.customerImportantCount.lte <value>] [--filter.customerImportantCount.neq <value>]
-    [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null] [--filter.cycleTime.null]
-    [--filter.delegate.null] [--filter.description.contains <value>] [--filter.description.containsIgnoreCase <value>]
-    [--filter.description.containsIgnoreCaseAndAccent <value>] [--filter.description.endsWith <value>]
-    [--filter.description.eq <value>] [--filter.description.eqIgnoreCase <value>] [--filter.description.in <value>...]
-    [--filter.description.neq <value>] [--filter.description.neqIgnoreCase <value>] [--filter.description.nin
-    <value>...] [--filter.description.notContains <value>] [--filter.description.notContainsIgnoreCase <value>]
-    [--filter.description.notEndsWith <value>] [--filter.description.notStartsWith <value>] [--filter.description.null]
-    [--filter.description.startsWith <value>] [--filter.description.startsWithIgnoreCase <value>]
-    [--filter.dueDate.null] [--filter.estimate.eq <value>] [--filter.estimate.gt <value>] [--filter.estimate.gte
-    <value>] [--filter.estimate.in <value>...] [--filter.estimate.lt <value>] [--filter.estimate.lte <value>]
-    [--filter.estimate.neq <value>] [--filter.estimate.nin <value>...] [--filter.estimate.null]
-    [--filter.hasBlockedByRelations.eq] [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq]
-    [--filter.hasBlockingRelations.neq] [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq]
-    [--filter.hasRelatedRelations.eq] [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq]
-    [--filter.hasSuggestedAssignees.neq] [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq]
-    [--filter.hasSuggestedProjects.eq] [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq]
-    [--filter.hasSuggestedRelatedIssues.neq] [--filter.hasSuggestedSimilarIssues.eq]
-    [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq] [--filter.hasSuggestedTeams.neq]
-    [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null] [--filter.number.eq <value>]
-    [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in <value>...] [--filter.number.lt
-    <value>] [--filter.number.lte <value>] [--filter.number.neq <value>] [--filter.number.nin <value>...]
-    [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt <value>] [--filter.priority.gte <value>]
-    [--filter.priority.in <value>...] [--filter.priority.lt <value>] [--filter.priority.lte <value>]
-    [--filter.priority.neq <value>] [--filter.priority.nin <value>...] [--filter.priority.null] [--filter.project.null]
-    [--filter.projectMilestone.null] [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains
-    <value>] [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
+  $ linear viewer created-issues [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null]
+    [--filter.addedToCyclePeriod.eq after|before|during] [--filter.addedToCyclePeriod.in after|before|during...]
+    [--filter.addedToCyclePeriod.neq after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...]
+    [--filter.addedToCyclePeriod.null] [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null]
+    [--filter.autoArchivedAt.null] [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null]
+    [--filter.creator.null] [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>]
+    [--filter.customerCount.gte <value>] [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>]
+    [--filter.customerCount.lte <value>] [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...]
+    [--filter.customerImportantCount.eq <value>] [--filter.customerImportantCount.gt <value>]
+    [--filter.customerImportantCount.gte <value>] [--filter.customerImportantCount.in <value>...]
+    [--filter.customerImportantCount.lt <value>] [--filter.customerImportantCount.lte <value>]
+    [--filter.customerImportantCount.neq <value>] [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null]
+    [--filter.cycleTime.null] [--filter.delegate.null] [--filter.description.contains <value>]
+    [--filter.description.containsIgnoreCase <value>] [--filter.description.containsIgnoreCaseAndAccent <value>]
+    [--filter.description.endsWith <value>] [--filter.description.eq <value>] [--filter.description.eqIgnoreCase
+    <value>] [--filter.description.in <value>...] [--filter.description.neq <value>] [--filter.description.neqIgnoreCase
+    <value>] [--filter.description.nin <value>...] [--filter.description.notContains <value>]
+    [--filter.description.notContainsIgnoreCase <value>] [--filter.description.notEndsWith <value>]
+    [--filter.description.notStartsWith <value>] [--filter.description.null] [--filter.description.startsWith <value>]
+    [--filter.description.startsWithIgnoreCase <value>] [--filter.dueDate.null] [--filter.estimate.eq <value>]
+    [--filter.estimate.gt <value>] [--filter.estimate.gte <value>] [--filter.estimate.in <value>...]
+    [--filter.estimate.lt <value>] [--filter.estimate.lte <value>] [--filter.estimate.neq <value>]
+    [--filter.estimate.nin <value>...] [--filter.estimate.null] [--filter.hasBlockedByRelations.eq]
+    [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq] [--filter.hasBlockingRelations.neq]
+    [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq] [--filter.hasRelatedRelations.eq]
+    [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq] [--filter.hasSuggestedAssignees.neq]
+    [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq] [--filter.hasSuggestedProjects.eq]
+    [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq] [--filter.hasSuggestedRelatedIssues.neq]
+    [--filter.hasSuggestedSimilarIssues.eq] [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq]
+    [--filter.hasSuggestedTeams.neq] [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null]
+    [--filter.number.eq <value>] [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in
+    <value>...] [--filter.number.lt <value>] [--filter.number.lte <value>] [--filter.number.neq <value>]
+    [--filter.number.nin <value>...] [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt
+    <value>] [--filter.priority.gte <value>] [--filter.priority.in <value>...] [--filter.priority.lt <value>]
+    [--filter.priority.lte <value>] [--filter.priority.neq <value>] [--filter.priority.nin <value>...]
+    [--filter.priority.null] [--filter.project.null] [--filter.projectMilestone.null]
+    [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains <value>]
+    [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.in
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk...] [--filter.slaStatus.neq
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.nin
@@ -8108,9 +8197,10 @@ FLAGS
   --orderBy=<option>                                        <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs viewer_createdIssues
@@ -8125,44 +8215,45 @@ Runs viewer_delegatedIssues
 
 ```
 USAGE
-  $ linear viewer delegated-issues [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null] [--filter.addedToCyclePeriod.eq
-    after|before|during] [--filter.addedToCyclePeriod.in after|before|during...] [--filter.addedToCyclePeriod.neq
-    after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...] [--filter.addedToCyclePeriod.null]
-    [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null] [--filter.autoArchivedAt.null]
-    [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null] [--filter.creator.null]
-    [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>] [--filter.customerCount.gte <value>]
-    [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>] [--filter.customerCount.lte <value>]
-    [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...] [--filter.customerImportantCount.eq
-    <value>] [--filter.customerImportantCount.gt <value>] [--filter.customerImportantCount.gte <value>]
-    [--filter.customerImportantCount.in <value>...] [--filter.customerImportantCount.lt <value>]
-    [--filter.customerImportantCount.lte <value>] [--filter.customerImportantCount.neq <value>]
-    [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null] [--filter.cycleTime.null]
-    [--filter.delegate.null] [--filter.description.contains <value>] [--filter.description.containsIgnoreCase <value>]
-    [--filter.description.containsIgnoreCaseAndAccent <value>] [--filter.description.endsWith <value>]
-    [--filter.description.eq <value>] [--filter.description.eqIgnoreCase <value>] [--filter.description.in <value>...]
-    [--filter.description.neq <value>] [--filter.description.neqIgnoreCase <value>] [--filter.description.nin
-    <value>...] [--filter.description.notContains <value>] [--filter.description.notContainsIgnoreCase <value>]
-    [--filter.description.notEndsWith <value>] [--filter.description.notStartsWith <value>] [--filter.description.null]
-    [--filter.description.startsWith <value>] [--filter.description.startsWithIgnoreCase <value>]
-    [--filter.dueDate.null] [--filter.estimate.eq <value>] [--filter.estimate.gt <value>] [--filter.estimate.gte
-    <value>] [--filter.estimate.in <value>...] [--filter.estimate.lt <value>] [--filter.estimate.lte <value>]
-    [--filter.estimate.neq <value>] [--filter.estimate.nin <value>...] [--filter.estimate.null]
-    [--filter.hasBlockedByRelations.eq] [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq]
-    [--filter.hasBlockingRelations.neq] [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq]
-    [--filter.hasRelatedRelations.eq] [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq]
-    [--filter.hasSuggestedAssignees.neq] [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq]
-    [--filter.hasSuggestedProjects.eq] [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq]
-    [--filter.hasSuggestedRelatedIssues.neq] [--filter.hasSuggestedSimilarIssues.eq]
-    [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq] [--filter.hasSuggestedTeams.neq]
-    [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null] [--filter.number.eq <value>]
-    [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in <value>...] [--filter.number.lt
-    <value>] [--filter.number.lte <value>] [--filter.number.neq <value>] [--filter.number.nin <value>...]
-    [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt <value>] [--filter.priority.gte <value>]
-    [--filter.priority.in <value>...] [--filter.priority.lt <value>] [--filter.priority.lte <value>]
-    [--filter.priority.neq <value>] [--filter.priority.nin <value>...] [--filter.priority.null] [--filter.project.null]
-    [--filter.projectMilestone.null] [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains
-    <value>] [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
+  $ linear viewer delegated-issues [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--filter.accumulatedStateUpdatedAt.null] [--filter.addedToCycleAt.null]
+    [--filter.addedToCyclePeriod.eq after|before|during] [--filter.addedToCyclePeriod.in after|before|during...]
+    [--filter.addedToCyclePeriod.neq after|before|during] [--filter.addedToCyclePeriod.nin after|before|during...]
+    [--filter.addedToCyclePeriod.null] [--filter.ageTime.null] [--filter.archivedAt.null] [--filter.assignee.null]
+    [--filter.autoArchivedAt.null] [--filter.autoClosedAt.null] [--filter.canceledAt.null] [--filter.completedAt.null]
+    [--filter.creator.null] [--filter.customerCount.eq <value>] [--filter.customerCount.gt <value>]
+    [--filter.customerCount.gte <value>] [--filter.customerCount.in <value>...] [--filter.customerCount.lt <value>]
+    [--filter.customerCount.lte <value>] [--filter.customerCount.neq <value>] [--filter.customerCount.nin <value>...]
+    [--filter.customerImportantCount.eq <value>] [--filter.customerImportantCount.gt <value>]
+    [--filter.customerImportantCount.gte <value>] [--filter.customerImportantCount.in <value>...]
+    [--filter.customerImportantCount.lt <value>] [--filter.customerImportantCount.lte <value>]
+    [--filter.customerImportantCount.neq <value>] [--filter.customerImportantCount.nin <value>...] [--filter.cycle.null]
+    [--filter.cycleTime.null] [--filter.delegate.null] [--filter.description.contains <value>]
+    [--filter.description.containsIgnoreCase <value>] [--filter.description.containsIgnoreCaseAndAccent <value>]
+    [--filter.description.endsWith <value>] [--filter.description.eq <value>] [--filter.description.eqIgnoreCase
+    <value>] [--filter.description.in <value>...] [--filter.description.neq <value>] [--filter.description.neqIgnoreCase
+    <value>] [--filter.description.nin <value>...] [--filter.description.notContains <value>]
+    [--filter.description.notContainsIgnoreCase <value>] [--filter.description.notEndsWith <value>]
+    [--filter.description.notStartsWith <value>] [--filter.description.null] [--filter.description.startsWith <value>]
+    [--filter.description.startsWithIgnoreCase <value>] [--filter.dueDate.null] [--filter.estimate.eq <value>]
+    [--filter.estimate.gt <value>] [--filter.estimate.gte <value>] [--filter.estimate.in <value>...]
+    [--filter.estimate.lt <value>] [--filter.estimate.lte <value>] [--filter.estimate.neq <value>]
+    [--filter.estimate.nin <value>...] [--filter.estimate.null] [--filter.hasBlockedByRelations.eq]
+    [--filter.hasBlockedByRelations.neq] [--filter.hasBlockingRelations.eq] [--filter.hasBlockingRelations.neq]
+    [--filter.hasDuplicateRelations.eq] [--filter.hasDuplicateRelations.neq] [--filter.hasRelatedRelations.eq]
+    [--filter.hasRelatedRelations.neq] [--filter.hasSuggestedAssignees.eq] [--filter.hasSuggestedAssignees.neq]
+    [--filter.hasSuggestedLabels.eq] [--filter.hasSuggestedLabels.neq] [--filter.hasSuggestedProjects.eq]
+    [--filter.hasSuggestedProjects.neq] [--filter.hasSuggestedRelatedIssues.eq] [--filter.hasSuggestedRelatedIssues.neq]
+    [--filter.hasSuggestedSimilarIssues.eq] [--filter.hasSuggestedSimilarIssues.neq] [--filter.hasSuggestedTeams.eq]
+    [--filter.hasSuggestedTeams.neq] [--filter.labels.null] [--filter.lastAppliedTemplate.null] [--filter.leadTime.null]
+    [--filter.number.eq <value>] [--filter.number.gt <value>] [--filter.number.gte <value>] [--filter.number.in
+    <value>...] [--filter.number.lt <value>] [--filter.number.lte <value>] [--filter.number.neq <value>]
+    [--filter.number.nin <value>...] [--filter.parent.null] [--filter.priority.eq <value>] [--filter.priority.gt
+    <value>] [--filter.priority.gte <value>] [--filter.priority.in <value>...] [--filter.priority.lt <value>]
+    [--filter.priority.lte <value>] [--filter.priority.neq <value>] [--filter.priority.nin <value>...]
+    [--filter.priority.null] [--filter.project.null] [--filter.projectMilestone.null]
+    [--filter.recurringIssueTemplate.null] [--filter.searchableContent.contains <value>]
+    [--filter.searchableContent.notContains <value>] [--filter.slaStatus.eq
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.in
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk...] [--filter.slaStatus.neq
     Breached|Completed|Failed|HighRisk|LowRisk|MediumRisk] [--filter.slaStatus.nin
@@ -8329,9 +8420,10 @@ FLAGS
   --orderBy=<option>                                        <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs viewer_delegatedIssues
@@ -8346,8 +8438,8 @@ Runs viewer_drafts
 
 ```
 USAGE
-  $ linear viewer drafts [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear viewer drafts [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -8358,9 +8450,10 @@ FLAGS
   --orderBy=<option>  <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs viewer_drafts
@@ -8375,8 +8468,8 @@ Runs viewer_teamMemberships
 
 ```
 USAGE
-  $ linear viewer team-memberships [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
+  $ linear viewer team-memberships [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--first <value>] [--includeArchived] [--last <value>] [--orderBy createdAt|updatedAt]
 
 FLAGS
   --after=<value>
@@ -8387,9 +8480,10 @@ FLAGS
   --orderBy=<option>  <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs viewer_teamMemberships
@@ -8404,8 +8498,8 @@ Runs viewer_teams
 
 ```
 USAGE
-  $ linear viewer teams [--json] [--api-key <value>] [--api-url <value>] [--after <value>] [--before <value>]
-    [--filter.description.contains <value>] [--filter.description.containsIgnoreCase <value>]
+  $ linear viewer teams [--json] [--api-key <value>] [--api-url <value>] [--linear-url <value>] [--after <value>]
+    [--before <value>] [--filter.description.contains <value>] [--filter.description.containsIgnoreCase <value>]
     [--filter.description.containsIgnoreCaseAndAccent <value>] [--filter.description.endsWith <value>]
     [--filter.description.eq <value>] [--filter.description.eqIgnoreCase <value>] [--filter.description.in <value>...]
     [--filter.description.neq <value>] [--filter.description.neqIgnoreCase <value>] [--filter.description.nin
@@ -8487,9 +8581,10 @@ FLAGS
   --orderBy=<option>                                        <options: createdAt|updatedAt>
 
 GLOBAL FLAGS
-  --api-key=<value>  [env: LINEAR_API_KEY] Use the given API key for authentication.
-  --api-url=<value>  [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
-  --json             Format output as json.
+  --api-key=<value>     [env: LINEAR_API_KEY] Use the given API key for authentication.
+  --api-url=<value>     [default: https://api.linear.app, env: LINEAR_API_URL] Linear API server URL
+  --json                Format output as json.
+  --linear-url=<value>  [default: https://linear.app, env: LINEAR_URL] Linear instance URL
 
 DESCRIPTION
   Runs viewer_teams
