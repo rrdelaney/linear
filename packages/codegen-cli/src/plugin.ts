@@ -12,6 +12,7 @@ import {
   TypeNode,
   visit,
   visitWithTypeInfo,
+  Location,
 } from "graphql";
 import { CliPluginConfig } from "./types";
 
@@ -88,6 +89,7 @@ function classDefinitionForOperation(
     throw new Error("Cannot create command class for anonymous operation definition!");
   }
 
+  const description = descriptionForLoc(operation.loc) ?? `Runs ${opName}`;
   const documentNode = createDocumentForOperation(operation, schema, fragmentDefinitions);
   let allFlags = getFlagsForOperation(operation, schema);
 
@@ -111,6 +113,7 @@ function classDefinitionForOperation(
     "${positionalArg.name}": Args.${positionalArg.type}(${JSON.stringify({
       required: true,
       options: positionalArg.options,
+      description: positionalArg.description,
     })}),
   };
 `
@@ -126,6 +129,7 @@ ${flags
       multiple: flag.multiple,
       required: flag.required,
       options: flag.options,
+      description: flag.description,
     })}),`;
   })
   .join("\n")}
@@ -134,7 +138,7 @@ ${flags
       : "";
 
   return `class LinearCommand_${opName} extends LinearCommand {
-  public static override description = 'Runs ${opName}';
+  public static override description = ${JSON.stringify(description)};
   public static override enableJsonFlag = true;
   public static override examples = ['<%= config.bin %> <%= command.id %>'];
 ${argsSection}${flagsSection}
@@ -175,13 +179,20 @@ interface CommandFlag {
   required: boolean;
   multiple: undefined | true;
   options: string[] | undefined;
+  description: string | undefined;
 }
 
 function getFlagsForOperation(operation: OperationDefinitionNode, schema: GraphQLSchema): CommandFlag[] {
   return (
-    operation.variableDefinitions?.flatMap(def =>
-      flagsFromVariable(def.type, schema, operation, [def.variable.name.value])
-    ) ?? []
+    operation.variableDefinitions?.flatMap(def => {
+      return flagsFromVariable(
+        def.type,
+        schema,
+        operation,
+        [def.variable.name.value],
+        descriptionForLoc(def.variable.loc)
+      );
+    }) ?? []
   );
 }
 
@@ -220,7 +231,8 @@ function flagsFromVariable(
   t: TypeNode,
   schema: GraphQLSchema,
   operation: OperationDefinitionNode,
-  path: string[]
+  path: string[],
+  description?: string
 ): CommandFlag[] {
   // Prevent creation of infinitely nested types.
   if (path.length > 3) {
@@ -263,6 +275,7 @@ function flagsFromVariable(
           name: path.join("."),
           multiple: true,
           required: false,
+          description,
         },
       ];
     }
@@ -281,7 +294,13 @@ function flagsFromVariable(
         // is the case.
         return (
           namedType.fields?.flatMap(field => {
-            return flagsFromVariable(field.type, schema, operation, [...path, field.name.value]);
+            return flagsFromVariable(
+              field.type,
+              schema,
+              operation,
+              [...path, field.name.value],
+              field.description?.value
+            );
           }) ?? []
         );
       }
@@ -294,6 +313,7 @@ function flagsFromVariable(
             name: path.join("."),
             multiple: undefined,
             required: true,
+            description,
           },
         ];
       }
@@ -310,6 +330,7 @@ function flagsFromVariable(
             name: path.join("."),
             multiple: undefined,
             required: false,
+            description,
           },
         ];
       }
@@ -322,7 +343,13 @@ function flagsFromVariable(
 
       return (
         namedType.fields?.flatMap(field => {
-          return flagsFromVariable(field.type, schema, operation, [...path, field.name.value]);
+          return flagsFromVariable(
+            field.type,
+            schema,
+            operation,
+            [...path, field.name.value],
+            field.description?.value
+          );
         }) ?? []
       );
     }
@@ -465,4 +492,16 @@ function commandNameForOperation(operation: OperationDefinitionNode, config: Cli
 
 function kebabify(str: string): string {
   return str.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`);
+}
+
+function descriptionForLoc(loc?: Location) {
+  const lineStart = loc?.startToken.line;
+  if (lineStart) {
+    const commentLine = loc.source.body.split("\n")[lineStart - 2].trim();
+    if (commentLine.startsWith("# ")) {
+      return commentLine.replace("# ", "");
+    }
+  }
+
+  return undefined;
 }

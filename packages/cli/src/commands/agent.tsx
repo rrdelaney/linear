@@ -322,7 +322,8 @@ async function* runPrompt(conversationId: string, message: string, linearClient:
     } else {
       const { success, data } = AiMessageReponseChunkData.safeParse(JSON.parse(chunk.data));
       if (!success) {
-        this.log(`Could not parse data chunk: ${chunk.data}`);
+        // eslint-disable-next-line no-console
+        console.error(`Could not parse data chunk: ${chunk.data}`);
       }
 
       yield data;
