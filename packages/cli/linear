@@ -1,5 +1,3 @@
-#!/usr/bin/env node --use-system-ca
-
-import {execute} from '@oclif/core'
-
-await execute({dir: import.meta.url})
+#!/usr/bin/env sh
+export NODE_OPTIONS="--disable-warning=DEP0040 --use-system-ca"
+./bin/run.js "$@"

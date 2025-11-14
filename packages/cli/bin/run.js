@@ -1,4 +1,4 @@
-#!/usr/bin/env node --use-system-ca --disable-warning=DEP0040
+#!/usr/bin/env node
 
 import { execute } from "@oclif/core";
 

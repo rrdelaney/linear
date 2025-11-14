@@ -253,7 +253,7 @@ export abstract class LinearCommand extends Command {
 
   /** Returns a LinearClient initialized from flags and env vars. */
   protected async getLinearClient(accessToken?: string): Promise<LinearClient> {
-    if (!this.linearClient) {
+    if (!this.linearClient || accessToken) {
       this.linearClient = (async () => {
         const { flags } = await this.parse({
           baseFlags: LinearCommand.baseFlags,
