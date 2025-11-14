@@ -155,7 +155,7 @@ ${argsSection}${flagsSection}
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith('api-') || path === 'json') {
+      if (path.startsWith('api-') || path === 'linear-url' || path === 'json') {
         continue;
       }
 

@@ -27,7 +27,7 @@ COMMANDS["comment:view"] = class LinearCommand_comment extends LinearCommand {
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -367,7 +367,7 @@ COMMANDS["comment:children"] = class LinearCommand_comment_children extends Line
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -1125,7 +1125,7 @@ COMMANDS["comment:created-issues"] = class LinearCommand_comment_createdIssues e
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -1395,7 +1395,7 @@ COMMANDS["comment:document-content"] = class LinearCommand_comment_documentConte
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -1485,7 +1485,7 @@ COMMANDS["comment:document-content:ai-prompt-rules"] =
       }
 
       for (const [path, value] of Object.entries(flags)) {
-        if (path.startsWith("api-") || path === "json") {
+        if (path.startsWith("api-") || path === "linear-url" || path === "json") {
           continue;
         }
 
@@ -1543,7 +1543,7 @@ COMMANDS["comment:external-thread"] = class LinearCommand_comment_externalThread
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -1689,7 +1689,7 @@ COMMANDS["comment:list"] = class LinearCommand_comments extends LinearCommand {
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -1962,7 +1962,7 @@ COMMANDS["cycle:view"] = class LinearCommand_cycle extends LinearCommand {
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -2520,7 +2520,7 @@ COMMANDS["cycle:issues"] = class LinearCommand_cycle_issues extends LinearComman
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -3276,7 +3276,7 @@ COMMANDS["cycle:uncompleted-issues-upon-close"] = class LinearCommand_cycle_unco
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -3653,7 +3653,7 @@ COMMANDS["cycle:list"] = class LinearCommand_cycles extends LinearCommand {
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -3752,7 +3752,7 @@ COMMANDS["document:view"] = class LinearCommand_document extends LinearCommand {
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -3931,7 +3931,7 @@ COMMANDS["document:comments"] = class LinearCommand_document_comments extends Li
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -4337,7 +4337,7 @@ COMMANDS["document:list"] = class LinearCommand_documents extends LinearCommand 
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -4447,7 +4447,7 @@ COMMANDS["initiative:view"] = class LinearCommand_initiative extends LinearComma
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -4584,7 +4584,7 @@ COMMANDS["initiative:document-content"] = class LinearCommand_initiative_documen
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -4673,7 +4673,7 @@ COMMANDS["initiative:document-content:ai-prompt-rules"] =
       }
 
       for (const [path, value] of Object.entries(flags)) {
-        if (path.startsWith("api-") || path === "json") {
+        if (path.startsWith("api-") || path === "linear-url" || path === "json") {
           continue;
         }
 
@@ -4865,7 +4865,7 @@ COMMANDS["initiative:documents"] = class LinearCommand_initiative_documents exte
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -5000,7 +5000,7 @@ COMMANDS["initiative:history"] = class LinearCommand_initiative_history extends 
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -5102,7 +5102,7 @@ COMMANDS["initiative:links"] = class LinearCommand_initiative_links extends Line
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -5696,7 +5696,7 @@ COMMANDS["initiative:projects"] = class LinearCommand_initiative_projects extend
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -6275,7 +6275,7 @@ COMMANDS["initiative:sub-initiatives"] = class LinearCommand_initiative_subIniti
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -6441,7 +6441,7 @@ COMMANDS["initiative-update:view"] = class LinearCommand_initiativeUpdate extend
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -6636,7 +6636,7 @@ COMMANDS["initiative-update:comments"] = class LinearCommand_initiativeUpdate_co
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -6930,7 +6930,7 @@ COMMANDS["initiative-update:list"] = class LinearCommand_initiativeUpdates exten
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -7432,7 +7432,7 @@ COMMANDS["initiative:list"] = class LinearCommand_initiatives extends LinearComm
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -7596,7 +7596,7 @@ COMMANDS["issue:view"] = class LinearCommand_issue extends LinearCommand {
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -8093,7 +8093,7 @@ COMMANDS["issue:attachments"] = class LinearCommand_issue_attachments extends Li
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -8197,7 +8197,7 @@ COMMANDS["issue:bot-actor"] = class LinearCommand_issue_botActor extends LinearC
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -8736,7 +8736,7 @@ COMMANDS["issue:children"] = class LinearCommand_issue_children extends LinearCo
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -9102,7 +9102,7 @@ COMMANDS["issue:comments"] = class LinearCommand_issue_comments extends LinearCo
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -9514,7 +9514,7 @@ COMMANDS["issue:documents"] = class LinearCommand_issue_documents extends Linear
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -9885,7 +9885,7 @@ COMMANDS["issue:former-attachments"] = class LinearCommand_issue_formerAttachmen
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -10050,7 +10050,7 @@ COMMANDS["issue:former-needs"] = class LinearCommand_issue_formerNeeds extends L
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -10205,7 +10205,7 @@ COMMANDS["issue:history"] = class LinearCommand_issue_history extends LinearComm
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -10549,7 +10549,7 @@ COMMANDS["issue:inverse-relations"] = class LinearCommand_issue_inverseRelations
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -10726,7 +10726,7 @@ COMMANDS["issue:labels"] = class LinearCommand_issue_labels extends LinearComman
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -10889,7 +10889,7 @@ COMMANDS["issue:needs"] = class LinearCommand_issue_needs extends LinearCommand 
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -11044,7 +11044,7 @@ COMMANDS["issue:relations"] = class LinearCommand_issue_relations extends Linear
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -11345,7 +11345,7 @@ COMMANDS["issue:subscribers"] = class LinearCommand_issue_subscribers extends Li
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -11935,7 +11935,7 @@ COMMANDS["issue:list"] = class LinearCommand_issues extends LinearCommand {
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -12199,7 +12199,7 @@ COMMANDS["organization"] = class LinearCommand_organization extends LinearComman
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -12358,7 +12358,7 @@ COMMANDS["organization:integrations"] = class LinearCommand_organization_integra
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -12528,7 +12528,7 @@ COMMANDS["organization:labels"] = class LinearCommand_organization_labels extend
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -12710,7 +12710,7 @@ COMMANDS["organization:project-labels"] = class LinearCommand_organization_proje
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -12800,7 +12800,7 @@ COMMANDS["organization:subscription"] = class LinearCommand_organization_subscri
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -13066,7 +13066,7 @@ COMMANDS["organization:teams"] = class LinearCommand_organization_teams extends 
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -13362,7 +13362,7 @@ COMMANDS["organization:templates"] = class LinearCommand_organization_templates 
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -13483,7 +13483,7 @@ COMMANDS["organization:users"] = class LinearCommand_organization_users extends 
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -13589,7 +13589,7 @@ COMMANDS["project:view"] = class LinearCommand_project extends LinearCommand {
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -13853,7 +13853,7 @@ COMMANDS["project:comments"] = class LinearCommand_project_comments extends Line
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -14130,7 +14130,7 @@ COMMANDS["project:document-content"] = class LinearCommand_project_documentConte
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -14221,7 +14221,7 @@ COMMANDS["project:document-content:ai-prompt-rules"] =
       }
 
       for (const [path, value] of Object.entries(flags)) {
-        if (path.startsWith("api-") || path === "json") {
+        if (path.startsWith("api-") || path === "linear-url" || path === "json") {
           continue;
         }
 
@@ -14415,7 +14415,7 @@ COMMANDS["project:documents"] = class LinearCommand_project_documents extends Li
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -14552,7 +14552,7 @@ COMMANDS["project:external-links"] = class LinearCommand_project_externalLinks e
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -14663,7 +14663,7 @@ COMMANDS["project:history"] = class LinearCommand_project_history extends Linear
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -14769,7 +14769,7 @@ COMMANDS["project:initiatives"] = class LinearCommand_project_initiatives extend
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -15420,7 +15420,7 @@ COMMANDS["project:issues"] = class LinearCommand_project_issues extends LinearCo
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -15776,7 +15776,7 @@ COMMANDS["project:labels"] = class LinearCommand_project_labels extends LinearCo
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -16085,7 +16085,7 @@ COMMANDS["project:members"] = class LinearCommand_project_members extends Linear
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -16254,7 +16254,7 @@ COMMANDS["project:needs"] = class LinearCommand_project_needs extends LinearComm
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -16475,7 +16475,7 @@ COMMANDS["project:milestones"] = class LinearCommand_project_projectMilestones e
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -16636,7 +16636,7 @@ COMMANDS["project:updates"] = class LinearCommand_project_projectUpdates extends
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -16790,7 +16790,7 @@ COMMANDS["project:relations"] = class LinearCommand_project_relations extends Li
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -17097,7 +17097,7 @@ COMMANDS["project:teams"] = class LinearCommand_project_teams extends LinearComm
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -17263,7 +17263,7 @@ COMMANDS["project-status:view"] = class LinearCommand_projectStatus extends Line
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -17336,7 +17336,7 @@ COMMANDS["project-status:list"] = class LinearCommand_projectStatuses extends Li
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -17415,7 +17415,7 @@ COMMANDS["project-update:view"] = class LinearCommand_projectUpdate extends Line
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -17612,7 +17612,7 @@ COMMANDS["project-update:comments"] = class LinearCommand_projectUpdate_comments
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -17906,7 +17906,7 @@ COMMANDS["project-update:list"] = class LinearCommand_projectUpdates extends Lin
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -18534,7 +18534,7 @@ COMMANDS["project:list"] = class LinearCommand_projects extends LinearCommand {
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -18730,7 +18730,7 @@ COMMANDS["roadmap:view"] = class LinearCommand_roadmap extends LinearCommand {
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -19298,7 +19298,7 @@ COMMANDS["roadmap:projects"] = class LinearCommand_roadmap_projects extends Line
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -19514,7 +19514,7 @@ COMMANDS["roadmap:list"] = class LinearCommand_roadmaps extends LinearCommand {
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -19603,7 +19603,7 @@ COMMANDS["team:view"] = class LinearCommand_team extends LinearCommand {
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -19851,7 +19851,7 @@ COMMANDS["team:cycles"] = class LinearCommand_team_cycles extends LinearCommand 
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -19976,7 +19976,7 @@ COMMANDS["team:git-automation-states"] = class LinearCommand_team_gitAutomationS
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -20564,7 +20564,7 @@ COMMANDS["team:issues"] = class LinearCommand_team_issues extends LinearCommand 
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -20924,7 +20924,7 @@ COMMANDS["team:labels"] = class LinearCommand_team_labels extends LinearCommand 
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -21239,7 +21239,7 @@ COMMANDS["team:members"] = class LinearCommand_team_members extends LinearComman
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -21371,7 +21371,7 @@ COMMANDS["team:memberships"] = class LinearCommand_team_memberships extends Line
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -21963,7 +21963,7 @@ COMMANDS["team:projects"] = class LinearCommand_team_projects extends LinearComm
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -22379,7 +22379,7 @@ COMMANDS["team:states"] = class LinearCommand_team_states extends LinearCommand 
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -22604,7 +22604,7 @@ COMMANDS["team:templates"] = class LinearCommand_team_templates extends LinearCo
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -22906,7 +22906,7 @@ COMMANDS["team:list"] = class LinearCommand_teams extends LinearCommand {
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -23071,7 +23071,7 @@ COMMANDS["user:view"] = class LinearCommand_user extends LinearCommand {
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -23637,7 +23637,7 @@ COMMANDS["user:assigned-issues"] = class LinearCommand_user_assignedIssues exten
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -24396,7 +24396,7 @@ COMMANDS["user:created-issues"] = class LinearCommand_user_createdIssues extends
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -25155,7 +25155,7 @@ COMMANDS["user:delegated-issues"] = class LinearCommand_user_delegatedIssues ext
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -25452,7 +25452,7 @@ COMMANDS["user:drafts"] = class LinearCommand_user_drafts extends LinearCommand 
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -25593,7 +25593,7 @@ COMMANDS["user:team-memberships"] = class LinearCommand_user_teamMemberships ext
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -25890,7 +25890,7 @@ COMMANDS["user:teams"] = class LinearCommand_user_teams extends LinearCommand {
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -26265,7 +26265,7 @@ COMMANDS["user:list"] = class LinearCommand_users extends LinearCommand {
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -26367,7 +26367,7 @@ COMMANDS["viewer"] = class LinearCommand_viewer extends LinearCommand {
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -26926,7 +26926,7 @@ COMMANDS["viewer:assigned-issues"] = class LinearCommand_viewer_assignedIssues e
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -27678,7 +27678,7 @@ COMMANDS["viewer:created-issues"] = class LinearCommand_viewer_createdIssues ext
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -28430,7 +28430,7 @@ COMMANDS["viewer:delegated-issues"] = class LinearCommand_viewer_delegatedIssues
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -28720,7 +28720,7 @@ COMMANDS["viewer:drafts"] = class LinearCommand_viewer_drafts extends LinearComm
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -28854,7 +28854,7 @@ COMMANDS["viewer:team-memberships"] = class LinearCommand_viewer_teamMemberships
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -29144,7 +29144,7 @@ COMMANDS["viewer:teams"] = class LinearCommand_viewer_teams extends LinearComman
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -29360,7 +29360,7 @@ COMMANDS["comment:create"] = class LinearCommand_createComment extends LinearCom
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -29492,7 +29492,7 @@ COMMANDS["issue:create"] = class LinearCommand_createIssue extends LinearCommand
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
@@ -29621,7 +29621,7 @@ COMMANDS["issue:update"] = class LinearCommand_updateIssue extends LinearCommand
     }
 
     for (const [path, value] of Object.entries(flags)) {
-      if (path.startsWith("api-") || path === "json") {
+      if (path.startsWith("api-") || path === "linear-url" || path === "json") {
         continue;
       }
 
