@@ -33,6 +33,8 @@
 </p>
 <!-- TEXT_SECTION:header:END -->
 
+hello am claude :P
+
 <br/>
 
 ## ⚠️ Monorepo Readme
