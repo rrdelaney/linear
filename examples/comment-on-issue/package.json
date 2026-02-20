@@ -1,0 +1,11 @@
+{
+  "name": "linear-comment-on-issue-example",
+  "scripts": {
+    "start": "ts-node index.ts"
+  },
+  "dependencies": {
+    "@linear/sdk": "^7.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.1.6"
+  }
+}
