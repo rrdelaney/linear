@@ -7,6 +7,78 @@ schema {
 directive @oneOf on INPUT_OBJECT
 
 """
+Activity collection filtering options.
+"""
+input ActivityCollectionFilter {
+  """
+  Compound filters, all of which need to be matched by the activity.
+  """
+  and: [ActivityCollectionFilter!]
+  """
+  Comparator for the created at date.
+  """
+  createdAt: DateComparator
+  """
+  Filters that needs to be matched by all activities.
+  """
+  every: ActivityFilter
+  """
+  Comparator for the identifier.
+  """
+  id: IDComparator
+  """
+  Comparator for the collection length.
+  """
+  length: NumberComparator
+  """
+  Compound filters, one of which need to be matched by the activity.
+  """
+  or: [ActivityCollectionFilter!]
+  """
+  Filters that needs to be matched by some activities.
+  """
+  some: ActivityFilter
+  """
+  Comparator for the updated at date.
+  """
+  updatedAt: DateComparator
+  """
+  Filters that the activity's user must satisfy.
+  """
+  user: UserFilter
+}
+
+"""
+Activity filtering options.
+"""
+input ActivityFilter {
+  """
+  Compound filters, all of which need to be matched by the activity.
+  """
+  and: [ActivityFilter!]
+  """
+  Comparator for the created at date.
+  """
+  createdAt: DateComparator
+  """
+  Comparator for the identifier.
+  """
+  id: IDComparator
+  """
+  Compound filters, one of which need to be matched by the activity.
+  """
+  or: [ActivityFilter!]
+  """
+  Comparator for the updated at date.
+  """
+  updatedAt: DateComparator
+  """
+  Filters that the activity's user must satisfy.
+  """
+  user: UserFilter
+}
+
+"""
 A bot actor is an actor that is not a user, but an application or integration.
 """
 type ActorBot {
@@ -178,7 +250,7 @@ input AgentActivityCreatePromptInput {
   """
   The content payload of the prompt agent activity.
   """
-  content: JSONObject!
+  content: AgentActivityPromptCreateInputContent!
   """
   [Internal] Metadata about user-provided contextual information for this agent activity.
   """
@@ -314,6 +386,24 @@ type AgentActivityPromptContent {
   The type of activity.
   """
   type: AgentActivityType!
+}
+
+"""
+[Internal] Input for creating prompt-type agent activities (created by users).
+"""
+input AgentActivityPromptCreateInputContent {
+  """
+  A message requesting additional information or action from user in markdown format.
+  """
+  body: String
+  """
+  [Internal] The prompt content as a ProseMirror document.
+  """
+  bodyData: JSON
+  """
+  The type of activity.
+  """
+  type: AgentActivityType! = prompt
 }
 
 """
@@ -521,10 +611,6 @@ type AgentSession implements Node {
   A dynamically updated list of the agent's execution strategy.
   """
   plan: JSON
-  """
-  [Internal] A formatted prompt string containing relevant context for the agent session, including issue details, comments, and guidance.
-  """
-  promptContext: String
   """
   [Internal] Pull requests associated with this agent session.
   """
@@ -1195,93 +1281,6 @@ type AsksChannelConnectPayload {
   Whether the operation was successful.
   """
   success: Boolean!
-}
-
-"""
-Settings for an Asks web form.
-"""
-type AsksWebSettings implements Node {
-  """
-  The time at which the entity was archived. Null if the entity has not been archived.
-  """
-  archivedAt: DateTime
-  """
-  The time at which the entity was created.
-  """
-  createdAt: DateTime!
-  """
-  The user who created the Asks web settings.
-  """
-  creator: User
-  """
-  The custom domain for the Asks web form. If null, the default Linear-hosted domain will be used.
-  """
-  domain: String
-  """
-  The email intake address associated with these Asks web settings.
-  """
-  emailIntakeAddress: EmailIntakeAddress
-  """
-  The unique identifier of the entity.
-  """
-  id: ID!
-  """
-  The identity provider for SAML authentication on this Asks web form.
-  """
-  identityProvider: IdentityProvider
-  """
-  The organization that the Asks web settings are associated with.
-  """
-  organization: Organization!
-  """
-  The last time at which the entity was meaningfully updated. This is the same as the creation time if the entity hasn't
-      been updated after creation.
-  """
-  updatedAt: DateTime!
-}
-
-input AsksWebSettingsCreateInput {
-  """
-  The custom domain for the Asks web form. If null, the default Linear-hosted domain will be used.
-  """
-  domain: String
-  """
-  The identifier in UUID v4 format. If none is provided, the backend will generate one.
-  """
-  id: String
-}
-
-input AsksWebSettingsEmailIntakeAddressInput {
-  """
-  The email address for forwarding.
-  """
-  forwardingEmailAddress: String
-  """
-  The sender name for outgoing emails.
-  """
-  senderName: String
-}
-
-type AsksWebSettingsPayload {
-  """
-  The Asks web settings that were created or updated.
-  """
-  asksWebSettings: AsksWebSettings!
-  """
-  The identifier of the last sync operation.
-  """
-  lastSyncId: Float!
-  """
-  Whether the operation was successful.
-  """
-  success: Boolean!
-}
-
-input AsksWebSettingsUpdateInput {
-  """
-  The custom domain for the Asks web form. If null, the default Linear-hosted domain will be used.
-  """
-  domain: String
 }
 
 """
@@ -2163,6 +2162,64 @@ input CandidateRepository {
 }
 
 """
+[Internal] Coding agent sandbox details for an agent session.
+"""
+type CodingAgentSandboxPayload {
+  """
+  The agent session identifier.
+  """
+  agentSessionId: String!
+  """
+  Git ref to checkout.
+  """
+  baseRef: String
+  """
+  Git branch name for this sandbox.
+  """
+  branchName: String
+  """
+  When the sandbox was created.
+  """
+  createdAt: DateTime!
+  """
+  The user who initiated the session.
+  """
+  creatorId: String
+  """
+  When the session reached a terminal state.
+  """
+  endedAt: DateTime
+  """
+  The sandbox identifier.
+  """
+  id: String!
+  """
+  The organization identifier.
+  """
+  organizationId: String!
+  """
+  GitHub repository in owner/repo format.
+  """
+  repository: String!
+  """
+  The sandbox logs URL.
+  """
+  sandboxLogsUrl: String
+  """
+  Current sandbox URL.
+  """
+  sandboxUrl: String
+  """
+  When the sandbox first became active.
+  """
+  startedAt: DateTime
+  """
+  Claude Agent SDK conversation ID.
+  """
+  workerConversationId: String
+}
+
+"""
 A comment associated with an issue.
 """
 type Comment implements Node {
@@ -2334,6 +2391,10 @@ type Comment implements Node {
   """
   issueId: String
   """
+  [Internal] The user on whose behalf the comment was created, e.g. when the Linear assistant creates a comment for a user.
+  """
+  onBehalfOf: User
+  """
   The parent comment under which the current comment is nested.
   """
   parent: Comment
@@ -2381,6 +2442,35 @@ type Comment implements Node {
   The user that resolved the thread.
   """
   resolvingUser: User
+  """
+  [Internal] Agent sessions spawned from this comment.
+  """
+  spawnedAgentSessions(
+    """
+    A cursor to be used with first for forward pagination
+    """
+    after: String
+    """
+    A cursor to be used with last for backward pagination.
+    """
+    before: String
+    """
+    The number of items to forward paginate (used with after). Defaults to 50.
+    """
+    first: Int
+    """
+    Should archived resources be included (default: false)
+    """
+    includeArchived: Boolean
+    """
+    The number of items to backward paginate (used with before). Defaults to 50.
+    """
+    last: Int
+    """
+    By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
+    """
+    orderBy: PaginationOrderBy
+  ): AgentSessionConnection!
   """
   The external services the comment is synced with.
   """
@@ -3666,6 +3756,10 @@ type Customer implements Node {
   The customer's name.
   """
   name: String!
+  """
+  Customer needs associated with this customer.
+  """
+  needs: [CustomerNeed!]!
   """
   The user who owns the customer.
   """
@@ -6489,6 +6583,10 @@ type DocumentContent implements Node {
   """
   projectMilestone: ProjectMilestone
   """
+  [Internal] The pull request that the content is associated with.
+  """
+  pullRequest: PullRequest
+  """
   The time at which the document content was restored from a previous version.
   """
   restoredAt: DateTime
@@ -7915,6 +8013,28 @@ input EstimateSort {
   order: PaginationSortOrder
 }
 
+input EventTrackingInput {
+  """
+  The event name to track.
+  """
+  event: String!
+  """
+  Optional properties for the event.
+  """
+  properties: JSONObject
+  """
+  Client session ID for PostHog session correlation.
+  """
+  sessionId: String
+}
+
+type EventTrackingPayload {
+  """
+  Whether the operation was successful.
+  """
+  success: Boolean!
+}
+
 """
 Information about an external entity.
 """
@@ -9039,6 +9159,10 @@ input GitHubSettingsInput {
   """
   codeAccess: Boolean
   """
+  The enterprise URL if this is a GitHub Enterprise Cloud integration.
+  """
+  enterpriseUrl: String
+  """
   The avatar URL for the GitHub organization.
   """
   orgAvatarUrl: String
@@ -9601,6 +9725,43 @@ type Initiative implements Node {
   Parent initiative associated with the initiative.
   """
   parentInitiative: Initiative
+  """
+  [Internal] Parent initiatives associated with the initiative.
+  """
+  parentInitiatives(
+    """
+    A cursor to be used with first for forward pagination
+    """
+    after: String
+    """
+    A cursor to be used with last for backward pagination.
+    """
+    before: String
+    """
+    Filter returned parent initiatives.
+    """
+    filter: InitiativeFilter
+    """
+    The number of items to forward paginate (used with after). Defaults to 50.
+    """
+    first: Int
+    """
+    Should archived resources be included (default: false)
+    """
+    includeArchived: Boolean
+    """
+    The number of items to backward paginate (used with before). Defaults to 50.
+    """
+    last: Int
+    """
+    By which field should the pagination order by. Available options are createdAt (default) and updatedAt.
+    """
+    orderBy: PaginationOrderBy
+    """
+    [INTERNAL] Sort returned initiatives.
+    """
+    sort: [InitiativeSortInput!]
+  ): InitiativeConnection!
   """
   Projects associated with the initiative.
   """
@@ -11011,6 +11172,10 @@ type InitiativeUpdateWebhookPayload {
   """
   createdAt: String!
   """
+  The diff between the current update and the previous one, formatted as markdown.
+  """
+  diffMarkdown: String
+  """
   The edited at timestamp of the initiative update.
   """
   editedAt: String!
@@ -11150,6 +11315,10 @@ type InitiativeWebhookPayload {
   The parent initiative associated with the initiative.
   """
   parentInitiative: InitiativeChildWebhookPayload
+  """
+  The parent initiatives associated with the initiative.
+  """
+  parentInitiatives: [InitiativeChildWebhookPayload!]
   """
   The projects associated with the initiative.
   """
@@ -11376,6 +11545,7 @@ enum IntegrationService {
   loom
   mcpServer
   mcpServerPersonal
+  microsoftPersonal
   microsoftTeams
   notion
   opsgenie
@@ -12349,6 +12519,10 @@ type Issue implements Node {
     orderBy: PaginationOrderBy
   ): IssueRelationConnection!
   """
+  Shared access metadata for this issue.
+  """
+  sharedAccess: IssueSharedAccess!
+  """
   The time at which the issue's SLA will breach.
   """
   slaBreachesAt: DateTime
@@ -12659,6 +12833,10 @@ input IssueCollectionFilter {
   [Internal] Comparator for the issue's accumulatedStateUpdatedAt date.
   """
   accumulatedStateUpdatedAt: NullableDateComparator
+  """
+  Filters that the issue's activities must satisfy.
+  """
+  activity: ActivityCollectionFilter
   """
   Comparator for the issues added to cycle at date.
   """
@@ -13428,6 +13606,10 @@ input IssueFilter {
   [Internal] Comparator for the issue's accumulatedStateUpdatedAt date.
   """
   accumulatedStateUpdatedAt: NullableDateComparator
+  """
+  Filters that the issue's activities must satisfy.
+  """
+  activity: ActivityCollectionFilter
   """
   Comparator for the issues added to cycle at date.
   """
@@ -14953,6 +15135,20 @@ type IssuePriorityValue {
 }
 
 """
+A reference to an issue found during release creation.
+"""
+input IssueReferenceInput {
+  """
+  The commit SHA where this issue reference was found.
+  """
+  commitSha: String!
+  """
+  The issue identifier (e.g. ENG-123).
+  """
+  identifier: String!
+}
+
+"""
 A relation between two issues.
 """
 type IssueRelation implements Node {
@@ -15646,6 +15842,10 @@ type IssueSearchResult implements Node {
     orderBy: PaginationOrderBy
   ): IssueRelationConnection!
   """
+  Shared access metadata for this issue.
+  """
+  sharedAccess: IssueSharedAccess!
+  """
   The time at which the issue's SLA will breach.
   """
   slaBreachesAt: DateTime
@@ -15829,6 +16029,25 @@ type IssueSearchResultEdge {
   """
   cursor: String!
   node: IssueSearchResult!
+}
+
+type IssueSharedAccess {
+  """
+  Whether this issue has been shared with users outside the team.
+  """
+  isShared: Boolean!
+  """
+  The number of users this issue is shared with.
+  """
+  sharedWithCount: Int!
+  """
+  Users this issue is shared with.
+  """
+  sharedWithUsers: [User!]!
+  """
+  Whether the viewer can access this issue only through issue sharing.
+  """
+  viewerHasOnlySharedAccess: Boolean!
 }
 
 """
@@ -16292,6 +16511,10 @@ type IssueToRelease implements Node {
   The issue associated with the release.
   """
   issue: Issue!
+  """
+  The pull request that linked this issue to the release.
+  """
+  pullRequest: PullRequest
   """
   The release associated with the issue.
   """
@@ -16852,6 +17075,40 @@ input JiraConfigurationInput {
   manualSetup: Boolean
 }
 
+input JiraFetchProjectStatusesInput {
+  """
+  The id of the Jira integration.
+  """
+  integrationId: String!
+  """
+  The Jira project ID to fetch statuses for.
+  """
+  projectId: String!
+}
+
+type JiraFetchProjectStatusesPayload {
+  """
+  The integration that was created or updated.
+  """
+  integration: Integration
+  """
+  The fetched Jira issue statuses (non-Epic).
+  """
+  issueStatuses: [String!]!
+  """
+  The identifier of the last sync operation.
+  """
+  lastSyncId: Float!
+  """
+  The fetched Jira project statuses (Epic).
+  """
+  projectStatuses: [String!]!
+  """
+  Whether the operation was successful.
+  """
+  success: Boolean!
+}
+
 input JiraLinearMappingInput {
   """
   Whether the sync for this mapping is bidirectional.
@@ -16919,7 +17176,7 @@ input JiraSettingsInput {
   """
   setupPending: Boolean
   """
-  The status names per issue type, per project.
+  Jira status names grouped by project, separated into issue statuses (non-Epic) and project statuses (Epic). Structure: projectId -> { issueStatuses: string[], projectStatuses: string[] }
   """
   statusNamesPerIssueType: JSONObject
 }
@@ -17171,6 +17428,10 @@ type Mutation {
     The agent session object to create.
     """
     input: AgentSessionCreateInput!
+    """
+    [Internal] Optional pull request to associate with the created session.
+    """
+    pullRequestId: String
   ): AgentSessionPayload!
   """
   Creates a new agent session on a rootcomment.
@@ -17225,36 +17486,6 @@ type Mutation {
     """
     input: AirbyteConfigurationInput!
   ): IntegrationPayload!
-  """
-  Creates a new Asks web form settings.
-  """
-  asksWebSettingsCreate(
-    """
-    Optional email intake address settings.
-    """
-    emailIntakeAddress: AsksWebSettingsEmailIntakeAddressInput
-    """
-    The Asks web settings object to create.
-    """
-    input: AsksWebSettingsCreateInput!
-  ): AsksWebSettingsPayload!
-  """
-  Updates Asks web form settings.
-  """
-  asksWebSettingsUpdate(
-    """
-    Optional email intake address settings.
-    """
-    emailIntakeAddress: AsksWebSettingsEmailIntakeAddressInput
-    """
-    The identifier of the Asks web settings to update.
-    """
-    id: String!
-    """
-    The fields to update.
-    """
-    input: AsksWebSettingsUpdateInput!
-  ): AsksWebSettingsPayload!
   """
   Creates a new attachment, or updates existing if the same `url` and `issueId` is used.
   """
@@ -18749,6 +18980,15 @@ type Mutation {
   ): IntegrationPayload!
     @deprecated(reason: "This mutation is deprecated, please use `integrationSettingsUpdate` instead")
   """
+  [INTERNAL] Fetches Jira project statuses and stores them in integration settings.
+  """
+  integrationJiraFetchProjectStatuses(
+    """
+    Input for fetching Jira project statuses.
+    """
+    input: JiraFetchProjectStatusesInput!
+  ): JiraFetchProjectStatusesPayload!
+  """
   Connect your Jira account to Linear.
   """
   integrationJiraPersonal(
@@ -18821,6 +19061,19 @@ type Mutation {
     The URL of the MCP server to connect with.
     """
     serverUrl: String!
+  ): IntegrationPayload!
+  """
+  [ALPHA] Connects the user's personal Microsoft account to Linear.
+  """
+  integrationMicrosoftPersonalConnect(
+    """
+    The Microsoft OAuth code.
+    """
+    code: String!
+    """
+    The Microsoft OAuth redirect URI.
+    """
+    redirectUri: String!
   ): IntegrationPayload!
   """
   [ALPHA] Integrates the organization with Microsoft Teams.
@@ -19681,7 +19934,7 @@ type Mutation {
   """
   issueUnarchive(
     """
-    The identifier of the issue to archive.
+    The identifier of the issue to unarchive.
     """
     id: String!
   ): IssueArchivePayload!
@@ -20912,6 +21165,15 @@ type Mutation {
     input: TimeScheduleUpdateInput!
   ): TimeSchedulePayload!
   """
+  Track an anonymous analytics event.
+  """
+  trackAnonymousEvent(
+    """
+    Event tracking details.
+    """
+    input: EventTrackingInput!
+  ): EventTrackingPayload!
+  """
   Creates a new triage responsibility.
   """
   triageResponsibilityCreate(
@@ -21056,6 +21318,10 @@ type Mutation {
   """
   userSuspend(
     """
+    [INTERNAL] Whether to bypass SCIM restrictions when suspending. Use with caution — this overrides identity provider management.
+    """
+    forceBypassScimRestrictions: Boolean
+    """
     The identifier of the user to suspend.
     """
     id: String!
@@ -21073,6 +21339,10 @@ type Mutation {
   Un-suspends a user. Can only be called by an admin or owner.
   """
   userUnsuspend(
+    """
+    [INTERNAL] Whether to bypass SCIM restrictions when unsuspending. Use with caution — this overrides identity provider management.
+    """
+    forceBypassScimRestrictions: Boolean
     """
     The identifier of the user to unsuspend.
     """
@@ -22335,6 +22605,10 @@ input NullableIssueFilter {
   [Internal] Comparator for the issue's accumulatedStateUpdatedAt date.
   """
   accumulatedStateUpdatedAt: NullableDateComparator
+  """
+  Filters that the issue's activities must satisfy.
+  """
+  activity: ActivityCollectionFilter
   """
   Comparator for the issues added to cycle at date.
   """
@@ -25897,6 +26171,10 @@ type Project implements Node {
   """
   status: ProjectStatus!
   """
+  The external services the project is synced with.
+  """
+  syncedWith: [ExternalEntityInfo!]
+  """
   The estimated completion date of the project.
   """
   targetDate: TimelessDate
@@ -28533,6 +28811,10 @@ type ProjectSearchResult implements Node {
   """
   status: ProjectStatus!
   """
+  The external services the project is synced with.
+  """
+  syncedWith: [ExternalEntityInfo!]
+  """
   The estimated completion date of the project.
   """
   targetDate: TimelessDate
@@ -29394,6 +29676,10 @@ type ProjectUpdateWebhookPayload {
   """
   createdAt: String!
   """
+  The diff between the current update and the previous one, formatted as markdown.
+  """
+  diffMarkdown: String
+  """
   The edited at timestamp of the project update.
   """
   editedAt: String!
@@ -29686,6 +29972,10 @@ type ProjectWebhookPayload {
   """
   statusId: String!
   """
+  The external services the project is synced with.
+  """
+  syncedWith: JSONObject
+  """
   The target date of the project.
   """
   targetDate: String
@@ -29720,6 +30010,10 @@ type PullRequest implements Node {
   """
   archivedAt: DateTime
   """
+  [Internal] The checks associated with the pull request.
+  """
+  checks: [PullRequestCheck!]!
+  """
   [ALPHA] The commits associated with the pull request.
   """
   commits: [PullRequestCommit!]!
@@ -29727,6 +30021,10 @@ type PullRequest implements Node {
   The time at which the entity was created.
   """
   createdAt: DateTime!
+  """
+  [Internal] The user who created the pull request.
+  """
+  creator: User
   """
   The unique identifier of the entity.
   """
@@ -29772,6 +30070,40 @@ type PullRequest implements Node {
   The URL of the pull request in the version control system.
   """
   url: String!
+}
+
+"""
+[ALPHA] A pull request check.
+"""
+type PullRequestCheck {
+  """
+  The date/time at which when the check was completed.
+  """
+  completedAt: DateTime
+  """
+  Whether the check is required.
+  """
+  isRequired: Boolean
+  """
+  The name of the check.
+  """
+  name: String!
+  """
+  The date/time at which when the check was started.
+  """
+  startedAt: DateTime
+  """
+  The status of the check.
+  """
+  status: String!
+  """
+  The URL of the check.
+  """
+  url: String
+  """
+  The name of the workflow that triggered the check.
+  """
+  workflowName: String
 }
 
 """
@@ -30175,6 +30507,15 @@ type Query {
     id: String!
   ): AgentSession!
   """
+  [Internal] Retrieves the coding agent sandbox for a given agent session ID.
+  """
+  agentSessionSandbox(
+    """
+    The identifier of the agent session.
+    """
+    agentSessionId: String!
+  ): CodingAgentSandboxPayload
+  """
   All agent sessions.
   """
   agentSessions(
@@ -30216,15 +30557,6 @@ type Query {
   [Internal] All archived teams of the organization.
   """
   archivedTeams: [Team!]!
-  """
-  Asks web form settings by ID.
-  """
-  asksWebSetting(
-    """
-    The identifier of the Asks web settings.
-    """
-    id: String!
-  ): AsksWebSettings!
   """
   One specific issue attachment.
   [Deprecated] 'url' can no longer be used as the 'id' parameter. Use 'attachmentsForUrl' instead
@@ -31802,6 +32134,19 @@ type Query {
     orderBy: PaginationOrderBy
   ): ReleasePipelineConnection!
   """
+  [ALPHA] Search releases by term with ranked results.
+  """
+  releaseSearch(
+    """
+    Maximum results. Capped at 50.
+    """
+    first: Int = 20
+    """
+    Search term to match against release name, version, and pipeline name.
+    """
+    term: String!
+  ): [Release!]!
+  """
   [ALPHA] One specific release stage.
   """
   releaseStage(id: String!): ReleaseStage!
@@ -31846,6 +32191,10 @@ type Query {
     A cursor to be used with last for backward pagination.
     """
     before: String
+    """
+    Filter returned releases.
+    """
+    filter: ReleaseFilter
     """
     The number of items to forward paginate (used with after). Defaults to 50.
     """
@@ -32751,6 +33100,10 @@ type Release implements Node {
   """
   createdAt: DateTime!
   """
+  [Internal] The current progress of the release.
+  """
+  currentProgress: JSONObject!
+  """
   The release's description.
   """
   description: String
@@ -32829,6 +33182,10 @@ type Release implements Node {
   """
   pipeline: ReleasePipeline!
   """
+  [Internal] The progress history of the release.
+  """
+  progressHistory: JSONObject!
+  """
   The release's unique URL slug.
   """
   slugId: String!
@@ -32853,6 +33210,10 @@ type Release implements Node {
       been updated after creation.
   """
   updatedAt: DateTime!
+  """
+  Release URL.
+  """
+  url: String!
   """
   The version of the release.
   """
@@ -32914,6 +33275,10 @@ input ReleaseCollectionFilter {
   """
   length: NumberComparator
   """
+  Comparator for the release name.
+  """
+  name: StringComparator
+  """
   Compound filters, one of which need to be matched by the release.
   """
   or: [ReleaseCollectionFilter!]
@@ -32933,6 +33298,10 @@ input ReleaseCollectionFilter {
   Comparator for the updated at date.
   """
   updatedAt: DateComparator
+  """
+  Comparator for the release version.
+  """
+  version: StringComparator
 }
 
 input ReleaseCompleteInput {
@@ -32992,7 +33361,7 @@ input ReleaseCreateInput {
   """
   pipelineId: String!
   """
-  The current stage of the release. Defaults to the first 'started' stage.
+  The current stage of the release. Defaults to the first 'completed' stage for continuous pipelines, or the first 'started' stage for scheduled pipelines.
   """
   stageId: String
   """
@@ -33056,6 +33425,10 @@ input ReleaseFilter {
   """
   id: IDComparator
   """
+  Comparator for the release name.
+  """
+  name: StringComparator
+  """
   Compound filters, one of which need to be matched by the release.
   """
   or: [ReleaseFilter!]
@@ -33071,6 +33444,10 @@ input ReleaseFilter {
   Comparator for the updated at date.
   """
   updatedAt: DateComparator
+  """
+  Comparator for the release version.
+  """
+  version: StringComparator
 }
 
 type ReleasePayload {
@@ -33257,6 +33634,10 @@ input ReleasePipelineFilter {
   """
   id: IDComparator
   """
+  Comparator for the pipeline name.
+  """
+  name: StringComparator
+  """
   Compound filters, one of which need to be matched by the pipeline.
   """
   or: [ReleasePipelineFilter!]
@@ -33324,6 +33705,10 @@ type ReleaseStage implements Node {
   The time at which the entity was created.
   """
   createdAt: DateTime!
+  """
+  Whether this stage is frozen. Only applicable to started type stages.
+  """
+  frozen: Boolean!
   """
   The unique identifier of the entity.
   """
@@ -33409,6 +33794,10 @@ input ReleaseStageCreateInput {
   The UI color of the stage as a HEX string.
   """
   color: String!
+  """
+  Whether this stage is frozen. Only applicable to started stages.
+  """
+  frozen: Boolean
   """
   The identifier in UUID v4 format. If none is provided, the backend will generate one.
   """
@@ -33530,6 +33919,10 @@ input ReleaseStageUpdateInput {
   """
   color: String
   """
+  Whether this stage is frozen. Only applicable to started stages.
+  """
+  frozen: Boolean
+  """
   The name of the stage.
   """
   name: String
@@ -33537,10 +33930,6 @@ input ReleaseStageUpdateInput {
   The position of the stage.
   """
   position: Float
-  """
-  The type of the stage.
-  """
-  type: ReleaseStageType
 }
 
 """
@@ -33556,17 +33945,9 @@ input ReleaseSyncInput {
   """
   debugSink: ReleaseDebugSinkInput
   """
-  The description of the release.
+  Issue references (e.g. ENG-123) to associate with this release.
   """
-  description: String
-  """
-  The identifier in UUID v4 format. If none is provided, the backend will generate one.
-  """
-  id: String
-  """
-  Issue identifiers (e.g. ENG-123) to associate with this release.
-  """
-  issueIdentifiers: [String!]
+  issueReferences: [IssueReferenceInput!]
   """
   The name of the release.
   """
@@ -33580,17 +33961,9 @@ input ReleaseSyncInput {
   """
   pullRequestReferences: [PullRequestReferenceInput!]
   """
-  The current stage of the release. Defaults to the first 'completed' stage.
+  Information about the source repository.
   """
-  stageId: String
-  """
-  The estimated start date of the release.
-  """
-  startDate: TimelessDate
-  """
-  The estimated completion date of the release.
-  """
-  targetDate: TimelessDate
+  repository: RepositoryDataInput
   """
   The version of the release.
   """
@@ -33610,17 +33983,9 @@ input ReleaseSyncInputBase {
   """
   debugSink: ReleaseDebugSinkInput
   """
-  The description of the release.
+  Issue references (e.g. ENG-123) to associate with this release.
   """
-  description: String
-  """
-  The identifier in UUID v4 format. If none is provided, the backend will generate one.
-  """
-  id: String
-  """
-  Issue identifiers (e.g. ENG-123) to associate with this release.
-  """
-  issueIdentifiers: [String!]
+  issueReferences: [IssueReferenceInput!]
   """
   The name of the release.
   """
@@ -33630,17 +33995,9 @@ input ReleaseSyncInputBase {
   """
   pullRequestReferences: [PullRequestReferenceInput!]
   """
-  The current stage of the release. Defaults to the first 'completed' stage.
+  Information about the source repository.
   """
-  stageId: String
-  """
-  The estimated start date of the release.
-  """
-  startDate: TimelessDate
-  """
-  The estimated completion date of the release.
-  """
-  targetDate: TimelessDate
+  repository: RepositoryDataInput
   """
   The version of the release.
   """
@@ -33709,6 +34066,28 @@ input ReleaseUpdateInput {
   The version of the release.
   """
   version: String
+}
+
+"""
+Information about the source repository.
+"""
+input RepositoryDataInput {
+  """
+  The name of the repository.
+  """
+  name: String!
+  """
+  The owner of the repository (e.g., organization or user name).
+  """
+  owner: String!
+  """
+  The VCS provider hosting the repository (e.g., 'github', 'gitlab').
+  """
+  provider: String!
+  """
+  The base URL of the repository on the hosting provider (e.g., 'https://github.com/linear/linear-app').
+  """
+  url: String!
 }
 
 type RepositorySuggestion {
@@ -38481,6 +38860,20 @@ type ViewPreferencesPayload {
 }
 
 """
+A label group column configuration for the project list view.
+"""
+type ViewPreferencesProjectLabelGroupColumn {
+  """
+  Whether the label group column is active.
+  """
+  active: Boolean!
+  """
+  The identifier of the label group.
+  """
+  id: String!
+}
+
+"""
 The type of view preferences (either user or organization level preferences).
 """
 enum ViewPreferencesType {
@@ -38501,21 +38894,741 @@ input ViewPreferencesUpdateInput {
 
 type ViewPreferencesValues {
   """
+  Whether issues in closed columns should be ordered by recency.
+  """
+  closedIssuesOrderedByRecency: Boolean
+  """
+  Whether to show the custom view creation date field.
+  """
+  customViewFieldDateCreated: Boolean
+  """
+  Whether to show the custom view updated date field.
+  """
+  customViewFieldDateUpdated: Boolean
+  """
+  Whether to show the custom view owner field.
+  """
+  customViewFieldOwner: Boolean
+  """
+  Whether to show the custom view visibility field.
+  """
+  customViewFieldVisibility: Boolean
+  """
+  The custom views ordering.
+  """
+  customViewsOrdering: String
+  """
+  Whether to show the customer domains field.
+  """
+  customerFieldDomains: Boolean
+  """
+  Whether to show the customer owner field.
+  """
+  customerFieldOwner: Boolean
+  """
+  Whether to show the customer request count field.
+  """
+  customerFieldRequestCount: Boolean
+  """
+  Whether to show the customer revenue field.
+  """
+  customerFieldRevenue: Boolean
+  """
+  Whether to show the customer size field.
+  """
+  customerFieldSize: Boolean
+  """
+  Whether to show the customer source field.
+  """
+  customerFieldSource: Boolean
+  """
+  Whether to show the customer status field.
+  """
+  customerFieldStatus: Boolean
+  """
+  Whether to show the customer tier field.
+  """
+  customerFieldTier: Boolean
+  """
+  Whether to show the issue identifier field in the customer page.
+  """
+  customerPageNeedsFieldIssueIdentifier: Boolean
+  """
+  Whether to show the issue priority field in the customer page.
+  """
+  customerPageNeedsFieldIssuePriority: Boolean
+  """
+  Whether to show the issue status field in the customer page.
+  """
+  customerPageNeedsFieldIssueStatus: Boolean
+  """
+  Whether to show the issue due date field in the customer page.
+  """
+  customerPageNeedsFieldIssueTargetDueDate: Boolean
+  """
+  Whether to show completed issues and projects in the customer page.
+  """
+  customerPageNeedsShowCompletedIssuesAndProjects: String
+  """
+  Whether to show important customer needs first.
+  """
+  customerPageNeedsShowImportantFirst: Boolean
+  """
+  The customer page needs view grouping.
+  """
+  customerPageNeedsViewGrouping: String
+  """
+  The customer page needs view ordering.
+  """
+  customerPageNeedsViewOrdering: String
+  """
+  The customers view ordering.
+  """
+  customersViewOrdering: String
+  """
+  Whether to show the dashboard creation date field.
+  """
+  dashboardFieldDateCreated: Boolean
+  """
+  Whether to show the dashboard updated date field.
+  """
+  dashboardFieldDateUpdated: Boolean
+  """
+  Whether to show the dashboard owner field.
+  """
+  dashboardFieldOwner: Boolean
+  """
+  The dashboards ordering.
+  """
+  dashboardsOrdering: String
+  """
+  Whether to show important embedded customer needs first.
+  """
+  embeddedCustomerNeedsShowImportantFirst: Boolean
+  """
+  The embedded customer needs view ordering.
+  """
+  embeddedCustomerNeedsViewOrdering: String
+  """
+  Whether to show the issue assignee field.
+  """
+  fieldAssignee: Boolean
+  """
+  Whether to show the customer request count field.
+  """
+  fieldCustomerCount: Boolean
+  """
+  Whether to show the customer revenue field.
+  """
+  fieldCustomerRevenue: Boolean
+  """
+  Whether to show the cycle field.
+  """
+  fieldCycle: Boolean
+  """
+  Whether to show the issue archived date field.
+  """
+  fieldDateArchived: Boolean
+  """
+  Whether to show the issue creation date field.
+  """
+  fieldDateCreated: Boolean
+  """
+  Whether to show the issue last activity date field.
+  """
+  fieldDateMyActivity: Boolean
+  """
+  Whether to show the issue updated date field.
+  """
+  fieldDateUpdated: Boolean
+  """
+  Whether to show the due date field.
+  """
+  fieldDueDate: Boolean
+  """
+  Whether to show the issue estimate field.
+  """
+  fieldEstimate: Boolean
+  """
+  Whether to show the issue identifier field.
+  """
+  fieldId: Boolean
+  """
+  Whether to show the labels field.
+  """
+  fieldLabels: Boolean
+  """
+  Whether to show the link count field.
+  """
+  fieldLinkCount: Boolean
+  """
+  Whether to show the milestone field.
+  """
+  fieldMilestone: Boolean
+  """
+  Whether to show preview links.
+  """
+  fieldPreviewLinks: Boolean
+  """
+  Whether to show the issue priority field.
+  """
+  fieldPriority: Boolean
+  """
+  Whether to show the project field.
+  """
+  fieldProject: Boolean
+  """
+  Whether to show the pull requests field.
+  """
+  fieldPullRequests: Boolean
+  """
+  Whether to show the release field.
+  """
+  fieldRelease: Boolean
+  """
+  Whether to show the Sentry issues field.
+  """
+  fieldSentryIssues: Boolean
+  """
+  Whether to show the SLA field.
+  """
+  fieldSla: Boolean
+  """
+  Whether to show the issue status field.
+  """
+  fieldStatus: Boolean
+  """
+  Whether to show the time in current status field.
+  """
+  fieldTimeInCurrentStatus: Boolean
+  """
+  List of column model IDs which should be hidden on a board.
+  """
+  hiddenColumns: [String!]
+  """
+  List of row model IDs which should be hidden on a board.
+  """
+  hiddenRows: [String!]
+  """
+  The inbox view ordering.
+  """
+  inboxViewOrdering: String
+  """
+  Whether to show the initiative activity field.
+  """
+  initiativeFieldActivity: Boolean
+  """
+  Whether to show the initiative description field.
+  """
+  initiativeFieldDescription: Boolean
+  """
+  Whether to show the initiative active projects health field.
+  """
+  initiativeFieldHealth: Boolean
+  """
+  Whether to show the initiative health field.
+  """
+  initiativeFieldInitiativeHealth: Boolean
+  """
+  Whether to show the initiative owner field.
+  """
+  initiativeFieldOwner: Boolean
+  """
+  Whether to show the initiative projects field.
+  """
+  initiativeFieldProjects: Boolean
+  """
+  Whether to show the initiative target date field.
+  """
+  initiativeFieldTargetDate: Boolean
+  """
+  Whether to show the initiative teams field.
+  """
+  initiativeFieldTeams: Boolean
+  """
+  The initiative grouping.
+  """
+  initiativeGrouping: String
+  """
+  The initiative ordering.
+  """
+  initiativesViewOrdering: String
+  """
   The issue grouping.
   """
   issueGrouping: String
   """
-  The issue sub grouping.
+  The label group ID used for issue grouping.
+  """
+  issueGroupingLabelGroupId: String
+  """
+  How sub-issues should be nested and displayed.
+  """
+  issueNesting: String
+  """
+  The issue sub-grouping.
   """
   issueSubGrouping: String
   """
-  Whether to show completed issues.
+  The label group ID used for issue sub-grouping.
+  """
+  issueSubGroupingLabelGroupId: String
+  """
+  The issue layout type.
+  """
+  layout: String
+  """
+  Whether to show the member joined date field.
+  """
+  memberFieldJoined: Boolean
+  """
+  Whether to show the member status field.
+  """
+  memberFieldStatus: Boolean
+  """
+  Whether to show the member teams field.
+  """
+  memberFieldTeams: Boolean
+  """
+  Whether to show completed issues last in project customer needs.
+  """
+  projectCustomerNeedsShowCompletedIssuesLast: Boolean
+  """
+  Whether to show important project customer needs first.
+  """
+  projectCustomerNeedsShowImportantFirst: Boolean
+  """
+  The project customer needs view grouping.
+  """
+  projectCustomerNeedsViewGrouping: String
+  """
+  The project customer needs view ordering.
+  """
+  projectCustomerNeedsViewOrdering: String
+  """
+  Whether to show the project activity field.
+  """
+  projectFieldActivity: Boolean
+  """
+  Whether to show the project customer count field.
+  """
+  projectFieldCustomerCount: Boolean
+  """
+  Whether to show the project customer revenue field.
+  """
+  projectFieldCustomerRevenue: Boolean
+  """
+  Whether to show the project completion date field.
+  """
+  projectFieldDateCompleted: Boolean
+  """
+  Whether to show the project creation date field.
+  """
+  projectFieldDateCreated: Boolean
+  """
+  Whether to show the project updated date field.
+  """
+  projectFieldDateUpdated: Boolean
+  """
+  Whether to show the project description field.
+  """
+  projectFieldDescription: Boolean
+  """
+  Whether to show the project description field on the board.
+  """
+  projectFieldDescriptionBoard: Boolean
+  """
+  Whether to show the project health field.
+  """
+  projectFieldHealth: Boolean
+  """
+  Whether to show the project health field on the timeline.
+  """
+  projectFieldHealthTimeline: Boolean
+  """
+  Whether to show the project initiatives field.
+  """
+  projectFieldInitiatives: Boolean
+  """
+  Whether to show the project labels field.
+  """
+  projectFieldLabels: Boolean
+  """
+  Whether to show the project lead field.
+  """
+  projectFieldLead: Boolean
+  """
+  Whether to show the project lead field on the timeline.
+  """
+  projectFieldLeadTimeline: Boolean
+  """
+  Whether to show the project members field.
+  """
+  projectFieldMembers: Boolean
+  """
+  Whether to show the project members field on the board.
+  """
+  projectFieldMembersBoard: Boolean
+  """
+  Whether to show the project members field on the list.
+  """
+  projectFieldMembersList: Boolean
+  """
+  Whether to show the project members field on the timeline.
+  """
+  projectFieldMembersTimeline: Boolean
+  """
+  Whether to show the project milestone field.
+  """
+  projectFieldMilestone: Boolean
+  """
+  Whether to show the project milestone field on the timeline.
+  """
+  projectFieldMilestoneTimeline: Boolean
+  """
+  Whether to show the project predictions field.
+  """
+  projectFieldPredictions: Boolean
+  """
+  Whether to show the project predictions field on the timeline.
+  """
+  projectFieldPredictionsTimeline: Boolean
+  """
+  Whether to show the project priority field.
+  """
+  projectFieldPriority: Boolean
+  """
+  Whether to show the project relations field.
+  """
+  projectFieldRelations: Boolean
+  """
+  Whether to show the project relations field on the timeline.
+  """
+  projectFieldRelationsTimeline: Boolean
+  """
+  Whether to show the project roadmaps field.
+  """
+  projectFieldRoadmaps: Boolean
+  """
+  Whether to show the project roadmaps field on the board.
+  """
+  projectFieldRoadmapsBoard: Boolean
+  """
+  Whether to show the project roadmaps field on the list.
+  """
+  projectFieldRoadmapsList: Boolean
+  """
+  Whether to show the project roadmaps field on the timeline.
+  """
+  projectFieldRoadmapsTimeline: Boolean
+  """
+  Whether to show the project rollout stage field.
+  """
+  projectFieldRolloutStage: Boolean
+  """
+  Whether to show the project start date field.
+  """
+  projectFieldStartDate: Boolean
+  """
+  Whether to show the project status field.
+  """
+  projectFieldStatus: Boolean
+  """
+  Whether to show the project status field on the timeline.
+  """
+  projectFieldStatusTimeline: Boolean
+  """
+  Whether to show the project target date field.
+  """
+  projectFieldTargetDate: Boolean
+  """
+  Whether to show the project teams field.
+  """
+  projectFieldTeams: Boolean
+  """
+  Whether to show the project teams field on the board.
+  """
+  projectFieldTeamsBoard: Boolean
+  """
+  Whether to show the project teams field on the list.
+  """
+  projectFieldTeamsList: Boolean
+  """
+  Whether to show the project teams field on the timeline.
+  """
+  projectFieldTeamsTimeline: Boolean
+  """
+  The ordering of project groups.
+  """
+  projectGroupOrdering: String
+  """
+  The project grouping.
+  """
+  projectGrouping: String
+  """
+  The date resolution when grouping projects by date.
+  """
+  projectGroupingDateResolution: String
+  """
+  The label group ID used for project grouping.
+  """
+  projectGroupingLabelGroupId: String
+  """
+  The project label group columns configuration.
+  """
+  projectLabelGroupColumns: [ViewPreferencesProjectLabelGroupColumn!]
+  """
+  The project layout type.
+  """
+  projectLayout: String
+  """
+  How to show empty project groups.
+  """
+  projectShowEmptyGroups: String
+  """
+  How to show empty project groups on the board layout.
+  """
+  projectShowEmptyGroupsBoard: String
+  """
+  How to show empty project groups on the list layout.
+  """
+  projectShowEmptyGroupsList: String
+  """
+  How to show empty project groups on the timeline layout.
+  """
+  projectShowEmptyGroupsTimeline: String
+  """
+  How to show empty project sub-groups.
+  """
+  projectShowEmptySubGroups: String
+  """
+  How to show empty project sub-groups on the board layout.
+  """
+  projectShowEmptySubGroupsBoard: String
+  """
+  How to show empty project sub-groups on the list layout.
+  """
+  projectShowEmptySubGroupsList: String
+  """
+  How to show empty project sub-groups on the timeline layout.
+  """
+  projectShowEmptySubGroupsTimeline: String
+  """
+  The project sub-grouping.
+  """
+  projectSubGrouping: String
+  """
+  The label group ID used for project sub-grouping.
+  """
+  projectSubGroupingLabelGroupId: String
+  """
+  The project ordering.
+  """
+  projectViewOrdering: String
+  """
+  The zoom level for the timeline view.
+  """
+  projectZoomLevel: String @deprecated(reason: "Use timelineZoomScale instead.")
+  """
+  The release pipelines view ordering.
+  """
+  releasePipelinesViewOrdering: String
+  """
+  Whether to show the review avatar field.
+  """
+  reviewFieldAvatar: Boolean
+  """
+  Whether to show the review checks field.
+  """
+  reviewFieldChecks: Boolean
+  """
+  Whether to show the review identifier field.
+  """
+  reviewFieldIdentifier: Boolean
+  """
+  Whether to show the review preview links field.
+  """
+  reviewFieldPreviewLinks: Boolean
+  """
+  Whether to show the review repository field.
+  """
+  reviewFieldRepository: Boolean
+  """
+  The review grouping.
+  """
+  reviewGrouping: String
+  """
+  The review view ordering.
+  """
+  reviewViewOrdering: String
+  """
+  The search result type filter.
+  """
+  searchResultType: String
+  """
+  The search view ordering.
+  """
+  searchViewOrdering: String
+  """
+  Whether to show archived items.
+  """
+  showArchivedItems: Boolean
+  """
+  Whether completed agent sessions are shown and for how long.
+  """
+  showCompletedAgentSessions: String
+  """
+  Whether completed issues are shown and for how long.
   """
   showCompletedIssues: String
+  """
+  Whether completed projects are shown and for how long.
+  """
+  showCompletedProjects: String
+  """
+  Whether completed reviews are shown and for how long.
+  """
+  showCompletedReviews: String
+  """
+  Whether to show draft reviews.
+  """
+  showDraftReviews: Boolean
+  """
+  Whether to show empty groups.
+  """
+  showEmptyGroups: Boolean
+  """
+  Whether to show empty groups on the board layout.
+  """
+  showEmptyGroupsBoard: Boolean
+  """
+  Whether to show empty groups on the list layout.
+  """
+  showEmptyGroupsList: Boolean
+  """
+  Whether to show empty sub-groups.
+  """
+  showEmptySubGroups: Boolean
+  """
+  Whether to show empty sub-groups on the board layout.
+  """
+  showEmptySubGroupsBoard: Boolean
+  """
+  Whether to show empty sub-groups on the list layout.
+  """
+  showEmptySubGroupsList: Boolean
+  """
+  Whether to show sub-initiatives nested.
+  """
+  showNestedInitiatives: Boolean
+  """
+  Whether to show only snoozed notifications.
+  """
+  showOnlySnoozedItems: Boolean
+  """
+  Whether to show parent issues for sub-issues.
+  """
+  showParents: Boolean
+  """
+  Whether to show read items.
+  """
+  showReadItems: Boolean
+  """
+  Whether to show snoozed items.
+  """
+  showSnoozedItems: Boolean
+  """
+  Whether to show sub-initiative projects.
+  """
+  showSubInitiativeProjects: Boolean
+  """
+  Whether to show sub-issues.
+  """
+  showSubIssues: Boolean
+  """
+  Whether to show sub-team issues.
+  """
+  showSubTeamIssues: Boolean
+  """
+  Whether to show sub-team projects.
+  """
+  showSubTeamProjects: Boolean
+  """
+  Whether to show supervised issues.
+  """
+  showSupervisedIssues: Boolean
+  """
+  Whether to show triage issues.
+  """
+  showTriageIssues: Boolean
+  """
+  Whether to show unread items first.
+  """
+  showUnreadItemsFirst: Boolean
+  """
+  Whether to show the team cycle field.
+  """
+  teamFieldCycle: Boolean
+  """
+  Whether to show the team creation date field.
+  """
+  teamFieldDateCreated: Boolean
+  """
+  Whether to show the team updated date field.
+  """
+  teamFieldDateUpdated: Boolean
+  """
+  Whether to show the team identifier field.
+  """
+  teamFieldIdentifier: Boolean
+  """
+  Whether to show the team members field.
+  """
+  teamFieldMembers: Boolean
+  """
+  Whether to show the team membership field.
+  """
+  teamFieldMembership: Boolean
+  """
+  Whether to show the team owner field.
+  """
+  teamFieldOwner: Boolean
+  """
+  Whether to show the team projects field.
+  """
+  teamFieldProjects: Boolean
+  """
+  The team view ordering.
+  """
+  teamViewOrdering: String
+  """
+  Selected team IDs to show cycles for in timeline chronology bar.
+  """
+  timelineChronologyShowCycleTeamIds: [String!]
+  """
+  Whether to show week numbers in timeline chronology bar.
+  """
+  timelineChronologyShowWeekNumbers: Boolean
+  """
+  The zoom scale for the timeline view.
+  """
+  timelineZoomScale: Float
+  """
+  The triage view ordering.
+  """
+  triageViewOrdering: String
   """
   The issue ordering.
   """
   viewOrdering: String
+  """
+  The direction of the issue ordering.
+  """
+  viewOrderingDirection: String
+  """
+  The workspace members view ordering.
+  """
+  workspaceMembersViewOrdering: String
 }
 
 """
@@ -38529,6 +39642,7 @@ enum ViewType {
   backlog
   board
   completedCycle
+  continuousPipelineReleases
   createdReviews
   customView
   customViews
@@ -39370,6 +40484,10 @@ input ZendeskSettingsInput {
   Whether Linear Agent should be enabled for this integration.
   """
   enableAiIntake: Boolean
+  """
+  The host mappings from Zendesk brands.
+  """
+  hostMappings: [String!]
   """
   Whether an internal message should be added when someone comments on an issue.
   """
